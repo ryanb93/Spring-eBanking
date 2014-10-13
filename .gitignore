@@ -28,3 +28,17 @@ styles/.sass-cache/*
 **/lib/dependencies
 **/build/
 /out
+
+#netbeans specific
+core
+nbproject/*
+!nbproject/project.properties
+!nbproject/project.xml
+ 
+#general swap/backup files
+*.so
+*.log
+*.out
+*~
+*.swp
+*.lock
