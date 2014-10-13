@@ -17,3 +17,14 @@ styles/.sass-cache/*
 
 # Mac OS X
 .DS_Store
+
+# Gradle
+**/.gradle
+**/.project
+**/.settings
+**/bin
+**/pom.xml
+.gradle/
+**/lib/dependencies
+**/build/
+/out
