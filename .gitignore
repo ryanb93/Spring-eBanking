@@ -42,3 +42,6 @@ nbproject/*
 *~
 *.swp
 *.lock
+*.DS_Store
+
+/COM3014 Project/nbproject/private/
