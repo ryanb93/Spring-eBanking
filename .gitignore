@@ -10,4 +10,38 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Sass 
+styles/.sass-cache
+styles/.sass-cache/*
+
+# Mac OS X
+.DS_Store
+
+# Gradle
+**/.gradle
+**/.project
+**/.settings
+**/bin
+**/pom.xml
+.gradle/
+**/lib/dependencies
+**/build/
+/out
+
+#netbeans specific
+core
+nbproject/*
+!nbproject/project.properties
+!nbproject/project.xml
+ 
+#general swap/backup files
+*.so
+*.log
+*.out
+*~
+*.swp
+*.lock
+*.DS_Store
+
 /COM3014 Project/nbproject/private/
