@@ -4,7 +4,7 @@ Some project jargon.
 
 ## Setup Instructions
 
-**For Users running Mac OS X we reccommend using [Homebrew](http://brew.sh/) for a easy and hassle free setup. Also used [brew cask](https://github.com/caskroom/homebrew-cask) **
+*For Users running Mac OS X we reccommend using [Homebrew](http://brew.sh/) for a easy and hassle free setup. Also used [brew cask](https://github.com/caskroom/homebrew-cask)*
 
 - Install NetBeans 
 	* Mac OS X via Homebrew: `brew cask install netbeans`
