@@ -31,8 +31,8 @@ This project is
 ## Running the Backend API
 
 There are two ways you can run the backend:
-1. In terminal navigate to the Backend folder and run: `gradle run`
-2. In NetBeans select the class containing the main method and press run.
+* In terminal navigate to the Backend folder and run: `gradle run`
+* In NetBeans select the class containing the main method and press run.
 
 Once running open a browser and go to: [http://localhost:8080/api/](http://localhost:8080/api/)
 
