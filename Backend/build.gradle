@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+project.group = 'uk.ac.surrey.com3014.group2'
+project.version = '1.0.0-milestone-1-SNAPSHOT'
+
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-release" }
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            java.srcDir file('src')
+        }
+    }
+    
+    unitTest {
+        java.srcDir file('test')
+    }
+}
+
+jar {
+    baseName = 'eBanking-API'
+    version =  project.version
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-release" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
+task unitTest(type: Test, dependsOn:['classes']) {
+    description = "Run Unit Tests"
+    testClassesDir = project.sourceSets.unitTest.output.classesDir
+    classpath = project.sourceSets.unitTest.runtimeClasspath
+}
+
+test.testLogging { exceptionFormat "full" }
+
+build.dependsOn unitTest
