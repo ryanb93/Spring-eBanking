@@ -1,4 +1,4 @@
-# COM3014 - Group X 
+# COM3014 - Group 2 
 
 Some project jargon.
 
