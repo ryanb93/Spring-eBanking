@@ -17,14 +17,19 @@ buildscript {
 }
 
 sourceSets {
+    
     main {
-        java {
-            java.srcDir file('src')
-        }
+	java {
+            java.srcDir file('src/main/java')
+	}
     }
     
     unitTest {
-        java.srcDir file('test')
+        main {
+            java {
+                java.srcDir file('test/main/java')
+            }
+        }
     }
 }
 
@@ -48,12 +53,4 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.11'
 }
 
-task unitTest(type: Test, dependsOn:['classes']) {
-    description = "Run Unit Tests"
-    testClassesDir = project.sourceSets.unitTest.output.classesDir
-    classpath = project.sourceSets.unitTest.runtimeClasspath
-}
-
 test.testLogging { exceptionFormat "full" }
-
-build.dependsOn unitTest
