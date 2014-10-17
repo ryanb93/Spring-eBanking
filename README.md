@@ -4,42 +4,66 @@ Some project jargon.
 
 ## Setup Instructions
 
-- Install Gradle 
-	* For Mac OS X:
-	```
-	brew install gradle
-	```
+**For Users running Mac OS X we reccommend using [Homebrew](http://brew.sh/) for a easy and hassle free setup. Also used [brew cask](https://github.com/caskroom/homebrew-cask) **
 
-- Clone the project. 
+- Install NetBeans 
+	* Mac OS X via Homebrew: `brew cask install netbeans`
+	* Windows / OS X: [visit the netbeans site](https://netbeans.org/downloads/)
 
-- `cd` to the project location and run: 
+- Clone the project: `git clone git@github.com:ryanb93/COM3014.git`
+
+## Project Structure
+
+### Backend
+
 ```
-gradle check
+./Backend
+├── build.gradle
+├── src
+│   └── main
+│       └── java
+│           ├── config
+│           │   
+│           ├── controllers
+│           │   
+│           ├── models
+│           │   
+│           └── utils
+│               
+└── test
+    └── main
+        └── java
+            ├── config
+            │   
+            ├── controllers
+            │   
+            ├── models
+            │   
+            └── utils
+                
 ```
 
-- Open NetBeans and install the Gradle plugin.
+### Frontend
 
-- Restart NetBeans and configure NetBeans to where Gradle is intalled:
-	* Can be found in the Preferences pane in NetBeans.
-
-- Import the Project in NetBeans
-
-## Contributing Guidelines
-
-- Fork the project 
-
-- Clone your forked project to your local machine
-
-- `cd` to the project location and make a new branch (with a meaningful name):
 ```
-git checkout -b [BRANCH-NAME]
+./Frontend
+├── README.md
+├── app
+│   ├── components
+│   ├── view1
+│   │   
+│   └── view2
+│      
+├── e2e-tests
 ```
-- Make changes
 
-- Write tests for your changes. 
+### Documentation
 
-- Make a pull request (PR)
-
-- A member of the team will look at your changes and ask any questions before a merge.
-
-## Libraries Used
+```
+./Documentation
+├── Meetings
+│   ├── Agendas
+│   └── Minutes
+├── Report
+└── SRS
+```
