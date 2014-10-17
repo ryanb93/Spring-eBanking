@@ -45,7 +45,11 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile ("org.springframework.boot:spring-boot-starter-web")
+    compile ("org.springframework.security:spring-security-web:4.0.0.M2")
+    compile ("org.springframework.security:spring-security-core:4.0.0.M2")
+    compile ("org.springframework.security:spring-security-config:4.0.0.M2")
+    
     testCompile("junit:junit")
 }
 
