@@ -6,3 +6,4 @@
 *.swp
 *.lock
 .DS_Store
+/Backend/build/
