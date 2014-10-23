@@ -160,7 +160,7 @@ public class CustomerTest {
     @Test
     public void testAddAccount() {
         System.out.println("addAccount");
-        Account a1 = new Account();
+        Account a1 = new Account("12345678", "123456", AccountType.CURRENT);
         this.customer.addAccount(a1);
         assert(this.customer.getAccounts().contains(a1));        
     }
@@ -171,7 +171,7 @@ public class CustomerTest {
     @Test
     public void testRemoveAccount() {
         System.out.println("removeAccount");
-        Account a1 = new Account();
+        Account a1 = new Account("12345678", "123456", AccountType.CURRENT);
         this.customer.addAccount(a1);
         assert(this.customer.getAccounts().contains(a1));
         this.customer.removeAccount(a1);
