@@ -6,7 +6,7 @@ public class AccountTest {
     
   @Test
   public void nullNameTest() {
-    Account account = new Account();
+    Account a1 = new Account("12345678", "123456", AccountType.CURRENT);
   }
     
 }
