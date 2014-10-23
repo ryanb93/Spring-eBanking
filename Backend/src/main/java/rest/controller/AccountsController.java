@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import rest.config.Routes;
 
 @RestController
@@ -23,6 +24,11 @@ public class AccountsController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Account> getAllAccounts() {
         return new ResponseEntity<Account>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = Routes.CUSTOMER_ACCOUNT, method = RequestMethod.GET)
+    public Account getCustomerAccount(@PathVariable String id) {
+        return new Account();
     }
     
     //TODO: Remove after testing has been complete
