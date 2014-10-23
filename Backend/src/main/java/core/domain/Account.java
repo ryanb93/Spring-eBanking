@@ -106,7 +106,12 @@ public class Account {
      * @param accountType - The Account Type. Accepted types are CURRENT, ISA and SAVINGS.
      */
     public final void setAccountType(AccountType accountType) {
-        if(accountType != AccountType.CURRENT || accountType != AccountType.ISA || accountType != AccountType.SAVINGS){throw new IllegalArgumentException("This account is not of the accepted specified account types");}
+        if(accountType != AccountType.CURRENT || accountType != AccountType.ISA 
+                || accountType != AccountType.SAVINGS){
+            
+        } else {
+            throw new IllegalArgumentException("This account is not of the accepted specified account types");
+        }
         this.accountType = accountType;
     }
 
