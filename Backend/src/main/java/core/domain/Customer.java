@@ -8,13 +8,14 @@ import java.util.UUID;
 /**
  * A class which encapsulates data for a Customer.
  */
+
 public class Customer {
     
     private final UUID customerId;          //A unique customer ID
     private String firstName;               //Customer First name
     private String lastName;                //Customer Last name
     private Date dateOfBirth;               //Customer Date of Birth
-    private PostalAddress address;                //Customer Address
+    private PostalAddress address;          //Customer Address
     private final List<Account> accounts;   //List of accounts owned by Customer
     
     /**
