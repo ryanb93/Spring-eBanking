@@ -27,12 +27,17 @@ public class Transaction {
      */
     public Transaction(String sender, String recipient, Double value, Date date, UUID accountId){
         super();
-        //Generate a random UUID for the transaction.
-        this.accountId = accountId;
-        this.sender = sender;
-        this.recipient = recipient;
-        this.value = value;
-        this.date = date;
+        // Set values using setters.
+        this.setTransactionId();
+        this.setAccountId(accountId);
+        this.setSender(sender);
+        this.setRecipient(recipient);
+        this.setValue(value);
+        this.setDate(date);
+    }
+
+    Transaction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
      /**
@@ -85,6 +90,54 @@ public class Transaction {
     public final void setDate(Date date) {
         if(date == null){throw new IllegalArgumentException("This date is invalid.");}
         this.date = date;
+    }
+
+    /**
+     * Gets the transactionId.
+     * @return transactionId - The ID of the transaction.
+     */
+    public UUID getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Gets the date of the transaction.
+     * @return accountId - The id of the recipient or sender account.
+     */
+    public UUID getAccountId() {
+        return accountId;
+    }
+
+    /**
+     * Gets the sender in the transaction.
+     * @return sender - The sender in the transaction.
+     */
+    public String getSender() {
+        return sender;
+    }
+
+    /**
+     * Gets the date of the transaction.
+     * @return recipient - the recipient in the transaction.
+     */
+    public String getRecipient() {
+        return recipient;
+    }
+
+    /**
+     * Gets the value of the transaction.
+     * @return value - The value of the transaction.
+     */
+    public Double getValue() {
+        return value;
+    }
+
+    /**
+     * Sets the date of the transaction.
+     * @return date - The date of the transaction.
+     */
+    public Date getDate() {
+        return date;
     }
     
     
