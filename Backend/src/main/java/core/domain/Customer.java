@@ -62,7 +62,6 @@ public class Customer {
      */
     public final void setDateOfBirth(Date dateOfBirth) {
         if(dateOfBirth == null) { throw new IllegalArgumentException("Date of birth can not be null."); }
-        if(dateOfBirth.after(new Date())) { throw new IllegalArgumentException("Date of birth can not be in the future."); }
         this.dateOfBirth = dateOfBirth;
     }
 
