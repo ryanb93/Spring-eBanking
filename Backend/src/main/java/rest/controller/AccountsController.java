@@ -28,8 +28,8 @@ public class AccountsController {
     }
     
     @RequestMapping(value = Routes.CUSTOMER_ACCOUNT, method = RequestMethod.GET)
-    public Account getCustomerAccount(@PathVariable String id) {
-        return new Account("12345678","223456",AccountType.CURRENT);
+    public Account getCustomerAccount(@PathVariable ("account_id") String id) {
+        return new Account("12345678", "223456", AccountType.CURRENT);
     }
     
     //TODO: Remove after testing has been complete
