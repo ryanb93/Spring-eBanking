@@ -41,9 +41,8 @@ public class Customer {
     /**
      * Sets the first name of the customer.
      * @param firstName - The new first name of the customer.
-     * @throws IllegalArgumentException - If the first name is null or empty.
      */
-    public final void setFirstName(String firstName) throws IllegalArgumentException {
+    public final void setFirstName(String firstName) {
         if(firstName == null || firstName.equals("")) { throw new IllegalArgumentException("First name can not be empty."); }
         this.firstName = firstName;
     }
@@ -51,9 +50,8 @@ public class Customer {
     /**
      * Sets the last name of the customer.
      * @param lastName - The new last name of the customer.
-     * @throws IllegalArgumentException - If the first name is null or empty.
      */
-    public final void setLastName(String lastName) throws IllegalArgumentException {
+    public final void setLastName(String lastName) {
         if(lastName == null || lastName.equals("")) { throw new IllegalArgumentException("Last name can not be empty."); }
         this.lastName = lastName;
     }
@@ -61,9 +59,8 @@ public class Customer {
      /**
      * Sets the last name of the customer.
      * @param dateOfBirth - The new date of birth of the customer.
-     * @throws IllegalArgumentException - If the date of birth is null or in the future.
      */
-    public final void setDateOfBirth(Date dateOfBirth) throws IllegalArgumentException {
+    public final void setDateOfBirth(Date dateOfBirth) {
         if(dateOfBirth == null) { throw new IllegalArgumentException("Date of birth can not be null."); }
         if(dateOfBirth.after(new Date())) { throw new IllegalArgumentException("Date of birth can not be in the future."); }
         this.dateOfBirth = dateOfBirth;
@@ -72,9 +69,8 @@ public class Customer {
     /**
      * Sets the address of the customer.
      * @param address - The new address of the customer.
-     * @throws IllegalArgumentException - If the address is null.
      */
-    public final void setAddress(PostalAddress address) throws IllegalArgumentException {
+    public final void setAddress(PostalAddress address) {
         if(address == null) { throw new IllegalArgumentException("Address can not be null."); }
         this.address = address;
     }
