@@ -33,6 +33,10 @@ sourceSets {
     }
 }
 
+javadoc {
+	title="eBanking: RESTful API " + project.version
+}
+
 jar {
     baseName = 'eBanking-API'
     version =  project.version
