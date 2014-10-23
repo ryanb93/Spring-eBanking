@@ -1,6 +1,7 @@
 package rest.controller;
 
 import core.domain.Account;
+import core.domain.AccountType;
 import core.domain.Customer;
 import core.domain.PostalAddress;
 import core.services.AccountService;
@@ -23,12 +24,12 @@ public class AccountsController {
     
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Account> getAllAccounts() {
-        return new ResponseEntity<Account>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @RequestMapping(value = Routes.CUSTOMER_ACCOUNT, method = RequestMethod.GET)
     public Account getCustomerAccount(@PathVariable String id) {
-        return new Account();
+        return new Account("12345678","223456",AccountType.CURRENT);
     }
     
     //TODO: Remove after testing has been complete
