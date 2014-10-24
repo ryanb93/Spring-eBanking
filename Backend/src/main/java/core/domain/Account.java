@@ -68,6 +68,10 @@ public class Account {
         return this.transactions;
     }
     
+    public Double getBalance(){
+        return this.balance;
+    }
+    
     /**
      * Adds a single transaction to the list of transactions associated with an account.
      * @param transaction - a single transaction we wish to add.
