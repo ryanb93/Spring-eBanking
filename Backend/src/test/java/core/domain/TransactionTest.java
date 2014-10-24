@@ -6,13 +6,11 @@
 package core.domain;
 
 import java.util.Date;
-import java.util.UUID;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.util.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -35,8 +33,7 @@ public class TransactionTest {
     @Before
     public void setUp() throws Exception {
         this.transaction = new Transaction("Tesco", "AccountHolder", 
-                                            450.50, new Date(16523), 
-                                            UUID.randomUUID());
+                                            450.50, new Date(16523));
     }
 
     @After
@@ -46,21 +43,23 @@ public class TransactionTest {
     /**
      * Test of setTransactionId method, of class Transaction.
      */
+    /*
     @Test
     public void testSetTransactionId() {
         System.out.println("setTransactionId");
         assertNotNull(transaction.getTransactionId());
     }
-
+*/
     /**
      * Test of setAccountId method, of class Transaction.
      */
+    /*
     @Test
     public void testSetAccountId() {
         System.out.println("setAccountId");
         assertNotNull(transaction.getTransactionId());
     }
-
+*/
     /**
      * Test of setSender method, of class Transaction.
      */
