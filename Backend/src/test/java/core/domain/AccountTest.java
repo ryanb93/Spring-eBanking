@@ -101,8 +101,7 @@ public class AccountTest {
     @Test
     public void testAddSingleTransaction() {
         System.out.println("addSingleTransaction");
-        UUID id = UUID.randomUUID();
-        Transaction transaction = new Transaction("Tesco","Customer",450.00,new Date(),id);
+        Transaction transaction = new Transaction("Tesco","Customer",450.00,new Date());
         account.addSingleTransaction(transaction);
         //NEED TO FIGURE OUT HOW TO CHECK FOR RESULTS OR THAT EXCEPTION IS NOT THROWN
     }

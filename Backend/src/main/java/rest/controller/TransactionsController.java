@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +33,7 @@ public class TransactionsController {
     @RequestMapping("/singleTransaction")
     public Transaction getSingleTransaction() {
         Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, 
-                                                  new Date(),UUID.randomUUID());
+                                                  new Date());
         return transaction1;
     }
     
