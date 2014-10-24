@@ -5,6 +5,7 @@ angular.module('eBankingApp', [
   'ngRoute',
   'eBankingApp.view1',
   'eBankingApp.view2',
+  'eBankingApp.accountsView',
   'eBankingApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {
