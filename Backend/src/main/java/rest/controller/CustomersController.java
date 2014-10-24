@@ -27,7 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import rest.config.Routes;
 
 @RestController
-@RequestMapping(Routes.DETAILS)
+@RequestMapping(Routes.CUSTOMER_ADMIN)
 public class CustomersController {
     
     @Autowired

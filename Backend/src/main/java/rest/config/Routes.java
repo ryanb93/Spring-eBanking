@@ -9,4 +9,6 @@ public class Routes {
     public static final String APP = API + "/apps";
     public static final String APP_ID = "/{app_id}";
     
+    public static final String CUSTOMER_ADMIN = "/api/customers";
+    
 }
