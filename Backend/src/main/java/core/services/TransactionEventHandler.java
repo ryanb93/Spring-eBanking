@@ -8,6 +8,7 @@ package core.services;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
 import core.repository.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -15,15 +16,12 @@ import core.repository.TransactionRepository;
  */
 public class TransactionEventHandler implements TransactionService {
 
-    private final TransactionRepository transactionRepository;
-
-    public TransactionEventHandler(final TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Override
     public AllTransactionsEvent requestAllTransactions(RequestAllTransactionsEvent requestAllTransactionsEvent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
 }

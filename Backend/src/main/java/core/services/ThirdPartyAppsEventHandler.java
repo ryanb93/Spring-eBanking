@@ -3,17 +3,15 @@ package core.services;
 import core.events.thirdPartyApps.AllThirdPartyAppsEvent;
 import core.events.thirdPartyApps.RequestAllThirdPartyAppsEvent;
 import core.repository.ThirdPartyAppsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ThirdPartyAppsEventHandler implements ThirdPartyAppsService{
+public class ThirdPartyAppsEventHandler implements ThirdPartyAppsService {
     
-        private final ThirdPartyAppsRepository thirdPartyAppsRepository;
-
-    public ThirdPartyAppsEventHandler(final ThirdPartyAppsRepository thirdPartyAppsRepository) {
-        this.thirdPartyAppsRepository = thirdPartyAppsRepository;
-    }
+    @Autowired
+    private ThirdPartyAppsRepository thirdPartyAppsRepository;
 
     @Override
     public AllThirdPartyAppsEvent requestAllThirdPartyApps(RequestAllThirdPartyAppsEvent requestAllThirdPartyAppsEvent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
