@@ -6,22 +6,16 @@
 package core.repository;
 
 import core.domain.Account;
+import core.domain.Customer;
 import core.domain.Transaction;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author Ben
  */
-public interface TransactionRepository {
-    
-    Transaction save(Transaction order);
-
-    void delete(UUID key);
-
-    Transaction findById(UUID key);
-
-    List<Transaction> findAllForAccount(Account order);
+public interface TransactionRepository extends MongoRepository<Transaction, String> {
     
 }

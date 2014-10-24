@@ -13,7 +13,6 @@ import core.events.customers.RequestNewCustomerEvent;
 import core.services.CustomerEventHandler;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

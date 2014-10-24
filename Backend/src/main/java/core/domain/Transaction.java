@@ -2,19 +2,29 @@ package core.domain;
 
 import java.util.Date;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * A class which encapsulates data for a Transaction.
  */
-
+@Document(collection="transactions")
 public class Transaction {
-    
-    private UUID transactionId;   // A unique transaction ID
-    private UUID accountId;       // The unique ID of either the sender or recipient account
+    @Id
+    private String transactionId;   // A unique transaction ID
+    @NotNull
+    private String accountId;       // The unique ID of either the sender or recipient account
+    @NotNull
     private String sender;        // The UUID sender in the transaction
+    @NotNull
     private String recipient;     // The recipient of the transaction
-    private Double value;         // The value of the transaction
+    @NotNull
+    private Double value;         // The value of the 
+    @NotNull
     private Date date;            // The date the transaction was commited
+    
+    public Transaction() {}
     
      /**
      * Creates a new Transaction object.
@@ -23,37 +33,14 @@ public class Transaction {
      * @param recipient - The last name of the customer.
      * @param value - The customer's data of birth.
      * @param date - The address of the customer.
-     * @param accountId - The unique ID of the sender or recipient account ID
      */
-    public Transaction(String sender, String recipient, Double value, Date date, UUID accountId){
+    public Transaction(String sender, String recipient, Double value, Date date){
         super();
         // Set values using setters.
-        this.setTransactionId();
-        this.setAccountId(accountId);
         this.setSender(sender);
         this.setRecipient(recipient);
         this.setValue(value);
         this.setDate(date);
-    }
-
-    Transaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-     /**
-     * Sets the transactionId.
-     */
-    public final void setTransactionId() {
-        this.transactionId = UUID.randomUUID();
-    }
-    
-    /**
-     * Sets the account id of the recipient or sender account id.
-     * @param accountId - The accountId of the sender or recipient account.
-     */
-    public final void setAccountId(UUID accountId) {
-        if(accountId == null){throw new IllegalArgumentException("This Unique ID is invalid.");}
-        this.accountId = accountId;
     }
 
     /**
@@ -96,16 +83,16 @@ public class Transaction {
      * Gets the transactionId.
      * @return transactionId - The ID of the transaction.
      */
-    public UUID getTransactionId() {
-        return transactionId;
+    public String getTransactionId() {
+        return this.transactionId;
     }
 
     /**
      * Gets the date of the transaction.
      * @return accountId - The id of the recipient or sender account.
      */
-    public UUID getAccountId() {
-        return accountId;
+    public String getAccountId() {
+        return this.accountId;
     }
 
     /**

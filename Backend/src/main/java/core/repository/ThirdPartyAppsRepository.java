@@ -5,21 +5,16 @@
  */
 package core.repository;
 
+import core.domain.Customer;
 import core.domain.ThirdPartyApp;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author Ben
  */
-public interface ThirdPartyAppsRepository {
+public interface ThirdPartyAppsRepository extends MongoRepository<ThirdPartyApp, String> {
     
-    void EnableAccess(ThirdPartyApp app);
-
-    void RevokePermissions(ThirdPartyApp app);
-
-    void findById(UUID appId);
-
-    List<ThirdPartyApp> findAll();
 }
