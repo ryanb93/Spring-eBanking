@@ -3,20 +3,31 @@ package core.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * A class which encapsulates data for a Customer.
  */
 
+@Document(collection = "customers")
 public class Customer {
     
-    private final UUID customerId;          //A unique customer ID
+    @Id
+    private String customerId;          //A unique customer ID
+    @NotNull
     private String firstName;               //Customer First name
+    @NotNull
     private String lastName;                //Customer Last name
+    @NotNull
     private Date dateOfBirth;               //Customer Date of Birth
+    @NotNull
     private PostalAddress address;          //Customer Address
-    private final List<Account> accounts;   //List of accounts owned by Customer
+    @NotNull
+    private List<Account> accounts;   //List of accounts owned by Customer
+    
+    public Customer() {}
     
     /**
      * Creates a new customer object.
@@ -29,7 +40,7 @@ public class Customer {
     public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address) {
         super();
         //Generate a random UUID for the customer.
-        this.customerId = UUID.randomUUID();
+        //this.customerId = UUID.randomUUID();
         //Initalise the array list.
         this.accounts = new ArrayList();
         //Set values using setters.
@@ -79,7 +90,7 @@ public class Customer {
      * Returns the UUID of the Customer.
      * @return the customer's UUID
      */
-    public UUID getCustomerId() {
+    public String getCustomerId() {
         return this.customerId;
     }
         

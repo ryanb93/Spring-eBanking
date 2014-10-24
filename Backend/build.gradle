@@ -50,7 +50,8 @@ repositories {
 
 dependencies {    
     compile ("org.springframework.boot:spring-boot-starter-web")
-    // compile ("org.springframework.security:spring-security-web")
+    compile ("org.springframework.data:spring-data-mongodb")
+    //compile ("org.springframework.security:spring-security-web")
     //compile ("org.springframework.security:spring-security-core")
     //compile ("org.springframework.security:spring-security-config")
 
