@@ -6,7 +6,8 @@ angular.module('eBankingApp', [
   'eBankingApp.view1',
   'eBankingApp.view2',
   'eBankingApp.accountsView',
-  'eBankingApp.version'
+  'eBankingApp.version',
+  'eBankingApp.accountServices'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
