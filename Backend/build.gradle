@@ -16,6 +16,13 @@ buildscript {
     }
 }
 
+test {
+    testLogging {
+        events 'failed', 'passed'
+        exceptionFormat 'full'
+    }
+}
+
 sourceSets {
     
     main {
@@ -61,5 +68,3 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.1'
 }
-
-test.testLogging { exceptionFormat "full" }
