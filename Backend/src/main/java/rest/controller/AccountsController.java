@@ -38,11 +38,11 @@ public class AccountsController {
         Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
                                 new PostalAddress(
                                         "123",
-                                        "121211112",
-                                        "sdfvdsg",
-                                        "dsfss",
-                                        "",
-                                        "sdsf"));
+                                        "Manor Park Student Village",
+                                        "Guildford",
+                                        "Surrey",
+                                        "United Kingdom",
+                                        "GU2 7YW"));
         return cust;
     }
     
