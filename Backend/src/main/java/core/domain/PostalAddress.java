@@ -12,6 +12,8 @@ public class PostalAddress {
     private String country;     //The country of an address.
     private String postalCode;  //The postal code of an address.
     
+    public PostalAddress() {}
+    
     /**
      * 
      * @param houseNumber - House number of an address.
