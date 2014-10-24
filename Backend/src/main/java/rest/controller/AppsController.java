@@ -14,7 +14,7 @@ import rest.config.Routes;
 public class AppsController {
     
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<ThirdPartyApp> getAllAccounts() {
+    public ResponseEntity<ThirdPartyApp> getAllApps() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
@@ -26,6 +26,12 @@ public class AppsController {
     @RequestMapping(value = Routes.APP_ID, method = RequestMethod.PUT)
     public ThirdPartyApp updateThirdPartyApp(@PathVariable( "app_id" ) int id) {
         return new ThirdPartyApp("All your monies", true, true);
+    }
+    
+    @RequestMapping("/singleApp")
+    public ThirdPartyApp getSingleApp(){
+        ThirdPartyApp application = new ThirdPartyApp("BalanceManager Plus", true, false);
+        return application;
     }
     
 }
