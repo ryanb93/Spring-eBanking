@@ -13,7 +13,7 @@ import rest.config.Routes;
 public class DetailsController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Customer> getAllAccounts() {
+    public ResponseEntity<Customer> getAccountDetails() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
