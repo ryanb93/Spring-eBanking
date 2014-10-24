@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -12,6 +13,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document (collection="accounts")
 public class Account {
+    
+    @Id
+    private String accountId;
     @NotNull
     private String accountNumber;         //A unique account number
     @NotNull

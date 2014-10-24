@@ -6,8 +6,9 @@
 package rest.controller;
 
 import core.domain.Transaction;
+import core.services.TransactionEventHandler;
 import java.util.Date;
-import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,9 @@ import rest.config.Routes;
 @RequestMapping(Routes.TRANSACTIONS)
 public class TransactionsController {
     
-    //Autowired
-    private Transaction transaction;
+    @Autowired
+    private TransactionEventHandler transactionService;
+    
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Transaction> getAllTransactions() {
         return new ResponseEntity<>(HttpStatus.OK);
@@ -32,8 +34,7 @@ public class TransactionsController {
     
     @RequestMapping("/singleTransaction")
     public Transaction getSingleTransaction() {
-        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, 
-                                                  new Date());
+        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date());
         return transaction1;
     }
     
