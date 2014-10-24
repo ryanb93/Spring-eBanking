@@ -1,16 +1,25 @@
 package core.domain;
 
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * A class that represents a third-party application. 
  */
+@Document (collection="thirdpartyapps")
 public class ThirdPartyApp {
 
-    private final UUID applicationId;   //A unique ID for the applicaiton.
+    @Id
+    private String applicationId;   //A unique ID for the applicaiton.
+    @NotNull
     private final boolean read;         //If the ThirdPartyApp can read.
+    @NotNull
     private final boolean write;        //If the ThirdPartyApp can write.
+    @NotNull
     private String name;                //The name of the application.
+    @NotNull
     private boolean enabled;            //If the ThirdPartyApp is enabled.
     
 
@@ -25,7 +34,6 @@ public class ThirdPartyApp {
     public ThirdPartyApp(String name, boolean read, boolean write) {
         super();
         this.setName(name);
-        this.applicationId = UUID.randomUUID();
         this.setEnabled(true);
         this.read = read;
         this.write = write;
@@ -52,7 +60,7 @@ public class ThirdPartyApp {
      * Gets the application ID
      * @return the application ID
      */
-    public UUID getApplicationId() {
+    public String getApplicationId() {
         return this.applicationId;
     }
     

@@ -16,16 +16,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerEventHandler {
+public class CustomerEventHandler implements CustomerService {
     
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Override
     public AllCustomersEvent requestAllCustomers(RequestAllCustomersEvent requestAllCustomersEvent) {
         List<Customer> customers = customerRepository.findAll();
         return new AllCustomersEvent(customers);
     }
     
+    @Override
     public CreateCustomerEvent requestNewCustomer(RequestNewCustomerEvent requestNewCustomerEvent) {
         Customer newCustomer = requestNewCustomerEvent.getCustomer();
         customerRepository.save(newCustomer);
