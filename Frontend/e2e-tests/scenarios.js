@@ -10,7 +10,6 @@ describe('my app', function() {
     expect(browser.getLocationAbsUrl()).toMatch("/view1");
   });
 
-
   describe('view1', function() {
 
     beforeEach(function() {
@@ -39,4 +38,5 @@ describe('my app', function() {
     });
 
   });
+
 });

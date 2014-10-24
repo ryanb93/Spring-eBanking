@@ -4,18 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * A class which encapsulates data for an Account.
  */
-
+@Document (collection="accounts")
 public class Account {
-    
+    @NotNull
     private String accountNumber;         //A unique account number
+    @NotNull
     private String sortCode;              // An account sort code
+    @NotNull
     private AccountType accountType;      // An account type
+    @NotNull
     private List<Transaction> transactions;     // A list of an account's transactions
+    @NotNull
     private Double balance;                     // An account balance
+    
+    public Account() {}
     
     /**
      * Creates a new Account object.
@@ -66,6 +74,10 @@ public class Account {
      */
     public List<Transaction> getTransactions(){
         return this.transactions;
+    }
+    
+    public Double getBalance(){
+        return this.balance;
     }
     
     /**
