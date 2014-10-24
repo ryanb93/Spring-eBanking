@@ -16,6 +16,13 @@ buildscript {
     }
 }
 
+test {
+    testLogging {
+        events 'failed', 'passed'
+        exceptionFormat 'full'
+    }
+}
+
 sourceSets {
     
     main {
@@ -50,7 +57,8 @@ repositories {
 
 dependencies {    
     compile ("org.springframework.boot:spring-boot-starter-web")
-    // compile ("org.springframework.security:spring-security-web")
+    compile ("org.springframework.data:spring-data-mongodb")
+    //compile ("org.springframework.security:spring-security-web")
     //compile ("org.springframework.security:spring-security-core")
     //compile ("org.springframework.security:spring-security-config")
 
@@ -60,5 +68,3 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.1'
 }
-
-test.testLogging { exceptionFormat "full" }
