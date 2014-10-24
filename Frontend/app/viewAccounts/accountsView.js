@@ -3,8 +3,8 @@
 angular.module('eBankingApp.accountsView', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/accountsView', {
-    templateUrl: 'accountsView/accountsView.html',
+  $routeProvider.when('/viewAccounts', {
+    templateUrl: 'viewAccounts/accountsView.html',
     controller: 'AccountsViewCtrl'
   });
 }])
