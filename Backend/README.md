@@ -10,7 +10,7 @@
 
 - `cd` to the Backend folder 
 
-- Run: `gradle check` / `./gradlew check` in Terminal. This will pull down all the libraries and configure project for NetBeans.
+- Run: `gradle check` OR `./gradlew check` in Terminal. This will pull down all the libraries and configure project for NetBeans.
 
 - Open NetBeans: `Tools > Plugins > Available Plugins > Search: gradle > Select Gradle > Install`
 
