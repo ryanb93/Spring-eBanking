@@ -31,19 +31,4 @@ public class AccountsController {
     public Account getCustomerAccount(@PathVariable("account_id") String id) {
         return new Account("12345678", "223456", AccountType.CURRENT);
     }
-
-    //TODO: Remove after testing has been complete
-    @RequestMapping(Routes.TEST_JSON_ACCOUNT)
-    public Customer getOne() {
-        Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
-                new PostalAddress(
-                        "123",
-                        "Manor Park Student Village",
-                        "Guildford",
-                        "Surrey",
-                        "United Kingdom",
-                        "GU2 7YW"));
-        return cust;
-    }
-
 }

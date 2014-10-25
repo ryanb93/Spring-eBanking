@@ -1,19 +1,21 @@
 package core.events.accounts;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import core.domain.Account;
 
+/**
+ * This is a class that is returned to a service when it has
+ * requested the details of a single account.
+ */
 public class AccountDetails {
     
-    private final List<AccountDetails> accountDetails;
+    private final Account account;
     
-    public AccountDetails(List<AccountDetails> accounts) {
-        this.accountDetails = Collections.unmodifiableList(accounts);
+    public AccountDetails(Account account) {
+        this.account = account;
     }
     
-    public Collection<AccountDetails> getAccountDetails() {
-        return this.accountDetails;
+    public Account getAccount() {
+        return this.account;
     }
     
 }
