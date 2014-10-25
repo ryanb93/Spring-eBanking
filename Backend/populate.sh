@@ -1,7 +1,5 @@
 echo '-------------------------------------------------';
 echo '| eBanking database population script            |';
-echo '|                                                |';
-echo '| Author: Ryan Burke (rb00166@surrey.ac.uk       |';
 echo '-------------------------------------------------';
 echo '';
 echo '------ MongoDB Service ------';
