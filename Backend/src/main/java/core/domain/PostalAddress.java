@@ -13,7 +13,6 @@ public class PostalAddress {
     private String postalCode;  //The postal code of an address.
 
     public PostalAddress() {
-        super();
     }
 
     /**

@@ -28,7 +28,10 @@ public class Transaction {
 
     @NotNull
     private Date date;              // The date the transaction was commited
-
+    
+    public Transaction() {
+    }
+    
     /**
      * Creates a new Transaction object.
      *
