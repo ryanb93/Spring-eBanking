@@ -23,10 +23,10 @@ import rest.config.Routes;
 @RestController
 @RequestMapping(Routes.CUSTOMER_ADMIN)
 public class CustomersController {
-    
+
     @Autowired
     private CustomerEventHandler customerService;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -34,7 +34,7 @@ public class CustomersController {
         AllCustomersEvent event = customerService.requestAllCustomers(new RequestAllCustomersEvent());
         return event.getCustomerDetails();
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Customer> createOrder(@RequestBody Customer customer, UriComponentsBuilder builder) {
 
@@ -45,9 +45,9 @@ public class CustomersController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(
                 builder.path("/api/customers/{id}")
-                        .buildAndExpand(newCustomer.getCustomerId()).toUri());
+                .buildAndExpand(newCustomer.getCustomerId()).toUri());
 
         return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);
     }
-    
+
 }
