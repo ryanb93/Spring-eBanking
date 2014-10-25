@@ -18,32 +18,32 @@ import rest.config.Routes;
 @RestController
 @RequestMapping(Routes.ACCOUNTS)
 public class AccountsController {
-    
+
     @Autowired
     private AccountService accountService;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Account> getAllAccounts() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = Routes.CUSTOMER_ACCOUNT, method = RequestMethod.GET)
-    public Account getCustomerAccount(@PathVariable ("account_id") String id) {
+    public Account getCustomerAccount(@PathVariable("account_id") String id) {
         return new Account("12345678", "223456", AccountType.CURRENT);
     }
-    
+
     //TODO: Remove after testing has been complete
     @RequestMapping("/jsonAccount")
     public Customer getOne() {
         Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
-                                new PostalAddress(
-                                        "123",
-                                        "Manor Park Student Village",
-                                        "Guildford",
-                                        "Surrey",
-                                        "United Kingdom",
-                                        "GU2 7YW"));
+                new PostalAddress(
+                        "123",
+                        "Manor Park Student Village",
+                        "Guildford",
+                        "Surrey",
+                        "United Kingdom",
+                        "GU2 7YW"));
         return cust;
     }
-    
+
 }

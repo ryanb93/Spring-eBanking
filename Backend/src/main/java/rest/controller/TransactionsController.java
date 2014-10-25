@@ -14,19 +14,19 @@ import rest.config.Routes;
 @RestController
 @RequestMapping(Routes.TRANSACTIONS)
 public class TransactionsController {
-    
+
     @Autowired
     private TransactionEventHandler transactionService;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Transaction> getAllTransactions() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     @RequestMapping("/singleTransaction")
     public Transaction getSingleTransaction() {
         Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date());
         return transaction1;
     }
-    
+
 }
