@@ -21,7 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import rest.config.Routes;
 
 @RestController
-@RequestMapping(Routes.CUSTOMER_ADMIN)
+@RequestMapping(Routes.TEST_CUSTOMER_ADMIN)
 public class CustomersController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class CustomersController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(
-                builder.path("/api/customers/{id}")
+                builder.path(Routes.API)
                 .buildAndExpand(newCustomer.getCustomerId()).toUri());
 
         return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);

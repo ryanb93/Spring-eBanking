@@ -33,7 +33,7 @@ public class AccountsController {
     }
 
     //TODO: Remove after testing has been complete
-    @RequestMapping("/jsonAccount")
+    @RequestMapping(Routes.TEST_JSON_ACCOUNT)
     public Customer getOne() {
         Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
                 new PostalAddress(
