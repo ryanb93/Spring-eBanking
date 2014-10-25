@@ -35,7 +35,7 @@ echo '------ Backend Service ------';
 echo '';
 echo '- Starting Backend';
 
-gradle run > /dev/null &
+./gradlew run > /dev/null &
 
 echo '- Waiting for Backend to start...';
 
