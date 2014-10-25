@@ -1,11 +1,13 @@
 package rest.controller;
 
 import core.domain.Customer;
+import core.domain.PostalAddress;
 import core.events.customers.AllCustomersEvent;
 import core.events.customers.CreateCustomerEvent;
 import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestNewCustomerEvent;
 import core.services.CustomerEventHandler;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -36,7 +38,7 @@ public class CustomersController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Customer> createOrder(@RequestBody Customer customer, UriComponentsBuilder builder) {
+    public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
 
         CreateCustomerEvent event = customerService.requestNewCustomer(new RequestNewCustomerEvent(customer));
 
@@ -48,6 +50,20 @@ public class CustomersController {
                 .buildAndExpand(newCustomer.getCustomerId()).toUri());
 
         return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);
+    }
+    
+    //TODO: Remove after testing has been complete
+    @RequestMapping(Routes.TEST_JSON_CUSTOMER)
+    public Customer getOne() {
+        Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
+                new PostalAddress(
+                        "123",
+                        "Manor Park Student Village",
+                        "Guildford",
+                        "Surrey",
+                        "United Kingdom",
+                        "GU2 7YW"));
+        return cust;
     }
 
 }
