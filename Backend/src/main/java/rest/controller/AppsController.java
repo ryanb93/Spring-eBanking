@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rest.config.Routes;
 
 @RestController
-@RequestMapping(Routes.APP)
+@RequestMapping(Routes.THIRD_PARTY_APP)
 public class AppsController {
 
     @Autowired
@@ -23,12 +23,12 @@ public class AppsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = Routes.APP_ID, method = RequestMethod.GET)
+    @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.GET)
     public ThirdPartyApp getThirdPartyApp(@PathVariable("app_id") int id) {
         return new ThirdPartyApp("All your monies", true, true);
     }
 
-    @RequestMapping(value = Routes.APP_ID, method = RequestMethod.PUT)
+    @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.PUT)
     public ThirdPartyApp updateThirdPartyApp(@PathVariable("app_id") int id) {
         return new ThirdPartyApp("All your monies", true, true);
     }
