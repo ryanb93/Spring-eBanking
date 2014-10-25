@@ -4,18 +4,20 @@ package core.domain;
  * A class that stores all the necessary data for an address.
  */
 public class PostalAddress {
-    
+
     private String houseNumber; //House number of an address.
     private String street;      //Street of an address.
     private String city;        //The city of an address.
     private String county;      //The county of an address.
     private String country;     //The country of an address.
     private String postalCode;  //The postal code of an address.
-    
-    public PostalAddress() {}
-    
+
+    public PostalAddress() {
+        super();
+    }
+
     /**
-     * 
+     *
      * @param houseNumber - House number of an address.
      * @param street - Street of an address.
      * @param city - City of an address.
@@ -25,6 +27,7 @@ public class PostalAddress {
      */
     public PostalAddress(String houseNumber, String street, String city, String county, String country, String postalCode) {
         super();
+        
         this.setHouseNumber(houseNumber);
         this.setStreet(street);
         this.setCity(city);
@@ -35,6 +38,7 @@ public class PostalAddress {
 
     /**
      * Sets the house number.
+     *
      * @param houseNumber - the house number
      */
     public final void setHouseNumber(String houseNumber) {
@@ -43,6 +47,7 @@ public class PostalAddress {
 
     /**
      * Sets the street.
+     *
      * @param street - the street
      */
     public final void setStreet(String street) {
@@ -51,6 +56,7 @@ public class PostalAddress {
 
     /**
      * Sets the city.
+     *
      * @param city - the city
      */
     public final void setCity(String city) {
@@ -59,6 +65,7 @@ public class PostalAddress {
 
     /**
      * Sets the county.
+     *
      * @param county - the county
      */
     public final void setCounty(String county) {
@@ -67,6 +74,7 @@ public class PostalAddress {
 
     /**
      * Sets the country.
+     *
      * @param country - the country
      */
     public final void setCountry(String country) {
@@ -75,14 +83,16 @@ public class PostalAddress {
 
     /**
      * Sets the postal code.
+     *
      * @param postalCode - the postal code
      */
     public final void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-    
+
     /**
      * Returns the house number.
+     *
      * @return the house number
      */
     public String getHouseNumber() {
@@ -91,6 +101,7 @@ public class PostalAddress {
 
     /**
      * Returns the street.
+     *
      * @return the street
      */
     public String getStreet() {
@@ -99,6 +110,7 @@ public class PostalAddress {
 
     /**
      * Returns the city.
+     *
      * @return the city
      */
     public String getCity() {
@@ -107,6 +119,7 @@ public class PostalAddress {
 
     /**
      * Returns the county.
+     *
      * @return the county
      */
     public String getCounty() {
@@ -115,14 +128,16 @@ public class PostalAddress {
 
     /**
      * Returns the country.
+     *
      * @return the country
      */
     public String getCountry() {
         return this.country;
     }
-    
+
     /**
      * Returns the postal code.
+     *
      * @return the postal code
      */
     public String getPostalCode() {
