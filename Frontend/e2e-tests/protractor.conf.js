@@ -1,5 +1,6 @@
 exports.config = {
   allScriptsTimeout: 11000,
+  seleniumPort: 4444,
 
   specs: [
     '*.js'
