@@ -20,7 +20,7 @@ public class Routes {
     
     /* TODO: Testing routes. Before submission these will be removed! */
     public static final String TEST_CUSTOMER_ADMIN = "/api/customers";
-    public static final String TEST_JSON_ACCOUNT = "/jsonAccount";
+    public static final String TEST_JSON_CUSTOMER = "/jsonCustomer";
     public static final String TEST_SINGLE_THIRD_PARTY_APP = "/singleApp";
     public static final String TEST_SINGLE_TRANSACTION = "/singleTransaction";
     
