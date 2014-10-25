@@ -1,29 +1,21 @@
 package rest.controller;
 
 import core.domain.Customer;
-import core.domain.PostalAddress;
-import core.events.customers.AllCustomersEvent;
-import core.events.customers.CreateCustomerEvent;
-import core.events.customers.RequestAllCustomersEvent;
-import core.events.customers.RequestNewCustomerEvent;
+import core.events.customers.CustomerDetailsEvent;
+import core.events.customers.RequestCustomerDetailsEvent;
 import core.services.CustomerEventHandler;
-import java.util.Date;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 import rest.config.Routes;
 
 @RestController
-@RequestMapping(Routes.TEST_CUSTOMER_ADMIN)
+@RequestMapping(Routes.CUSTOMER)
 public class CustomersController {
 
     @Autowired
@@ -32,38 +24,10 @@ public class CustomersController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Customer> getAllCustomers() {
-        AllCustomersEvent event = customerService.requestAllCustomers(new RequestAllCustomersEvent());
-        return event.getCustomerDetails();
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
-
-        CreateCustomerEvent event = customerService.requestNewCustomer(new RequestNewCustomerEvent(customer));
-
-        Customer newCustomer = event.getCustomer();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(
-                builder.path(Routes.API)
-                .buildAndExpand(newCustomer.getCustomerId()).toUri());
-
-        return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);
+    public Customer getSingleCustomerDetails(@PathVariable("customer_id") String customerId) {
+        RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
+        CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
+        return event.getCustomer();
     }
     
-    //TODO: Remove after testing has been complete
-    @RequestMapping(Routes.TEST_JSON_CUSTOMER)
-    public Customer getOne() {
-        Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
-                new PostalAddress(
-                        "123",
-                        "Manor Park Student Village",
-                        "Guildford",
-                        "Surrey",
-                        "United Kingdom",
-                        "GU2 7YW"));
-        return cust;
-    }
-
 }
