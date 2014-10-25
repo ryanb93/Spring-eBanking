@@ -35,7 +35,7 @@ echo '------ Backend Service ------';
 echo '';
 echo '- Starting Backend';
 
-./gradlew run > /dev/null &
+gradle run > /dev/null &
 
 echo '- Waiting for Backend to start...';
 
@@ -59,7 +59,7 @@ echo '';
 echo '------ Stopping Services ------';
 echo '';
 echo '- Stopping Backend';
-./gradlew --stop
+killall java
 echo '- Stopping MongoDB';
 killall mongod
 echo '';
