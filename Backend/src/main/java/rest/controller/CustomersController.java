@@ -49,7 +49,7 @@ public class CustomersController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(
-                builder.path("/api/customers/{id}")
+                builder.path(Routes.SINGLE_CUSTOMER)
                         .buildAndExpand(newCustomer.getCustomerId()).toUri());
 
         return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);

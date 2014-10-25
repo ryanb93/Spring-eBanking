@@ -33,7 +33,7 @@ public class AppsController {
         return new ThirdPartyApp("All your monies", true, true);
     }
     
-    @RequestMapping("/singleApp")
+    @RequestMapping(Routes.SINGLE_APP)
     public ThirdPartyApp getSingleApp(){
         ThirdPartyApp application = new ThirdPartyApp("BalanceManager Plus", true, false);
         return application;
