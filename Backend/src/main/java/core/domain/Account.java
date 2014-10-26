@@ -18,6 +18,9 @@ public class Account {
     private String accountId;
 
     @NotNull
+    private String customerId;                  //A customer ID
+    
+    @NotNull
     private String accountNumber;               //A unique account number
 
     @NotNull
@@ -66,6 +69,15 @@ public class Account {
     public String getAccountId() {
         return this.accountId;
     }
+    
+    /**
+     * Returns the customer Id.
+     * 
+     * @return the customer who owns the account.
+     */
+    public String getCustomerId() {
+        return this.customerId;
+    }
 
     /**
      * Returns the account number.
@@ -111,6 +123,15 @@ public class Account {
             throw new IllegalArgumentException("This account number does not match the expected input of 8 digits.");
         }
         this.accountNumber = accountNumber;
+    }
+    
+    /**
+     * Sets the customer who owns the account.
+     * 
+     * @param customerId - The customer who owns the account.
+     */
+    public final void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     /**

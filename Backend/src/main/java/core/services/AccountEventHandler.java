@@ -24,7 +24,7 @@ public class AccountEventHandler implements AccountService {
     
     @Override
     public AllAccountsEvent requestAllAccounts(RequestAllAccountsEvent requestAllAccountsEvent) {
-        return new AllAccountsEvent(accountRepository.findAll());
+        return new AllAccountsEvent(accountRepository.findAllByCustomerId(requestAllAccountsEvent.getCustomerId()));
     }
     
     @Override

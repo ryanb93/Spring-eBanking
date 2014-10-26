@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,12 +69,14 @@ public class AdminController {
     }
     
     @RequestMapping(value = Routes.ACCOUNTS, method = RequestMethod.POST)
-    public ResponseEntity<Account> createNewAccount(@RequestBody Account account, UriComponentsBuilder builder) {
+    public ResponseEntity<Account> createNewAccount(@PathVariable("customer_id") String customerId, @RequestBody Account account, UriComponentsBuilder builder) {
+
+        account.setCustomerId(customerId);
 
         CreateAccountEvent event = accountService.requestNewAccount(new RequestNewAccountEvent(account));
 
         Account newAccount = event.getAccount();
-
+        
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(
                 builder.path(Routes.API)
