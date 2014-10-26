@@ -13,5 +13,5 @@ import core.events.accounts.RequestNewAccountEvent;
 public interface AccountService {
     public CreateAccountEvent requestNewAccount(RequestNewAccountEvent requestNewAccountEvent);
     public AllAccountsEvent requestAllAccounts(RequestAllAccountsEvent requestAllAccountsEvent);
-    public AccountDetailsEvent requestCustomerDetails(RequestAccountDetailsEvent requestAccountDetailsEvent);
+    public AccountDetailsEvent requestAccountDetails(RequestAccountDetailsEvent requestAccountDetailsEvent);
 }
