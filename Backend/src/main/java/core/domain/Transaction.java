@@ -35,19 +35,32 @@ public class Transaction {
     /**
      * Creates a new Transaction object.
      *
-     * @param sender - The UUID of the sender.
+     * @param accountId - The ID of the account its linked to.
+     * @param sender - The ID of the sender.
      * @param recipient - The last name of the customer.
      * @param value - The customer's data of birth.
      * @param date - The address of the customer.
      */
-    public Transaction(String sender, String recipient, Double value, Date date) {
+    public Transaction(String accountId, String sender, String recipient, Double value, Date date) {
         super();
-
         // Set values using setters.
+        this.setAccountId(accountId);
         this.setSender(sender);
         this.setRecipient(recipient);
         this.setValue(value);
         this.setDate(date);
+    }
+    
+    /**
+     * Sets the account ID of the transaction.
+     * 
+     * @param accountId - The account ID of the transaction.
+     */
+    public final void setAccountId(String accountId) {
+        if (sender == null || sender.equals("")) {
+            throw new IllegalArgumentException("This account ID is either null or invalid.");
+        }
+        this.accountId = accountId;    
     }
 
     /**

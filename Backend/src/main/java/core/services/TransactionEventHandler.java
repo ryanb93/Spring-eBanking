@@ -1,6 +1,8 @@
 package core.services;
 
+import core.domain.Transaction;
 import core.events.transactions.AllTransactionsEvent;
+import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
 import core.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,14 @@ public class TransactionEventHandler implements TransactionService {
 
     @Override
     public AllTransactionsEvent requestAllTransactions(RequestAllTransactionsEvent requestAllTransactionsEvent) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return new AllTransactionsEvent(transactionRepository.findAllByAccountId(requestAllTransactionsEvent.getAccountId()));               
+    }
+
+    @Override
+    public CreateTransactionEvent requestNewTransaction(CreateTransactionEvent createTransactionEvent) {
+        Transaction newTransaction = createTransactionEvent.getTransaction();
+        transactionRepository.save(newTransaction);
+        return new CreateTransactionEvent(transactionRepository.findOne(newTransaction.getTransactionId()));
     }
 
 }
