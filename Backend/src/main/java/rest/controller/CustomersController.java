@@ -3,7 +3,7 @@ package rest.controller;
 import core.domain.Customer;
 import core.events.customers.CustomerDetailsEvent;
 import core.events.customers.RequestCustomerDetailsEvent;
-import core.services.CustomerEventHandler;
+import core.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ import rest.config.Routes;
 public class CustomersController {
 
     @Autowired
-    private CustomerEventHandler customerService;
+    private CustomerService customerService;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
