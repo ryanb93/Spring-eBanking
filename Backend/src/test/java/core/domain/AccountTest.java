@@ -63,17 +63,6 @@ public class AccountTest {
         AccountType result = account.getAccountType();
         assertEquals(result, AccountType.CURRENT);
     }
-
-    /**
-     * Test of getTransactions method, of class Account.
-     */
-    @Test
-    public void testGetTransactions() {
-        System.out.println("getTransactions");
-        List<Transaction> result = account.getTransactions();
-        List<Transaction> expected = new ArrayList<>();
-        assertEquals(result, expected);
-    }
     
     /**
      * Test of getBalance method, of class Account.
@@ -83,17 +72,6 @@ public class AccountTest {
         System.out.println("getBalance");
         Double balance = 0.00;
         assertEquals(account.getBalance(), balance);
-    }
-
-    /**
-     * Test of addSingleTransaction method, of class Account.
-     */
-    @Test
-    public void testAddSingleTransaction() {
-        System.out.println("addSingleTransaction");
-        Transaction transaction = new Transaction("Tesco","Customer",450.00,new Date());
-        account.addSingleTransaction(transaction);
-        //NEED TO FIGURE OUT HOW TO CHECK FOR RESULTS OR THAT EXCEPTION IS NOT THROWN
     }
 
     /**

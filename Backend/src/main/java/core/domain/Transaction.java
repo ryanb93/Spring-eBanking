@@ -41,10 +41,9 @@ public class Transaction {
      * @param value - The customer's data of birth.
      * @param date - The address of the customer.
      */
-    public Transaction(String accountId, String sender, String recipient, Double value, Date date) {
+    public Transaction(String sender, String recipient, Double value, Date date) {
         super();
         // Set values using setters.
-        this.setAccountId(accountId);
         this.setSender(sender);
         this.setRecipient(recipient);
         this.setValue(value);

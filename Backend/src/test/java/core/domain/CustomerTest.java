@@ -14,6 +14,16 @@ public class CustomerTest {
 
     private Customer customer;
     
+    private static final String FIRST_NAME = "Test";
+    private static final String LAST_NAME = "Test";
+    private static final Date DATE_OF_BIRTH = new Date(1238612);
+    private static final PostalAddress ADDRESS = new PostalAddress("15",
+                                                                   "Test Road",
+                                                                   "Testingville",
+                                                                   "Testers",
+                                                                   "England",
+                                                                   "TE5 T1N");
+
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -24,14 +34,7 @@ public class CustomerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.customer = new Customer("Test", "Testington", new Date(16523),
-                                new PostalAddress(
-                                        "15",
-                                        "Test Road",
-                                        "Testingville",
-                                        "Testers",
-                                        "England",
-                                        "TE5 T1N"));
+        this.customer = new Customer(FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, ADDRESS);
     }
 
     @After
@@ -104,7 +107,7 @@ public class CustomerTest {
     @Test
     public void testGetFirstName() {
         System.out.println("getFirstName");
-        assertNotNull(this.customer.getFirstName());
+        assertEquals(this.customer.getFirstName(), FIRST_NAME);
     }
 
     /**
@@ -113,7 +116,7 @@ public class CustomerTest {
     @Test
     public void testGetLastName() {
         System.out.println("getLastName");
-        assertNotNull(this.customer.getLastName());
+        assertEquals(this.customer.getLastName(), LAST_NAME);
     }
 
     /**
@@ -122,7 +125,7 @@ public class CustomerTest {
     @Test
     public void testGetDateOfBirth() {
         System.out.println("getDateOfBirth");
-        assertNotNull(this.customer.getDateOfBirth());
+        assertEquals(this.customer.getDateOfBirth(), DATE_OF_BIRTH);
     }
 
     /**
@@ -131,40 +134,7 @@ public class CustomerTest {
     @Test
     public void testGetAddress() {
         System.out.println("getAddress");
-        assertNotNull(this.customer.getAddress());
-    }
-
-    /**
-     * Test of getAccounts method, of class Customer.
-     */
-    @Test
-    public void testGetAccounts() {
-        System.out.println("getAccounts");
-        assertNotNull(this.customer.getAccounts());
-    }
-
-    /**
-     * Test of addAccount method, of class Customer.
-     */
-    @Test
-    public void testAddAccount() {
-        System.out.println("addAccount");
-        Account a1 = new Account("12345678", "123456", AccountType.CURRENT);
-        this.customer.addAccount(a1);
-        assert(this.customer.getAccounts().contains(a1));        
-    }
-
-    /**
-     * Test of removeAccount method, of class Customer.
-     */
-    @Test
-    public void testRemoveAccount() {
-        System.out.println("removeAccount");
-        Account a1 = new Account("12345678", "123456", AccountType.CURRENT);
-        this.customer.addAccount(a1);
-        assert(this.customer.getAccounts().contains(a1));
-        this.customer.removeAccount(a1);
-        assert(!this.customer.getAccounts().contains(a1));
+        assertEquals(this.customer.getAddress(), ADDRESS);
     }
     
 }

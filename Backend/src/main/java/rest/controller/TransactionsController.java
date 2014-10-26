@@ -54,7 +54,7 @@ public class TransactionsController {
     
     @RequestMapping(Routes.TEST_SINGLE_TRANSACTION)
     public Transaction getSingleTransaction() {
-        Transaction transaction1 = new Transaction("4234123", "Morrisons", "Customer 1", 45.79, new Date());
+        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date());
         return transaction1;
     }
 
