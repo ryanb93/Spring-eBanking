@@ -1,6 +1,7 @@
-package core.repository;
+package core.repository.implementations;
 
 import core.domain.Transaction;
+import core.repository.CustomTransactionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
