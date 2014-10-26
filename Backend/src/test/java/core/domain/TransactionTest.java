@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package core.domain;
 
 import java.util.Date;
@@ -12,12 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-/**
- *
- * @author Ben
- */
 public class TransactionTest {
 
     private Transaction transaction;
@@ -31,35 +21,26 @@ public class TransactionTest {
     }
 
     @Before
-    public void setUp() throws Exception {
-        this.transaction = new Transaction("Tesco", "AccountHolder", 
-                                            450.50, new Date(16523));
+    public void setUp() {
+        this.transaction = new Transaction("Tesco", "AccountHolder", 450.50, new Date(16523));
     }
 
     @After
     public void tearDown() throws Exception {
+        this.transaction = null;
     }
 
     /**
-     * Test of setTransactionId method, of class Transaction.
-     */
-    /*
-    @Test
-    public void testSetTransactionId() {
-        System.out.println("setTransactionId");
-        assertNotNull(transaction.getTransactionId());
-    }
-*/
-    /**
      * Test of setAccountId method, of class Transaction.
      */
-    /*
     @Test
     public void testSetAccountId() {
         System.out.println("setAccountId");
-        assertNotNull(transaction.getTransactionId());
+        String accountId = "123456";
+        this.transaction.setAccountId(accountId);
+        assertEquals(transaction.getAccountId(), accountId);
     }
-*/
+    
     /**
      * Test of setSender method, of class Transaction.
      */

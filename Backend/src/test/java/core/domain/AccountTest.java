@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package core.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,10 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Ben
- */
 public class AccountTest {
     
     private Account account;
@@ -73,17 +63,6 @@ public class AccountTest {
         AccountType result = account.getAccountType();
         assertEquals(result, AccountType.CURRENT);
     }
-
-    /**
-     * Test of getTransactions method, of class Account.
-     */
-    @Test
-    public void testGetTransactions() {
-        System.out.println("getTransactions");
-        List<Transaction> result = account.getTransactions();
-        List<Transaction> expected = new ArrayList<>();
-        assertEquals(result, expected);
-    }
     
     /**
      * Test of getBalance method, of class Account.
@@ -93,17 +72,6 @@ public class AccountTest {
         System.out.println("getBalance");
         Double balance = 0.00;
         assertEquals(account.getBalance(), balance);
-    }
-
-    /**
-     * Test of addSingleTransaction method, of class Account.
-     */
-    @Test
-    public void testAddSingleTransaction() {
-        System.out.println("addSingleTransaction");
-        Transaction transaction = new Transaction("Tesco","Customer",450.00,new Date());
-        account.addSingleTransaction(transaction);
-        //NEED TO FIGURE OUT HOW TO CHECK FOR RESULTS OR THAT EXCEPTION IS NOT THROWN
     }
 
     /**
