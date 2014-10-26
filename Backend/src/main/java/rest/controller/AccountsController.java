@@ -53,7 +53,7 @@ public class AccountsController {
     @ResponseBody
     public Account getCustomerAccount(@PathVariable("account_id") String id) {
         RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(id);
-        AccountDetailsEvent event = accountService.requestCustomerDetails(request);
+        AccountDetailsEvent event = accountService.requestAccountDetails(request);
         return event.getAccount();
     }
 }

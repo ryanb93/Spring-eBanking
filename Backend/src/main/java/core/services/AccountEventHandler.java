@@ -28,7 +28,7 @@ public class AccountEventHandler implements AccountService {
     }
     
     @Override
-    public AccountDetailsEvent requestCustomerDetails(RequestAccountDetailsEvent requestAccountDetailsEvent) {
+    public AccountDetailsEvent requestAccountDetails(RequestAccountDetailsEvent requestAccountDetailsEvent) {
         return new AccountDetailsEvent(accountRepository.findOne(requestAccountDetailsEvent.getAccountId()));
     }
     
