@@ -28,9 +28,6 @@ public class Customer {
     @NotNull
     private PostalAddress address;          //Customer Address
 
-    @NotNull
-    private List<Account> accounts;         //List of accounts owned by Customer
-
     public Customer() {
     }
 
@@ -44,10 +41,6 @@ public class Customer {
      */
     public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address) {
         super();
-
-        //Initalise the array list.
-        this.accounts = new ArrayList();
-
         //Set values using setters.
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -148,32 +141,4 @@ public class Customer {
         return this.address;
     }
 
-    /**
-     * Returns a list of all of the Accounts the Customer owns.
-     *
-     * @return a list of accounts
-     */
-    public List<Account> getAccounts() {
-        return this.accounts;
-    }
-
-    /**
-     * Adds an Account to the Customer.
-     *
-     * @param account - The new account to add to the Customer.
-     * @return If account was added successfully.
-     */
-    public boolean addAccount(Account account) {
-        return this.accounts.add(account);
-    }
-
-    /**
-     * Removes an Account from the Customer.
-     *
-     * @param account - The Account to remove from the Customer.
-     * @return If account was removed successfully.
-     */
-    public boolean removeAccount(Account account) {
-        return this.accounts.remove(account);
-    }
 }

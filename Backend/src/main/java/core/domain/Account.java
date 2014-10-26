@@ -27,9 +27,6 @@ public class Account {
     private AccountType accountType;            // An account type
 
     @NotNull
-    private List<Transaction> transactions;     // A list of an account's transactions
-
-    @NotNull
     private Double balance;                     // An account balance
 
     /**
@@ -57,8 +54,6 @@ public class Account {
     }
     
     private void newAccount() {
-        //initialise the list of an accounts transactions.
-        this.transactions = new ArrayList();
         //initialise the account balance when creating a new account.
         this.balance = 0.00;
     }
@@ -99,30 +94,8 @@ public class Account {
         return this.accountType;
     }
 
-    /**
-     * Returns all the transactions associated with this account.
-     *
-     * @return a list of an accounts transactions.
-     */
-    public List<Transaction> getTransactions() {
-        return this.transactions;
-    }
-
     public Double getBalance() {
         return this.balance;
-    }
-
-    /**
-     * Adds a single transaction to the list of transactions associated with an
-     * account.
-     *
-     * @param transaction - a single transaction we wish to add.
-     */
-    public void addSingleTransaction(Transaction transaction) {
-        if (transaction == null) {
-            throw new IllegalArgumentException("This transaction is invalid.");
-        }
-        transactions.add(transaction);
     }
 
     /**
