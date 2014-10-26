@@ -1,6 +1,6 @@
 package config;
 
-import core.services.AccountsEventHandler;
+import core.services.AccountEventHandler;
 import core.services.CustomerEventHandler;
 import core.services.ThirdPartyAppsEventHandler;
 import core.services.TransactionEventHandler;
@@ -26,8 +26,8 @@ public class CoreConfig {
   }
   
   @Bean
-  public AccountsEventHandler createAccountEventService() {
-      return new AccountsEventHandler();
+  public AccountEventHandler createAccountEventService() {
+      return new AccountEventHandler();
   }
   
 }

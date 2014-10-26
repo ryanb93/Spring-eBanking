@@ -1,12 +1,16 @@
 package rest.controller;
 
+import core.domain.Account;
 import core.domain.Customer;
 import core.domain.PostalAddress;
+import core.events.accounts.CreateAccountEvent;
+import core.events.accounts.RequestNewAccountEvent;
 import core.events.customers.AllCustomersEvent;
 import core.events.customers.CreateCustomerEvent;
 import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestNewCustomerEvent;
-import core.services.CustomerEventHandler;
+import core.services.AccountService;
+import core.services.CustomerService;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +36,15 @@ import rest.config.Routes;
  * facing operations on individual Customers.
  */
 @RestController
-@RequestMapping(Routes.API)
 public class AdminController {
 
     @Autowired
-    private CustomerEventHandler customerService;
+    private CustomerService customerService;
+    
+    @Autowired
+    private AccountService accountService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Customer> getAllCustomers() {
@@ -46,7 +52,7 @@ public class AdminController {
         return event.getCustomerDetails();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = Routes.API, method = RequestMethod.POST)
     public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
 
         CreateCustomerEvent event = customerService.requestNewCustomer(new RequestNewCustomerEvent(customer));
@@ -60,6 +66,21 @@ public class AdminController {
 
         return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);
     }
+    
+    @RequestMapping(value = Routes.ACCOUNTS, method = RequestMethod.POST)
+    public ResponseEntity<Account> createNewAccount(@RequestBody Account account, UriComponentsBuilder builder) {
+
+        CreateAccountEvent event = accountService.requestNewAccount(new RequestNewAccountEvent(account));
+
+        Account newAccount = event.getAccount();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(
+                builder.path(Routes.API)
+                .buildAndExpand(newAccount.getAccountId()).toUri());
+
+        return new ResponseEntity(newAccount, headers, HttpStatus.CREATED);
+    } 
     
     //TODO: Remove after testing has been complete
     @RequestMapping(Routes.TEST_JSON_CUSTOMER)
