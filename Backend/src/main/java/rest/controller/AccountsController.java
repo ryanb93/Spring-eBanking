@@ -1,8 +1,9 @@
 package rest.controller;
 
 import core.domain.Account;
-import core.domain.AccountType;
+import core.events.accounts.AccountDetailsEvent;
 import core.events.accounts.AllAccountsEvent;
+import core.events.accounts.RequestAccountDetailsEvent;
 import core.events.accounts.RequestAllAccountsEvent;
 import core.services.AccountService;
 import java.util.List;
@@ -40,8 +41,19 @@ public class AccountsController {
         return event.getAccounts();
     }
 
+    /**
+     * When a user makes a GET reques to this URL we want to return the 
+     * details of a single customer account.
+     * 
+     * @param id - The ID of the account to access.
+     * @return The Account details as JSON.
+     */
     @RequestMapping(value = Routes.CUSTOMER_ACCOUNT, method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public Account getCustomerAccount(@PathVariable("account_id") String id) {
-        return new Account("12345678", "223456", AccountType.CURRENT);
+        RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(id);
+        AccountDetailsEvent event = accountService.requestCustomerDetails(request);
+        return event.getAccount();
     }
 }
