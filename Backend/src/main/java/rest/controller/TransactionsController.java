@@ -1,7 +1,7 @@
 package rest.controller;
 
 import core.domain.Transaction;
-import core.services.TransactionEventHandler;
+import core.services.TransactionService;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import rest.config.Routes;
 public class TransactionsController {
 
     @Autowired
-    private TransactionEventHandler transactionService;
+    private TransactionService transactionService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Transaction> getAllTransactions() {

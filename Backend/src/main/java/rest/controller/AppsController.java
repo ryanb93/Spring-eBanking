@@ -1,7 +1,7 @@
 package rest.controller;
 
 import core.domain.ThirdPartyApp;
-import core.services.ThirdPartyAppsEventHandler;
+import core.services.ThirdPartyAppsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import rest.config.Routes;
 public class AppsController {
 
     @Autowired
-    private ThirdPartyAppsEventHandler tpaService;
+    private ThirdPartyAppsService tpaService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ThirdPartyApp> getAllApps() {
