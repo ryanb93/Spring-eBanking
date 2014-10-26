@@ -1,5 +1,6 @@
 package core.repository;
 
+import core.repository.custom.CustomTransactionRepository;
 import core.domain.Transaction;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
