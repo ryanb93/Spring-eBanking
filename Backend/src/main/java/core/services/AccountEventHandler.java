@@ -1,8 +1,10 @@
 package core.services;
 
 import core.domain.Account;
+import core.events.accounts.AccountDetailsEvent;
 import core.events.accounts.AllAccountsEvent;
 import core.events.accounts.CreateAccountEvent;
+import core.events.accounts.RequestAccountDetailsEvent;
 import core.events.accounts.RequestAllAccountsEvent;
 import core.events.accounts.RequestNewAccountEvent;
 import core.repository.AccountRepository;
@@ -23,6 +25,11 @@ public class AccountEventHandler implements AccountService {
     @Override
     public AllAccountsEvent requestAllAccounts(RequestAllAccountsEvent requestAllAccountsEvent) {
         return new AllAccountsEvent(accountRepository.findAll());
+    }
+    
+    @Override
+    public AccountDetailsEvent requestCustomerDetails(RequestAccountDetailsEvent requestAccountDetailsEvent) {
+        return new AccountDetailsEvent(accountRepository.findOne(requestAccountDetailsEvent.getAccountId()));
     }
     
 }
