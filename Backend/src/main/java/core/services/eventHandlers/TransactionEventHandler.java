@@ -1,10 +1,11 @@
-package core.services;
+package core.services.eventHandlers;
 
 import core.domain.Transaction;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
 import core.repository.TransactionRepository;
+import core.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class TransactionEventHandler implements TransactionService {

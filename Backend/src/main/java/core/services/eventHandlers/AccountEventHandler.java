@@ -1,4 +1,4 @@
-package core.services;
+package core.services.eventHandlers;
 
 import core.domain.Account;
 import core.events.accounts.AccountDetailsEvent;
@@ -8,6 +8,7 @@ import core.events.accounts.RequestAccountDetailsEvent;
 import core.events.accounts.RequestAllAccountsEvent;
 import core.events.accounts.RequestNewAccountEvent;
 import core.repository.AccountRepository;
+import core.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AccountEventHandler implements AccountService {

@@ -1,9 +1,9 @@
 package config;
 
-import core.services.AccountEventHandler;
-import core.services.CustomerEventHandler;
-import core.services.ThirdPartyAppsEventHandler;
-import core.services.TransactionEventHandler;
+import core.services.eventHandlers.AccountEventHandler;
+import core.services.eventHandlers.CustomerEventHandler;
+import core.services.eventHandlers.ThirdPartyAppsEventHandler;
+import core.services.eventHandlers.TransactionEventHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
