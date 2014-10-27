@@ -1,8 +1,9 @@
-package core.services;
+package core.services.eventHandlers;
 
 import core.events.thirdPartyApps.AllThirdPartyAppsEvent;
 import core.events.thirdPartyApps.RequestAllThirdPartyAppsEvent;
 import core.repository.ThirdPartyAppsRepository;
+import core.services.ThirdPartyAppsService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ThirdPartyAppsEventHandler implements ThirdPartyAppsService {

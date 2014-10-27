@@ -1,4 +1,4 @@
-package core.services;
+package core.services.eventHandlers;
 
 import core.domain.Customer;
 import core.events.customers.AllCustomersEvent;
@@ -8,6 +8,7 @@ import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestCustomerDetailsEvent;
 import core.events.customers.RequestNewCustomerEvent;
 import core.repository.CustomerRepository;
+import core.services.CustomerService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
