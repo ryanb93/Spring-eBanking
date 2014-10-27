@@ -4,9 +4,10 @@ import core.domain.Transaction;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
+import core.events.transactions.RequestTransactionDetailsEvent;
+import core.events.transactions.TransactionDetailsEvent;
 import core.services.TransactionService;
 import java.util.Date;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import rest.config.Routes;
+import rest.domain.TransactionIds;
 
 @RestController
 @RequestMapping(Routes.TRANSACTIONS)
@@ -25,16 +29,22 @@ public class TransactionsController {
 
     @Autowired
     private TransactionService transactionService;
-
+    
     @RequestMapping(method = RequestMethod.GET)
-    public List<Transaction> getAllTransactions(@PathVariable("account_id") String accountId) {
+    public TransactionIds getAllTransactions(@PathVariable("account_id") String accountId) {
         RequestAllTransactionsEvent request = new RequestAllTransactionsEvent(accountId);
         AllTransactionsEvent event = transactionService.requestAllTransactions(request);
-        return event.getTransactions();
+        TransactionIds transactionIds = new TransactionIds(event.getTransactions());
+        return transactionIds;
     }
     
+    /*
+     * TODO: I don't think we want this API exposed to the public.
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Transaction> createNewCustomer(@PathVariable("account_id") String accountId, @RequestBody Transaction transaction, UriComponentsBuilder builder) {
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Transaction> createNewTransaction(@PathVariable("account_id") String accountId, @RequestBody Transaction transaction, UriComponentsBuilder builder) {
 
         //TODO: There is some security risk here. Need to discuss.
         //Set the transaction account ID to the path variable.
@@ -50,6 +60,15 @@ public class TransactionsController {
                 .buildAndExpand(newTransaction.getTransactionId()).toUri());
 
         return new ResponseEntity(newTransaction, headers, HttpStatus.CREATED);
+    }
+    
+    @RequestMapping(value = Routes.TRANSACTIONS_ID, method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Transaction getSingleTransaction(@PathVariable("transaction_id") String accountId) {
+        RequestTransactionDetailsEvent request = new RequestTransactionDetailsEvent(accountId);
+        TransactionDetailsEvent event = transactionService.requestTransactionDetails(request);
+        return event.getTransaction();
     }
     
     @RequestMapping(Routes.TEST_SINGLE_TRANSACTION)
