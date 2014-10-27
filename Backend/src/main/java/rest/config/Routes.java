@@ -14,6 +14,7 @@ public class Routes {
     
     /* Transaction Routes */
     public static final String TRANSACTIONS = ACCOUNTS + CUSTOMER_ACCOUNT + "/transactions";
+    public static final String TRANSACTIONS_ID = "/{transaction_id}";
     
     /* Third Party Apps Routes */
     public static final String THIRD_PARTY_APP = CUSTOMER + "/apps";

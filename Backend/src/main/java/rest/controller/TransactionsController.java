@@ -4,6 +4,8 @@ import core.domain.Transaction;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
+import core.events.transactions.RequestTransactionDetailsEvent;
+import core.events.transactions.TransactionDetailsEvent;
 import core.services.TransactionService;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +28,13 @@ public class TransactionsController {
     @Autowired
     private TransactionService transactionService;
 
+    @RequestMapping(value = Routes.TRANSACTIONS_ID, method = RequestMethod.GET)
+    public Transaction getTransaction(@PathVariable("transaction_id") String accountId) {
+        RequestTransactionDetailsEvent request = new RequestTransactionDetailsEvent(accountId);
+        TransactionDetailsEvent event = transactionService.requestTransactionDetails(request);
+        return event.getTransaction();
+    }
+    
     @RequestMapping(method = RequestMethod.GET)
     public List<Transaction> getAllTransactions(@PathVariable("account_id") String accountId) {
         RequestAllTransactionsEvent request = new RequestAllTransactionsEvent(accountId);

@@ -4,6 +4,8 @@ import core.domain.Transaction;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
+import core.events.transactions.RequestTransactionDetailsEvent;
+import core.events.transactions.TransactionDetailsEvent;
 import core.repository.TransactionRepository;
 import core.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,11 @@ public class TransactionEventHandler implements TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Override
+    public TransactionDetailsEvent requestTransactionDetails(RequestTransactionDetailsEvent requestTransactionDetailsEvent) {
+        return new TransactionDetailsEvent(transactionRepository.findOne(requestTransactionDetailsEvent.getTransactionId()));               
+    }
+    
     @Override
     public AllTransactionsEvent requestAllTransactions(RequestAllTransactionsEvent requestAllTransactionsEvent) {
         return new AllTransactionsEvent(transactionRepository.findAllByAccountId(requestAllTransactionsEvent.getAccountId()));               
