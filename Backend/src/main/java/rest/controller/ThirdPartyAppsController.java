@@ -1,7 +1,10 @@
 package rest.controller;
 
 import core.domain.ThirdPartyApp;
+import core.events.thirdPartyApps.AllThirdPartyAppsEvent;
+import core.events.thirdPartyApps.RequestAllThirdPartyAppsEvent;
 import core.services.ThirdPartyAppsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +16,23 @@ import rest.config.Routes;
 
 @RestController
 @RequestMapping(Routes.THIRD_PARTY_APP)
-public class AppsController {
+public class ThirdPartyAppsController {
 
     @Autowired
     private ThirdPartyAppsService tpaService;
-
+    
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<ThirdPartyApp> getAllApps() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public List<ThirdPartyApp> getAllTransactions(@PathVariable("customer_id") String customerId) {
+        RequestAllThirdPartyAppsEvent request = new RequestAllThirdPartyAppsEvent(customerId);
+        AllThirdPartyAppsEvent event = tpaService.requestAllThirdPartyApps(request);
+        return event.getThirdPartyApps();
     }
 
     @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.GET)
     public ThirdPartyApp getThirdPartyApp(@PathVariable("app_id") int id) {
         return new ThirdPartyApp("All your monies", true, true);
     }
-
+    
     @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.PUT)
     public ThirdPartyApp updateThirdPartyApp(@PathVariable("app_id") int id) {
         return new ThirdPartyApp("All your monies", true, true);
