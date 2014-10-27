@@ -42,7 +42,7 @@ public class AccountsController {
     }
 
     /**
-     * When a user makes a GET reques to this URL we want to return the 
+     * When a user makes a GET request to this URL we want to return the 
      * details of a single customer account.
      * 
      * @param id - The ID of the account to access.
