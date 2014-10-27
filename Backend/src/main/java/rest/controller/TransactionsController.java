@@ -31,10 +31,10 @@ public class TransactionsController {
     private TransactionService transactionService;
     
     @RequestMapping(method = RequestMethod.GET)
-    public List<Transaction> getAllTransactions(@PathVariable("account_id") String accountId) {
+    public AllTransactionsEvent getAllTransactions(@PathVariable("account_id") String accountId) {
         RequestAllTransactionsEvent request = new RequestAllTransactionsEvent(accountId);
         AllTransactionsEvent event = transactionService.requestAllTransactions(request);
-        return event.getTransactions();
+        return event;
     }
     
     /*
