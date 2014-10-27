@@ -35,9 +35,12 @@ public class ThirdPartyAppsController {
         return event.getThirdPartyApp();
     }
     
+    /**
+     * TODO: This will probably be handled by our OAuth implementation in future.
+     */
     @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.PUT)
     public ThirdPartyApp updateThirdPartyApp(@PathVariable("app_id") int id) {
-        return new ThirdPartyApp("All your monies", true, true);
+        return null;
     }
 
     @RequestMapping(Routes.TEST_SINGLE_THIRD_PARTY_APP)
