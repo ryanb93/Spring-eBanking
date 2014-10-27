@@ -2,22 +2,19 @@ package core.events.accounts;
 
 import core.events.ReadEvent;
 import core.domain.Account;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AllAccountsEvent extends ReadEvent {
 
-    private final List<String> accountIds;
+    private final List<Account> accounts;
 
     public AllAccountsEvent(List<Account> accounts) {
-        this.accountIds = new ArrayList();
-        accounts.stream().forEach((a) -> {
-            this.accountIds.add(a.getAccountId());
-        });
+      this.accounts = Collections.unmodifiableList(accounts);
     }
 
-    public List<String> getAccountIds() {
-        return this.accountIds;
+    public List<Account> getAccounts() {
+      return this.accounts;
     }
     
 }
