@@ -2,22 +2,19 @@ package core.events.transactions;
 
 import core.domain.Transaction;
 import core.events.ReadEvent;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AllTransactionsEvent extends ReadEvent{
     
-    private final List<String> transactionIds;
+    private final List<Transaction> transactions;
 
-    public AllTransactionsEvent(List<Transaction> transactions) {    
-        this.transactionIds = new ArrayList();
-        transactions.stream().forEach((t) -> {
-            this.transactionIds.add(t.getAccountId());
-        });
+    public AllTransactionsEvent(List<Transaction> transactions) {
+      this.transactions = Collections.unmodifiableList(transactions);
     }
 
-    public List<String> getTransactionIds() {
-      return this.transactionIds;
+    public List<Transaction> getTransactions() {
+      return this.transactions;
     }
     
 }
