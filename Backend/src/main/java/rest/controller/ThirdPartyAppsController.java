@@ -3,11 +3,11 @@ package rest.controller;
 import core.domain.ThirdPartyApp;
 import core.events.thirdPartyApps.AllThirdPartyAppsEvent;
 import core.events.thirdPartyApps.RequestAllThirdPartyAppsEvent;
+import core.events.thirdPartyApps.RequestThirdPartyAppDetailsEvent;
+import core.events.thirdPartyApps.ThirdPartyAppDetailsEvent;
 import core.services.ThirdPartyAppsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +29,10 @@ public class ThirdPartyAppsController {
     }
 
     @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.GET)
-    public ThirdPartyApp getThirdPartyApp(@PathVariable("app_id") int id) {
-        return new ThirdPartyApp("All your monies", true, true);
+    public ThirdPartyApp getThirdPartyApp(@PathVariable("app_id") String id) {
+        RequestThirdPartyAppDetailsEvent request = new RequestThirdPartyAppDetailsEvent(id);
+        ThirdPartyAppDetailsEvent event = tpaService.requestThirdPartyAppDetails(request);
+        return event.getThirdPartyApp();
     }
     
     @RequestMapping(value = Routes.THIRD_PARTY_APP_ID, method = RequestMethod.PUT)
