@@ -5,6 +5,7 @@ angular.module('eBanking', [
 	'ngRoute',
 	'ngMockE2E',
     'eBanking.accountControllers',
+    'eBanking.detailsControllers',
     'eBanking.APIService'
 ]).
 config(['$routeProvider', function($routeProvider) {
