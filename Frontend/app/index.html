@@ -9,31 +9,38 @@
   <title>eBanking</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">eBanking</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#/accounts">Accounts</a></li>
-          <li><a href="#/details">Profile</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+
+<nav role="navigation" class="navbar topnavbar">
+   <div class="navbar-header">
+      <a href="#/" class="navbar-brand">
+         <div class="brand-logo">
+            eBanking
+         </div>
+      </a>
+   </div>
+   <div class="nav-wrapper">
+      <ul class="nav navbar-nav navbar-right">
+         <li>
+            <a href="#/accounts" class="nav-link">
+               <em class="fa fa-bank"></em>Accounts
+            </a>
+         </li>
+         <li>
+            <a href="#/details" class="nav-link">
+               <em class="fa fa-user"></em>Details
+            </a>
+         </li>
+      </ul>
+   </div>
+</nav>
+
+
+
   <!--[if lt IE 7]>
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -44,6 +51,9 @@
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-mocks/angular-mocks.js"></script>
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
   <!-- Import the API Service -->
   <script src="components/APIService.js"></script>
   <!-- Import the view controllers -->
