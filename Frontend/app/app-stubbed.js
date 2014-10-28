@@ -37,9 +37,9 @@
 
     ng.module('eBanking')
         .run(function($httpBackend) {
-            
+
             //Let all html views through.
-            $httpBackend.whenGET(/accounts\/.*.html/).passThrough();
+            $httpBackend.whenGET(/.*.html/).passThrough();
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*/).respond(function(method, url, data) {
                 return [200, account, {}];
