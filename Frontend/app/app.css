@@ -2,7 +2,17 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
   color: #656565;
+  height: 100%;
 }
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
+
 .placeholder {
   text-align: center;
 }
@@ -155,6 +165,7 @@ ul.nav a:hover {
 .fa {
   padding-right: 10px;
 }
+
 .topnavbar {
   -webkit-backface-visibility: hidden;
   margin-bottom: 0;
@@ -164,6 +175,7 @@ ul.nav a:hover {
   border-bottom: 1px solid rgba(0, 0, 0, .15);
   position: relative;
 }
+
 .topnavbar {
   border: 0;
   background-color: #23b7e5;
@@ -173,9 +185,50 @@ ul.nav a:hover {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff23b7e5', endColorstr='#ff51c6ea', GradientType=1);
 }
+
 .layout-fixed .topnavbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+}
+
+#footer {
+  height: 110px;
+  background-image: linear-gradient(to right, #23b7e5 0, #51c6ea 100%);
+  padding-top: 20px;
+  color: #DCE0EF;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.container {
+  margin-bottom: 70px;
+}
+
+.footer-contents {
+  height:110px; 
+  width: 100%; 
+  margin:auto;
+}
+
+#footer .project {
+  margin-top: 10px;
+}
+
+#footer a {
+  color: #DCE0EF;
+  border-bottom: dotted 1px #DCE0EF;
+}
+
+#footer a:hover {
+  color: white;
+  border-bottom: dotted 1px white;
+}
+
+
+@media (max-width: 767px) {
+#footer {
+  display: none;
 }

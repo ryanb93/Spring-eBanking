@@ -14,54 +14,65 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
-
-<nav role="navigation" class="navbar topnavbar">
-   <div class="navbar-header">
+  <nav role="navigation" class="navbar topnavbar">
+    <div class="navbar-header">
       <a href="#/" class="navbar-brand">
-         <div class="brand-logo">
-            eBanking
-         </div>
+        <div class="brand-logo">
+          eBanking
+        </div>
       </a>
-   </div>
-   <div class="nav-wrapper">
+    </div>
+    <div class="nav-wrapper">
       <ul class="nav navbar-nav navbar-right">
-         <li>
-            <a href="#/accounts" class="nav-link">
-               <em class="fa fa-bank"></em>Accounts
-            </a>
-         </li>
-         <li>
-            <a href="#/details" class="nav-link">
-               <em class="fa fa-user"></em>Details
-            </a>
-         </li>
+        <li>
+          <a href="#/accounts" class="nav-link">
+            <em class="fa fa-bank"></em>Accounts
+          </a>
+        </li>
+        <li>
+          <a href="#/details" class="nav-link">
+            <em class="fa fa-user"></em>Details
+          </a>
+        </li>
       </ul>
-   </div>
-</nav>
-
-
-
+    </div>
+  </nav>
   <!--[if lt IE 7]>
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <div ng-view></div>
-  <!-- Load dependencies -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-  <!-- Import the API Service -->
-  <script src="components/APIService.js"></script>
-  <!-- Import the view controllers -->
-  <script src="accounts/accounts.js"></script>
-  <script src="details/details.js"></script>
-  <!-- Load the main application -->
-  <script src="app.js"></script>
-  <!-- Load the stubbed override -->
-  <script src="app-stubbed.js"></script>
+  <div id="wrap">
+    <div class="container">
+      <div ng-view></div>
+    </div>
+  </div>
+  <footer id="footer" class="footer navbar-fixed-bottom">
+    <div class="footer-contents text-center">
+      <div>
+        <i class="fa fa-university"></i> eBanking Frontend
+        <br>
+        Created by Ryan Burke, Jorden Whitefield and Ben Fletcher</a>
+    </div>
+    <div class="project">
+      <a target="_blank" href="https://github.com/ryanb93/COM3014/">GitHub Project</a>
+    </div>
+  </div>
+</footer>
+<!-- Load dependencies -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Import the API Service -->
+<script src="components/APIService.js"></script>
+<!-- Import the view controllers -->
+<script src="accounts/accounts.js"></script>
+<script src="details/details.js"></script>
+<!-- Load the main application -->
+<script src="app.js"></script>
+<!-- Load the stubbed override -->
+<script src="app-stubbed.js"></script>
 </body>
 </html>
