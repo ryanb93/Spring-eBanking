@@ -1,5 +1,5 @@
-<div ng-app"eBanking" ng-controller="accountsController" class="container">
-  <h1 class="page-header">Account Dashboard</h1>
+<div ng-app"eBanking" ng-controller="accountsController">
+  <h1 class="page-header">Accounts</h1>
 
   <div class="row">
 
@@ -13,7 +13,7 @@
                </div>
                <div class="col-xs-8 text-right">
                   <p class="m0">Account Number: {{account.accountNumber}}</p>
-                  <div class="text-lg">{{account.balance | currency}}</div>
+                  <div class="text-lg">£{{account.balance}}</div>
                </div>
             </div>
          </div>
