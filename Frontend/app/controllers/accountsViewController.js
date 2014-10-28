@@ -12,11 +12,11 @@
         }
     ])
 
-    .controller('AccountsViewController', ['$scope', '$routeParams', 'Details',
-        function($scope, $routeParams, Details) {
-            $scope.details = Details.get(function(details) {
-                $scope.details = details;
-                return $scope.details;
+    .controller('AccountsViewController', ['$scope', '$routeParams', 'Accounts',
+        function($scope, $routeParams, Accounts) {
+            $scope.accounts = Accounts.get(function(accounts) {
+                $scope.accounts = accounts;
+                return $scope.accounts;
             });
         }
     ]);
