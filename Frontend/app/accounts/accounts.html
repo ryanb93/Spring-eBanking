@@ -1,13 +1,10 @@
-<div ng-app"eBanking" ng-controller="accountsController">
-
-	<h1>Accounts</h1>
-		<hr>
-
-	<div ng-repeat="account in accountsList">
-		<h2>{{account.accountNumber}}</h2>
-		<p>Balance: {{account.balance | currency }}</p>
-		<a href="#/accounts/{{account.accountId}}">View Details</a>
-		<hr>
-	</div>
-
+<div ng-app"eBanking" ng-controller="accountsController" class="container">
+  <h1 class="page-header">Account Dashboard</h1>
+  <div class="row placeholders">
+    <div ng-repeat="account in accountsList" class="col-xs-6 col-sm-3 placeholder">
+      <p class="amount">{{account.balance | currency}}</p>
+      <h4>{{account.accountNumber}}</h4>
+      <span class="text-muted"><a href="#/accounts/{{account.accountId}}">View Account</a></span>
+    </div>
+  </div>
 </div>
