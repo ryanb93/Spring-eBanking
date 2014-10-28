@@ -1,11 +1,13 @@
 <div ng-app"eBanking" ng-controller="accountsController">
 
 	<h1>Accounts</h1>
+		<hr>
 
 	<div ng-repeat="account in accountsList">
 		<h2>{{account.accountNumber}}</h2>
 		<p>Balance: {{account.balance | currency }}</p>
 		<a href="#/accounts/{{account.accountId}}">View Details</a>
+		<hr>
 	</div>
 
 </div>
