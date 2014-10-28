@@ -20,7 +20,7 @@
                         }
                     };
 
-    var accounts = {"accountIds":["544cf4610364aaa77dd7132b"]};    
+    var accounts = {"accountIds":["544cf4610364aaa77dd7132a", "544cf4610364aaa77dd7132b", "544cf4610364aaa77dd7132c"]};    
 
     var account = {"accountId":"544cf4610364aaa77dd7132b","customerId":"544be631036458271642f6bb","accountNumber":"12345678","sortCode":"123456","accountType":"CURRENT","balance":500.0};           
 
