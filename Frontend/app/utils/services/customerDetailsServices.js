@@ -1,11 +1,15 @@
-(function() {
-	'use strict';
-	var customerDetailsServices = angular.module('eBankingApp.customerDetailsServices', ['ngResource']);
+var customerDetailsServices = angular.module('customerDetailsServices', ['ngResource']);
 
-	customerDetailsServices.factory('Details', ['$resource',
-	  function($resource){
-	    return $resource('http://localhost:8080/api/customers/1/accounts/jsonAccount', {}, {
-	      query: { get: { method:'JSONP' }, isArray:false}
-	    });
-	  }]);
-})();
+customerDetailsServices.factory('Details', ['$resource',
+    function($resource) {
+        return $resource('http://localhost:8080/api/customers/:customerId/',
+        {
+            customerId: '544be631036458271642f6bb'
+        },
+        {
+            query: {
+                method: 'GET',
+            }
+        });
+    }
+]);
