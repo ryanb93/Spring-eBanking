@@ -1,41 +1,41 @@
-<div ng-controller="CustomerDetailsViewController as details" class="container-fluid" style="padding: 20px;">
+<div ng-controller="CustomerDetailsViewController" class="container-fluid" style="padding: 20px;">
 	<h3>My Details</h3>
 	<form role="form">
 	  <div class="form-group">
 	    <label for="inputFirstName">First Name</label>
-	    <input type="text" class="form-control" id="inputFirstName" placeholder="Enter First Name" value="{{ details.firstName }}">
+	    <input type="text" class="form-control" id="inputFirstName" placeholder="Enter First Name" ng-model="details.firstName" ng-bind="details.firstName">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputSurname">Surname</label>
-	    <input type="text" class="form-control" id="inputSurname" placeholder="Enter Surname" value="{{ details.lastName }}">
+	    <input type="text" class="form-control" id="inputSurname" placeholder="Enter Surname" ng-model="details.lastName" ng-bind="details.lastName">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputDOB">Date of Birth</label>
-	    <input type="text" class="form-control" id="inputDOB" placeholder="Enter Date of Birth" value="{{ details.dateOfBirth }}">
+	    <input type="text" class="form-control" id="inputDOB" placeholder="Enter Date of Birth" ng-model="details.dateOfBirth" ng-bind="details.dateOfBirth">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputHouseNumber">House Number</label>
-	    <input type="text" class="form-control" id="inputHouseNumber" placeholder="Enter House Number" value="{{ details.address.houseNumber }}">
+	    <input type="text" class="form-control" id="inputHouseNumber" placeholder="Enter House Number" ng-model="details.address.houseNumber" ng-bind="details.address.houseNumber">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputStreet">Street</label>
-	    <input type="text" class="form-control" id="inputStreet" placeholder="Enter Street" value="{{ details.address.street }}">
+	    <input type="text" class="form-control" id="inputStreet" placeholder="Enter Street" ng-model="details.address.street" ng-bind="details.address.street">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputPostCode">Postcode</label>
-	    <input type="text" class="form-control" id="inputPostCode" placeholder="Enter Postcode" value="{{ details.address.postalCode }}">
+	    <input type="text" class="form-control" id="inputPostCode" placeholder="Enter Postcode" ng-model="details.address.postalCode" ng-bind="details.address.postalCode">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputCity">City</label>
-	    <input type="text" class="form-control" id="inputCity" placeholder="Enter City" value="{{ details.address.city }}">
+	    <input type="text" class="form-control" id="inputCity" placeholder="Enter City" ng-model="details.address.city" ng-bind="details.address.city">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputCounty">County</label>
-	    <input type="text" class="form-control" id="inputCounty" placeholder="Enter County" value="{{ details.address.county }}">
+	    <input type="text" class="form-control" id="inputCounty" placeholder="Enter County" ng-model="details.address.county" ng-bind="details.address.county">
 	  </div>
 	  <div class="form-group">
 	    <label for="inputCountry">Country</label>
-	    <input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" value="{{ details.address.country }}">
+	    <input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" ng-model="details.address.country" ng-bind="details.address.country">
 	  </div>
 	</form>
 </div>
