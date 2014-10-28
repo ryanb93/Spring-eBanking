@@ -1,12 +1,11 @@
-<div ng-controller="AccountsViewController as accounts" class="container-fluid" style="padding: 20px;">
+<div class="container-fluid" style="padding: 20px;">
   <h1 class="page-header">Account Dashboard {{ details.firstName }}</h1>
   <div class="row placeholders">
-    <div ng-repeat-start="account in accounts.accountIds" class="col-xs-6 col-sm-3 placeholder">
+    <div ng-repeat="account in accounts.accountIds" class="col-xs-6 col-sm-3 placeholder">
       <p class="amount">£{{}}</p>
       <h4>{{account}}</h4>
       <span class="text-muted">{{}}</span>
     </div>
-    <span ng-repeat-end></span>
   </div>
   <h2 class="sub-header">Transaction History</h2>
   <div class="table-responsive">
