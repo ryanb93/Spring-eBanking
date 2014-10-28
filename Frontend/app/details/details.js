@@ -15,19 +15,8 @@ angular.module('eBanking.detailsControllers', [])
 
         var customerId = "544be631036458271642f6bb";
 
-        eBankingAPIservice.getAccounts(customerId).get(function(ids) {
-            
-            var accountIds = ids.accountIds;
-            
-            $scope.accountsList = [];
-
-            //We have a bug here because results callback at different times the list order is random.
-            angular.forEach(accountIds, function(accountId) {
-                eBankingAPIservice.getAccount(customerId, accountId).get(function(details) {
-                    $scope.accountsList.push(details);
-                });
-            });
-
+        eBankingAPIservice.getCustomerDetails(customerId).get(function(details) {
+            $scope.details = details;
         });
 
     }
