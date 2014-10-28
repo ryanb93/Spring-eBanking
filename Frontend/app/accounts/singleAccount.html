@@ -1,1 +1,14 @@
-<h1>Single Account Details</h1>
+<div ng-app"eBanking" ng-controller="singleAccountController">
+
+	<h1>Single Account Details</h1>
+
+	<div>
+		<h2>Account Number: {{account.accountNumber}}</h2>
+		<h2>Sort Code: {{account.sortCode}}</h2>
+		<p>Type: {{account.accountType}}</p>
+		<p>Balance: {{account.balance | currency }}</p>
+	</div>
+
+	<a href="#accounts">Back</a>
+
+</div>

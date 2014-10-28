@@ -3,10 +3,9 @@
 	<h1>Accounts</h1>
 
 	<div ng-repeat="account in accountsList">
-		<h2>Account Name: {{account.accountNumber}}</h2>
-		<p>Type: {{account.accountType}}</p>
+		<h2>{{account.accountNumber}}</h2>
 		<p>Balance: {{account.balance | currency }}</p>
-		<a href="#/accounts/{{account.accountNumber}}">View Details</a>
+		<a href="#/accounts/{{account.accountId}}">View Details</a>
 	</div>
 
 </div>
