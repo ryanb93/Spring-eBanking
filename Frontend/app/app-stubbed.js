@@ -1,9 +1,10 @@
 (function(ng) {
 
-    console.log("======== WARNING!!! USING A STUBBED BACKEND ========");
-
-    setupStubs();
-
+    console.log("==================================================");
+    console.log("======== WARNING! USING A STUBBED BACKEND ========");
+    console.log("======== WARNING! USING A STUBBED BACKEND ========");
+    console.log("======== WARNING! USING A STUBBED BACKEND ========");
+    console.log("==================================================");
 
     var jsonCustomer = {
         "customerId": "544be631036458271642f6bb",
@@ -34,24 +35,23 @@
     };
 
 
-    function setupStubs() {
-        ng.module('eBanking')
-            .run(function($httpBackend) {
-                //Let all html views through.
-                $httpBackend.whenGET(/accounts\/.*.html/).passThrough();
+    ng.module('eBanking')
+        .run(function($httpBackend) {
+            
+            //Let all html views through.
+            $httpBackend.whenGET(/accounts\/.*.html/).passThrough();
 
-                $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*/).respond(function(method, url, data) {
-                    return [200, account, {}];
-                });
-
-                $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts/).respond(function(method, url, data) {
-                    return [200, accounts, {}];
-                });
-
-                $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
-                    return [200, jsonCustomer, {}];
-                });
-
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*/).respond(function(method, url, data) {
+                return [200, account, {}];
             });
-    }
+
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts/).respond(function(method, url, data) {
+                return [200, accounts, {}];
+            });
+
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
+                return [200, jsonCustomer, {}];
+            });
+
+        });
 })(angular);

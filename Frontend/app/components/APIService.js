@@ -1,4 +1,4 @@
-angular.module('eBanking.accountServices', ['ngResource'])
+angular.module('eBanking.APIService', ['ngResource'])
   
   .factory('eBankingAPIservice', ['$resource',
     function($resource) {
