@@ -236,7 +236,7 @@ ul.nav a:hover {
 
 .timeline {
   list-style: none;
-  padding: 0 0 20px;
+  padding: 0 0 0px;
   position: relative
 }
 .timeline:before {

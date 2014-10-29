@@ -86,10 +86,7 @@
 
             $httpBackend.whenPOST(/.*/).passThrough();
 
-            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*\/transactions/).respond(function(method, url, data) {
-                fakeLatency(1000);
-                return [200, transactions, {}];
-            });
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*\/transactions/).passThrough();
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*/).respond(function(method, url, data) {
                 fakeLatency(1000);
