@@ -22,9 +22,11 @@ public class TransactionRepositoryImpl implements CustomTransactionRepository {
   }
 
   @Override
-  public List<Transaction> findAllByAccountId(String accountId) {
+  public List<Transaction> findAllByAccountId(String accountId, int page) {
       Query findByAccount = new Query();
       findByAccount.addCriteria(Criteria.where("accountId").is(accountId));
+      findByAccount.limit(10);
+      findByAccount.skip(10 * page);
       return operations.find(findByAccount, Transaction.class);      
   }
 

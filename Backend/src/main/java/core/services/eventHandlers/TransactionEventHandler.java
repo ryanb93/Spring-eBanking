@@ -22,7 +22,9 @@ public class TransactionEventHandler implements TransactionService {
     
     @Override
     public AllTransactionsEvent requestAllTransactions(RequestAllTransactionsEvent requestAllTransactionsEvent) {
-        return new AllTransactionsEvent(transactionRepository.findAllByAccountId(requestAllTransactionsEvent.getAccountId()));               
+        String accountId = requestAllTransactionsEvent.getAccountId();
+        int page = requestAllTransactionsEvent.getPage();
+        return new AllTransactionsEvent(transactionRepository.findAllByAccountId(accountId, page));               
     }
 
     @Override
