@@ -50,6 +50,7 @@ public class TransactionsController {
         //TODO: There is some security risk here. Need to discuss.
         //Set the transaction account ID to the path variable.
         transaction.setAccountId(accountId);
+        transaction.setDate(new Date());
         
         CreateTransactionEvent event = transactionService.requestNewTransaction(new CreateTransactionEvent(transaction));
 
