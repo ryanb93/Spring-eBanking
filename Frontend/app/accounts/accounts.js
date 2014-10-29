@@ -62,5 +62,22 @@ angular.module('eBanking.accountControllers', [])
             return icon;
         }
 
+        $scope.transactionPage = 0;
+        $scope.loading = false;
+
+        $scope.loadNext = function() {
+            $scope.transactionPage++;
+            $scope.loading = true;
+            //TODO: Set up paging to get the next page of results.
+            eBankingAPIservice.getTransactions(customerId, accountId).get(function(loaded) {
+                var transactionList = $scope.transactions.transactions;
+                //Add them to the $scope.transactions model.
+                transactionList.push.apply(transactionList, loaded.transactions);
+                $scope.loading = false;
+            });
+
+            
+        }
+
     }
 ]);
