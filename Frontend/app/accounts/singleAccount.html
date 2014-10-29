@@ -21,71 +21,70 @@
 			</div>
 		</div>
 	</div>
-</div>
-<h2 class="ng-scope">Timeline</h2>
-<hr>
-<ul class="timeline ng-scope">
-	<li data-datetime="Now" class="timeline-separator"></li>
-	<li>
-		<div class="timeline-badge primary">
-			<em class="fa fa-money"></em>
-		</div>
-		<div class="timeline-date">
-			<time datetime="2014-05-18 10:00"></time>
-		</div>
-		<div class="timeline-panel">
-			<div class="popover left">
-				<div class="arrow"></div>
-				<h3 class="popover-title">Cash Withdrawal - £30.00</h3>
-				<div class="popover-content">
-				<p>CASH_MACHINE TESCO 4238</a>
-				<br>
-				</p>
+	<h2 class="ng-scope">Timeline</h2>
+	<hr>
+
+	<ul class="timeline">
+		<li data-datetime="Now" class="timeline-separator"></li>
+		
+		<li ng-repeat="transaction in transactions.transactions" ng-class-even="'timeline-inverted'">
+			<div class="timeline-badge primary">
+				<em class="fa fa-money"></em>
 			</div>
-		</div>
-	</li>
-
-	<li class="timeline-inverted">
-		<div class="timeline-badge warning">
-			<em class="fa fa-cc-visa"></em>
-		</div>
-		<div class="timeline-date">
-			<time datetime="2014-05-18 02:00"></time>
-		</div>
-		<div class="timeline-panel">
-			<div class="popover right">
-				<div class="arrow"></div>
-				<h3 class="popover-title">Visa Payment - £3.49</h3>
-				<div class="popover-content">
-				<p>STARBUCKS_COFFEE_SURREY</a>
-				</p>
+			<div class="timeline-date">
+				<time datetime="{{transaction.date}}"></time>
 			</div>
-		</div>
-	</li>
-
-	<li data-datetime="Yesterday" class="timeline-separator"></li>
-
-	<li>
-		<div class="timeline-badge danger">
-			<em class="fa fa-cc-paypal"></em>
-		</div>
-		<div class="timeline-date">
-			<time datetime="2014-05-20 09:00"></time>
-		</div>
-		<div class="timeline-panel">
-			<div class="popover left">
-				<div class="arrow"></div>
-				<h3 class="popover-title">PayPal Payment - £21.99</h3>
-				<div class="popover-content">
-					<p>PAYPAL_SPARKLES8781</p>
+			<div class="timeline-panel">
+				<div ng-class-odd="'popover left'" ng-class-even="'popover right'">
+					<div class="arrow"></div>
+					<h3 class="popover-title">Cash Withdrawal - £{{transaction.value}}</h3>
+					<div class="popover-content">
+					<p>{{transaction.sender}} to {{transaction.recipient}}</a>
+					<br>
+					</p>
 				</div>
 			</div>
-		</div>
-	</li>
-	<li data-datetime="Older Payments" class="timeline-separator wide"></li>
-	<li>
-		<a href="#" class="timeline-badge">
-			<em class="fa fa-plus"></em>
-		</a>
-	</li>
-</ul>
+		</li>
+		<!-- <li class="timeline-inverted">
+			<div class="timeline-badge warning">
+				<em class="fa fa-cc-visa"></em>
+			</div>
+			<div class="timeline-date">
+				<time datetime="2014-05-18 02:00"></time>
+			</div>
+			<div class="timeline-panel">
+				<div class="popover right">
+					<div class="arrow"></div>
+					<h3 class="popover-title">Visa Payment - £3.49</h3>
+					<div class="popover-content">
+					<p>STARBUCKS_COFFEE_SURREY</a>
+					</p>
+				</div>
+			</div>
+		</li>
+		<li data-datetime="Yesterday" class="timeline-separator"></li>
+		<li>
+			<div class="timeline-badge danger">
+				<em class="fa fa-cc-paypal"></em>
+			</div>
+			<div class="timeline-date">
+				<time datetime="2014-05-20 09:00"></time>
+			</div>
+			<div class="timeline-panel">
+				<div class="popover left">
+					<div class="arrow"></div>
+					<h3 class="popover-title">PayPal Payment - £21.99</h3>
+					<div class="popover-content">
+						<p>PAYPAL_SPARKLES8781</p>
+					</div>
+				</div>
+			</div>
+		</li> -->
+		<li data-datetime="Older Payments" class="timeline-separator wide"></li>
+		<li>
+			<a href="#" class="timeline-badge">
+				<em class="fa fa-plus"></em>
+			</a>
+		</li>
+	</ul>
+</div>
