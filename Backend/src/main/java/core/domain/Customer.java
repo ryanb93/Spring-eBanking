@@ -118,7 +118,7 @@ public class Customer {
      * @return the customer's last name
      */
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     /**
