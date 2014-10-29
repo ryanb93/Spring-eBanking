@@ -54,8 +54,8 @@
             "accountId": "544cf4610364aaa77dd7132b",
             "sender": "Stubbed Burke",
             "recipient": "Stubbed Whitefield",
-            "value": 100.0,
-            "date": 12345,
+            "value": 120.0,
+            "date": 1413611494,
             "transactionType": "DEBIT_CARD"
         }, {
             "transactionId": "544e453d03648cdd216b1063",
@@ -63,7 +63,7 @@
             "sender": "Stubbed Burke",
             "recipient": "Stubbed Whitefield",
             "value": 50000.0,
-            "date": 12345676,
+            "date": 1414611494,
             "transactionType": "CASH"
         }]
     };
@@ -89,11 +89,9 @@
                 return [200, accounts, {}];
             });
 
-            // $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
-            //     return [200, jsonCustomer, {}];
-            // });
-
-            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).passThrough();
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
+                return [200, jsonCustomer, {}];
+            });
 
         });
 })(angular);

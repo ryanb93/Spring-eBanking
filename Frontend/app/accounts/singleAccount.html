@@ -27,12 +27,12 @@
 	<ul class="timeline">
 		<li data-datetime="Now" class="timeline-separator"></li>
 		
-		<li ng-repeat="transaction in transactions.transactions" ng-class-even="'timeline-inverted'">
+		<li ng-repeat="transaction in transactions.transactions | orderBy: '-date'" ng-class-even="'timeline-inverted'">
 			<div class="timeline-badge primary">
 				<em class="fa {{getIcon(transaction.transactionType)}}"></em>
 			</div>
 			<div class="timeline-date">
-				<time datetime="{{transaction.date}}"></time>
+				<time datetime="{{transaction.date * 1000 | date:'medium'}}"></time>
 			</div>
 			<div class="timeline-panel">
 				<div ng-class-odd="'popover left'" ng-class-even="'popover right'">
