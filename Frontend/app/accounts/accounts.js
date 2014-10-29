@@ -32,6 +32,9 @@ angular.module('eBanking.accountControllers', [])
     function($scope, $routeParams, eBankingAPIservice) {
 
         $scope.account = null;
+        $scope.transactionPage = 0;
+        $scope.loading = false;
+        $scope.finished = false;
 
         var accountId = $routeParams.accountNumber;
         var customerId = "544be631036458271642f6bb";
@@ -41,8 +44,12 @@ angular.module('eBanking.accountControllers', [])
         });
 
 
-        eBankingAPIservice.getTransactions(customerId, accountId).get(function(transactions) {
+        eBankingAPIservice.getTransactions(customerId, accountId, $scope.transactionPage).get(function(transactions) {
             $scope.transactions = transactions;
+            if(transactions.transactions.length != 10) {
+                //There are less than 10 transactions, remove the + button.
+                $scope.finished = true;
+            }
         });
 
         $scope.getIcon = function(accountType) {
@@ -62,18 +69,24 @@ angular.module('eBanking.accountControllers', [])
             return icon;
         }
 
-        $scope.transactionPage = 0;
-        $scope.loading = false;
-
         $scope.loadNext = function() {
-            $scope.transactionPage++;
             $scope.loading = true;
-            //TODO: Set up paging to get the next page of results.
-            eBankingAPIservice.getTransactions(customerId, accountId).get(function(loaded) {
-                var transactionList = $scope.transactions.transactions;
-                //Add them to the $scope.transactions model.
-                transactionList.push.apply(transactionList, loaded.transactions);
+            $scope.transactionPage++;
+            eBankingAPIservice.getTransactions(customerId, accountId, $scope.transactionPage).get(function(loaded) {
+                var existing = $scope.transactions.transactions;
+
+                var next = loaded.transactions;
+                console.log(next);
+                //We have reached the end of the transaction list. Hide the plus.
+                if(next.length == 0) {
+                    $scope.finished = true;
+                }
+                else {
+                    existing.push.apply(existing, next.transactions);
+                }
+
                 $scope.loading = false;
+
             });
 
             

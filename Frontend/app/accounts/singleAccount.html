@@ -45,14 +45,15 @@
 				</div>
 			</div>
 		</li>
-		<li data-datetime="Older Payments" class="timeline-separator wide"></li>
+		<li data-datetime="Older Payments" class="timeline-separator wide" ng-show="!finished"></li>
 		<li>
-				<a href="" class="timeline-badge" ng-show="loading">
-					<em class="fa fa-circle-o-notch fa-spin"></em>
-				</a>				
-			<a href="" ng-click="loadNext()" class="timeline-badge" ng-show="!loading">
+			<a href="" class="timeline-badge" ng-show="loading">
+				<em class="fa fa-circle-o-notch fa-spin"></em>
+			</a>				
+			<a href="" ng-click="loadNext()" class="timeline-badge" ng-show="!loading; !finished">
 				<em class="fa fa-plus"></em>
 			</a>
 		</li>
+		<li data-datetime="End of Transactions" class="timeline-separator" ng-show="finished"></li>
 	</ul>
 </div>
