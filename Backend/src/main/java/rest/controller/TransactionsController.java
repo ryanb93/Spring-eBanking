@@ -1,6 +1,7 @@
 package rest.controller;
 
 import core.domain.Transaction;
+import core.domain.TransactionType;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
@@ -70,7 +71,7 @@ public class TransactionsController {
     
     @RequestMapping(Routes.TEST_SINGLE_TRANSACTION)
     public Transaction getSingleTransaction() {
-        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date());
+        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date(), TransactionType.DEBIT_CARD);
         return transaction1;
     }
 

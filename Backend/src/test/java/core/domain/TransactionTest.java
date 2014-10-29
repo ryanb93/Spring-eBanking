@@ -22,7 +22,7 @@ public class TransactionTest {
 
     @Before
     public void setUp() {
-        this.transaction = new Transaction("Tesco", "AccountHolder", 450.50, new Date(16523));
+        this.transaction = new Transaction("Tesco", "AccountHolder", 450.50, new Date(16523), TransactionType.OTHER);
     }
 
     @After
