@@ -1,7 +1,7 @@
 package core.repository.implementations;
 
 import core.domain.Transaction;
-import core.repository.TransactionRepository;
+import core.repository.custom.CustomTransactionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 @Repository
-public abstract class TransactionRepositoryImpl implements TransactionRepository {
+public class TransactionRepositoryImpl implements CustomTransactionRepository {
     
   private final MongoOperations operations;
 
