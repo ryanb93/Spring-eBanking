@@ -19,5 +19,11 @@ angular.module('eBanking.detailsControllers', [])
             $scope.details = details;
         });
 
-    }
+        $scope.processForm = function() {
+            var test = eBankingAPIservice.postCustomerDetails(customerId).save($scope.details, function(result) {
+                console.log(result);
+            });
+        }
+
+    },
 ]);
