@@ -4,6 +4,7 @@ import core.domain.Transaction;
 import core.repository.custom.CustomTransactionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -27,6 +28,7 @@ public class TransactionRepositoryImpl implements CustomTransactionRepository {
       findByAccount.addCriteria(Criteria.where("accountId").is(accountId));
       findByAccount.limit(10);
       findByAccount.skip(10 * page);
+      findByAccount.with(new Sort(Sort.Direction.DESC, "date"));
       return operations.find(findByAccount, Transaction.class);      
   }
 
