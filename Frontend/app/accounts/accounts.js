@@ -49,5 +49,10 @@ angular.module('eBanking.accountControllers', [])
             $scope.account = account;
         });
 
+
+        eBankingAPIservice.getTransactions(customerId, accountId).get(function(transactions) {
+            $scope.transactions = transactions;
+        });
+
     }
 ]);

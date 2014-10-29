@@ -23,5 +23,11 @@ angular.module('eBanking.APIService', ['ngResource'])
         { query: { method: 'GET', } });
     }
 
+    eBankingAPI.getTransactions = function(customerId, accountId) {
+      return $resource('http://localhost:8080/api/customers/:customerId/accounts/:accountId/transactions',
+        { customerId: customerId, accountId: accountId },
+        { query: { method: 'GET', } });
+    }
+
     return eBankingAPI;
   }]);
