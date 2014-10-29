@@ -69,24 +69,39 @@ angular.module('eBanking.accountControllers', [])
             return icon;
         }
 
+        $scope.getTitle = function(accountType) {
+
+            var title = "Transaction";
+
+            switch(accountType) {
+                case "CASH": title = "Cash Withdrawal"; break;
+                case "DEBIT_CARD": title = "Debit Card Payment"; break;
+                case "CREDIT_CARD": title = "Credit Card Payment"; break;
+                case "BACS": title = "BAC Transfer"; break;
+                case "DIRECT_DEBIT": title = "Direct Debit"; break;
+                case "STANDING_ORDER": title = "Standing Order"; break;
+                case "PAYPAL": title = "Paypay Transaction"; break;
+            }
+
+            return title;
+        }
+
         $scope.loadNext = function() {
+            
             $scope.loading = true;
             $scope.transactionPage++;
-            eBankingAPIservice.getTransactions(customerId, accountId, $scope.transactionPage).get(function(loaded) {
-                var existing = $scope.transactions.transactions;
 
+            eBankingAPIservice.getTransactions(customerId, accountId, $scope.transactionPage).get(function(loaded) {
+                
+                var existing = $scope.transactions.transactions;
                 var next = loaded.transactions;
-                console.log(next);
-                //We have reached the end of the transaction list. Hide the plus.
-                if(next.length == 0) {
+
+                $scope.transactions.transactions.push.apply(existing, next);
+                if(next.length != 10 ) {
                     $scope.finished = true;
-                }
-                else {
-                    existing.push.apply(existing, next.transactions);
                 }
 
                 $scope.loading = false;
-
             });
 
             
