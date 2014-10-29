@@ -45,5 +45,22 @@ angular.module('eBanking.accountControllers', [])
             $scope.transactions = transactions;
         });
 
+        $scope.getIcon = function(accountType) {
+
+            var icon = "fa-question";
+
+            switch(accountType) {
+                case "CASH": icon = "fa-money"; break;
+                case "DEBIT_CARD": icon = "fa-cc-visa"; break;
+                case "CREDIT_CARD": icon = "fa-cc-mastercard"; break;
+                case "BACS": icon = "fa-bank"; break;
+                case "DIRECT_DEBIT": icon = "fa-sign-out"; break;
+                case "STANDING_ORDER": icon = "fa-external-link"; break;
+                case "PAYPAL": icon = "fa-cc-paypal"; break;
+            }
+
+            return icon;
+        }
+
     }
 ]);
