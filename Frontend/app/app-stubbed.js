@@ -55,14 +55,16 @@
             "sender": "Stubbed Burke",
             "recipient": "Stubbed Whitefield",
             "value": 100.0,
-            "date": 12345
+            "date": 12345,
+            "transactionType": "DEBIT_CARD"
         }, {
             "transactionId": "544e453d03648cdd216b1063",
             "accountId": "544cf4610364aaa77dd7132b",
             "sender": "Stubbed Burke",
             "recipient": "Stubbed Whitefield",
             "value": 50000.0,
-            "date": 12345676
+            "date": 12345676,
+            "transactionType": "CASH"
         }]
     };
 
