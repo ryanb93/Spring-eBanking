@@ -233,6 +233,11 @@ ul.nav a:hover {
   background-color: #f1f2f3;
   color: #a1a2a3
 }
+
+.timeline>li.timeline-end:before {
+  width: 170px !important;
+}
+
 .timeline>li>.timeline-panel {
   position: relative;
   margin-left: 130px
