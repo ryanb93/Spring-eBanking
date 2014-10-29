@@ -86,6 +86,20 @@ angular.module('eBanking.accountControllers', [])
             return title;
         }
 
+        $scope.getBadgeColour = function(accountType) {
+
+            var colour = "";
+
+            switch(accountType) {
+                case "CASH": colour = "success"; break;
+                case "DEBIT_CARD": colour = "danger"; break;
+                case "CREDIT_CARD": colour = "warning"; break;
+                case "PAYPAL": colour = "info"; break;
+            }
+
+            return colour;
+        }
+
         $scope.loadNext = function() {
             
             $scope.loading = true;
