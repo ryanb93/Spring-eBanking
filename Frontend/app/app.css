@@ -1,17 +1,9 @@
 /* app css stylesheet */
-html {
-  height: 100%;
-}
 
 body {
   font-family: "Source Sans Pro", sans-serif;
   color: #656565;
-  height: 100%;
-}
-
-#wrap {
-  min-height: 80%;
-  height: 80%;
+  padding-bottom: 75px;
 }
 
 .placeholder {
@@ -202,37 +194,6 @@ ul.nav a:hover {
 .balancePadding {
   padding-top: 5px;
 }
-
-.container {
-  margin-bottom: 50px !important;
-}
-
-.footer-contents {
-  width: 100%; 
-  margin:auto;
-}
-
-#footer .project {
-  margin-top: 10px;
-}
-
-#footer a {
-  color: #DCE0EF;
-  border-bottom: dotted 1px #DCE0EF;
-}
-
-#footer a:hover {
-  color: white;
-  border-bottom: dotted 1px white;
-}
-
-
-@media (max-width: 767px) {
-  #footer {
-    display: none;
-  }
-}
-
 
 .timeline {
   list-style: none;

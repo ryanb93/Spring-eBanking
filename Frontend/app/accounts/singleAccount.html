@@ -32,12 +32,12 @@
 				<em class="fa {{getIcon(transaction.transactionType)}}"></em>
 			</div>
 			<div class="timeline-date">
-				<time datetime="{{transaction.date * 1000 | date:'medium'}}"></time>
+				<time datetime="{{transaction.date | date:'medium'}}"></time>
 			</div>
 			<div class="timeline-panel">
 				<div ng-class-odd="'popover left'" ng-class-even="'popover right'">
 					<div class="arrow"></div>
-					<h3 class="popover-title">Cash Withdrawal - £{{transaction.value}}</h3>
+					<h3 class="popover-title">{{getTitle(transaction.transactionType)}} - £{{transaction.value}}</h3>
 					<div class="popover-content">
 					<p>{{transaction.sender}} to {{transaction.recipient}}</a>
 					<br>
