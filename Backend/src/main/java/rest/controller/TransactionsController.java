@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import rest.config.Routes;
-import rest.domain.TransactionIds;
 
 @RestController
 @RequestMapping(Routes.TRANSACTIONS)
@@ -31,11 +30,9 @@ public class TransactionsController {
     private TransactionService transactionService;
     
     @RequestMapping(method = RequestMethod.GET)
-    public TransactionIds getAllTransactions(@PathVariable("account_id") String accountId) {
+    public AllTransactionsEvent getAllTransactions(@PathVariable("account_id") String accountId) {
         RequestAllTransactionsEvent request = new RequestAllTransactionsEvent(accountId);
-        AllTransactionsEvent event = transactionService.requestAllTransactions(request);
-        TransactionIds transactionIds = new TransactionIds(event.getTransactions());
-        return transactionIds;
+        return transactionService.requestAllTransactions(request);
     }
     
     /*
