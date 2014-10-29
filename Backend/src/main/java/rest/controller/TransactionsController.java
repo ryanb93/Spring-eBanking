@@ -9,6 +9,7 @@ import core.events.transactions.RequestTransactionDetailsEvent;
 import core.events.transactions.TransactionDetailsEvent;
 import core.services.TransactionService;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,12 @@ public class TransactionsController {
     private TransactionService transactionService;
     
     @RequestMapping(method = RequestMethod.GET)
-    public AllTransactionsEvent getAllTransactions(@PathVariable("account_id") String accountId) {
-        RequestAllTransactionsEvent request = new RequestAllTransactionsEvent(accountId);
-        return transactionService.requestAllTransactions(request);
+    public AllTransactionsEvent getAllTransactions(@PathVariable("account_id") String accountId, HttpServletRequest request) {
+        String page = request.getParameter("page");
+        int pageInt = 0;
+        try { pageInt = Integer.parseInt(page); } catch(Exception e) {}
+        RequestAllTransactionsEvent requestAll = new RequestAllTransactionsEvent(accountId, pageInt);
+        return transactionService.requestAllTransactions(requestAll);
     }
     
     /*
@@ -43,7 +47,6 @@ public class TransactionsController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<Transaction> createNewTransaction(@PathVariable("account_id") String accountId, @RequestBody Transaction transaction, UriComponentsBuilder builder) {
-
         //TODO: There is some security risk here. Need to discuss.
         //Set the transaction account ID to the path variable.
         transaction.setAccountId(accountId);
