@@ -1,9 +1,10 @@
 package core.events.thirdPartyApps;
 
 import core.domain.ThirdPartyApp;
+import core.events.ReadEvent;
 
 
-public class ThirdPartyAppDetailsEvent {
+public class ThirdPartyAppDetailsEvent extends ReadEvent {
 
     private final ThirdPartyApp app;
     

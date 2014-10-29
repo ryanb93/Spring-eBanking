@@ -1,8 +1,6 @@
 package core.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
