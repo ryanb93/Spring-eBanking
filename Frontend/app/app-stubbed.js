@@ -54,7 +54,7 @@
             "accountId": "544cf4610364aaa77dd7132b",
             "sender": "Stubbed Burke",
             "recipient": "Stubbed Whitefield",
-            "value": 120.0,
+            "value": 10.0,
             "date": 1413611494,
             "transactionType": "DEBIT_CARD"
         }, {
@@ -72,24 +72,37 @@
     ng.module('eBanking')
         .run(function($httpBackend) {
 
+            function fakeLatency(milliseconds) {
+              var start = new Date().getTime();
+              for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds){
+                  break;
+                }
+              }
+            }
+
             //Let all html views through.
             $httpBackend.whenGET(/.*.html/).passThrough();
 
             $httpBackend.whenPOST(/.*/).passThrough();
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*\/transactions/).respond(function(method, url, data) {
+                fakeLatency(1000);
                 return [200, transactions, {}];
             });
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*/).respond(function(method, url, data) {
+                fakeLatency(1000);
                 return [200, account, {}];
             });
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts/).respond(function(method, url, data) {
+                fakeLatency(1000);
                 return [200, accounts, {}];
             });
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
+                fakeLatency(1000);
                 return [200, jsonCustomer, {}];
             });
 
