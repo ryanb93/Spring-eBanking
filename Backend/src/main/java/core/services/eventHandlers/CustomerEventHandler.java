@@ -7,6 +7,8 @@ import core.events.customers.CustomerDetailsEvent;
 import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestCustomerDetailsEvent;
 import core.events.customers.RequestNewCustomerEvent;
+import core.events.customers.RequestUpdateCustomerDetailsEvent;
+import core.events.customers.UpdateCustomerDetailsEvent;
 import core.repository.CustomerRepository;
 import core.services.CustomerService;
 import java.util.List;
@@ -38,4 +40,23 @@ public class CustomerEventHandler implements CustomerService {
         customerRepository.save(newCustomer);
         return new CreateCustomerEvent(customerRepository.findOne(newCustomer.getCustomerId()));
     }
+    
+    @Override
+    public UpdateCustomerDetailsEvent requestUpdateCustomer(RequestUpdateCustomerDetailsEvent requestUpdateCustomerDetailsEvent) {
+        Customer newCustomer = requestUpdateCustomerDetailsEvent.getCustomer();
+        
+        String existingId = newCustomer.getCustomerId();
+        
+        Customer existingCustomer = customerRepository.findOne(existingId);
+        
+        if(existingCustomer == null) {
+            //Customer was not found!
+            return null;
+        }
+        
+        Customer savedCustomer = customerRepository.save(newCustomer);
+               
+        return new UpdateCustomerDetailsEvent(savedCustomer);
+    }
+
 }
