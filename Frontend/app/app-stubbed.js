@@ -22,7 +22,22 @@
     };
 
     var accounts = {
-        "accountIds": ["544cf4610364aaa77dd7132a", "544cf4610364aaa77dd7132b", "544cf4610364aaa77dd7132c"]
+        "accounts": [{
+            "accountId": "544cf4610364aaa77dd7132b",
+            "customerId": "544be631036458271642f6bb",
+            "accountNumber": "12345678",
+            "sortCode": "123456",
+            "accountType": "CURRENT",
+            "balance": 500.0
+        },
+        {
+            "accountId": "544cf4610364aaa77dd713b",
+            "customerId": "544be631036458271642f6bb",
+            "accountNumber": "87654321",
+            "sortCode": "654321",
+            "accountType": "SAVINGS",
+            "balance": 50000.0
+        }]
     };
 
     var account = {
@@ -31,38 +46,40 @@
         "accountNumber": "12345678",
         "sortCode": "123456",
         "accountType": "CURRENT",
-        "balance": 700.0
+        "balance": 500.0
     };
 
-    var transactions = {"transactions": [{
-        "transactionId": "544ce5630364e8a153367ec8",
-        "accountId": "544cf4610364aaa77dd7132b",
-        "sender": "Ryan Burke",
-        "recipient": "Jorden Whitefield",
-        "value": 100.0,
-        "date": 12345
-    }, {
-        "transactionId": "544e453d03648cdd216b1063",
-        "accountId": "544cf4610364aaa77dd7132b",
-        "sender": "Ryan EEEE Burke",
-        "recipient": "Jorden Whitefield",
-        "value": 500.0,
-        "date": 12345676
-    },{
-        "transactionId": "544ce5630364e8a153367ec8",
-        "accountId": "544cf4610364aaa77dd7132b",
-        "sender": "Ryan Burke",
-        "recipient": "Jorden Whitefield",
-        "value": 100.0,
-        "date": 12345
-    }, {
-        "transactionId": "544e453d03648cdd216b1063",
-        "accountId": "544cf4610364aaa77dd7132b",
-        "sender": "Ryan EEEE Burke",
-        "recipient": "Jorden Whitefield",
-        "value": 500.0,
-        "date": 12345676
-    },]};
+    var transactions = {
+        "transactions": [{
+            "transactionId": "544ce5630364e8a153367ec8",
+            "accountId": "544cf4610364aaa77dd7132b",
+            "sender": "Ryan Burke",
+            "recipient": "Jorden Whitefield",
+            "value": 100.0,
+            "date": 12345
+        }, {
+            "transactionId": "544e453d03648cdd216b1063",
+            "accountId": "544cf4610364aaa77dd7132b",
+            "sender": "Ryan EEEE Burke",
+            "recipient": "Jorden Whitefield",
+            "value": 500.0,
+            "date": 12345676
+        }, {
+            "transactionId": "544ce5630364e8a153367ec8",
+            "accountId": "544cf4610364aaa77dd7132b",
+            "sender": "Ryan Burke",
+            "recipient": "Jorden Whitefield",
+            "value": 100.0,
+            "date": 12345
+        }, {
+            "transactionId": "544e453d03648cdd216b1063",
+            "accountId": "544cf4610364aaa77dd7132b",
+            "sender": "Ryan EEEE Burke",
+            "recipient": "Jorden Whitefield",
+            "value": 500.0,
+            "date": 12345676
+        }, ]
+    };
 
 
     ng.module('eBanking')
