@@ -8,7 +8,7 @@
 
     var jsonCustomer = {
         "customerId": "544be631036458271642f6bb",
-        "firstName": "Jorden",
+        "firstName": "Stubbed",
         "lastName": "Whitefield",
         "dateOfBirth": 16523,
         "address": {
@@ -27,14 +27,14 @@
             "customerId": "544be631036458271642f6bb",
             "accountNumber": "12345678",
             "sortCode": "123456",
-            "accountType": "CURRENT",
+            "accountType": "STUBBED",
             "balance": 500.0
         }, {
             "accountId": "544cf4610364aaa77dd713b",
             "customerId": "544be631036458271642f6bb",
             "accountNumber": "87654321",
             "sortCode": "654321",
-            "accountType": "SAVINGS",
+            "accountType": "STUBBED",
             "balance": 50000.0
         }]
     };
@@ -44,7 +44,7 @@
         "customerId": "544be631036458271642f6bb",
         "accountNumber": "12345678",
         "sortCode": "123456",
-        "accountType": "CURRENT",
+        "accountType": "STUBBED",
         "balance": 500.0
     };
 
@@ -52,15 +52,15 @@
         "transactions": [{
             "transactionId": "544ce5630364e8a153367ec8",
             "accountId": "544cf4610364aaa77dd7132b",
-            "sender": "Ryan Burke",
-            "recipient": "Jorden Whitefield",
+            "sender": "Stubbed Burke",
+            "recipient": "Stubbed Whitefield",
             "value": 100.0,
             "date": 12345
         }, {
             "transactionId": "544e453d03648cdd216b1063",
             "accountId": "544cf4610364aaa77dd7132b",
-            "sender": "Ryan EEEE Burke",
-            "recipient": "Jorden Whitefield",
+            "sender": "Stubbed Burke",
+            "recipient": "Stubbed Whitefield",
             "value": 50000.0,
             "date": 12345676
         }]
@@ -72,6 +72,8 @@
 
             //Let all html views through.
             $httpBackend.whenGET(/.*.html/).passThrough();
+
+            $httpBackend.whenPOST(/.*/).passThrough();
 
             $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*\/accounts\/.*\/transactions/).respond(function(method, url, data) {
                 return [200, transactions, {}];
@@ -85,9 +87,11 @@
                 return [200, accounts, {}];
             });
 
-            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
-                return [200, jsonCustomer, {}];
-            });
+            // $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).respond(function(method, url, data) {
+            //     return [200, jsonCustomer, {}];
+            // });
+
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers\/.*/).passThrough();
 
         });
 })(angular);
