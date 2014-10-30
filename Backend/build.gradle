@@ -28,6 +28,7 @@ sourceSets {
     main {
 	java {
             java.srcDir file('src/main/java')
+            java.srcDir file('WEB-INF')
 	}
     }
     
