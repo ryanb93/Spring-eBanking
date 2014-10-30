@@ -22,7 +22,7 @@
         </div>
       </a>
     </div>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" ng-show="show=='logged-in'">
       <ul class="nav navbar-nav navbar-right">
         <li>
           <a href="#/accounts" class="nav-link">
@@ -42,7 +42,16 @@
   <![endif]-->
   <div id="wrap">
     <div class="container">
-      <div ng-view></div>
+      <h1 class="page-header">Welcome to eBanking</h1>
+
+      <oauth class="signIn"
+        site="http://localhost:8080/login"
+        client-id="eBanking_Frontend"
+        redirect-uri="http://localhost:8000/auth"
+        profile-uri="PROFILE_URI_HERE"
+        scope="{{$scope}}">
+      </oauth>
+      <div ng-view ng-show="show=='logged-in'"></div>
     </div>
   </div>
 <!-- Load dependencies -->
@@ -50,6 +59,9 @@
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+<script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
 <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -4,9 +4,11 @@
 angular.module('eBanking', [
 	'ngRoute',
 	'ngMockE2E',
-    'eBanking.accountControllers',
-    'eBanking.detailsControllers',
-    'eBanking.APIService'
+  'oauth',
+  'ngStorage',
+  'eBanking.accountControllers',
+  'eBanking.detailsControllers',
+  'eBanking.APIService'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/accounts'});

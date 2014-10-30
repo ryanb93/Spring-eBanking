@@ -3,6 +3,7 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
   color: #656565;
+  background-color: #eee;
   padding-bottom: 75px;
 }
 
@@ -381,4 +382,43 @@ ul.nav a:hover {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.signIn {
+  width:100%;
+  height: 100%;
+}
+
+.signIn span {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  max-width: 300px;
+  padding: 15px;
+  margin: 50px auto;
+  cursor: pointer;
+  vertical-align: middle;
+  font-weight: 400;
+  touch-action: manipulation;
+  text-transform: none;
+}
+
+.signIn span:hover {
+  color: #fff;
+  background-color: #3071a9;
+  border-color: #285e8e;
+}
+
+.signIn a:hover {
+  text-decoration: none !important;
+}
+
+.container {
+  background-color: white;
+}
 
