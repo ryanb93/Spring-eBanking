@@ -29,25 +29,28 @@ public class Transaction {
     @NotNull
     private Date date;              // The date the transaction was commited
     
+    @NotNull
+    private TransactionType transactionType;
+    
     public Transaction() {
     }
     
     /**
      * Creates a new Transaction object.
      *
-     * @param accountId - The ID of the account its linked to.
      * @param sender - The ID of the sender.
      * @param recipient - The last name of the customer.
      * @param value - The customer's data of birth.
      * @param date - The address of the customer.
      */
-    public Transaction(String sender, String recipient, Double value, Date date) {
+    public Transaction(String sender, String recipient, Double value, Date date, TransactionType type) {
         super();
         // Set values using setters.
         this.setSender(sender);
         this.setRecipient(recipient);
         this.setValue(value);
         this.setDate(date);
+        this.setTransactionType(type);
     }
     
     /**
@@ -115,6 +118,19 @@ public class Transaction {
     }
 
     /**
+     * Sets the type of the transaction.
+     *
+     * @param type - The type of the transaction.
+     */
+    public final void setTransactionType(TransactionType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("This date is invalid.");
+        }
+        
+        this.transactionType = type;
+    }    
+    
+    /**
      * Gets the transactionId.
      *
      * @return transactionId - The ID of the transaction.
@@ -138,7 +154,7 @@ public class Transaction {
      * @return sender - The sender in the transaction.
      */
     public String getSender() {
-        return sender;
+        return this.sender;
     }
 
     /**
@@ -147,7 +163,7 @@ public class Transaction {
      * @return recipient - the recipient in the transaction.
      */
     public String getRecipient() {
-        return recipient;
+        return this.recipient;
     }
 
     /**
@@ -156,7 +172,7 @@ public class Transaction {
      * @return value - The value of the transaction.
      */
     public Double getValue() {
-        return value;
+        return this.value;
     }
 
     /**
@@ -165,7 +181,16 @@ public class Transaction {
      * @return date - The date of the transaction.
      */
     public Date getDate() {
-        return date;
+        return this.date;
     }
 
+    /**
+     * Sets the date of the transaction.
+     *
+     * @return date - The date of the transaction.
+     */
+    public TransactionType getTransactionType() {
+        return this.transactionType;
+    }
+    
 }

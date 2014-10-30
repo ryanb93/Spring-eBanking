@@ -10,6 +10,7 @@ describe('my app', function() {
     expect(browser.getLocationAbsUrl()).toMatch("/view1");
   });
 
+
   describe('view1', function() {
 
     beforeEach(function() {
@@ -18,8 +19,8 @@ describe('my app', function() {
 
 
     it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] h1')).first().getText()).
-        toMatch("Account Dashboard");
+      expect(element.all(by.css('[ng-view] p')).first().getText()).
+        toMatch(/partial for view 1/);
     });
 
   });
@@ -38,5 +39,4 @@ describe('my app', function() {
     });
 
   });
-
 });

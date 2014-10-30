@@ -1,7 +1,7 @@
 package core.repository.implementations;
 
 import core.domain.Account;
-import core.repository.AccountRepository;
+import core.repository.custom.CustomAccountRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 
 
 @Repository
-public abstract class AccountRepositoryImpl implements AccountRepository {
+public class AccountRepositoryImpl implements CustomAccountRepository {
     
   private final MongoOperations operations;
 
