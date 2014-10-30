@@ -25,7 +25,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .authorizeRequests().antMatchers("/login.jsp").permitAll().and()
+                .authorizeRequests().antMatchers("/login").permitAll().and()
                     .authorizeRequests()
                         .anyRequest().hasRole("USER")
                     .and()
