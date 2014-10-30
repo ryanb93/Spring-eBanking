@@ -21,20 +21,13 @@ public class WebAppInitializer implements WebApplicationInitializer {
   @Override
   public void onStartup(ServletContext servletContext) {
     WebApplicationContext rootContext = createRootContext(servletContext);
-
     configureSpringMvc(servletContext, rootContext);
-
-    configureSpringSecurity(servletContext, rootContext);
   }
 
   private WebApplicationContext createRootContext(ServletContext servletContext) {
     AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-//    rootContext.register(CoreConfig.class); // Security config as param 
-//    rootContext.refresh();
-
     servletContext.addListener(new ContextLoaderListener(rootContext));
     servletContext.setInitParameter("defaultHtmlEscape", "true");
-
     return rootContext;
   }
 
@@ -44,8 +37,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
     mvcContext.setParent(rootContext);
 
-    ServletRegistration.Dynamic appServlet = servletContext.addServlet(
-        "webservice", new DispatcherServlet(mvcContext));
+    ServletRegistration.Dynamic appServlet = servletContext.addServlet("webservice", new DispatcherServlet(mvcContext));
     appServlet.setLoadOnStartup(1);
     Set<String> mappingConflicts = appServlet.addMapping("/");
 
@@ -58,9 +50,4 @@ public class WebAppInitializer implements WebApplicationInitializer {
     }
   }
 
-  private void configureSpringSecurity(ServletContext servletContext, WebApplicationContext rootContext) {
-    FilterRegistration.Dynamic springSecurity = servletContext.addFilter("springSecurityFilterChain",
-        new DelegatingFilterProxy("springSecurityFilterChain", rootContext));
-    springSecurity.addMappingForUrlPatterns(null, true, "/*");
-  }
 }
