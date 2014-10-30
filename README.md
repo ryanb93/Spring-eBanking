@@ -8,10 +8,6 @@
 	* Mac OS X via Homebrew: `brew cask install netbeans`
 	* Windows / OS X: [visit the netbeans site](https://netbeans.org/downloads/)
 
-- Install MongoDB
-    * Mac OS X via Homebrew `brew install mongodb`
-    * Windows / OS X: [Visit Mongo](http://www.mongodb.org/downloads)
-
 - Install NodeJS
     * Mac OS X via Homebrew `brew install node`
     * Windows / OS X: [Visit NodeJS](http://nodejs.org/download/)
