@@ -16,6 +16,9 @@ config(['$routeProvider', function($routeProvider) {
 .config(function($httpProvider){
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8'
     })
+.config(function($locationProvider) {
+  $locationProvider.html5Mode(true).hashPrefix('!');
+})
 .filter('capitalize', function() {
   return function(input, scope) {
     if (input) {

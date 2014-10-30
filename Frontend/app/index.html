@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="app.css">
+  <base href="/">
 </head>
 <body>
   <nav role="navigation" class="navbar topnavbar">
@@ -42,14 +43,16 @@
   <![endif]-->
   <div id="wrap">
     <div class="container">
-      <h1 class="page-header">Welcome to eBanking</h1>
-
-      <oauth class="signIn"
-        site="http://localhost:8080/"
-        client-id="eBanking_Frontend"
-        redirect-uri="http://localhost:8000/auth"
-        text="Authorise with Bank">
-      </oauth>
+      
+      <div ng-show="show!='logged-in'">
+        <h1 class="page-header">Welcome to eBanking</h1>
+        <oauth class="signIn"
+          site="http://localhost:8080"
+          client-id="eBanking_Frontend"
+          redirect-uri="http://localhost:8000/auth"
+          text="Authorise with Bank">
+        </oauth>
+      </div>
       <div ng-view ng-show="show=='logged-in'"></div>
     </div>
   </div>
