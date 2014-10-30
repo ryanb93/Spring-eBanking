@@ -1,6 +1,8 @@
 package core.events.accounts;
 
-public class RequestAccountDetailsEvent {
+import core.events.RequestReadEvent;
+
+public class RequestAccountDetailsEvent extends RequestReadEvent {
 
     private final String accountId;
     

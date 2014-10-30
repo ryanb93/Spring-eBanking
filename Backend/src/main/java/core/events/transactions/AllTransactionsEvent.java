@@ -5,7 +5,7 @@ import core.events.ReadEvent;
 import java.util.Collections;
 import java.util.List;
 
-public class AllTransactionsEvent extends ReadEvent{
+public class AllTransactionsEvent extends ReadEvent {
     
     private final List<Transaction> transactions;
 

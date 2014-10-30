@@ -1,6 +1,7 @@
 package rest.controller;
 
 import core.domain.Transaction;
+import core.domain.TransactionType;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
@@ -8,6 +9,7 @@ import core.events.transactions.RequestTransactionDetailsEvent;
 import core.events.transactions.TransactionDetailsEvent;
 import core.services.TransactionService;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import rest.config.Routes;
-import rest.domain.TransactionIds;
 
 @RestController
 @RequestMapping(Routes.TRANSACTIONS)
@@ -31,11 +32,12 @@ public class TransactionsController {
     private TransactionService transactionService;
     
     @RequestMapping(method = RequestMethod.GET)
-    public TransactionIds getAllTransactions(@PathVariable("account_id") String accountId) {
-        RequestAllTransactionsEvent request = new RequestAllTransactionsEvent(accountId);
-        AllTransactionsEvent event = transactionService.requestAllTransactions(request);
-        TransactionIds transactionIds = new TransactionIds(event.getTransactions());
-        return transactionIds;
+    public AllTransactionsEvent getAllTransactions(@PathVariable("account_id") String accountId, HttpServletRequest request) {
+        String page = request.getParameter("page");
+        int pageInt = 0;
+        try { pageInt = Integer.parseInt(page); } catch(Exception e) {}
+        RequestAllTransactionsEvent requestAll = new RequestAllTransactionsEvent(accountId, pageInt);
+        return transactionService.requestAllTransactions(requestAll);
     }
     
     /*
@@ -45,10 +47,10 @@ public class TransactionsController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<Transaction> createNewTransaction(@PathVariable("account_id") String accountId, @RequestBody Transaction transaction, UriComponentsBuilder builder) {
-
         //TODO: There is some security risk here. Need to discuss.
         //Set the transaction account ID to the path variable.
         transaction.setAccountId(accountId);
+        transaction.setDate(new Date());
         
         CreateTransactionEvent event = transactionService.requestNewTransaction(new CreateTransactionEvent(transaction));
 
@@ -73,7 +75,7 @@ public class TransactionsController {
     
     @RequestMapping(Routes.TEST_SINGLE_TRANSACTION)
     public Transaction getSingleTransaction() {
-        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date());
+        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date(), TransactionType.DEBIT_CARD);
         return transaction1;
     }
 

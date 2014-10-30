@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomTransactionRepository {
-    public List<Transaction> findAllByAccountId(String accountId);
+    public List<Transaction> findAllByAccountId(String accountId, int page);
 }
