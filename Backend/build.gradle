@@ -18,14 +18,13 @@ buildscript {
 }
 
 apply plugin: 'mongo'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
 
 mongo {
 	logging "console"
 	storageLocation "./mongo/data"
-}
-
-run {
-    dependsOn startManagedMongoDb
 }
 
 test {
@@ -38,9 +37,9 @@ test {
 sourceSets {
     
     main {
-	java {
+	    java {
             java.srcDir file('src/main/java')
-	}
+	    }
     }
     
     unitTest {
@@ -69,9 +68,10 @@ repositories {
 
 dependencies {    
     compile ("org.springframework.boot:spring-boot-starter-web")
+    compile ("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile ("org.springframework.data:spring-data-mongodb")
+//    compile ("org.springframework.boot:spring-boot-starter-security")
 //    compile ("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE")
-//	compile ("org.springframework.security:spring-security-web:3.2.5.RELEASE")
     testCompile (group: 'junit', name: 'junit', version: '4.+')
 }
 
