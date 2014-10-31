@@ -1,4 +1,4 @@
-package config;
+package components;
 
 import java.io.IOException;
 import javax.servlet.Filter;

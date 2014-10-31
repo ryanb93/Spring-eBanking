@@ -23,6 +23,7 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,13 +37,13 @@ import web.events.users.CreateUserResponse;
 import web.services.UserService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/v1.0/users")
 public class LoginController {
     
-    private UserService userService;
-    private DefaultTokenServices tokenServices;
-    private PasswordEncoder passwordEncoder;
-    private ClientDetailsService clientDetailsService;
+    private final UserService userService;
+    private final DefaultTokenServices tokenServices;
+    private final PasswordEncoder passwordEncoder;
+    private final ClientDetailsService clientDetailsService;
     
     @Autowired
     public LoginController(final UserService userService,
@@ -63,7 +64,7 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<CreateUserRequest> signupUser(final CreateUserRequest request) {
+    public ResponseEntity<CreateUserRequest> signupUser(@RequestHeader CreateUserRequest request) {
         ApiUser user = userService.createUser(request);
         CreateUserResponse createUserResponse = new CreateUserResponse(user, createTokenForNewUser(
                 user.getId(), request.getPassword().getPassword(), SecurityContextHolder.getContext().getAuthentication().getDetails().toString()));

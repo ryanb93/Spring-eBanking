@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.springframework.org/schema/beans/spring-beans.xsd" uri="www.springframework.org/schema/beans/spring-beans.xsd"/>
+    <system systemId="http://www.springframework.org/schema/mvc/spring-mvc.xsd" uri="www.springframework.org/schema/mvc/spring-mvc.xsd"/>
+    <system systemId="http://www.springframework.org/schema/context/spring-context.xsd" uri="www.springframework.org/schema/context/spring-context.xsd"/>
+    <system systemId="http://www.springframework.org/schema/beans/spring-beans-4.1.xsd" uri="www.springframework.org/schema/beans/spring-beans-4.1.xsd"/>
+    <system systemId="http://www.springframework.org/schema/tool/spring-tool-4.1.xsd" uri="www.springframework.org/schema/tool/spring-tool-4.1.xsd"/>
+    <system systemId="http://www.springframework.org/schema/security/spring-security-oauth2.xsd" uri="www.springframework.org/schema/security/spring-security-oauth2.xsd"/>
+    <system systemId="http://www.springframework.org/schema/beans/spring-beans-3.1.xsd" uri="www.springframework.org/schema/beans/spring-beans-3.1.xsd"/>
+    <system systemId="http://www.springframework.org/schema/security" uri="www.springframework.org/schema/security/index"/>
+    <system systemId="http://www.springframework.org/schema/security/spring-security.xsd" uri="www.springframework.org/schema/security/spring-security.xsd"/>
+</catalog>
