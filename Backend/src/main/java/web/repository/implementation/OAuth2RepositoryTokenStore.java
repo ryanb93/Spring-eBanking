@@ -10,12 +10,13 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.stereotype.Repository;
 import web.domain.OAuth2AuthenticationAccessToken;
 import web.domain.OAuth2AuthenticationRefreshToken;
 import web.repository.OAuth2AccessTokenRepository;
 import web.repository.OAuth2RefreshTokenRepository;
 
-
+@Repository
 public class OAuth2RepositoryTokenStore implements TokenStore {
 
     private final OAuth2AccessTokenRepository oAuth2AccessTokenRepository;

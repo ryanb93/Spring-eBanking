@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@EnableMongoRepositories(basePackages = "core.repository")
+@EnableMongoRepositories(basePackages = {"core.repository", "web.repository"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
