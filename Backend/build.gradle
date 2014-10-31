@@ -2,7 +2,6 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'mongo'
-apply plugin: 'tomcat'
 
 project.group = 'uk.ac.surrey.com3014.group2'
 project.version = '1.0.0-milestone-1-SNAPSHOT'
@@ -16,7 +15,6 @@ buildscript {
 
     }
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
         classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.4.0'
     }
@@ -30,9 +28,6 @@ ext {
     springIntegrationVersion = "4.0.2.RELEASE"
     tomcatVersion = '7.0.11'
     springSecurityVersion = "3.2.4.RELEASE"
-    jerseyVersion = "2.11"
-    jacksonVersion = "1.9.13"
-
 }
 
 mongo {
@@ -80,8 +75,6 @@ repositories {
 }
 
 dependencies {    
-    providedCompile "javax.servlet:servlet-api:2.5"
-    providedCompile "javax.ws.rs:jsr311-api:0.11"
     compile ("org.springframework.boot:spring-boot-starter-web")
     compile "org.springframework:spring-beans:${springFrameworkVersion}"
     compile "org.springframework:spring-core:${springFrameworkVersion}"
