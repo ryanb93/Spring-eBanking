@@ -6,13 +6,17 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -23,7 +27,7 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,11 +67,27 @@ public class LoginController {
         return modelAndView;
     }
 
+    private Logger LOG = LoggerFactory.getLogger(LoginController.class);
+
+    
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<CreateUserRequest> signupUser(@RequestHeader CreateUserRequest request) {
+    public ResponseEntity<CreateUserRequest> signupUser(@RequestBody CreateUserRequest request) {
         ApiUser user = userService.createUser(request);
-        CreateUserResponse createUserResponse = new CreateUserResponse(user, createTokenForNewUser(
-                user.getId(), request.getPassword().getPassword(), SecurityContextHolder.getContext().getAuthentication().getDetails().toString()));
+        
+        String id = user.getId();
+        String password = request.getPassword().getPassword();
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication auth = context.getAuthentication();
+        String name = auth.getName();
+        
+        LOG.info("id [{}].", id);
+        LOG.info("password [{}].", password);
+        LOG.info("name [{}].", name);
+
+        OAuth2AccessToken token = createTokenForNewUser(id, password, name);
+        LOG.info("id [{}].", token.getValue());
+
+        CreateUserResponse createUserResponse = new CreateUserResponse(user, token);
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.CREATED;
         return new ResponseEntity(createUserResponse, headers, status);

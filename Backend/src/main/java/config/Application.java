@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ComponentScan
@@ -14,4 +15,9 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+}
+
+@Configuration
+@ImportResource("/META-INF/spring/application-context.xml")
+class XmlImportingConfiguration {
 }

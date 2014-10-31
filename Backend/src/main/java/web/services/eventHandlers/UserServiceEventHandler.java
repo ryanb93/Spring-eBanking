@@ -47,12 +47,14 @@ public class UserServiceEventHandler extends BaseService implements UserService,
 
         LOG.info("Validating user request.");
         validate(createUserRequest);
-        final String emailAddress = createUserRequest.getApiUser().getEmailAddress().toLowerCase();
+        final String emailAddress = createUserRequest.getUser().getEmailAddress().toLowerCase();
         if (userRepository.findByEmailAddress(emailAddress) == null) {
             LOG.info("User does not already exist in the data store - creating a new user [{}].",
                     emailAddress);
+            LOG.info("ABOUT TO CALL insertNewUser");
             User newUser = insertNewUser(createUserRequest);
-            LOG.debug("Created new user [{}].", newUser.getEmailAddress());
+            LOG.info("FINISHED CALL TO insertNewUser");
+            LOG.info("Created new user [{}].", newUser.getEmailAddress());
             return new ApiUser(newUser);
         } else {
             LOG.info("Duplicate user located, exception raised with appropriate HTTP response code.");
@@ -126,8 +128,10 @@ public class UserServiceEventHandler extends BaseService implements UserService,
     }
 
     private User insertNewUser(final CreateUserRequest createUserRequest) {
+        LOG.info("insertNewUser [-----------]");
+        LOG.info("insertNewUser [{}]", createUserRequest.getUser().getEmailAddress());
         String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword().getPassword());
-        User newUser = new User(createUserRequest.getApiUser(), hashedPassword, Role.ROLE_USER);
+        User newUser = new User(createUserRequest.getUser(), hashedPassword, Role.ROLE_USER);
         return userRepository.save(newUser);
     }
 

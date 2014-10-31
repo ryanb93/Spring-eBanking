@@ -25,11 +25,11 @@ public class CreateUserRequest {
         this.password = password;
     }
 
-    public ApiUser getApiUser() {
+    public ApiUser getUser() {
         return user;
     }
 
-    public void setApiUser(ApiUser user) {
+    public void setUser(ApiUser user) {
         this.user = user;
     }
 

@@ -32,7 +32,7 @@
         </property>
     </bean>
 
-    <bean id="roleVoter" class="com.components.HierarchicalJsr250Voter">
+    <bean id="roleVoter" class="components.HierarchicalJsr250Voter">
         <constructor-arg ref="roleHierarchy" />
     </bean>
 

@@ -12,14 +12,8 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- Have Spring servlet handle all static content -->
-    <mvc:default-servlet-handler/>
-    <mvc:annotation-driven />
 
-    <context:component-scan base-package="config"/>
-    <context:component-scan base-package="core"/>
-    <context:component-scan base-package="web"/>
-    <context:component-scan base-package="rest"/>
-
+    
     <import resource="classpath:META-INF/spring/security/security-configuration.xml"/>
     <import resource="classpath:META-INF/spring/security/authentication-managers.xml"/>
     <import resource="classpath:META-INF/spring/security/endpoint-configuration.xml"/>

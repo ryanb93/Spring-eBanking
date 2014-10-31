@@ -37,10 +37,6 @@ public class UserConfiguration {
     @Autowired
     private ClientDetailsService clientDetailsService;
     
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 //    @Bean
 //    public VerificationTokenService verificationTokenService() {
