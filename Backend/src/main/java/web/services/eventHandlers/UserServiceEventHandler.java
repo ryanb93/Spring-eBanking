@@ -1,19 +1,9 @@
 package web.services.eventHandlers;
 
-import core.events.customers.AllCustomersEvent;
-import core.events.customers.CreateCustomerEvent;
-import core.events.customers.CustomerDetailsEvent;
-import core.events.customers.RequestAllCustomersEvent;
-import core.events.customers.RequestCustomerDetailsEvent;
-import core.events.customers.RequestNewCustomerEvent;
-import core.events.customers.RequestUpdateCustomerDetailsEvent;
-import core.events.customers.UpdateCustomerDetailsEvent;
-import core.services.CustomerService;
 import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import static org.springframework.util.Assert.notNull;
 import web.domain.ApiUser;
+import web.domain.Role;
 import web.domain.User;
 import web.events.users.CreateUserRequest;
 import web.repository.UserRepository;
@@ -32,7 +23,7 @@ import web.services.UserService;
 
 
 @Service
-public class UserServiceEventHandler extends BaseService implements CustomerService, UserDetailsService {
+public class UserServiceEventHandler extends BaseService implements UserService, UserDetailsService {
 
     private Logger LOG = LoggerFactory.getLogger(UserService.class);
     private UserRepository userRepository;
@@ -51,12 +42,12 @@ public class UserServiceEventHandler extends BaseService implements CustomerServ
         return locateUser(username);
     }
 
-    @Transactional
+    @Override
     public ApiUser createUser(final CreateUserRequest createUserRequest) {
 
         LOG.info("Validating user request.");
         validate(createUserRequest);
-        final String emailAddress = createUserRequest.getUser().getEmailAddress().toLowerCase();
+        final String emailAddress = createUserRequest.getApiUser().getEmailAddress().toLowerCase();
         if (userRepository.findByEmailAddress(emailAddress) == null) {
             LOG.info("User does not already exist in the data store - creating a new user [{}].",
                     emailAddress);
@@ -65,7 +56,7 @@ public class UserServiceEventHandler extends BaseService implements CustomerServ
             return new ApiUser(newUser);
         } else {
             LOG.info("Duplicate user located, exception raised with appropriate HTTP response code.");
-            throw new DuplicateUserException();
+            throw new IllegalArgumentException();
         }
     }
 
@@ -75,43 +66,46 @@ public class UserServiceEventHandler extends BaseService implements CustomerServ
         Assert.notNull(password);
         User user = locateUser(username);
         if(!passwordEncoder.encode(password).equals(user.getHashedPassword())) {
-            throw new AuthenticationException();
+//            throw new AuthenticationException();
+            return null;
         }
         return new ApiUser(user);
     }
 
-    @Transactional
-    public ApiUser saveUser(String userId, UpdateUserRequest request) {
-        validate(request);
-        User user = userRepository.findById(userId);
-        if(user == null) {
-            throw new UserNotFoundException();
-        }
-        if(request.getFirstName() != null) {
-            user.setFirstName(request.getFirstName());
-        }
-        if(request.getLastName() != null) {
-            user.setLastName(request.getLastName());
-        }
-        if(request.getEmailAddress() != null) {
-            if(!request.getEmailAddress().equals(user.getEmailAddress())) {
-                user.setEmailAddress(request.getEmailAddress());
-                user.setVerified(false);
-            }
-        }
-        userRepository.save(user);
-        return new ApiUser(user);
-    }
-
-    @Override
-    public ApiUser getUser(String userId) {
-        Assert.notNull(userId);
-        User user = userRepository.findById(userId);
-        if(user == null) {
-            throw new UserNotFoundException();
-        }
-        return new ApiUser(user);
-    }
+//    @Transactional
+//    public ApiUser saveUser(String userId, UpdateUserRequest request) {
+//        validate(request);
+//        User user = userRepository.findById(userId);
+//        if(user == null) {
+////            throw new UserNotFoundException();
+//            return null;
+//        }
+//        if(request.getFirstName() != null) {
+//            user.setFirstName(request.getFirstName());
+//        }
+//        if(request.getLastName() != null) {
+//            user.setLastName(request.getLastName());
+//        }
+//        if(request.getEmailAddress() != null) {
+//            if(!request.getEmailAddress().equals(user.getEmailAddress())) {
+//                user.setEmailAddress(request.getEmailAddress());
+//                user.setVerified(false);
+//            }
+//        }
+//        userRepository.save(user);
+//        return new ApiUser(user);
+//    }
+//
+//    @Override
+//    public ApiUser getUser(String userId) {
+//        Assert.notNull(userId);
+//        User user = userRepository.findById(userId);
+//        if(user == null) {
+////            throw new UserNotFoundException();
+//            return null;
+//        }
+//        return new ApiUser(user);
+//    }
 
     /**
      * Locate the user and throw an exception if not found.
@@ -125,36 +119,28 @@ public class UserServiceEventHandler extends BaseService implements CustomerServ
         User user = userRepository.findByEmailAddress(username.toLowerCase());
         if (user == null) {
             LOG.debug("Credentials [{}] failed to locate a user - hint, username.", username.toLowerCase());
-            throw new AuthenticationException();
+//            throw new AuthenticationException();
+            return null;
         }
         return user;
     }
 
     private User insertNewUser(final CreateUserRequest createUserRequest) {
         String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword().getPassword());
-        User newUser = new User(createUserRequest.getUser(), hashedPassword, Role.ROLE_USER);
+        User newUser = new User(createUserRequest.getApiUser(), hashedPassword, Role.ROLE_USER);
         return userRepository.save(newUser);
     }
 
     @Override
-    public CustomerDetailsEvent requestCustomerDetails(RequestCustomerDetailsEvent requestCustomerDetailsEvent) {
+    public ApiUser getUser(String userId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AllCustomersEvent requestAllCustomers(RequestAllCustomersEvent requestAllCustomersEvent) {
+    public ApiUser saveUser(String userId, CreateUserRequest request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public CreateCustomerEvent requestNewCustomer(RequestNewCustomerEvent requestNewCustomerEvent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public UpdateCustomerDetailsEvent requestUpdateCustomer(RequestUpdateCustomerDetailsEvent requestUpdateCustomerDetailsEvent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 
 }
