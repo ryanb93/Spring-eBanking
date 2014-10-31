@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'mongo'
+apply plugin: 'tomcat'
 
 project.group = 'uk.ac.surrey.com3014.group2'
 project.version = '1.0.0-milestone-1-SNAPSHOT'
@@ -10,17 +12,28 @@ buildscript {
         maven { url "http://repo.spring.io/libs-release" }
         mavenLocal()
         mavenCentral()
+        jcenter()
+
     }
     dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
         classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.4.0'
     }
 }
 
-apply plugin: 'mongo'
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'spring-boot'
+ext {
+    springFrameworkVersion = "4.0.5.RELEASE"
+    springDataVersion = "1.6.1.RELEASE"
+    springDataMongoDBVersion = "1.5.1.RELEASE"
+    springSecurityOauth2Version = "2.0.2.RELEASE"
+    springIntegrationVersion = "4.0.2.RELEASE"
+    tomcatVersion = '7.0.11'
+    springSecurityVersion = "3.2.4.RELEASE"
+    jerseyVersion = "2.11"
+    jacksonVersion = "1.9.13"
+
+}
 
 mongo {
 	logging "console"
@@ -67,11 +80,25 @@ repositories {
 }
 
 dependencies {    
+    providedCompile "javax.servlet:servlet-api:2.5"
+    providedCompile "javax.ws.rs:jsr311-api:0.11"
     compile ("org.springframework.boot:spring-boot-starter-web")
-    compile ("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile ("org.springframework.data:spring-data-mongodb")
-    compile ("org.springframework.boot:spring-boot-starter-security")
-    compile ("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE")
+    compile "org.springframework:spring-beans:${springFrameworkVersion}"
+    compile "org.springframework:spring-core:${springFrameworkVersion}"
+    compile "org.springframework:spring-context:${springFrameworkVersion}"
+    compile "org.springframework:spring-webmvc:${springFrameworkVersion}"
+    compile "org.springframework:spring-web:${springFrameworkVersion}"
+    compile "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}"
+    compile "org.springframework.security:spring-security-core:${springSecurityVersion}"
+    compile "org.springframework.data:spring-data-jpa:${springDataVersion}"
+    compile "org.springframework.data:spring-data-mongodb:${springDataMongoDBVersion}"
+    compile "org.springframework.integration:spring-integration-core:${springIntegrationVersion}"
+    compile "org.springframework.integration:spring-integration-mail:${springIntegrationVersion}"
+    compile "org.hibernate:hibernate-validator:5.1.0.Final"
+    compile "javax.el:javax.el-api:2.2.5"
+    compile "org.glassfish.web:javax.el:2.2.5"
+    compile "org.apache.velocity:velocity:1.7"
+    compile "joda-time:joda-time:2.3"
     testCompile (group: 'junit', name: 'junit', version: '4.+')
 }
 
