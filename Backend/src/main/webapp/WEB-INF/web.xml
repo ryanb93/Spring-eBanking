@@ -62,6 +62,11 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/oauth/token</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>admin</servlet-name>
+    <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
 
     <filter-mapping>
         <filter-name>static-filter</filter-name>
