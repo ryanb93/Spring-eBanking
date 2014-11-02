@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="java.util.List"%>
 <%@page import="core.domain.Customer"%>
+<%@page import="core.domain.Account"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,51 +59,49 @@
             <input type="submit" value="submit" />
         </form>
     </div>
-    <div>
-        <h2>Remove All Customers</h2>
-        <button name="RemoveAllCustomers">Remove all Customers</button>
-    </div>
     <br />
     <div>
         <h2>Add Customer Account</h2>
-        <form name="AddAccount" action="action" method="post">
+        <form name="AddAccount" action="/adminPanel/addAccount" method="post">
             Customer:
-        <select>
+        <select name="selectedCustomerId">
         <% List<Customer> addAccCustomers = (List<Customer>) request.getAttribute( "customers" ); %>
         <% for (Customer customer : addAccCustomers) {
                 pageContext.setAttribute("addAccFirstName", customer.getFirstName() );
-                pageContext.setAttribute("addAccLastName", customer.getLastName());%>
-            <option>${addAccFirstName} ${addAccLastName}</option>
+                pageContext.setAttribute("addAccLastName", customer.getLastName());
+                pageContext.setAttribute("customerId", customer.getCustomerId());%>
+            <option value="${customerId}" name="selectedCustomerId">${addAccFirstName} ${addAccLastName}</option>
         <% } %> 
         </select>
             <br />
-            Account Type:
-            <select>
-                <option>Current</option>
-                <option>Savings</option>
-                <option>ISA</option>
+            <label>Account Type:    </label>
+            <select name="selectedAccountType">
+                <option value="current" name="selectedAccountType">Current</option>
+                <option value="savings" name="selectedAccountType">Savings</option>
+                <option value = "isa" name="selectedAccountType">ISA</option>
             </select>
-            <input type="submit" value="addAccount" />
+            <br />
+            <label>Sort Code</label>
+            <input type="text" name="sortCode" />
+            <br />
+            <label>Account Number</label>
+            <input type="text" name="accountNumber" />
+            <br />
+            <input type="submit" value="add Account" />
         </form>
         <br />
     </div>
     <div>
         <h2>Remove Account</h2>
-        <form name="RemoveAccount" action="action" method="post">
-        Customer:
-            <select>
-        <% List<Customer> removeAccCustomers = (List<Customer>) request.getAttribute( "customers" ); %>
-        <% for (Customer customer : addAccCustomers) {
-                pageContext.setAttribute("removeAccFirstName", customer.getFirstName() );
-                pageContext.setAttribute("removeAccLastName", customer.getLastName());%>
-            <option>${removeAccFirstName} ${removeAccLastName}</option>
-        <% } %> 
-            </select>
-            <br />
-            <select>
-                <option>Account 1</option>
-                <option>Account 2</option>
-                <option>Account 3 </option>
+        <form name="RemoveAccount" action="/adminPanel/removeAccount" method="post">
+            <select name="selectedAccountId">
+        <% List<Account> removeAccAccounts = (List<Account>) request.getAttribute( "accounts" ); %>
+        <% for (Account account : removeAccAccounts){
+               pageContext.setAttribute("accId",account.getAccountId());
+                pageContext.setAttribute("accNo", account.getAccountNumber());%>
+            <option value="${accId}">Account Id: ${accId}, Account Number: ${accNo}</option>
+            <% } %>
+       
             </select>
             <input type="submit" value="RemoveAccount" />
         </form>

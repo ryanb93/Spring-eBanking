@@ -1,6 +1,7 @@
 package rest.controller;
 
 import core.domain.Account;
+import core.domain.AccountType;
 import core.domain.Customer;
 import core.domain.PostalAddress;
 import core.events.accounts.CreateAccountEvent;
@@ -9,6 +10,7 @@ import core.events.customers.AllCustomersEvent;
 import core.events.customers.CreateCustomerEvent;
 import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestNewCustomerEvent;
+import core.repository.AccountRepository;
 import core.repository.CustomerRepository;
 import core.services.AccountService;
 import core.services.CustomerService;
@@ -54,6 +56,8 @@ public class AdminController {
     @Autowired
     private CustomerRepository customerRepository;
     
+    @Autowired
+    private AccountRepository accountRepository;
 
     @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -66,8 +70,10 @@ public class AdminController {
     @RequestMapping(Routes.ADMIN_PANEL)
     public ModelAndView helloWorld( ModelMap model ) {
         List customers = customerRepository.findAll();
+        List accounts = accountRepository.findAll();
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("customers", customers);
+        modelAndView.addObject("accounts", accounts);
 		return modelAndView;
 	}
     
@@ -86,16 +92,8 @@ public class AdminController {
         customer.setLastName(lastName);
         customer.setDateOfBirth(birth);
         customer.setAddress(new PostalAddress(houseNumber, street, city, county, country, postCode));
-        
-        CreateCustomerEvent event = customerService.requestNewCustomer(new RequestNewCustomerEvent(customer));
 
-        Customer newCustomer = event.getCustomer();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(
-                builder.path(Routes.API)
-                .buildAndExpand(newCustomer.getCustomerId()).toUri());
-
+        customerRepository.save(customer);
         return new ModelAndView("redirect:/adminPanel");
     }
     
@@ -106,37 +104,36 @@ public class AdminController {
       return new ModelAndView("redirect:/adminPanel");
     }
     
-            /**@RequestMapping(value = Routes.API+"/addCustomer", method = RequestMethod.POST)
-    public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
-
-        CreateCustomerEvent event = customerService.requestNewCustomer(new RequestNewCustomerEvent(customer));
-
-        Customer newCustomer = event.getCustomer();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(
-                builder.path(Routes.API)
-                .buildAndExpand(newCustomer.getCustomerId()).toUri());
-
-        return new ResponseEntity(newCustomer, headers, HttpStatus.CREATED);
-    }**/
-    
-    @RequestMapping(value = Routes.ACCOUNTS, method = RequestMethod.POST)
-    public ResponseEntity<Account> createNewAccount(@PathVariable("customer_id") String customerId, @RequestBody Account account, UriComponentsBuilder builder) {
-
+    @RequestMapping(value = Routes.ADMIN_PANEL+"/addAccount", method = RequestMethod.POST)
+    public ModelAndView AddAccount(@RequestParam("selectedCustomerId") String customerId, @RequestParam("selectedAccountType") String selectedAccountType, 
+                                             @RequestParam("sortCode") String sortCode, @RequestParam("accountNumber") String accountNumber, UriComponentsBuilder builder){
+        Account account = new Account();
+        switch (selectedAccountType){
+                case "current":
+                        account.setAccountType(AccountType.CURRENT);
+                        break;
+                case "savings":
+                        account.setAccountType(AccountType.SAVINGS);
+                        break;
+                case "isa":
+                        account.setAccountType(AccountType.ISA);
+                        break;
+        }
+        account.setSortCode(sortCode);
+        account.setAccountNumber(accountNumber);
         account.setCustomerId(customerId);
-
-        CreateAccountEvent event = accountService.requestNewAccount(new RequestNewAccountEvent(account));
-
-        Account newAccount = event.getAccount();
+        accountRepository.save(account);
         
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(
-                builder.path(Routes.API)
-                .buildAndExpand(newAccount.getAccountId()).toUri());
-
-        return new ResponseEntity(newAccount, headers, HttpStatus.CREATED);
-    } 
+      return new ModelAndView("redirect:/adminPanel");
+    }
+    
+    @RequestMapping(value = Routes.ADMIN_PANEL+"/removeAccount", method = RequestMethod.POST)
+    public ModelAndView RemoveAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder){
+     Account accountToDelete =  accountRepository.findOne(accountId);
+     accountRepository.delete(accountToDelete);
+     
+      return new ModelAndView("redirect:/adminPanel");
+    }
     
     //TODO: Remove after testing has been complete
     @RequestMapping(Routes.TEST_JSON_CUSTOMER)
