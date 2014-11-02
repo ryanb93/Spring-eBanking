@@ -20,6 +20,16 @@
     <import resource="classpath:META-INF/spring/oauth/oauth2-configuration.xml"/>
     <import resource="classpath:META-INF/spring/oauth/token-store.xml"/>
     <import resource="classpath:META-INF/spring/oauth/client-details.xml"/>
+    
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix">
+        <value>/WEB-INF/views/</value>
+    </property>
+    <property name="suffix">
+        <value>.jsp</value>
+    </property>
+</bean>
 
 
 </beans>
