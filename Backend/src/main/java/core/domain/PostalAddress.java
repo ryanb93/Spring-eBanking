@@ -142,4 +142,9 @@ public class PostalAddress {
     public String getPostalCode() {
         return this.postalCode;
     }
+    
+        public String getPostalAddress() {
+        return (houseNumber+", " + street+", "+city+", "+county+", "+country+", "+postalCode);
+    }
+    
 }

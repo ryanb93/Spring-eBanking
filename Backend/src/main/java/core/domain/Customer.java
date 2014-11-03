@@ -138,5 +138,9 @@ public class Customer {
     public PostalAddress getAddress() {
         return this.address;
     }
+    
+        public String getPostalAddress() {
+        return address.getPostalAddress();
+    }
 
 }

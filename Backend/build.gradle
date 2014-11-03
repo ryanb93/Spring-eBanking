@@ -68,7 +68,7 @@ repositories {
 
 dependencies {    
     compile ("org.springframework.boot:spring-boot-starter-web")
-    compile ("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile ("org.apache.tomcat.embed:tomcat-embed-jasper")
     compile ("org.springframework.data:spring-data-mongodb")
     compile ("org.springframework.boot:spring-boot-starter-security")
     compile ("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE")
