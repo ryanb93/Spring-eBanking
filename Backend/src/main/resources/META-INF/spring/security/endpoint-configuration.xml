@@ -18,13 +18,7 @@
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
     </http>
 
-    <http pattern="/api/**" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
-          xmlns="http://www.springframework.org/schema/security">
-        <intercept-url pattern="/api/**" method="GET" access="IS_AUTHENTICATED_FULLY"/>
-        <anonymous enabled="false"/>
-        <http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
-        <access-denied-handler ref="oauthAccessDeniedHandler"/>
-    </http>
+
 
 
     <!-- REST API Endpoints -->
