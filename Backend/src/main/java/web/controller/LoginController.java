@@ -21,6 +21,13 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView("login", "model", null);
         return modelAndView;
     }
+    
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public String doLogin(@RequestParam(value = "username") String username, @RequestParam(value="password") String password) {
+        return "Username: " + username + " Password: " + password;
+    }
 
     
 }
