@@ -4,6 +4,8 @@ import core.domain.Account;
 import core.domain.AccountType;
 import core.domain.Customer;
 import core.domain.PostalAddress;
+import core.domain.Transaction;
+import core.domain.TransactionType;
 import core.events.accounts.CreateAccountEvent;
 import core.events.accounts.RequestNewAccountEvent;
 import core.events.customers.AllCustomersEvent;
@@ -12,6 +14,7 @@ import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestNewCustomerEvent;
 import core.repository.AccountRepository;
 import core.repository.CustomerRepository;
+import core.repository.TransactionRepository;
 import core.services.AccountService;
 import core.services.CustomerService;
 import java.text.ParseException;
@@ -58,6 +61,9 @@ public class AdminController {
     
     @Autowired
     private AccountRepository accountRepository;
+    
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -71,9 +77,11 @@ public class AdminController {
     public ModelAndView helloWorld( ModelMap model ) {
         List customers = customerRepository.findAll();
         List accounts = accountRepository.findAll();
+        List transactions = transactionRepository.findAll();
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("customers", customers);
         modelAndView.addObject("accounts", accounts);
+        modelAndView.addObject("transactions", transactions);
 		return modelAndView;
 	}
     
@@ -131,6 +139,63 @@ public class AdminController {
     public ModelAndView RemoveAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder){
      Account accountToDelete =  accountRepository.findOne(accountId);
      accountRepository.delete(accountToDelete);
+     
+      return new ModelAndView("redirect:/adminPanel");
+    }
+    
+    @RequestMapping(value = Routes.ADMIN_PANEL+"/addTransaction", method = RequestMethod.POST)
+    public ModelAndView AddTransaction(@RequestParam("sender") String sender, @RequestParam("recipient") String recipient, 
+                                             @RequestParam("date") String date, @RequestParam("value") String value, 
+                                             @RequestParam("accId") String accountId, @RequestParam("selectedTransactionType") String selectedTransactionType,
+                                             UriComponentsBuilder builder) throws ParseException{
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
+        Date transactionDate = formatter.parse(date);
+       Double transactionValue = Double.parseDouble(value);
+        Transaction transaction = new Transaction();
+        
+        switch (selectedTransactionType){
+                case "cash":
+                        transaction.setTransactionType(TransactionType.CASH);
+                        break;
+                case "creditCard":
+                        transaction.setTransactionType(TransactionType.CREDIT_CARD);
+                        break;
+                case "debitCard":
+                        transaction.setTransactionType(TransactionType.DEBIT_CARD);
+                        break;
+                case "directDebit":
+                        transaction.setTransactionType(TransactionType.DIRECT_DEBIT);
+                        break;
+                case "bacs":
+                        transaction.setTransactionType(TransactionType.BACS);
+                        break;
+                case "standingOrder":
+                        transaction.setTransactionType(TransactionType.STANDING_ORDER);
+                        break;
+               case "paypal":
+                        transaction.setTransactionType(TransactionType.PAYPAL);
+                        break;
+               case "other":
+                        transaction.setTransactionType(TransactionType.OTHER);
+                        break;
+        }
+        
+        transaction.setDate(transactionDate);
+        transaction.setRecipient(recipient);
+        transaction.setSender(sender);
+        transaction.setValue(transactionValue);
+        transaction.setAccountId(accountId);
+        
+        transactionRepository.save(transaction);
+        
+      return new ModelAndView("redirect:/adminPanel");
+    }
+    
+    @RequestMapping(value = Routes.ADMIN_PANEL+"/removeTransaction", method = RequestMethod.POST)
+    public ModelAndView RemoveTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder){
+     Transaction transactionToDelete =  transactionRepository.findOne(transactionId);
+     transactionRepository.delete(transactionToDelete);
      
       return new ModelAndView("redirect:/adminPanel");
     }
