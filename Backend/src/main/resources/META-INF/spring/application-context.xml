@@ -21,7 +21,7 @@
     <import resource="classpath:META-INF/spring/oauth/token-store.xml"/>
     <import resource="classpath:META-INF/spring/oauth/client-details.xml"/>
 
-    <mvc:resources mapping="/static/**" location="/static/" />
+    <mvc:resources mapping="/**" location="/static/" />
     
     
 </beans>

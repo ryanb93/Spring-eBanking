@@ -41,7 +41,7 @@ import web.events.users.CreateUserResponse;
 import web.services.UserService;
 
 @Controller
-@RequestMapping("/oauth/users")
+@RequestMapping("/v1.0/users")
 public class LoginController {
     
     private final UserService userService;
