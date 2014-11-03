@@ -24,5 +24,6 @@ public class Routes {
     public static final String TEST_JSON_CUSTOMER = "/jsonCustomer";
     public static final String TEST_SINGLE_THIRD_PARTY_APP = "/singleApp";
     public static final String TEST_SINGLE_TRANSACTION = "/singleTransaction";
+    public static final String ADMIN_PANEL = "/adminPanel";
     
 }
