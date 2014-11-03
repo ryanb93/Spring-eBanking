@@ -11,14 +11,6 @@
         <link rel="stylesheet" type="text/css" href="css/app.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
-        <style>
-            label {
-                float: left;
-                width: 10em;
-                margin-right: 1em;
-                margin-left:5em;
-            }
-        </style>
 
         <title>e-Banking Admin Panel</title>
     </head>
@@ -46,13 +38,13 @@
                 <div class="panel panel-heading">
                     <h1>Customers</h1>
                 </div>
-                <table class="panel-footer btn-block" style="text-align: center">
+                <table class="panel-footer btn-block centertextalign">
                     <tr>
-                        <td style="width: 20%; font-weight: bold;">Customer Id</td>
-                        <td style="width: 10%; font-weight: bold;">First Name</td>
-                        <td style="width: 10%; font-weight: bold;">Last Name</td>
-                        <td style="width: 20%; font-weight: bold;">Date Of Birth</td>
-                        <td style="width: 40%; font-weight: bold;">Postal Address</td>
+                        <td id="twentypercent">Customer Id</td>
+                        <td id="tenpercent">First Name</td>
+                        <td id="tenpercent">Last Name</td>
+                        <td id="twentypercent">Date Of Birth</td>
+                        <td id="fortypercent">Postal Address</td>
                     </tr>
                     <% List<Customer> allCustomers = (List<Customer>) request.getAttribute( "customers" ); %>
                     <% for (Customer customer : allCustomers){
@@ -74,8 +66,7 @@
             </div>
 
 
-            <div class="panel-footer btn-block" style=" float:right; width: 50%">
-                <div style="text-align:center">
+            <div class="panel-footer centertextalign rightpanelapp">
                     <h2>Remove Customer</h2>
                     <form name="removeCustomer" action="/adminPanel/removeCustomer" method="post" >
                         <select name="selectedCustomerId">
@@ -89,16 +80,14 @@
                         </select>   
                         <input type="submit" value="Remove Customer" />
                     </form>
-                </div>
             </div>
 
 
-            <div style="text-align:center">
-                <div class="panel-footer btn-block" style="overflow:auto; width:50%;">
+                <div class="panel-footer centertextalign leftpanelapp">
                     <h2>Add New Customer</h2>
                     <form name="input" action="/adminPanel/addCustomer" method="post" >
                         <label>First Name</label>
-                        <input type="text" name="firstName" style="" />
+                        <input type="text" name="firstName"/>
                         <br />
                         <label>Last Name</label>
                         <input type="text" name="lastName"/>
@@ -127,7 +116,6 @@
                         <input type="submit" value="Add Customer" />
                     </form>
                 </div>
-            </div>
 
 
             <hr>
@@ -135,14 +123,14 @@
                 <div class="panel panel-heading">
                     <h1>Accounts</h1>
                 </div>
-                <table class="panel-footer btn-block" style="text-align: center">
+                <table class="panel-footer btn-block centertextalign">
                     <tr>
-                        <td style="width: 20%; font-weight: bold;">Account Id</td>
-                        <td style="width: 20%; font-weight: bold;">Customer Id</td>
-                        <td style="width: 20%; font-weight: bold;">Account Number</td>
-                        <td style="width: 20%; font-weight: bold;">Sort Code</td>
-                        <td style="width: 20%; font-weight: bold;">Account Type</td>
-                        <td style="width: 20%; font-weight: bold;">Balance</td>
+                        <td id="twentypercent">Account Id</td>
+                        <td id="twentypercent">Customer Id</td>
+                        <td id="twentypercent">Account Number</td>
+                        <td id="twentypercent">Sort Code</td>
+                        <td id="twentypercent">Account Type</td>
+                        <td id="twentypercent">Balance</td>
                     </tr>
                     <% List<Account> allAccounts = (List<Account>) request.getAttribute( "accounts" ); %>
                     <% for (Account account : allAccounts){
@@ -165,9 +153,8 @@
                 </table>
             </div>
 
-
-            <div style="text-align:center">
-                <div class="panel-footer btn-block" style=" float:right; width: 50%">
+                
+                <div class="panel-footer centertextalign rightpanelapp">
                     <h2>Remove Account</h2>
                     <form name="RemoveAccount" action="/adminPanel/removeAccount" method="post">
                         <select name="selectedAccountId">
@@ -181,11 +168,9 @@
                         <input type="submit" value="Remove Account" />
                     </form>
                 </div> 
-            </div>
 
 
-            <div style="text-align:center">
-                <div class="panel-footer btn-block" style=" overflow:auto; width: 50%">
+                <div class="panel-footer centertextalign leftpanelapp">
                     <h2>Add Customer Account</h2>
                     <form name="AddAccount" action="/adminPanel/addAccount" method="post">
                         <label>Customer:</label>
@@ -222,7 +207,6 @@
                     </form>
                     <br />
                 </div>  
-            </div>
             <hr>  
 
 
@@ -230,15 +214,15 @@
                 <div class="panel panel-heading">
                     <h1>Transactions</h1>
                 </div>
-                <table  class="panel-footer btn-block" style="text-align: center">
+                <table  class="panel-footer btn-block centertextalign">
                     <tr>
-                        <td style="width: 20%; font-weight: bold;">Transaction Id</td>
-                        <td style="width: 20%; font-weight: bold;">Account Id</td>
-                        <td style="width: 10%; font-weight: bold;">Sender</td>
-                        <td style="width: 10%; font-weight: bold;">Recipient</td>
-                        <td style="width: 10%; font-weight: bold;">Value</td>
-                        <td style="width: 10%; font-weight: bold;">Date</td>
-                        <td style="width: 10%; font-weight: bold;">Transaction Type </td>
+                        <td id="twentypercent">Transaction Id</td>
+                        <td id="twentypercent">Account Id</td>
+                        <td id="tenpercent">Sender</td>
+                        <td id="tenpercent">Recipient</td>
+                        <td id="tenpercent">Value</td>
+                        <td id="tenpercent">Date</td>
+                        <td id="tenpercent">Transaction Type </td>
                     </tr>
                     <% List<Transaction> allTransactions = (List<Transaction>) request.getAttribute( "transactions" ); %>
                     <% for (Transaction transaction : allTransactions){
@@ -263,8 +247,7 @@
             </div>
 
 
-            <div style="text-align:center">
-                <div class="panel-footer btn-block" style=" float:right; width: 50%">
+                <div class="panel-footer centertextalign rightpanelapp">
                     <h2>Remove Transaction</h2>
                     <form name="RemoveTransaction" action="/adminPanel/removeTransaction" method="post">
                         <select name="selectedTransactionId">
@@ -278,11 +261,9 @@
                         <input type="submit" value="Remove Transaction" />
                     </form>
                 </div> 
-            </div>
 
 
-            <div style="text-align:center">
-                <div class="panel-footer btn-block" style=" overflow:auto; width: 50%">
+                <div class="panel-footer centertextalign leftpanelapp">
                     <h2>Add Transaction</h2>
                     <form name="addTransaction" action="/adminPanel/addTransaction" method="post">
                         <label>Sender</label>
@@ -316,6 +297,5 @@
                     </form>
                 </div>
             </div>
-        </div>
     </body>
 </html>

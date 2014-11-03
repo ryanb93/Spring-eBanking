@@ -5,6 +5,41 @@ body {
   color: #656565;
   padding-bottom: 75px;
 }
+label {
+    float: left;
+    width: 10em;
+    margin-right: 1em;
+    margin-left:5em;
+}
+
+#tenpercent{
+    width: 10%; 
+    font-weight: bold;
+}
+
+#twentypercent{
+    width: 20%; 
+    font-weight: bold;
+}
+
+#fortypercent{
+    width: 40%; 
+    font-weight: bold;
+}
+
+.centertextalign{
+    text-align: center;
+}
+
+.rightpanelapp{
+    float: right;
+    width: 50%;
+}
+
+.leftpanelapp{
+    overflow: auto; 
+    width: 50%;
+}
 
 .placeholder {
   text-align: center;
