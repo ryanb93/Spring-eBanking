@@ -41,14 +41,15 @@ import web.events.users.CreateUserResponse;
 import web.services.UserService;
 
 @Controller
-@RequestMapping("/v1.0/users")
+@RequestMapping("/oauth/users")
 public class LoginController {
     
     private final UserService userService;
     private final DefaultTokenServices tokenServices;
     private final PasswordEncoder passwordEncoder;
     private final ClientDetailsService clientDetailsService;
-    
+    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+
     @Autowired
     public LoginController(final UserService userService,
                         final DefaultTokenServices defaultTokenServices,
@@ -62,31 +63,20 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ModelAndView login(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
-        ModelAndView modelAndView = new ModelAndView("login", "model", null);
+    public ModelAndView login(Model model) {
+        ModelAndView modelAndView = new ModelAndView("index.html", "model", null);
         return modelAndView;
     }
-
-    private Logger LOG = LoggerFactory.getLogger(LoginController.class);
-
     
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CreateUserRequest> signupUser(@RequestBody CreateUserRequest request) {
         ApiUser user = userService.createUser(request);
-        
         String id = user.getId();
         String password = request.getPassword().getPassword();
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
         String name = auth.getName();
-        
-        LOG.info("id [{}].", id);
-        LOG.info("password [{}].", password);
-        LOG.info("name [{}].", name);
-
         OAuth2AccessToken token = createTokenForNewUser(id, password, name);
-        LOG.info("id [{}].", token.getValue());
-
         CreateUserResponse createUserResponse = new CreateUserResponse(user, token);
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.CREATED;
