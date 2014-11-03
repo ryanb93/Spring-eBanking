@@ -39,7 +39,7 @@
                pageContext.setAttribute("firstName", customer.getFirstName());
                pageContext.setAttribute("lastName", customer.getLastName());
                pageContext.setAttribute("dateOfBirth", customer.getDateOfBirth());
-               pageContext.setAttribute("address", customer.getAddress());
+               pageContext.setAttribute("address", customer.getPostalAddress());
                %>
                 <tr>
                     <td>${customerId}</td>
