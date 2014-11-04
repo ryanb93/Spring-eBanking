@@ -47,6 +47,15 @@
     <script src="/js/user.js"></script>
     <script type="text/javascript">
 
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
+
     $(document).ready(function () {
       // Submit form on enter
       $('input').live('keydown', function (event) {
@@ -59,7 +68,7 @@
       $('#login_button').on('click', function () {
         oauth2.user.login($('#email').val(), $('#password').val(), function (error) {
           if (!error)
-            window.location = 'dashboard.html'
+            window.location = unescape(getUrlVars()["redirect_uri"]);
           else {
             console.log(error)
             $('#error_message').html('Email and/or password did not match a user account.').show()
