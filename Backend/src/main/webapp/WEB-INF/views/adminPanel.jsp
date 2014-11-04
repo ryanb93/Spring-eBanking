@@ -77,7 +77,8 @@
                                     pageContext.setAttribute("customerId", customer.getCustomerId());%>
                             <option value="${customerId}" name="selectedCustomerId">${firstName} ${lastName}</option>              
                             <% } %> 
-                        </select>   
+                        </select>
+                        <hr>
                         <input type="submit" value="Remove Customer" />
                     </form>
             </div>
@@ -88,31 +89,23 @@
                     <form name="input" action="/adminPanel/addCustomer" method="post" >
                         <label>First Name</label>
                         <input type="text" name="firstName"/>
-                        <br />
                         <label>Last Name</label>
                         <input type="text" name="lastName"/>
-                        <br />
                         <label>Date of Birth</label>
                         <input type="text" name="dateOfBirth" />
-                        <br />
                         <label>House Number</label>
                         <input type="text" name="houseNumber"/>
-                        <br />
                         <label>Street</label>
                         <input type="text" name="street" />
-                        <br />
                         <label>City</label>
                         <input type="text" name="city"/>
-                        <br />
                         <label>County</label>
                         <input type="text" name="county" />
-                        <br />
                         <label>Country</label>
                         <input type="text" name="country"/>
-                        <br />
                         <label>Post Code</label>
                         <input type="text" name="postCode" />
-                        <br />
+                        <hr>
                         <input type="submit" value="Add Customer" />
                     </form>
                 </div>
@@ -165,6 +158,7 @@
                             <option value="${accId}">Account Id: ${accId}, Account Number: ${accNo}</option>
                             <% } %>
                         </select>
+                        <hr>
                         <input type="submit" value="Remove Account" />
                     </form>
                 </div> 
@@ -183,29 +177,22 @@
                             <option value="${customerId}" name="selectedCustomerId">${addAccFirstName} ${addAccLastName}</option>
                             <% } %> 
                         </select>
-                        <br />
+                        <hr>
                         <label>Account Type:</label>
                         <select name="selectedAccountType">
                             <option value="current" name="selectedAccountType">Current</option>
                             <option value="savings" name="selectedAccountType">Savings</option>
                             <option value = "isa" name="selectedAccountType">ISA</option>
                         </select>
-                        <br />
+                        <hr>
                         <label>Sort Code</label>
                         <input type="text" name="sortCode" />
-                        <br />
+                        <hr>
                         <label>Account Number:</label>
-                        <select name="accountNumber" />
-                        <% List<Account> accounts = (List<Account>) request.getAttribute("accounts"); %>
-                        <% for (Account account : accounts) {
-                            pageContext.setAttribute("accountId", account.getAccountId()); %>
-                        <option value="${accountId}" name="accountId">${accountId}</option>
-                        <% } %>
-                        </select>
-                        <br />
+                        <input type="text" name="accountNumber" />
+                        <hr>
                         <input type="submit" value="Add Account" />
                     </form>
-                    <br />
                 </div>  
             <hr>  
 
@@ -258,6 +245,7 @@
                             <option value="${transactionId}">Transaction Id: ${transactionId}, Account Id ${accId}</option>
                             <% } %>
                         </select>
+                        <hr>
                         <input type="submit" value="Remove Transaction" />
                     </form>
                 </div> 
@@ -268,19 +256,21 @@
                     <form name="addTransaction" action="/adminPanel/addTransaction" method="post">
                         <label>Sender</label>
                         <input type="text" name="sender" />
-                        <br />
                         <label>Recipient</label>
                         <input type="text" name="recipient"/>
-                        <br />
                         <label>Date</label>
                         <input type="text" name="date" />
-                        <br />
                         <label>Value</label>
                         <input type="text" name="value"/>
-                        <br />
-                        <label>Account Id</label>
-                        <input type="text" name="accId"/>
-                        <br />
+                        <label>Account Id:</label>
+                        <select name="accId" />
+                        <% List<Account> accounts = (List<Account>) request.getAttribute("accounts"); %>
+                        <% for (Account account : accounts) {
+                            pageContext.setAttribute("accId", account.getAccountId()); %>
+                        <option value="${accId}" name="accId">${accId}</option>
+                        <% } %>
+                        </select>
+                        <hr>
                         <label>Transaction Type</label>
                         <select name="selectedTransactionType">
                             <option value="cash" name="selectedTransactionType">Cash</option>
@@ -292,7 +282,7 @@
                             <option value = "paypal" name="selectedTransactionType">PayPal</option>
                             <option value = "other" name="selectedTransactionType">Other</option>
                         </select>
-                        <br />
+                        <hr>
                         <input type="submit" value="Add Transaction" />
                     </form>
                 </div>
