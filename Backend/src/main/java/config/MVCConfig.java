@@ -15,7 +15,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("/static/");
+//        registry.addResourceHandler("/**").addResourceLocations("/static/");
     }
 
     @Bean
