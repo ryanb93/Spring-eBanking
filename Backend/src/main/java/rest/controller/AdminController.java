@@ -6,12 +6,8 @@ import core.domain.Customer;
 import core.domain.PostalAddress;
 import core.domain.Transaction;
 import core.domain.TransactionType;
-import core.events.accounts.CreateAccountEvent;
-import core.events.accounts.RequestNewAccountEvent;
 import core.events.customers.AllCustomersEvent;
-import core.events.customers.CreateCustomerEvent;
 import core.events.customers.RequestAllCustomersEvent;
-import core.events.customers.RequestNewCustomerEvent;
 import core.repository.AccountRepository;
 import core.repository.CustomerRepository;
 import core.repository.TransactionRepository;
@@ -21,13 +17,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,6 +61,7 @@ public class AdminController {
     @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
+    @RolesAllowed({"ROLE_USER", "ROLE_TEST"})
     public List<Customer> getAllCustomers() {
         AllCustomersEvent event = customerService.requestAllCustomers(new RequestAllCustomersEvent());
         return event.getCustomerDetails();

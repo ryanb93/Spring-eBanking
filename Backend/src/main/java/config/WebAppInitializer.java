@@ -10,9 +10,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
-import java.util.Set;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 public class WebAppInitializer implements WebApplicationInitializer {
 
