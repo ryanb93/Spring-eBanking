@@ -15,10 +15,8 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/pdfs/**").addResourceLocations("/pdfs/");
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/**").addResourceLocations("/static/");
     }
-
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {

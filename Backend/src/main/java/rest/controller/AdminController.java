@@ -20,6 +20,9 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,7 +64,6 @@ public class AdminController {
     @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @RolesAllowed({"ROLE_USER", "ROLE_TEST"})
     public List<Customer> getAllCustomers() {
         AllCustomersEvent event = customerService.requestAllCustomers(new RequestAllCustomersEvent());
         return event.getCustomerDetails();

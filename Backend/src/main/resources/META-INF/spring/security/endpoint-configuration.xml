@@ -8,8 +8,6 @@
 					  http://www.springframework.org/schema/security
 					  http://www.springframework.org/schema/security/spring-security.xsd">
 
-
-
     <http pattern="/v1.0/users" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
         <intercept-url pattern="/v1.0/users" method="POST" access="IS_AUTHENTICATED_FULLY"/>
@@ -19,7 +17,7 @@
     </http>
 
     <!-- REST API Endpoints -->
-    <http pattern="/v1.0/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
+    <http pattern="/v1.0/customers/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
           xmlns="http://www.springframework.org/schema/security">
         <custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
