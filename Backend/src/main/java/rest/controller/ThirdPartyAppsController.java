@@ -8,6 +8,7 @@ import core.events.thirdPartyApps.ThirdPartyAppDetailsEvent;
 import core.services.ThirdPartyAppsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import rest.config.Routes;
 
 @RestController
 @RequestMapping(Routes.THIRD_PARTY_APP)
+@Secured("ROLE_USER")
 public class ThirdPartyAppsController {
 
     @Autowired

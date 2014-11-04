@@ -65,7 +65,7 @@ public class AdminController {
     @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @Secured("ROLE_USER")
+    @Secured("ROLE_ADMIN")
     public List<Customer> getAllCustomers() {
         AllCustomersEvent event = customerService.requestAllCustomers(new RequestAllCustomersEvent());
         return event.getCustomerDetails();
