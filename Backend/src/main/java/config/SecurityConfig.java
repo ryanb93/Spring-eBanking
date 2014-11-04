@@ -55,19 +55,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        return super.authenticationManagerBean();
     }
     
-    @Bean 
-    public ClientCredentialsTokenEndpointFilter clientCredentialsTokenEndpointFilter() throws Exception {
-        ClientCredentialsTokenEndpointFilter filter = new ClientCredentialsTokenEndpointFilter();
-        filter.setAuthenticationManager(authenticationManagerBean());
-        return filter;
-    }       
-    
-    @Bean
-    public OAuth2AuthenticationEntryPoint clientAuthenticationEntryPoint() {
-        OAuth2AuthenticationEntryPoint entry = new OAuth2AuthenticationEntryPoint();
-        entry.setTypeName("Basic");
-        return entry;
-    }      
+//    @Bean 
+//    public ClientCredentialsTokenEndpointFilter clientCredentialsTokenEndpointFilter() throws Exception {
+//        ClientCredentialsTokenEndpointFilter filter = new ClientCredentialsTokenEndpointFilter();
+//        filter.setAuthenticationManager(authenticationManagerBean());
+//        return filter;
+//    }       
+//    
+//    @Bean
+//    public OAuth2AuthenticationEntryPoint clientAuthenticationEntryPoint() {
+//        OAuth2AuthenticationEntryPoint entry = new OAuth2AuthenticationEntryPoint();
+//        entry.setTypeName("Basic");
+//        return entry;
+//    }      
 
     @Bean
     public OAuth2AuthenticationEntryPoint oauthAuthenticationEntryPoint() {
@@ -81,14 +81,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new OAuth2AccessDeniedHandler();
     }     
     
-    @Bean 
-    public DefaultTokenServices tokenServices() {
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore());
-        tokenServices.setSupportRefreshToken(true);
-        tokenServices.setClientDetailsService(new InMemoryClientDetailsService());
-        return tokenServices;
-    }
+//    @Bean 
+//    public DefaultTokenServices tokenServices() {
+//        DefaultTokenServices tokenServices = new DefaultTokenServices();
+//        tokenServices.setTokenStore(tokenStore());
+//        tokenServices.setSupportRefreshToken(true);
+//        tokenServices.setClientDetailsService(new InMemoryClientDetailsService());
+//        return tokenServices;
+//    }
     
     @Bean
     public OAuth2RepositoryTokenStore tokenStore() {

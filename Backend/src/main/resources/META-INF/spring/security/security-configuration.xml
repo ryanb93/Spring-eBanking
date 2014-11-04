@@ -10,8 +10,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
-    <sec:global-method-security jsr250-annotations="enabled" access-decision-manager-ref="accessDecisionManager"/>
+    <sec:global-method-security secured-annotations="enabled" />
 
     <oauth:expression-handler id="oauthExpressionHandler"/>
 

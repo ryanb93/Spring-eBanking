@@ -17,6 +17,17 @@
         <oauth:refresh-token/>
         <oauth:password/>
     </oauth:authorization-server>
+    
+        <bean id="clientAuthenticationEntryPoint"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+        <property name="typeName" value="Basic"/>
+    </bean>
+
+    <bean id="oauthAuthenticationEntryPoint"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+        <property name="realmName" value="test"/>
+    </bean>
+
 
     <oauth:resource-server id="resourceServerFilter" token-services-ref="tokenServices"/>
     
@@ -28,6 +39,12 @@
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
         <custom-filter ref="corsFilter" after="LAST"/>
     </http>
+
+    <bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <property name="tokenStore" ref="tokenStore"/>
+        <property name="supportRefreshToken" value="true"/>
+        <property name="clientDetailsService" ref="client-details-service"/>
+    </bean>
 
 
 </beans>
