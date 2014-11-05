@@ -51,9 +51,5 @@
     <script src="/js/login.js"></script>
     <script src="/js/utils.js"></script>
 
-    <script type="text/javascript">
-
-    
-    </script>
     </body>
 </html>
