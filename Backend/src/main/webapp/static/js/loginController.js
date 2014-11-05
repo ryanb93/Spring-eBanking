@@ -21,8 +21,21 @@ $(document).ready(function () {
 						    "grant_type": "password"
 						},
 						function success(message) {
-							console.log(message);
-							$('#token_message').html('Success! Access token is <br>' + message.access_token).show();
+							
+							var accessToken = message.access_token;
+							var redirect = getUrlVars()["redirect_uri"];
+
+							if(accessToken) {
+								if(redirect) {
+            						window.location = unescape(redirect + "?access_token=" + accessToken);
+            					}
+            					else {
+									$('#error_message').html('No redirect_uri found.');
+            					}
+							}
+							else {
+								$('#error_message').html('Invalid response from server, could not find Access Token');
+							}
 						},
 						function error(message) {
 							$('#error_message').html(message.responseJSON.message).show();
@@ -37,5 +50,19 @@ $(document).ready(function () {
 		return false;
 
 	});
+
+	/**
+	 * A function to get URL 'GET' parameters.
+	 * 
+	 * Source: Ashley Ford (http://papermashup.com/read-url-get-variables-withjavascript/)
+	 */
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
+
 
 });
