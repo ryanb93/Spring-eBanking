@@ -8,30 +8,36 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/app.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        
+        <!-- Load Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/fontawesome.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="/css/app.css">
 
         <title>e-Banking Admin Panel</title>
     </head>
     <body>
         <nav role="navigation" class="navbar topnavbar">
-            <div class="navbar-header">
-                <div class="navbar-brand">
-                    <div class="brand-logo">
-                        e-Banking Admin Panel
-                    </div>
-                </div>
+        <div class="navbar-header">
+          <a href="#/" class="navbar-brand">
+            <div class="brand-logo">
+              eBanking
             </div>
-            <div class="nav-wrapper">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="http://localhost:8000/index.html" class="nav-link">Accounts</a>
-                    </li>
-                </ul>
-            </div>
+          </a>
+        </div>
+        <div class="nav-wrapper">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="http://localhost:8000/index.html" class="nav-link">Accounts</a>
+                </li>
+            </ul>
+        </div>
         </nav>
-
 
         <div class="container panel-footer">
             <div class="panel panel-primary">
