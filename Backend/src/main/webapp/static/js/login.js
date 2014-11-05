@@ -29,5 +29,4 @@ oauth2.method.doLogin = function (email, password, callback) {
       callback(jqXHR);
     }
   );
-alert("Look at console");
 }
