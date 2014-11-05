@@ -6,7 +6,6 @@ import core.services.eventHandlers.ThirdPartyAppsEventHandler;
 import core.services.eventHandlers.TransactionEventHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import web.services.eventHandlers.ClientDetailsStoreService;
 
 @Configuration
 public class CoreConfig {
@@ -29,11 +28,6 @@ public class CoreConfig {
   @Bean
   public AccountEventHandler createAccountEventService() {
       return new AccountEventHandler();
-  }
-  
-  @Bean 
-  public ClientDetailsStoreService createClientDetailsStoreService() {
-      return new ClientDetailsStoreService();
   }
   
 }
