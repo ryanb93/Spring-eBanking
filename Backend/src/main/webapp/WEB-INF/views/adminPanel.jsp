@@ -76,7 +76,7 @@
 
 				<div class="panel-footer centertextalign rightpanelapp">
 					<h2>Remove Customer</h2>
-					<form name="removeCustomer" action="/adminPanel/removeCustomer" method="post" role="form">
+					<form name="removeCustomer" action="/adminPanel/removeCustomer" method="POST" role="form">
 						<div class="form-group">
 							<select name="selectedCustomerId">
 									<% List<Customer> customers = (List<Customer>) request.getAttribute( "customers" ); %>
@@ -95,7 +95,7 @@
 
 				<div class="panel-footer centertextalign leftpanelapp">
 					<h2>Add New Customer</h2>
-					<form name="input" action="/adminPanel/addCustomer" method="post" role="form">
+					<form name="input" action="/adminPanel/addCustomer" method="POST" role="form">
 						<div class="form-group">
 							<label>First Name</label>
 							<input type="text" name="firstName" class="form-control" />
@@ -173,7 +173,7 @@
 							
 				<div class="panel-footer centertextalign rightpanelapp">
 					<h2>Remove Account</h2>
-					<form name="RemoveAccount" action="/adminPanel/removeAccount" method="post" role="form">
+					<form name="RemoveAccount" action="/adminPanel/removeAccount" method="POST" role="form">
 						<div class="form-group">
 							<select name="selectedAccountId">
 								<% List<Account> removeAccAccounts = (List<Account>) request.getAttribute( "accounts" ); %>
@@ -191,7 +191,7 @@
 
 				<div class="panel-footer centertextalign leftpanelapp">
 					<h2>Add Customer Account</h2>
-					<form name="AddAccount" action="/adminPanel/addAccount" method="post" role="form">
+					<form name="AddAccount" action="/adminPanel/addAccount" method="POST" role="form">
 						<div class="form-group">
 							<label>Customer:</label>
 							<select name="selectedCustomerId">
@@ -260,7 +260,7 @@
 
 				<div class="panel-footer centertextalign rightpanelapp">
 						<h2>Remove Transaction</h2>
-						<form name="RemoveTransaction" action="/adminPanel/removeTransaction" method="post" role="form">
+						<form name="RemoveTransaction" action="/adminPanel/removeTransaction" method="POST" role="form">
 							<div class="form-group">
 								<select name="selectedTransactionId">
 										<% List<Transaction> removeTransactions = (List<Transaction>) request.getAttribute( "transactions" ); %>
@@ -277,7 +277,7 @@
 
 				<div class="panel-footer centertextalign leftpanelapp">
 					<h2>Add Transaction</h2>
-					<form name="addTransaction" action="/adminPanel/addTransaction" method="post" role="form">
+					<form name="addTransaction" action="/adminPanel/addTransaction" method="POST" role="form">
 						<div class="form-group">
 							<label>Sender</label>
 							<input type="text" name="sender" class="form-control" />
