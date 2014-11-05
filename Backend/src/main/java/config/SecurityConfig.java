@@ -115,7 +115,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     RoleHierarchyImpl roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy("ROLE_ADMIN > ROLEUSER ROLE_USER > ROLE_GUEST");
+        hierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER ROLE_USER > ROLE_GUEST");
         return hierarchy;
     }       
     
