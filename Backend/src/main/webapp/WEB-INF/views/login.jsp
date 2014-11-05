@@ -33,8 +33,8 @@
               <h2 class="form-signin-heading">Please sign in</h2>
               <input id="email" class="form-control" type="email" placeholder="Email" required autofocus>
               <input id="password" class="form-control" type="password" placeholder="Password" required>
-              <div id="error_message" class="bg-danger"></div>
               <button class="btn btn-lg btn-primary btn-block" type="submit" id="login_button">Login</button>
+              <div id="error_message" class="bg-danger"></div>
             </form>
         </div>
 
