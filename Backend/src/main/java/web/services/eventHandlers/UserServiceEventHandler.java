@@ -49,7 +49,7 @@ public class UserServiceEventHandler extends BaseService implements UserService,
             User newUser = insertNewUser(createUserRequest);
             return new ApiUser(newUser);
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("This user already exists.");
         }
     }
 

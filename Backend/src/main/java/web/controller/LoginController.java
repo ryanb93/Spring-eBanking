@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -70,16 +71,25 @@ public class LoginController {
     
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CreateUserRequest> signupUser(@RequestBody CreateUserRequest request) {
-        ApiUser user = userService.createUser(request);
-        String id = user.getId();
+        //Make sure we have working security context first.
         String password = request.getPassword().getPassword();
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
         String name = auth.getName();
+        
+        //Create the user in the database.
+        ApiUser user = userService.createUser(request);
+        String id = user.getId();
+        
+        //Create an OAuth2 access token using the details.
         OAuth2AccessToken token = createTokenForNewUser(id, password, name);
+        
+        //Create a response header.
         CreateUserResponse createUserResponse = new CreateUserResponse(user, token);
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.CREATED;
+        
+        //Return the header to the user.
         return new ResponseEntity(createUserResponse, headers, status);
     }
 
