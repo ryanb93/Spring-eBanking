@@ -35,6 +35,11 @@ mongo {
 	storageLocation "./mongo/data"
 }
 
+run {
+    dependsOn startManagedMongoDb
+}
+
+
 test {
     testLogging {
         events 'failed', 'passed'
