@@ -1,4 +1,4 @@
-package rest.controller;
+package web.controller;
 
 import core.domain.Account;
 import core.domain.AccountType;
