@@ -1,37 +1,36 @@
-$(function() {
-	$(document).ready(function () {
-		
-		//  Redirect the user to the service if already authorised with token
-		if (oauth2.user.is_logged_in()) {
-			window.location = unescape(getUrlVars()["redirect_uri"]);
-		}
+/*
+ *	
+ */
+$(function(oauth2) {
 
-		/*
-			When ENTER key is pressed, this event triggers jQuery to click the login 
-			button. This then in turn calls the click event of the login button.
-		*/
-		$('input').on('keydown', function (event) {
-			if (event.keyCode === 13)
-				$('#login_button').click()
-		});
+oauth2.login = new Object();
 
-		/*
-			When login is pressed the OAuth js is called and credentials from form sent. 
-			If there is no error then the window redirect the user to the desiered service. 
-			If there is an error present then a message is shown to inform the user. 
-		*/
-		$('#login_button').on('click', function () {
+/**
+ * Log the customer onto our API via OAuth2
+ *
+ * @param String username
+ *	Username in plain text from the login.jsp form. Encodes in Base64 before being posted by OAuth2.js
+ * @param String password
+ *	Password in plain text from the login.jsp form. Encodes in Base64 before being posted by OAuth2.js
+ * @param FUNCTION Callback. 
+ *	Define function that will handle User auth error from OAuth
+ */
+oauth2.login.doLogin = function (email, password, callback) {
 
-			oauth2.user.login($('#email').val(), $('#password').val(), function (authError) {
-				
-				if (!authError) {
-					window.location = unescape(getUrlVars()["redirect_uri"]);
-				} else {
-					$('#error_message').html('Email and/or password did not match a user account.').show()
-				}
+  oauth2.login(
+    {
+      "username" : email,
+      "password" : password,
+      "grant_type": "password"
+    },
+    function (response) {
+    	// Nothing to be set. User being handed back token from server
+      callback();
+    },
+    function(jqXHR, textStatus) {
+      callback(jqXHR);
+    }
+  );
+}
 
-			});
-		});
-
-	});
 });

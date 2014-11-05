@@ -45,11 +45,9 @@
     <script src="/js/libs/enc-base64-min.js"></script>
 
     <!-- Custom JS -->
-    <script src="/js/oauth2.js"></script>
-    <script src="/js/cookie.js"></script>
-    <script src="/js/user.js"></script>
+    <script src="/js/oauth2.js"></script> 
     <script src="/js/login.js"></script>
-    <script src="/js/utils.js"></script>
+    <script src="/js/loginController.js"></script>
 
     </body>
 </html>
