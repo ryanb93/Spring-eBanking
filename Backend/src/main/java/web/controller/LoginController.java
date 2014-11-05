@@ -41,7 +41,7 @@ import web.events.users.CreateUserResponse;
 import web.services.UserService;
 
 @Controller
-@RequestMapping("/v1.0/users")
+@RequestMapping("/login")
 public class LoginController {
     
     private final UserService userService;

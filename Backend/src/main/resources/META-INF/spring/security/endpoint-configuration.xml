@@ -8,9 +8,9 @@
 					  http://www.springframework.org/schema/security
 					  http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http pattern="/v1.0/users" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
+    <http pattern="/login" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
-        <intercept-url pattern="/v1.0/users" method="POST" access="IS_AUTHENTICATED_FULLY"/>
+        <intercept-url pattern="/login" method="POST" access="IS_AUTHENTICATED_FULLY"/>
         <anonymous enabled="false"/>
         <http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
