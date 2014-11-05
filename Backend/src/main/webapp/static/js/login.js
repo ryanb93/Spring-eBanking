@@ -1,9 +1,8 @@
 /*
  *	
  */
-$(function(oauth2) {
 
-oauth2.login = new Object();
+oauth2.method = {};
 
 /**
  * Log the customer onto our API via OAuth2
@@ -15,8 +14,7 @@ oauth2.login = new Object();
  * @param FUNCTION Callback. 
  *	Define function that will handle User auth error from OAuth
  */
-oauth2.login.doLogin = function (email, password, callback) {
-
+oauth2.method.doLogin = function (email, password, callback) {
   oauth2.login(
     {
       "username" : email,
@@ -31,6 +29,5 @@ oauth2.login.doLogin = function (email, password, callback) {
       callback(jqXHR);
     }
   );
+alert("Look at console");
 }
-
-});

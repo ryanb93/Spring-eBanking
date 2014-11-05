@@ -1,8 +1,6 @@
 /* Define OAuth2 Singleton Object */
 function oauth2() {}
 
-(function() {
-
 /**
  * Post authentication request to OAuth 
  */
@@ -23,5 +21,3 @@ oauth2.login = function (data, success, error) {
   });
 
 }
-
-});
