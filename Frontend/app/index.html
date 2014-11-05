@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="eBanking" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="eBanking" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="eBanking" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="eBanking" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="app.css">
   <base href="/">
+  <script src="bower_components/angular/angular.js"></script>
 </head>
-<body>
+<body ng-cloak class="ng-cloak">
   <nav role="navigation" class="navbar topnavbar">
     <div class="navbar-header">
       <a href="#/" class="navbar-brand">
@@ -55,11 +56,13 @@
           text="Authorise with Bank">
         </oauth>
       </div>
-      <div ng-view ng-show="show=='logged-in'"></div>
+      Me: {{me}}
+      <div class="logged-in"  ng-show="show=='logged-in'">
+        <div ng-view></div>
+      </div>
     </div>
   </div>
 <!-- Load dependencies -->
-<script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-mocks/angular-mocks.js"></script>
