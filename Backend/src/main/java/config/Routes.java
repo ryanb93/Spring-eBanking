@@ -1,4 +1,4 @@
-package rest.config;
+package config;
 
 public class Routes {
     
@@ -19,6 +19,9 @@ public class Routes {
     /* Third Party Apps Routes */
     public static final String THIRD_PARTY_APP = CUSTOMER + "/apps";
     public static final String THIRD_PARTY_APP_ID = "/{app_id}";
+    
+    /* Web Portal Routes */
+    public static final String LOGIN = "/login";
     
     /* Admin Panel Routes */
     public static final String ADMIN_PANEL = "/adminPanel";

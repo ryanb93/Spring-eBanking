@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import rest.config.Routes;
+import config.Routes;
 
 @RestController
 @RequestMapping(Routes.TRANSACTIONS)

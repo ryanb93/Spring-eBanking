@@ -1,18 +1,16 @@
 package web.controller;
 
+import config.Routes;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +29,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,14 +39,13 @@ import web.events.users.CreateUserResponse;
 import web.services.UserService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping(Routes.LOGIN)
 public class LoginController {
     
     private final UserService userService;
     private final DefaultTokenServices tokenServices;
     private final PasswordEncoder passwordEncoder;
     private final ClientDetailsService clientDetailsService;
-    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     public LoginController(final UserService userService,
