@@ -5,7 +5,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>eBanking - Login</title>
-        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     </head>
     <body>
         <div>
@@ -17,7 +16,8 @@
                 <button class="small_button" type="submit" id="login_button">Login</button>
             </div>
         </div>
-    <script src="/js/jquery-1.8.2.min.js"></script>
+        
+    <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/oauth2.js"></script>
     <script src="/js/sha256.js"></script>
     <script src="/js/enc-base64-min.js"></script>
