@@ -72,19 +72,16 @@ public class AdminController {
     }
     
     @RequestMapping(Routes.ADMIN_PANEL)
-    public ModelAndView helloWorld( ModelMap model ) {
-        List customers = customerRepository.findAll();
-        List accounts = accountRepository.findAll();
-        List transactions = transactionRepository.findAll();
+    public ModelAndView showAdminPanel( ModelMap model ) {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
-        modelAndView.addObject("customers", customers);
-        modelAndView.addObject("accounts", accounts);
-        modelAndView.addObject("transactions", transactions);
-		return modelAndView;
-	}
+        modelAndView.addObject("customers", customerRepository.findAll());
+        modelAndView.addObject("accounts", accountRepository.findAll());
+        modelAndView.addObject("transactions", transactionRepository.findAll());
+	return modelAndView;
+    }
     
     
-        @RequestMapping(value = Routes.ADMIN_PANEL+"/addCustomer", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.ADD_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView createNewCustomer(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
                                                        @RequestParam("dateOfBirth") String dateOfBirth, @RequestParam("houseNumber") String houseNumber, 
                                                        @RequestParam("street") String street, @RequestParam("city") String city, 
@@ -103,14 +100,14 @@ public class AdminController {
         return new ModelAndView("redirect:/adminPanel");
     }
     
-    @RequestMapping(value = Routes.ADMIN_PANEL+"/removeCustomer", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.REMOVE_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView RemoveCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder){
      Customer customerToDelete =  customerRepository.findOne(customerId);
      customerRepository.delete(customerToDelete);
       return new ModelAndView("redirect:/adminPanel");
     }
     
-    @RequestMapping(value = Routes.ADMIN_PANEL+"/addAccount", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.ADD_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView AddAccount(@RequestParam("selectedCustomerId") String customerId, @RequestParam("selectedAccountType") String selectedAccountType, 
                                              @RequestParam("sortCode") String sortCode, @RequestParam("accountNumber") String accountNumber, UriComponentsBuilder builder){
         Account account = new Account();
@@ -133,7 +130,7 @@ public class AdminController {
       return new ModelAndView("redirect:/adminPanel");
     }
     
-    @RequestMapping(value = Routes.ADMIN_PANEL+"/removeAccount", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.REMOVE_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView RemoveAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder){
      Account accountToDelete =  accountRepository.findOne(accountId);
      accountRepository.delete(accountToDelete);
@@ -141,7 +138,7 @@ public class AdminController {
       return new ModelAndView("redirect:/adminPanel");
     }
     
-    @RequestMapping(value = Routes.ADMIN_PANEL+"/addTransaction", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.ADD_TRANSACTION, method = RequestMethod.POST)
     public ModelAndView AddTransaction(@RequestParam("sender") String sender, @RequestParam("recipient") String recipient, 
                                              @RequestParam("date") String date, @RequestParam("value") String value, 
                                              @RequestParam("accId") String accountId, @RequestParam("selectedTransactionType") String selectedTransactionType,
@@ -190,27 +187,12 @@ public class AdminController {
       return new ModelAndView("redirect:/adminPanel");
     }
     
-    @RequestMapping(value = Routes.ADMIN_PANEL+"/removeTransaction", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.REMOVE_TRANSACTION, method = RequestMethod.POST)
     public ModelAndView RemoveTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder){
      Transaction transactionToDelete =  transactionRepository.findOne(transactionId);
      transactionRepository.delete(transactionToDelete);
      
       return new ModelAndView("redirect:/adminPanel");
     }
-    
-    //TODO: Remove after testing has been complete
-    @RequestMapping(Routes.TEST_JSON_CUSTOMER)
-    public Customer getOne() {
-        Customer cust = new Customer("Jim", "Beanz", new Date(1990, 5, 19),
-                new PostalAddress(
-                        "123",
-                        "Manor Park Student Village",
-                        "Guildford",
-                        "Surrey",
-                        "United Kingdom",
-                        "GU2 7YW"));
-        return cust;
-    }
-
     
 }

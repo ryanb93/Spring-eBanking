@@ -20,10 +20,13 @@ public class Routes {
     public static final String THIRD_PARTY_APP = CUSTOMER + "/apps";
     public static final String THIRD_PARTY_APP_ID = "/{app_id}";
     
-    /* TODO: Testing routes. Before submission these will be removed! */
-    public static final String TEST_JSON_CUSTOMER = "/jsonCustomer";
-    public static final String TEST_SINGLE_THIRD_PARTY_APP = "/singleApp";
-    public static final String TEST_SINGLE_TRANSACTION = "/singleTransaction";
+    /* Admin Panel Routes */
     public static final String ADMIN_PANEL = "/adminPanel";
+    public static final String ADD_CUSTOMER = ADMIN_PANEL + "/addCustomer";
+    public static final String REMOVE_CUSTOMER = ADMIN_PANEL + "/removeCustomer";
+    public static final String ADD_ACCOUNT = ADMIN_PANEL + "/addAccount";
+    public static final String REMOVE_ACCOUNT = ADMIN_PANEL + "/removeAccount";
+    public static final String ADD_TRANSACTION = ADMIN_PANEL + "/addTransaction";
+    public static final String REMOVE_TRANSACTION = ADMIN_PANEL + "/removeTransaction";
     
 }

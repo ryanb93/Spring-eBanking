@@ -44,11 +44,4 @@ public class ThirdPartyAppsController {
     public ThirdPartyApp updateThirdPartyApp(@PathVariable("app_id") int id) {
         return null;
     }
-
-    @RequestMapping(Routes.TEST_SINGLE_THIRD_PARTY_APP)
-    public ThirdPartyApp getSingleApp() {
-        ThirdPartyApp application = new ThirdPartyApp("BalanceManager Plus", true, false);
-        return application;
-    }
-
 }

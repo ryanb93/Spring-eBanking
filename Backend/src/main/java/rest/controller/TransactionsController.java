@@ -75,10 +75,4 @@ public class TransactionsController {
         return event.getTransaction();
     }
     
-    @RequestMapping(Routes.TEST_SINGLE_TRANSACTION)
-    public Transaction getSingleTransaction() {
-        Transaction transaction1 = new Transaction("Morrisons", "Customer 1", 45.79, new Date(), TransactionType.DEBIT_CARD);
-        return transaction1;
-    }
-
 }
