@@ -7,21 +7,34 @@ $(document).ready(function () {
 	*/
 	$('#login_button').on('click', function () {
 		
-		var email = isEmailValid($('#email').val());
-		var password = isPasswordValid($('#password').val());
+		var email = $('#email').val();
+		var password = $('#password').val();
 
-		if(email && password) {
-			oauth2.method.doLogin($('#email').val(), $('#password').val(), function (authError) {	
-				if (authError) {
-					$('#error_message').html('Email and/or password did not match a user account.').show();
-				}
-			});
-		} else {
+		var emailValid = isEmailValid(email);
+		var passwordValid = isPasswordValid(password);
+
+		if(emailValid && passwordValid) {
+
+			oauth2.login({
+						    "username" : email,
+						    "password" : password,
+						    "grant_type": "password"
+						},
+						function success(message) {
+							console.log(message);
+							$('#error_message').html('Success! Access token is <br>' + message.access_token).show();
+						},
+						function error(message) {
+							$('#error_message').html(message.responseJSON.message).show();
+						}
+			);
+			
+		} 
+		else {
 			$('#error_message').html('Email and/or password are not valid.').show();
-			return false;
 		}
 
-		
+		return false;
 
 	});
 
