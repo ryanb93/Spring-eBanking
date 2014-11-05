@@ -43,28 +43,18 @@ public class UserServiceEventHandler extends BaseService implements UserService,
 
     @Override
     public ApiUser createUser(final CreateUserRequest createUserRequest) {
-
-        LOG.info("Validating user request.");
         validate(createUserRequest);
         final String emailAddress = createUserRequest.getUser().getEmailAddress().toLowerCase();
         if (userRepository.findByEmailAddress(emailAddress) == null) {
-            LOG.info("User does not already exist in the data store - creating a new user [{}].",
-                    emailAddress);
-            LOG.info("ABOUT TO CALL insertNewUser");
             User newUser = insertNewUser(createUserRequest);
-            LOG.info("FINISHED CALL TO insertNewUser");
-            LOG.info("Created new user [{}].", newUser.getEmailAddress());
             return new ApiUser(newUser);
         } else {
-            LOG.info("Duplicate user located, exception raised with appropriate HTTP response code.");
             throw new IllegalArgumentException();
         }
     }
 
     @Override
     public ApiUser authenticate(String username, String password) {
-        LOG.info("authenticate user [-----------] {} , {} ", username, password);
-
         Assert.notNull(username);
         Assert.notNull(password);
         User user = locateUser(username);
