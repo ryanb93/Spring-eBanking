@@ -35,6 +35,7 @@
               <input id="password" class="form-control" type="password" placeholder="Password" required>
               <button class="btn btn-lg btn-primary btn-block" type="submit" id="login_button">Login</button>
               <div id="error_message" class="bg-danger"></div>
+              <div id="token_message" class="bg-success"></div>
             </form>
         </div>
 

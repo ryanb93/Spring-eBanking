@@ -22,7 +22,7 @@ $(document).ready(function () {
 						},
 						function success(message) {
 							console.log(message);
-							$('#error_message').html('Success! Access token is <br>' + message.access_token).show();
+							$('#token_message').html('Success! Access token is <br>' + message.access_token).show();
 						},
 						function error(message) {
 							$('#error_message').html(message.responseJSON.message).show();
