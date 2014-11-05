@@ -39,13 +39,13 @@
         </div>
 
     <!-- JS Libs -->
-    <script src="/js/jquery-2.1.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/oauth2.js"></script>
-    <script src="/js/sha256.js"></script>
-    <script src="/js/enc-base64-min.js"></script>
+    <script src="/js/libs/jquery-2.1.1.min.js"></script>
+    <script src="/js/libs/bootstrap.min.js"></script>
+    <script src="/js/libs/sha256.js"></script>
+    <script src="/js/libs/enc-base64-min.js"></script>
 
     <!-- Custom JS -->
+    <script src="/js/oauth2.js"></script>
     <script src="/js/cookie.js"></script>
     <script src="/js/user.js"></script>
     <script src="/js/login.js"></script>

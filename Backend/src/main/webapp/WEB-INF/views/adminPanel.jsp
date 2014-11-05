@@ -19,8 +19,8 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/app.css">
 
-	<script src="/js/jquery-2.1.1.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/libs/jquery-2.1.1.min.js"></script>
+	<script src="/js/libs/bootstrap.min.js"></script>
 
 	<title>e-Banking Admin Panel</title>
 </head>
