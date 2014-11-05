@@ -46,7 +46,6 @@
 
     <!-- Custom JS -->
     <script src="/js/oauth2.js"></script> 
-    <script src="/js/login.js"></script>
     <script src="/js/loginController.js"></script>
     <script src="/js/validation.js"></script>
 
