@@ -38,45 +38,22 @@
             </form>
         </div>
 
+    <!-- JS Libs -->
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/oauth2.js"></script>
     <script src="/js/sha256.js"></script>
     <script src="/js/enc-base64-min.js"></script>
+
+    <!-- Custom JS -->
     <script src="/js/cookie.js"></script>
     <script src="/js/user.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/utils.js"></script>
+
     <script type="text/javascript">
 
-    function getUrlVars() {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-        });
-        return vars;
-    }
-
-
-    $(document).ready(function () {
-      // Submit form on enter
-      $('input').live('keydown', function (event) {
-        if (event.keyCode === 13)
-          $('#login_button').click()
-      })
-
-      if (oauth2.user.is_logged_in())
-        window.location = unescape(getUrlVars()["redirect_uri"]);
-      $('#login_button').on('click', function () {
-        oauth2.user.login($('#email').val(), $('#password').val(), function (error) {
-          if (!error)
-            window.location = unescape(getUrlVars()["redirect_uri"]);
-          else {
-            console.log(error)
-            $('#error_message').html('Email and/or password did not match a user account.').show()
-          }
-        })
-      })
-
-    })
+    
     </script>
     </body>
 </html>
