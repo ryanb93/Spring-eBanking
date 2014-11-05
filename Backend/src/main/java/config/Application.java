@@ -16,8 +16,3 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 }
-
-@Configuration
-@ImportResource("/META-INF/spring/application-context.xml")
-class XmlImportingConfiguration {
-}
