@@ -17,13 +17,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
+import web.domain.ApiUser;
+import web.events.password.PasswordRequest;
+import web.events.users.CreateUserRequest;
+import web.repository.UserRepository;
+import web.services.UserService;
+
 
 /**
  * TODO: REMOVE AFTER TESTING
@@ -61,6 +63,12 @@ public class AdminController {
     
     @Autowired
     private TransactionRepository transactionRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = Routes.API, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -77,7 +85,21 @@ public class AdminController {
         modelAndView.addObject("customers", customerRepository.findAll());
         modelAndView.addObject("accounts", accountRepository.findAll());
         modelAndView.addObject("transactions", transactionRepository.findAll());
+        modelAndView.addObject("users", userRepository.findAll());
 	return modelAndView;
+    }
+    
+    @RequestMapping(Routes.ADD_USER)
+    public ModelAndView addUser(@RequestParam("email")String email, @RequestParam("password")String password) {
+        CreateUserRequest userRequest = new CreateUserRequest();
+        PasswordRequest passwordRequest = new PasswordRequest();
+        passwordRequest.setPassword(password);
+        ApiUser user = new ApiUser();
+        user.setEmailAddress(email);
+        userRequest.setPassword(passwordRequest);
+        userRequest.setUser(user);
+        ApiUser createdUser = userService.createUser(userRequest);
+        return new ModelAndView("redirect:/adminPanel");
     }
     
     

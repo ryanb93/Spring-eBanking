@@ -31,5 +31,6 @@ public class Routes {
     public static final String REMOVE_ACCOUNT = ADMIN_PANEL + "/removeAccount";
     public static final String ADD_TRANSACTION = ADMIN_PANEL + "/addTransaction";
     public static final String REMOVE_TRANSACTION = ADMIN_PANEL + "/removeTransaction";
+    public static final String ADD_USER = ADMIN_PANEL + "/addUser";
     
 }
