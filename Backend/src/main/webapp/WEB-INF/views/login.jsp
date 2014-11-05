@@ -39,6 +39,7 @@
         </div>
 
     <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/oauth2.js"></script>
     <script src="/js/sha256.js"></script>
     <script src="/js/enc-base64-min.js"></script>
