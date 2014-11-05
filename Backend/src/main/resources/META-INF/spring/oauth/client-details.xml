@@ -22,41 +22,8 @@
                 secret="286924697e615a672a646a493545646c"
                 authorized-grant-types="password,refresh_token"
                 authorities="ROLE_TEST"
-                access-token-validity="${oauth.token.access.expiresInSeconds}"
-                refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
-                scope="read, write"
-                />
-
-        <!-- Web Application clients -->
-        <oauth:client
-                client-id="7b5a38705d7b3562655925406a652e32"
-                secret="655f523128212d6e70634446224c2a48"
-                authorized-grant-types="password,refresh_token"
-                authorities="ROLE_WEB"
-                access-token-validity="${oauth.token.access.expiresInSeconds}"
-                refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
-                scope="read, write"
-                />
-
-        <!-- iOS clients -->
-        <oauth:client
-                client-id="5e572e694e4d61763b567059273a4d3d"
-                secret="316457735c4055642744596b302e2151"
-                authorized-grant-types="password,refresh_token"
-                authorities="ROLE_IOS"
-                access-token-validity="${oauth.token.access.expiresInSeconds}"
-                refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
-                scope="read, write"
-                />
-
-        <!-- Android clients -->
-        <oauth:client
-                client-id="302a7d556175264c7e5b326827497349"
-                secret="4770414c283a20347c7b553650425773"
-                authorized-grant-types="password,refresh_token"
-                authorities="ROLE_ANDROID"
-                access-token-validity="${oauth.token.access.expiresInSeconds}"
-                refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
+                access-token-validity="5184000"
+                refresh-token-validity="5184000"
                 scope="read, write"
                 />
 
