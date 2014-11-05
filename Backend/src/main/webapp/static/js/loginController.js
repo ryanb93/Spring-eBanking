@@ -13,6 +13,8 @@ $(document).ready(function () {
 		var emailValid = isEmailValid(email);
 		var passwordValid = isPasswordValid(password);
 
+		var clientId = getUrlVars()["client_id"];
+
 		if(emailValid && passwordValid) {
 
 			oauth2.login({
@@ -20,6 +22,7 @@ $(document).ready(function () {
 						    "password" : password,
 						    "grant_type": "password"
 						},
+						clientId,
 						function success(message) {
 							
 							var accessToken = message.access_token;
@@ -27,7 +30,7 @@ $(document).ready(function () {
 
 							if(accessToken) {
 								if(redirect) {
-            						window.location = unescape(redirect + "?access_token=" + accessToken);
+            						window.location = unescape(redirect + "#access_token=" + accessToken + "&token_type=bearer&expires_in=300&state=%2F");
             					}
             					else {
 									$('#error_message').html('No redirect_uri found.');

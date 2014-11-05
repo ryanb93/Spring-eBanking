@@ -103,5 +103,10 @@
                 return [200, jsonCustomer, {}];
             });
 
+            $httpBackend.whenGET(/http:\/\/localhost:8080\/api\/customers/).respond(function(method, url, data) {
+                fakeLatency(1000);
+                return [200, jsonCustomer, {}];
+            });
+
         });
 })(angular);
