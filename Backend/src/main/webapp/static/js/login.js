@@ -10,7 +10,7 @@ $(function() {
 			When ENTER key is pressed, this event triggers jQuery to click the login 
 			button. This then in turn calls the click event of the login button.
 		*/
-		$('input').live('keydown', function (event) {
+		$('input').on('keydown', function (event) {
 			if (event.keyCode === 13)
 				$('#login_button').click()
 		});
@@ -22,12 +22,11 @@ $(function() {
 		*/
 		$('#login_button').on('click', function () {
 
-			oauth2.user.login($('#email').val(), $('#password').val(), function (error) {
+			oauth2.user.login($('#email').val(), $('#password').val(), function (authError) {
 				
-				if (!error)
+				if (!authError) {
 					window.location = unescape(getUrlVars()["redirect_uri"]);
-				else {
-					console.log(error)
+				} else {
 					$('#error_message').html('Email and/or password did not match a user account.').show()
 				}
 

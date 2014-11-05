@@ -1,9 +1,8 @@
-/**
- * Singleton used for Namespace
- */
 function oauth2() {
-  
+
 }
+
+(function() {
 
 /**
  * Wrap the API so we can proxy calls while testing.
@@ -43,15 +42,6 @@ oauth2.get_query = function (name) {
           return decodeURIComponent(pair[1])
       }
   }
-}
-
-
-/**
- * Is the visitor on iPhone or Ipad?
- * @return {bool}
- */
-oauth2.isIos = function () {
-  return (navigator.userAgent.match(/iPad|iPhone|iPod/i) != null)
 }
 
 /**
@@ -137,30 +127,6 @@ oauth2.login = function (url, data, success, error) {
     error : error
   })
 
-
 }
 
-/**
- * Wrap the API so we can proxy calls while testing.
- */
-oauth2.put = function (url, data, success, error) {
-  
-    var authorization = oauth2.cookie.get('authToken')
-
-  $.ajax({
-    url: url,
-    type: "PUT",
-    contentType: "application/json", // send as JSON
-    data: JSON.stringify(data),
-    headers: {
-      'Authorization' : 'Bearer ' + authorization
-    },
-    dataType: "json",
-    success : success,
-    error : error
-  })
-
-  
-}
-
-
+});
