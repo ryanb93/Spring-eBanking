@@ -64,7 +64,7 @@
       })
 
       if (oauth2.user.is_logged_in())
-        window.location = 'dashboard.html'
+        window.location = unescape(getUrlVars()["redirect_uri"]);
       $('#login_button').on('click', function () {
         oauth2.user.login($('#email').val(), $('#password').val(), function (error) {
           if (!error)

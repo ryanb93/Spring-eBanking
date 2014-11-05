@@ -3,7 +3,7 @@ package rest.config;
 public class Routes {
     
     /* Root URL. All Routes will go through this point */
-    public static final String API = "/v1.0/customers";
+    public static final String API = "/api/customers";
     
     /* Customer entry point */
     public static final String CUSTOMER = API + "/{customer_id}";

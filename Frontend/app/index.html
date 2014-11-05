@@ -43,14 +43,15 @@
   <![endif]-->
   <div id="wrap">
     <div class="container">
-      
       <div ng-show="show!='logged-in'">
         <h1 class="page-header">Welcome to eBanking</h1>
         <oauth class="signIn"
           site="http://localhost:8080"
+          client-id="353b302c44574f565045687e534e7d6a"
+          redirect-uri="http://localhost:8000"
           authorize-path="/v1.0/users"
+          profile-uri="http://localhost:8080/v1.0/customers"
           client-id="eBanking_Frontend"
-          redirect-uri="http://localhost:8000/auth"
           text="Authorise with Bank">
         </oauth>
       </div>
