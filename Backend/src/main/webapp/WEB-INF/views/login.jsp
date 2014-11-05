@@ -1,22 +1,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/login.css">
+
         <title>eBanking - Login</title>
     </head>
     <body>
-        <div>
-            <h2>Login Brah!</h2>
-            <div id="container">
-                <input id="email" type="email" placeholder="Email">
-                <input id="password" type="password" placeholder="Password">
-                <div id="error_message"></div>
-                <button class="small_button" type="submit" id="login_button">Login</button>
-            </div>
+        <div class="container">
+            <form class="form-signin" role="form">
+              <h2 class="form-signin-heading">Please sign in</h2>
+              <input id="email" class="form-control" type="email" placeholder="Email" required autofocus>
+              <input id="password" class="form-control" type="password" placeholder="Password" required>
+              <div id="error_message" class="bg-danger"></div>
+              <button class="btn btn-lg btn-primary btn-block" type="submit" id="login_button">Login</button>
+            </form>
         </div>
-        
+
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/oauth2.js"></script>
     <script src="/js/sha256.js"></script>
