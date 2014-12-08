@@ -3,6 +3,8 @@ package web.events.users;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import web.domain.ApiUser;
+import web.events.password.PasswordRequest;
+
 
 public class CreateUserRequest {
 
@@ -12,13 +14,13 @@ public class CreateUserRequest {
 
     @NotNull
     @Valid
-    private String password;
+    private PasswordRequest password;
 
 
     public CreateUserRequest() {
     }
 
-    public CreateUserRequest(final ApiUser user, final String password) {
+    public CreateUserRequest(final ApiUser user, final PasswordRequest password) {
         this.user = user;
         this.password = password;
     }
@@ -33,11 +35,11 @@ public class CreateUserRequest {
 
     @NotNull
     @Valid
-    public String getPassword() {
+    public PasswordRequest getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(PasswordRequest password) {
         this.password = password;
     }
 }
