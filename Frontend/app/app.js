@@ -3,7 +3,6 @@
 // Declare app level module which depends on views, and components
 angular.module('eBanking', [
 	'ngRoute',
-	'ngMockE2E',
   'oauth',
   'ngStorage',
   'eBanking.accountControllers',

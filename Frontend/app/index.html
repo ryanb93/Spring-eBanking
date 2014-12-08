@@ -51,13 +51,12 @@
           client-id="353b302c44574f565045687e534e7d6a"
           redirect-uri="https://localhost:8000"
           authorize-path="/login"
-          profile-uri="https://localhost:8080/api/customers"
+          profile-uri="https://localhost:8080/api/customer"
           client-id="eBanking_Frontend"
           text="Authorise with Bank">
         </oauth>
       </div>
-      Me: {{me}}
-      <div class="logged-in"  ng-show="show=='logged-in'">
+      <div class="logged-in">
         <div ng-view></div>
       </div>
     </div>
@@ -88,7 +87,5 @@
 <script src="details/details.js"></script>
 <!-- Load the main application -->
 <script src="app.js"></script>
-<!-- Load the stubbed override -->
-<script src="app-stubbed.js"></script>
 </body>
 </html>
