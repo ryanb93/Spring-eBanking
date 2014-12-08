@@ -17,6 +17,7 @@ public class CustomerTest {
     private static final String FIRST_NAME = "Test";
     private static final String LAST_NAME = "Test";
     private static final Date DATE_OF_BIRTH = new Date(1238612);
+    private static final String API_USER_ID = "ID001";
     private static final PostalAddress ADDRESS = new PostalAddress("15",
                                                                    "Test Road",
                                                                    "Testingville",
@@ -34,7 +35,7 @@ public class CustomerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.customer = new Customer(FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, ADDRESS);
+        this.customer = new Customer(FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, ADDRESS,API_USER_ID);
     }
 
     @After
