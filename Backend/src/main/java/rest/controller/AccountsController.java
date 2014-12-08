@@ -24,24 +24,7 @@ public class AccountsController {
 
     @Autowired
     private AccountService accountService;
-
-    /**
-     * When a user makes a GET request to this URL we want
-     * to return a list of all their accounts.
-     * 
-     * @param customerId - The ID of the customer to get accounts for.
-     * 
-     * @return All of this user's accounts.
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public AllAccountsEvent getAllAccounts(@PathVariable("customer_id") String customerId) {
-        RequestAllAccountsEvent request = new RequestAllAccountsEvent(customerId);
-        AllAccountsEvent event = accountService.requestAllAccounts(request);
-        return event;
-    }
-
+    
     /**
      * When a user makes a GET request to this URL we want to return the 
      * details of a single customer account.
