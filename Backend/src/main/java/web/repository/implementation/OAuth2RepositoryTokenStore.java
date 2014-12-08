@@ -23,13 +23,13 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     private final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository;
 
-    private AuthenticationKeyGenerator authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();
+    private final AuthenticationKeyGenerator authenticationKeyGenerator;
 
     @Autowired
-    public OAuth2RepositoryTokenStore(final OAuth2AccessTokenRepository oAuth2AccessTokenRepository,
-                                      final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository) {
-        this.oAuth2AccessTokenRepository = oAuth2AccessTokenRepository;
+    public OAuth2RepositoryTokenStore(final OAuth2AccessTokenRepository oAuth2AccessTokenRepository, final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository) {
+        this.oAuth2AccessTokenRepository  = oAuth2AccessTokenRepository;
         this.oAuth2RefreshTokenRepository = oAuth2RefreshTokenRepository;
+        this.authenticationKeyGenerator   = new DefaultAuthenticationKeyGenerator();
     }
 
     @Override
@@ -44,69 +44,83 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-        OAuth2AuthenticationAccessToken oAuth2AuthenticationAccessToken = new OAuth2AuthenticationAccessToken(token,
-                authentication, authenticationKeyGenerator.extractKey(authentication));
-        oAuth2AccessTokenRepository.save(oAuth2AuthenticationAccessToken);
+        String authID = authenticationKeyGenerator.extractKey(authentication);
+        OAuth2AuthenticationAccessToken accessToken = new OAuth2AuthenticationAccessToken(token, authentication, authID);
+        this.oAuth2AccessTokenRepository.save(accessToken);
     }
 
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
-        OAuth2AuthenticationAccessToken token = oAuth2AccessTokenRepository.findByTokenId(tokenValue);
-        if(token == null) {
-            return null; //let spring security handle the invalid token
+        
+        OAuth2AuthenticationAccessToken token = this.oAuth2AccessTokenRepository.findByTokenId(tokenValue);
+        OAuth2AccessToken accessToken = null;
+        
+        if(token != null) {
+            accessToken = token.getoAuth2AccessToken();
         }
-        OAuth2AccessToken accessToken = token.getoAuth2AccessToken();
-		return accessToken;
+        	
+        return accessToken;
     }
 
     @Override
     public void removeAccessToken(OAuth2AccessToken token) {
-        OAuth2AuthenticationAccessToken accessToken = oAuth2AccessTokenRepository.findByTokenId(token.getValue());
+        OAuth2AuthenticationAccessToken accessToken = this.oAuth2AccessTokenRepository.findByTokenId(token.getValue());
         if(accessToken != null) {
-            oAuth2AccessTokenRepository.delete(accessToken);
+            this.oAuth2AccessTokenRepository.delete(accessToken);
         }
     }
 
     @Override
     public void storeRefreshToken(OAuth2RefreshToken refreshToken, OAuth2Authentication authentication) {
-         oAuth2RefreshTokenRepository.save(new OAuth2AuthenticationRefreshToken(refreshToken, authentication));
+        this.oAuth2RefreshTokenRepository.save(new OAuth2AuthenticationRefreshToken(refreshToken, authentication));
     }
 
     @Override
     public OAuth2RefreshToken readRefreshToken(String tokenValue) {
-        return oAuth2RefreshTokenRepository.findByTokenId(tokenValue).getoAuth2RefreshToken();
+        return this.oAuth2RefreshTokenRepository.findByTokenId(tokenValue).getoAuth2RefreshToken();
     }
 
     @Override
     public OAuth2Authentication readAuthenticationForRefreshToken(OAuth2RefreshToken token) {
-        return oAuth2RefreshTokenRepository.findByTokenId(token.getValue()).getAuthentication();
+        String tokenValue = token.getValue();
+        OAuth2AuthenticationRefreshToken refreshToken = this.oAuth2RefreshTokenRepository.findByTokenId(tokenValue);
+        return refreshToken.getAuthentication();
     }
 
     @Override
-    public void removeRefreshToken(OAuth2RefreshToken token) {
-        oAuth2RefreshTokenRepository.delete(oAuth2RefreshTokenRepository.findByTokenId(token.getValue()));
+    public void removeRefreshToken(OAuth2RefreshToken refreshToken) {
+        String tokenValue = refreshToken.getValue();
+        OAuth2AuthenticationRefreshToken authRefreshToken = this.oAuth2RefreshTokenRepository.findByTokenId(tokenValue);
+        this.oAuth2RefreshTokenRepository.delete(authRefreshToken);
     }
 
     @Override
     public void removeAccessTokenUsingRefreshToken(OAuth2RefreshToken refreshToken) {
-        oAuth2AccessTokenRepository.delete(oAuth2AccessTokenRepository.findByRefreshToken(refreshToken.getValue()));
+        String tokenValue = refreshToken.getValue();
+        OAuth2AuthenticationAccessToken accessToken = this.oAuth2AccessTokenRepository.findByRefreshToken(tokenValue);        
+        this.oAuth2AccessTokenRepository.delete(accessToken);
     }
 
     @Override
-    public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
-        OAuth2AuthenticationAccessToken token =  oAuth2AccessTokenRepository.findByAuthenticationId(authenticationKeyGenerator.extractKey(authentication));
-        return token == null ? null : token.getoAuth2AccessToken();
+    public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {        
+        String authKey = this.authenticationKeyGenerator.extractKey(authentication);
+        OAuth2AuthenticationAccessToken token =  this.oAuth2AccessTokenRepository.findByAuthenticationId(authKey);        
+        OAuth2AccessToken accessToken = null;
+        if(token != null) {
+            token.getoAuth2AccessToken();
+        }
+        return accessToken;
     }
 
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
-        List<OAuth2AuthenticationAccessToken> tokens = oAuth2AccessTokenRepository.findByClientId(clientId);
+        List<OAuth2AuthenticationAccessToken> tokens = this.oAuth2AccessTokenRepository.findByClientId(clientId);
         return extractAccessTokens(tokens);
     }
 
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
-        List<OAuth2AuthenticationAccessToken> tokens = oAuth2AccessTokenRepository.findByClientIdAndUserName(clientId, userName);
+        List<OAuth2AuthenticationAccessToken> tokens = this.oAuth2AccessTokenRepository.findByClientIdAndUserName(clientId, userName);
         return extractAccessTokens(tokens);
     }
 
