@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
 
 @RestController
-@RequestMapping(Routes.CUSTOMER)
+@RequestMapping(Routes.API)
 @Secured("ROLE_USER")
 public class CustomersController {
 
@@ -52,7 +52,7 @@ public class CustomersController {
             UpdateCustomerDetailsEvent event = customerService.requestUpdateCustomer(new RequestUpdateCustomerDetailsEvent(customer));
             if(event != null) {
                 newCustomer = event.getUpdatedCustomer();
-                headers.setLocation(builder.path(Routes.CUSTOMER).buildAndExpand(newCustomer.getCustomerId()).toUri());
+                headers.setLocation(builder.path(Routes.API).buildAndExpand(newCustomer.getCustomerId()).toUri());
                 status = HttpStatus.CREATED;
             }
         }
