@@ -17,9 +17,7 @@ angular.module('eBanking.accountControllers', [])
 .controller('accountsController', ['$scope', 'eBankingAPIservice',
     function($scope, eBankingAPIservice) {
 
-        var customerId = "544be631036458271642f6bb";
-
-        eBankingAPIservice.getAccounts(customerId).get(function(ids) {
+        eBankingAPIservice.getAccounts().get(function(ids) {
                         
             $scope.accountsList = ids.accounts;
 
@@ -37,14 +35,13 @@ angular.module('eBanking.accountControllers', [])
         $scope.finished = false;
 
         var accountId = $routeParams.accountNumber;
-        var customerId = "544be631036458271642f6bb";
 
-        eBankingAPIservice.getAccount(customerId, accountId).get(function(account) {
+        eBankingAPIservice.getAccount(accountId).get(function(account) {
             $scope.account = account;
         });
 
 
-        eBankingAPIservice.getTransactions(customerId, accountId, $scope.transactionPage).get(function(transactions) {
+        eBankingAPIservice.getTransactions(accountId, $scope.transactionPage).get(function(transactions) {
             $scope.transactions = transactions;
             if(transactions.transactions.length != 10) {
                 //There are less than 10 transactions, remove the + button.
@@ -105,7 +102,7 @@ angular.module('eBanking.accountControllers', [])
             $scope.loading = true;
             $scope.transactionPage++;
 
-            eBankingAPIservice.getTransactions(customerId, accountId, $scope.transactionPage).get(function(loaded) {
+            eBankingAPIservice.getTransactions(accountId, $scope.transactionPage).get(function(loaded) {
                 
                 var existing = $scope.transactions.transactions;
                 var next = loaded.transactions;
