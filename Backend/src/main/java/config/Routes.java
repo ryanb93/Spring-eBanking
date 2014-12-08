@@ -22,6 +22,7 @@ public class Routes {
     
     /* Admin Panel Routes */
     public static final String ADMIN_PANEL = "/adminPanel";
+    public static final String ALL_CUSTOMERS = ADMIN_PANEL + "/allCustomers";
     public static final String ADD_CUSTOMER = ADMIN_PANEL + "/addCustomer";
     public static final String REMOVE_CUSTOMER = ADMIN_PANEL + "/removeCustomer";
     public static final String ADD_ACCOUNT = ADMIN_PANEL + "/addAccount";
