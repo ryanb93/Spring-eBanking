@@ -94,6 +94,7 @@ public class AdminController {
         userRequest.setPassword(password);
         userRequest.setUser(user);
         ApiUser createdUser = userService.createUser(userRequest);
+        
         return new ModelAndView("redirect:/adminPanel");
     }
     
@@ -103,7 +104,8 @@ public class AdminController {
                                                        @RequestParam("dateOfBirth") String dateOfBirth, @RequestParam("houseNumber") String houseNumber, 
                                                        @RequestParam("street") String street, @RequestParam("city") String city, 
                                                        @RequestParam("county") String county, @RequestParam("country") String country, 
-                                                       @RequestParam("postCode") String postCode, UriComponentsBuilder builder) throws ParseException {
+                                                       @RequestParam("postCode") String postCode, @RequestParam("apiUserId") String apiUserId, 
+                                                       UriComponentsBuilder builder) throws ParseException {
         
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
         Date birth = formatter.parse(dateOfBirth);
@@ -112,6 +114,7 @@ public class AdminController {
         customer.setLastName(lastName);
         customer.setDateOfBirth(birth);
         customer.setAddress(new PostalAddress(houseNumber, street, city, county, country, postCode));
+        customer.setApiUserId(apiUserId);
 
         customerRepository.save(customer);
         return new ModelAndView("redirect:/adminPanel");

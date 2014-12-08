@@ -38,7 +38,6 @@ public class User extends BaseEntity implements UserDetails {
         this.hashedPassword = hashedPassword;
         this.firstName = apiUser.getFirstName();
         this.lastName = apiUser.getLastName();
-        this.age = apiUser.getAge();
         this.roles.add(role);
     }
 

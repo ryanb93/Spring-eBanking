@@ -176,6 +176,10 @@
                         <label>Post Code</label>
                         <input type="text" name="postCode" class="form-control" />
                     </div>
+                    <div class="form-group">
+                        <label>API User ID</label>
+                        <input type="text" name="apiUserId" class="form-control" />
+                    </div>
                     <input class="btn btn-default" type="submit" value="Add Customer" />
                 </form>
             </div>

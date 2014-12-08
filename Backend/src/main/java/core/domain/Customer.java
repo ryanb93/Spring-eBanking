@@ -25,6 +25,9 @@ public class Customer {
 
     @NotNull
     private PostalAddress address;          //Customer Address
+    
+    @NotNull
+    private String apiUserId;                   //API User ID
 
     public Customer() {
     }
@@ -37,13 +40,14 @@ public class Customer {
      * @param dateOfBirth - The customer's data of birth.
      * @param address - The address of the customer.
      */
-    public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address) {
+    public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address, String apiUserId) {
         super();
         //Set values using setters.
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setDateOfBirth(dateOfBirth);
         this.setAddress(address);
+        this.setApiUserId(apiUserId);
     }
 
     /**
@@ -93,6 +97,13 @@ public class Customer {
         }
         this.address = address;
     }
+    
+     public void setApiUserId(String apiUserId) {
+        if (apiUserId == null || apiUserId.equals("")) {
+            throw new IllegalArgumentException("API User ID can not be empty.");
+        }
+        this.apiUserId = apiUserId;
+    }
 
     /**
      * Returns the UUID of the Customer.
@@ -139,8 +150,24 @@ public class Customer {
         return this.address;
     }
     
+    /**
+     * Returns the address of the Customer as a String (For the Admin Panel).
+     *
+     * @return the customer's Address.
+     */
         public String getPostalAddress() {
         return address.getPostalAddress();
     }
+        
+    /**
+     * Returns the API User ID of the Customer.
+     *
+     * @return the customer's API User ID
+     */
+        public String getApiUserId() {
+        return this.apiUserId;
+    }
+
+
 
 }
