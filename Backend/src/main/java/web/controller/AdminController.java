@@ -30,7 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
 import web.domain.ApiUser;
-import web.events.password.PasswordRequest;
 import web.events.users.CreateUserRequest;
 import web.repository.UserRepository;
 import web.services.UserService;
@@ -90,11 +89,9 @@ public class AdminController {
     @RequestMapping(Routes.ADD_USER)
     public ModelAndView addUser(@RequestParam("email")String email, @RequestParam("password")String password) {
         CreateUserRequest userRequest = new CreateUserRequest();
-        PasswordRequest passwordRequest = new PasswordRequest();
-        passwordRequest.setPassword(password);
         ApiUser user = new ApiUser();
         user.setEmailAddress(email);
-        userRequest.setPassword(passwordRequest);
+        userRequest.setPassword(password);
         userRequest.setUser(user);
         ApiUser createdUser = userService.createUser(userRequest);
         
