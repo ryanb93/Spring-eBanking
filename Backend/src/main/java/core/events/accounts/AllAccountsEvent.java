@@ -1,11 +1,10 @@
 package core.events.accounts;
 
-import core.events.ReadEvent;
 import core.domain.Account;
 import java.util.Collections;
 import java.util.List;
 
-public class AllAccountsEvent extends ReadEvent {
+public class AllAccountsEvent {
 
     private final List<Account> accounts;
 

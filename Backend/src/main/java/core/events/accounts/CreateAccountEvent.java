@@ -1,12 +1,11 @@
 package core.events.accounts;
 
 import core.domain.Account;
-import core.events.CreateEvent;
 
 /**
  * This is the class that a service should use to make a new account.
  */
-public class CreateAccountEvent extends CreateEvent {
+public class CreateAccountEvent {
     
   private final Account account;
 

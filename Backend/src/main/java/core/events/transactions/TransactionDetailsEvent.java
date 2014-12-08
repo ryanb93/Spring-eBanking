@@ -1,10 +1,8 @@
 package core.events.transactions;
 
 import core.domain.Transaction;
-import core.events.ReadEvent;
 
-
-public class TransactionDetailsEvent extends ReadEvent {
+public class TransactionDetailsEvent {
     
     private final Transaction transaction;
     

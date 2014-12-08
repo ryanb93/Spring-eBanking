@@ -1,9 +1,8 @@
 package core.events.customers;
 
 import core.domain.Customer;
-import core.events.CreateEvent;
 
-public class CreateCustomerEvent extends CreateEvent {
+public class CreateCustomerEvent {
     
   private final Customer customer;
 

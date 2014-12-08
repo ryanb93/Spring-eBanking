@@ -1,10 +1,8 @@
 package core.events.transactions;
 
 import core.domain.Transaction;
-import core.events.CreateEvent;
 
-
-public class CreateTransactionEvent extends CreateEvent {
+public class CreateTransactionEvent {
 
   private final Transaction transaction;
 

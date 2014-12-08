@@ -1,11 +1,10 @@
 package core.events.thirdPartyApps;
 
 import core.domain.ThirdPartyApp;
-import core.events.ReadEvent;
 import java.util.Collections;
 import java.util.List;
 
-public class AllThirdPartyAppsEvent extends ReadEvent {
+public class AllThirdPartyAppsEvent {
     
     private final List<ThirdPartyApp> apps;
 

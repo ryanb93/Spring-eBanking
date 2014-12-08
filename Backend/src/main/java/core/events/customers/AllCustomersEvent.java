@@ -1,11 +1,10 @@
 package core.events.customers;
 
 import core.domain.Customer;
-import core.events.ReadEvent;
 import java.util.Collections;
 import java.util.List;
 
-public class AllCustomersEvent extends ReadEvent {
+public class AllCustomersEvent {
     
   private final List<Customer> customers;
 

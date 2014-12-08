@@ -1,13 +1,12 @@
 package core.events.accounts;
 
 import core.domain.Account;
-import core.events.ReadEvent;
 
 /**
  * This is a class that is returned to a service when it has
  * requested the details of a single account.
  */
-public class AccountDetailsEvent extends ReadEvent {
+public class AccountDetailsEvent {
     
     private final Account account;
     

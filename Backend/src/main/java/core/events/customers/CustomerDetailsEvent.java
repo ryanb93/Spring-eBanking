@@ -1,10 +1,8 @@
 package core.events.customers;
 
 import core.domain.Customer;
-import core.events.ReadEvent;
 
-
-public class CustomerDetailsEvent extends ReadEvent {
+public class CustomerDetailsEvent {
     
     private final Customer customer;
     

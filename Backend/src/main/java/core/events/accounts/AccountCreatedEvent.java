@@ -1,7 +1,6 @@
 package core.events.accounts;
 
 import core.domain.Account;
-import core.events.CreatedEvent;
 
 /**
  * This is a class that is returned to a service once an
@@ -9,7 +8,7 @@ import core.events.CreatedEvent;
  * 
  * It contains the account that has just been created.
  */
-public class AccountCreatedEvent extends CreatedEvent {
+public class AccountCreatedEvent {
   
   //The new account.
   private final Account account;

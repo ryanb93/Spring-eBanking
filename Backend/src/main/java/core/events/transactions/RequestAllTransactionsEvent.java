@@ -1,8 +1,6 @@
 package core.events.transactions;
 
-import core.events.RequestReadEvent;
-
-public class RequestAllTransactionsEvent extends RequestReadEvent {
+public class RequestAllTransactionsEvent {
   
     private final String accountId;
     private final int page;

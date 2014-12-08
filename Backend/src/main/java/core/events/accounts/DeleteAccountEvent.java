@@ -1,8 +1,6 @@
 package core.events.accounts;
 
-import core.events.DeleteEvent;
-
-public class DeleteAccountEvent extends DeleteEvent {
+public class DeleteAccountEvent {
 
     private final String accountId;
     

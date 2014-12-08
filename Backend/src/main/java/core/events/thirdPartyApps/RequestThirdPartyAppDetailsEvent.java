@@ -1,9 +1,6 @@
 package core.events.thirdPartyApps;
 
-import core.events.RequestReadEvent;
-
-
-public class RequestThirdPartyAppDetailsEvent extends RequestReadEvent {
+public class RequestThirdPartyAppDetailsEvent {
 
     private final String appId;
     

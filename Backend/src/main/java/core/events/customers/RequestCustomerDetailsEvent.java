@@ -1,12 +1,10 @@
 package core.events.customers;
 
-import core.events.RequestReadEvent;
-
 /**
  * This is a request event that should be used to get the details
  * of a single customer back.
  */
-public class RequestCustomerDetailsEvent extends RequestReadEvent {
+public class RequestCustomerDetailsEvent {
 
     private final String customerId;
     
