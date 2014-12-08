@@ -11,6 +11,4 @@ public interface UserService {
 
     public ApiUser getUser(String userId);
 
-    public ApiUser saveUser(String userId, CreateUserRequest request);
-
 }
