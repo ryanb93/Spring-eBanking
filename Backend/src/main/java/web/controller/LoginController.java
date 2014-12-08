@@ -68,7 +68,7 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CreateUserRequest> signupUser(@RequestBody CreateUserRequest request) {
         //Make sure we have working security context first.
-        String password = request.getPassword().getPassword();
+        String password = request.getPassword();
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
         String name = auth.getName();
