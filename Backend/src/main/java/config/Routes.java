@@ -6,16 +6,16 @@ public class Routes {
     public static final String API = "/api/customer";
     
     /* Accounts routes */
-    public static final String ACCOUNTS = "/accounts";
-    public static final String CUSTOMER_ACCOUNT = "/{account_id}";
+    public static final String ACCOUNTS = API + "/accounts";
+    public static final String CUSTOMER_ACCOUNT = ACCOUNTS + "/{account_id}";
     
     /* Transaction Routes */
     public static final String TRANSACTIONS = ACCOUNTS + CUSTOMER_ACCOUNT + "/transactions";
     public static final String TRANSACTIONS_ID = "/{transaction_id}";
     
     /* Third Party Apps Routes */
-    public static final String THIRD_PARTY_APP = "/apps";
-    public static final String THIRD_PARTY_APP_ID = "/{app_id}";
+    public static final String THIRD_PARTY_APP = API + "/apps";
+    public static final String THIRD_PARTY_APP_ID = THIRD_PARTY_APP + "/{app_id}";
     
     /* Web Portal Routes */
     public static final String LOGIN = "/login";
