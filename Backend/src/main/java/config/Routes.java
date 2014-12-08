@@ -3,13 +3,10 @@ package config;
 public class Routes {
     
     /* Root URL. All Routes will go through this point */
-    public static final String API = "/api/customers";
-    
-    /* Customer entry point */
-    public static final String CUSTOMER = API + "/{customer_id}";
+    public static final String API = "/api/customer";
     
     /* Accounts routes */
-    public static final String ACCOUNTS = CUSTOMER + "/accounts";
+    public static final String ACCOUNTS = "/accounts";
     public static final String CUSTOMER_ACCOUNT = "/{account_id}";
     
     /* Transaction Routes */
@@ -17,7 +14,7 @@ public class Routes {
     public static final String TRANSACTIONS_ID = "/{transaction_id}";
     
     /* Third Party Apps Routes */
-    public static final String THIRD_PARTY_APP = CUSTOMER + "/apps";
+    public static final String THIRD_PARTY_APP = "/apps";
     public static final String THIRD_PARTY_APP_ID = "/{app_id}";
     
     /* Web Portal Routes */
