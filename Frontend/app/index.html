@@ -47,11 +47,11 @@
       <div ng-show="show!='logged-in'">
         <h1 class="page-header">Welcome to eBanking</h1>
         <oauth class="signIn"
-          site="http://localhost:8080"
+          site="https://localhost:8080"
           client-id="353b302c44574f565045687e534e7d6a"
-          redirect-uri="http://localhost:8000"
+          redirect-uri="https://localhost:8000"
           authorize-path="/login"
-          profile-uri="http://localhost:8080/api/customers"
+          profile-uri="https://localhost:8080/api/customers"
           client-id="eBanking_Frontend"
           text="Authorise with Bank">
         </oauth>
@@ -62,6 +62,15 @@
       </div>
     </div>
   </div>
+
+  <footer class="footer">
+      <div class="container">
+        <center>
+          <img class="scale" src="components/ssl.png" alt="SSL logo">
+        </center>
+      </div>
+  </footer>
+
 <!-- Load dependencies -->
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>

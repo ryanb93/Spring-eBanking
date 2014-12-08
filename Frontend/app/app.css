@@ -422,3 +422,20 @@ ul.nav a:hover {
   background-color: white;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+  background-color: transparent !important;
+}
+
+img.scale {
+  height: 5%;
+  width: 5%;
+}
