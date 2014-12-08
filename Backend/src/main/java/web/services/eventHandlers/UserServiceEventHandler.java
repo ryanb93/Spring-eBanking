@@ -85,7 +85,7 @@ public class UserServiceEventHandler implements UserService, UserDetailsService 
     }
 
     private User insertNewUser(final CreateUserRequest createUserRequest) {
-        String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword().getPassword());
+        String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword());
         User newUser = new User(createUserRequest.getUser(), hashedPassword, Role.ROLE_USER);
         return userRepository.save(newUser);
     }
