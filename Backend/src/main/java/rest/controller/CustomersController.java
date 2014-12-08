@@ -11,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +19,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
+import core.events.customers.CustomerIdEvent;
+import core.events.customers.RequestCustomerIdEvent;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import web.domain.User;
 
 @RestController
 @RequestMapping(Routes.API)
@@ -30,12 +34,29 @@ public class CustomersController {
     private CustomerService customerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Customer getSingleCustomerDetails(@PathVariable("customer_id") String customerId) {
-        RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
-        CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
-        return event.getCustomer();
+    public ResponseEntity<Customer> getSingleCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth) {
+        
+        HttpHeaders headers = new HttpHeaders();
+        HttpStatus status = HttpStatus.OK;
+        Customer customer = null;
+
+        User user = (User)auth.getPrincipal();
+        
+        RequestCustomerIdEvent requestCustomerIdEvent = new RequestCustomerIdEvent(user.getId());
+        CustomerIdEvent customerIdEvent = customerService.requestCustomerId(requestCustomerIdEvent);
+        
+        
+        if(customerIdEvent == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        else {
+            String customerId = customerIdEvent.getCustomerId();
+            RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
+            CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
+            customer = event.getCustomer();
+        }
+        return new ResponseEntity(customer, headers, status);
+
     }
     
     @RequestMapping(method = RequestMethod.POST)

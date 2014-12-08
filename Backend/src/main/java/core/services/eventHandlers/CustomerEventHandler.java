@@ -4,8 +4,10 @@ import core.domain.Customer;
 import core.events.customers.AllCustomersEvent;
 import core.events.customers.CreateCustomerEvent;
 import core.events.customers.CustomerDetailsEvent;
+import core.events.customers.CustomerIdEvent;
 import core.events.customers.RequestAllCustomersEvent;
 import core.events.customers.RequestCustomerDetailsEvent;
+import core.events.customers.RequestCustomerIdEvent;
 import core.events.customers.RequestNewCustomerEvent;
 import core.events.customers.RequestUpdateCustomerDetailsEvent;
 import core.events.customers.UpdateCustomerDetailsEvent;
@@ -57,6 +59,22 @@ public class CustomerEventHandler implements CustomerService {
         Customer savedCustomer = customerRepository.save(newCustomer);
                
         return new UpdateCustomerDetailsEvent(savedCustomer);
+    }
+    
+    @Override
+    public CustomerIdEvent requestCustomerId(RequestCustomerIdEvent requestCustomerIdEvent) {
+            
+        String apiUserId = requestCustomerIdEvent.getApiUserId();
+        
+        //Find the customer that contains the API User ID.
+        Customer customer = customerRepository.findByApiUserId(apiUserId);
+        
+        if(customer == null) {
+            return null;
+        }
+        
+        return new CustomerIdEvent(customer.getCustomerId());
+                
     }
 
 }

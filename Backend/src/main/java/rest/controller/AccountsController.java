@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import config.Routes;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.RequestHeader;
+import web.domain.ApiUser;
 
 @RestController
 @RequestMapping(Routes.ACCOUNTS)
@@ -29,14 +34,14 @@ public class AccountsController {
      * When a user makes a GET request to this URL we want to return the 
      * details of a single customer account.
      * 
-     * @param id - The ID of the account to access.
      * @return The Account details as JSON.
      */
     @RequestMapping(value = Routes.CUSTOMER_ACCOUNT, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Account getCustomerAccount(@PathVariable("account_id") String id) {
-        RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(id);
+    public Account getCustomerAccount(@AuthenticationPrincipal ApiUser user) {
+                      
+        RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(user.getId());
         AccountDetailsEvent event = accountService.requestAccountDetails(request);
         return event.getAccount();
     }
