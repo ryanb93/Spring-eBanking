@@ -57,15 +57,18 @@
                     <tr>
                         <td id="twentypercent">Email</td>
                         <td id="twentypercent">Password Hash</td>
+                        <td id="twentypercent">API User ID</td>
                     </tr>
                     <% List<User> allUsers = (List<User>) request.getAttribute( "users" ); %>
                     <% for (User user : allUsers){
                                              pageContext.setAttribute("email", user.getEmailAddress());
                                              pageContext.setAttribute("password", user.getPassword());
+                                             pageContext.setAttribute("apiUserId", user.getId());
                     %>
                     <tr>
                         <td>${email}</td>
                         <td>${password}</td>
+                        <td>${apiUserId}</td>
                     </tr>
                     <% } %>
                 </table>
@@ -98,6 +101,7 @@
                         <td id="tenpercent">Last Name</td>
                         <td id="twentypercent">Date Of Birth</td>
                         <td id="fortypercent">Postal Address</td>
+                        <td id="fortypercent">API User ID</td>
                     </tr>
                     <% List<Customer> allCustomers = (List<Customer>) request.getAttribute( "customers" ); %>
                     <% for (Customer customer : allCustomers){
@@ -106,6 +110,7 @@
                                              pageContext.setAttribute("lastName", customer.getLastName());
                                              pageContext.setAttribute("dateOfBirth", customer.getDateOfBirth());
                                              pageContext.setAttribute("address", customer.getPostalAddress());
+                                             pageContext.setAttribute("apiUserID", customer.getApiUserId());
                     %>
                     <tr>
                         <td>${customerId}</td>
@@ -113,6 +118,7 @@
                         <td>${lastName}</td>
                         <td>${dateOfBirth}</td>
                         <td>${address}</td>
+                        <td>${apiUserID}</td>
                     </tr>
                     <% } %>
                 </table>
