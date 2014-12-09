@@ -39,13 +39,6 @@
                     </div>
                 </a>
             </div>
-            <div class="nav-wrapper">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="http://localhost:8000/index.html" class="nav-link">Accounts</a>
-                    </li>
-                </ul>
-            </div>
         </nav>
 
         <div class="container panel-footer">
