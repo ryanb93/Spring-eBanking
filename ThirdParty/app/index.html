@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>eBanking</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="app.css">
+  <base href="/">
+  <script src="bower_components/angular/angular.js"></script>
+</head>
+<body ng-cloak class="ng-cloak">
+  <nav role="navigation" class="navbar topnavbar">
+    <div class="navbar-header">
+      <a href="#/" class="navbar-brand">
+        <div class="brand-logo">
+          Third Party Read Only Application
+        </div>
+      </a>
+    </div>
+  </nav>
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <div id="wrap">
+    <div class="container">
+      <div ng-show="show!='logged-in'">
+        <h1 class="page-header">Welcome to TPROA</h1>
+        <oauth class="signIn"
+          site="https://localhost:8080"
+          client-id="173a73b18a8534b41f471h23d123e33a"
+          redirect-uri="http://localhost:9000"
+          authorize-path="/login"
+          profile-uri="https://localhost:8080/api/customer"
+          text="Authorise with Bank">
+        </oauth>
+      </div>
+      <div class="logged-in">
+        <div ng-view></div>
+      </div>
+    </div>
+  </div>
+<!-- Load dependencies -->
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+<script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
+<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Import the API Service -->
+<script src="components/APIService.js"></script>
+<!-- Import the view controllers -->
+<script src="accounts/accounts.js"></script>
+<script src="details/details.js"></script>
+<!-- Load the main application -->
+<script src="app.js"></script>
+</body>
+</html>

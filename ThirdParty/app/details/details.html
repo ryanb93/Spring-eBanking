@@ -1,0 +1,68 @@
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+<div ng-app"eBanking" ng-controller="detailsController">
+
+	<h1 class="page-header">Customer Details</h1>
+ 
+ 	<div id="messages"></div>
+
+	<form role="form" ng-submit="processForm()" >
+	  <div id="first-name-group" class="form-group">
+	    <label for="inputFirstName">First Name</label>
+	    <input type="text" class="form-control" id="inputFirstName" placeholder="Enter First Name" ng-model="details.firstName" ng-bind="details.firstName" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="last-name-group" class="form-group">
+	    <label for="inputSurname">Surname</label>
+	    <input type="text" class="form-control" id="inputSurname" placeholder="Enter Surname" ng-model="details.lastName" ng-bind="details.lastName" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="dob-group" class="form-group">
+	    <label for="inputDOB">Date of Birth</label>
+	    <input type="text" class="form-control" id="inputDOB" placeholder="Enter Date of Birth" ng-model="details.dateOfBirth" ng-bind="details.dateOfBirth" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="house-number-group" class="form-group">
+	    <label for="inputHouseNumber">House Number</label>
+	    <input type="text" class="form-control" id="inputHouseNumber" placeholder="Enter House Number" ng-model="details.address.houseNumber" ng-bind="details.address.houseNumber" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="street-group" class="form-group">
+	    <label for="inputStreet">Street</label>
+	    <input type="text" class="form-control" id="inputStreet" placeholder="Enter Street" ng-model="details.address.street" ng-bind="details.address.street" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div  id="postcode-group" class="form-group">
+	    <label for="inputPostCode">Postcode</label>
+	    <input type="text" class="form-control" id="inputPostCode" placeholder="Enter Postcode" ng-model="details.address.postalCode" ng-bind="details.address.postalCode" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="city-group" class="form-group">
+	    <label for="inputCity">City</label>
+	    <input type="text" class="form-control" id="inputCity" placeholder="Enter City" ng-model="details.address.city" ng-bind="details.address.city" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="county-group" class="form-group">
+	    <label for="inputCounty">County</label>
+	    <input type="text" class="form-control" id="inputCounty" placeholder="Enter County" ng-model="details.address.county" ng-bind="details.address.county" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <div id="country-group" class="form-group">
+	    <label for="inputCountry">Country</label>
+	    <input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" ng-model="details.address.country" ng-bind="details.address.country" required>
+	    <span class="help-block"></span>
+	  </div>
+	  <button type="submit" class="btn btn-success btn-lg btn-block">
+			 Submit!
+		</button>
+	</form>
+	<br>
+	<pre>
+		{{ details }}
+	</pre>
+
+</div>
+</div>
+</div>
+
+

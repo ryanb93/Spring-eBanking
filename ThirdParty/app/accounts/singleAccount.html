@@ -1,0 +1,59 @@
+<div ng-app"eBanking" ng-controller="singleAccountController">
+	<h1 class="page-header"><a href="#/">Accounts</a>  <em class="fa fa-angle-right"></em> {{account.accountType | capitalize}} Account</h1>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-5 col-xs-8 col-centered">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3 text-center">
+							<em class="fa fa-money fa-5x"></em>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="text-lg balancePadding">£{{account.balance}}</div>
+						</div>
+					</div>
+				</div>
+				<a href="#/accounts/{{account.accountId}}" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
+					<span class="pull-left">Account Number: {{account.accountNumber}}</span><br>
+					<span class="pull-left">Sort Code: {{account.sortCode}}</span>
+				</a>
+				<!-- END panel-->
+			</div>
+		</div>
+	</div>
+	<h2 class="ng-scope">Timeline</h2>
+	<hr>
+
+	<ul class="timeline">
+		<li data-datetime="Now" class="timeline-separator"></li>
+		
+		<li ng-repeat="transaction in transactions.transactions | orderBy: '-date'" ng-class-even="'timeline-inverted'">
+			<div class="timeline-badge {{getBadgeColour(transaction.transactionType)}}">
+				<em class="fa {{getIcon(transaction.transactionType)}}"></em>
+			</div>
+			<div class="timeline-date">
+				<time datetime="{{transaction.date | date:'medium'}}"></time>
+			</div>
+			<div class="timeline-panel">
+				<div ng-class-odd="'popover left'" ng-class-even="'popover right'">
+					<div class="arrow"></div>
+					<h3 class="popover-title">{{getTitle(transaction.transactionType)}} - £{{transaction.value}}</h3>
+					<div class="popover-content">
+					<p>{{transaction.sender}} to {{transaction.recipient}}</a>
+					<br>
+					</p>
+				</div>
+			</div>
+		</li>
+		<li data-datetime="Older Payments" class="timeline-separator wide" ng-show="!finished"></li>
+		<li>
+			<a href="" class="timeline-badge" ng-show="loading">
+				<em class="fa fa-circle-o-notch fa-spin"></em>
+			</a>				
+			<a href="" ng-click="loadNext()" class="timeline-badge" ng-show="!loading; !finished">
+				<em class="fa fa-plus"></em>
+			</a>
+		</li>
+		<li data-datetime="End of Transactions" class="timeline-separator timeline-end" ng-show="finished"></li>
+	</ul>
+</div>
