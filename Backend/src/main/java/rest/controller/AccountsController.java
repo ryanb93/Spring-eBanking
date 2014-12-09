@@ -70,6 +70,7 @@ public class AccountsController {
      * details of a single customer account.
      * 
      * @param auth
+     * @param accountId
      * @return The Account details as JSON.
      */
     @RequestMapping(value = Routes.SINGLE_ACCOUNT, method = RequestMethod.GET)

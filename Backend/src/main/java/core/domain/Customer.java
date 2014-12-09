@@ -98,7 +98,7 @@ public class Customer {
         this.address = address;
     }
     
-     public void setApiUserId(String apiUserId) {
+     public final void setApiUserId(String apiUserId) {
         if (apiUserId == null || apiUserId.equals("")) {
             throw new IllegalArgumentException("API User ID can not be empty.");
         }
@@ -150,15 +150,6 @@ public class Customer {
         return this.address;
     }
     
-    /**
-     * Returns the address of the Customer as a String (For the Admin Panel).
-     *
-     * @return the customer's Address.
-     */
-        public String getPostalAddress() {
-        return address.getPostalAddress();
-    }
-        
     /**
      * Returns the API User ID of the Customer.
      *

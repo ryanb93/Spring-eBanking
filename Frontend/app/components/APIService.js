@@ -21,6 +21,7 @@ angular.module('eBanking.APIService', ['ngResource'])
 
     eBankingAPI.postCustomerDetails = function(customerId, newDetails) {
       return $resource('https://localhost:8080/api/customer/',
+        {},
         { save: {
             method: 'POST',
             isArray: false,

@@ -143,7 +143,8 @@ public class PostalAddress {
         return this.postalCode;
     }
     
-        public String getPostalAddress() {
+    @Override
+    public String toString() {
         return (houseNumber+", " + street+", "+city+", "+county+", "+country+", "+postalCode);
     }
     
