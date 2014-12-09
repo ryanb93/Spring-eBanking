@@ -22,12 +22,6 @@ public class UserConfiguration {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private DefaultTokenServices tokenServices;
-//
-//    @Autowired
-//    private ClientDetailsService clientDetailsService;
-//    
     @Bean
     public Validator validator() {
         return Validation.buildDefaultValidatorFactory().getValidator();
@@ -42,20 +36,4 @@ public class UserConfiguration {
     public UserServiceEventHandler userResource() {
         return new UserServiceEventHandler(userRepository, validator, passwordEncoder);
     }
-
-//    @Bean
-//    public PasswordResource passwordResource() {
-//        return new PasswordResource();
-//    }
-//
-//    @Bean
-//    public VerificationResource verificationResource() {
-//        return new VerificationResource();
-//    }
-//
-//    @Bean
-//    public MeResource meResource() {
-//        return new MeResource();
-//    }
-
 }
