@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
+import core.events.transactions.CreateTransactionEvent;
+import core.services.TransactionService;
 import web.domain.ApiUser;
 import web.events.users.CreateUserRequest;
 import web.repository.UserRepository;
@@ -52,6 +54,9 @@ public class AdminController {
     
     @Autowired
     private AccountService accountService;
+    
+    @Autowired
+    private TransactionService transactionService;
     
     @Autowired
     private CustomerRepository customerRepository;
@@ -201,8 +206,9 @@ public class AdminController {
         transaction.setSender(sender);
         transaction.setValue(transactionValue);
         transaction.setAccountId(accountId);
-        
-        transactionRepository.save(transaction);
+        CreateTransactionEvent event = new CreateTransactionEvent(transaction);
+        transactionService.requestNewTransaction(event);
+        //transactionRepository.save(transaction);
         
       return new ModelAndView("redirect:/adminPanel");
     }
