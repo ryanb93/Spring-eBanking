@@ -7,3 +7,8 @@
 *.lock
 .DS_Store
 /Backend/build/
+
+# Report
+*.aux
+*.synctex.gz
+*.toc
