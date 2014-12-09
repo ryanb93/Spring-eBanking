@@ -36,18 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public OAuth2RefreshTokenRepository refreshTokenRepository;    
     
-    
-//    @Bean
-//    public  ClientDetailsUserDetailsService detailsService() {
-//        return new ClientDetailsUserDetailsService(clientDetailsService());
-//    }           
-//    
-    
     @Bean
     StandardPasswordEncoder passwordEncoder() {
         return new StandardPasswordEncoder();
     }  
-    
     
     @Bean
     @Override
@@ -55,24 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        return super.authenticationManagerBean();
     }
     
-//    @Bean 
-//    public ClientCredentialsTokenEndpointFilter clientCredentialsTokenEndpointFilter() throws Exception {
-//        ClientCredentialsTokenEndpointFilter filter = new ClientCredentialsTokenEndpointFilter();
-//        filter.setAuthenticationManager(authenticationManagerBean());
-//        return filter;
-//    }       
-//    
-//    @Bean
-//    public OAuth2AuthenticationEntryPoint clientAuthenticationEntryPoint() {
-//        OAuth2AuthenticationEntryPoint entry = new OAuth2AuthenticationEntryPoint();
-//        entry.setTypeName("Basic");
-//        return entry;
-//    }      
-
     @Bean
     public OAuth2AuthenticationEntryPoint oauthAuthenticationEntryPoint() {
         OAuth2AuthenticationEntryPoint entry = new OAuth2AuthenticationEntryPoint();
-        entry.setRealmName("Test");
+        entry.setRealmName("eBanking");
         return entry;
     }    
     
@@ -80,16 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public OAuth2AccessDeniedHandler oauthAccessDeniedHandler() {
         return new OAuth2AccessDeniedHandler();
     }     
-    
-//    @Bean 
-//    public DefaultTokenServices tokenServices() {
-//        DefaultTokenServices tokenServices = new DefaultTokenServices();
-//        tokenServices.setTokenStore(tokenStore());
-//        tokenServices.setSupportRefreshToken(true);
-//        tokenServices.setClientDetailsService(new InMemoryClientDetailsService());
-//        return tokenServices;
-//    }
-    
+
     @Bean
     public OAuth2RepositoryTokenStore tokenStore() {
         return new OAuth2RepositoryTokenStore(accessTokenRepository, refreshTokenRepository);
@@ -115,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     RoleHierarchyImpl roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER ROLE_USER > ROLE_GUEST");
+        hierarchy.setHierarchy("ROLE_USER > ROLE_READ_ONLY");
         return hierarchy;
     }       
     
