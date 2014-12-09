@@ -17,10 +17,8 @@ angular.module('eBanking.accountControllers', [])
 .controller('accountsController', ['$scope', 'eBankingAPIservice',
     function($scope, eBankingAPIservice) {
 
-        eBankingAPIservice.getAccounts().get(function(ids) {
-                        
-            $scope.accountsList = ids.accounts;
-
+        eBankingAPIservice.getAccounts().query(function(ids) {
+            $scope.accountsList = ids;
         });
 
     }

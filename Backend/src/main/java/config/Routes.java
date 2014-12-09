@@ -7,10 +7,10 @@ public class Routes {
     
     /* Accounts routes */
     public static final String ACCOUNTS = API + "/accounts";
-    public static final String CUSTOMER_ACCOUNT = ACCOUNTS + "/{account_id}";
+    public static final String SINGLE_ACCOUNT = "/{account_id}";
     
     /* Transaction Routes */
-    public static final String TRANSACTIONS = ACCOUNTS + CUSTOMER_ACCOUNT + "/transactions";
+    public static final String TRANSACTIONS = ACCOUNTS + SINGLE_ACCOUNT + "/transactions";
     public static final String TRANSACTIONS_ID = "/{transaction_id}";
     
     /* Third Party Apps Routes */

@@ -5,27 +5,22 @@ angular.module('eBanking.APIService', ['ngResource'])
 
     var eBankingAPI = {};
 
-    eBankingAPI.getAccounts = function(customerId) {
-      return $resource('https://localhost:8080/api/customer/accounts',
-        { customerId: customerId },
-        { query: { method: 'GET', } });
+    eBankingAPI.getAccounts = function() {
+      return $resource('https://localhost:8080/api/customer/accounts');
     }
 
-    eBankingAPI.getAccount = function(customerId, accountId) {
+    eBankingAPI.getAccount = function(accountId) {
       return $resource('https://localhost:8080/api/customer/accounts/:accountId',
-        { customerId: customerId, accountId: accountId },
-        { query: { method: 'GET', } });
+        { accountId: accountId },
+        { query: { method: 'GET'} });
     }
 
-    eBankingAPI.getCustomerDetails = function(customerId) {
-      return $resource('https://localhost:8080/api/customer/',
-        { customerId: customerId},
-        { query: { method: 'GET', } });
+    eBankingAPI.getCustomerDetails = function() {
+      return $resource('https://localhost:8080/api/customer/');
     }
 
     eBankingAPI.postCustomerDetails = function(customerId, newDetails) {
       return $resource('https://localhost:8080/api/customer/',
-        { customerId: customerId},
         { save: {
             method: 'POST',
             isArray: false,
@@ -34,9 +29,9 @@ angular.module('eBanking.APIService', ['ngResource'])
         });
     }
 
-    eBankingAPI.getTransactions = function(customerId, accountId, page) {
+    eBankingAPI.getTransactions = function(accountId, page) {
       return $resource('https://localhost:8080/api/customers/accounts/:accountId/transactions?page=:page',
-        { customerId: customerId, accountId: accountId, page: page },
+        { accountId: accountId, page: page },
         { query: { method: 'GET', } });
     }
 
