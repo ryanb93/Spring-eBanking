@@ -12,21 +12,30 @@
 					  http://www.springframework.org/schema/context
 					  http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- File based client details access
-         This can be replaced with a persistence store implementation if there are more than a handful of clients-->
     <oauth:client-details-service id="client-details-service">
 
-        <!-- Allow access to test clients -->
+        <!-- Our Official Application -->
         <oauth:client
                 client-id="353b302c44574f565045687e534e7d6a"
                 secret="286924697e615a672a646a493545646c"
                 authorized-grant-types="password,refresh_token"
-                authorities="ROLE_TEST"
+                authorities="ROLE_USER"
                 access-token-validity="5184000"
                 refresh-token-validity="5184000"
                 scope="read, write"
                 />
 
+        <!-- An accepted third party application -->
+        <oauth:client
+                client-id="173a73b18a8534b41f471h23d123e33a"
+                secret="286924697e615a672a646a493545646c"
+                authorized-grant-types="password,refresh_token"
+                authorities="ROLE_READ_ONLY"
+                access-token-validity="5184000"
+                refresh-token-validity="5184000"
+                scope="read"
+                />
+                
     </oauth:client-details-service>
 
 </beans>

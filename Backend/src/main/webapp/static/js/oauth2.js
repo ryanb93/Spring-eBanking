@@ -6,8 +6,6 @@ function oauth2() {}
  */
 oauth2.login = function (data, clientId, success, error) {
 
-  console.log(clientId);
-
   var authorization =  CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(clientId + ':' + '286924697e615a672a646a493545646c'));
   $.ajax({
     url: '/oauth/token',
