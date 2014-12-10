@@ -214,24 +214,24 @@
                             <h2>Remove Account</h2>
                             <form name="RemoveAccount" action="/adminPanel/removeAccount" method="POST" role="form">
                                 <div class="form-group">
-                                    <select name="selectedAccountId">
+                                    <select name="selectedAccountId" class="form-control">
                                         <% List<Account> removeAccAccounts = (List<Account>) request.getAttribute( "accounts" ); %>
                                             <% for (Account account : removeAccAccounts){
                                             pageContext.setAttribute("accId",account.getAccountId());
                                             pageContext.setAttribute("accNo", account.getAccountNumber());%>
-                                            <option value="${accId}">Account Id: ${accId}, Account Number: ${accNo}</option>
+                                            <option value="${accId}">Account Number: ${accNo}</option>
                                             <% } %>
                                         </select>
                                     </div>
                                     <input class="btn btn-default" type="submit" value="Remove Account" />
                                 </form>
                             </div>
-                            <div class="panel-footer centertextalign leftpanelapp">
+                            <div class="panel-header">
                                 <h2>Add Customer Account</h2>
                                 <form name="AddAccount" action="/adminPanel/addAccount" method="POST" role="form">
                                     <div class="form-group">
                                         <label>Customer:</label>
-                                        <select name="selectedCustomerId">
+                                        <select name="selectedCustomerId" class="form-control">
                                             <% List<Customer> addAccCustomers = (List<Customer>) request.getAttribute( "customers" ); %>
                                             <% for (Customer customer : addAccCustomers) {
                                             pageContext.setAttribute("addAccFirstName", customer.getFirstName() );
@@ -243,7 +243,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Account Type:</label>
-                                        <select name="selectedAccountType">
+                                        <select name="selectedAccountType" class="form-control">
                                             <option value="current" name="selectedAccountType">Current</option>
                                             <option value="savings" name="selectedAccountType">Savings</option>
                                             <option value = "isa" name="selectedAccountType">ISA</option>
@@ -251,9 +251,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Sort Code</label>
-                                        <input type="text" name="sortCode" />
+                                        <input type="text" name="sortCode" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Account Number:</label>
-                                        <input type="text" name="accountNumber" />
+                                        <input type="text" name="accountNumber" class="form-control"/>
                                     </div>
                                     <input class="btn btn-default" type="submit" value="Add Account" />
                                 </form>
@@ -304,7 +306,7 @@
                                     <h2>Remove Transaction</h2>
                                     <form name="RemoveTransaction" action="/adminPanel/removeTransaction" method="POST" role="form">
                                         <div class="form-group">
-                                            <select name="selectedTransactionId">
+                                            <select name="selectedTransactionId" class="form-control">
                                                 <% List<Transaction> removeTransactions = (List<Transaction>) request.getAttribute( "transactions" ); %>
                                                     <% for (Transaction transaction : removeTransactions){
                                                     pageContext.setAttribute("transactionId",transaction.getTransactionId());
