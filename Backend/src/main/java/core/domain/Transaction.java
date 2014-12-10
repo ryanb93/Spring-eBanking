@@ -11,45 +11,61 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "transactions")
 public final class Transaction {
 
+    /** The transaction database ID */
     @Id
-    private String transactionId;   // A unique transaction ID
+    private String transactionId;
 
+    /** The account number linked to the transaction. */
     @NotNull
-    private String accountNumber;       // The account number linked to the transaction.
+    private String accountNumber;
 
+    /** The sort code of the sender in the transaction */
     @NotNull
-    private String senderSortCode;          // The sort code of the sender in the transaction
+    private String senderSortCode;
 
+    /** The account number of the sender in the transaction. */
     @NotNull
-    private String senderAccountNumber;          // The account number of the sender in the transaction
+    private String senderAccountNumber;
 
+    /** The sort code of the recipient in the transaction. */
     @NotNull
-    private String recipientSortCode;       // The recipient sort code of the transaction
+    private String recipientSortCode;
 
+    /** The account number of the recipient in the transaction. */
     @NotNull
-    private String recipientAccountNumber;       // The recipient account number of the transaction
+    private String recipientAccountNumber;
 
+    /** The value of the transaction. */
     @NotNull
-    private double value;           // The value of the transaction.
+    private double value;
 
+    /** The date the transaction was created. */
     @NotNull
-    private Date date;              // The date the transaction was commited
+    private Date date;
 
+    /** The type of the transactions. */
     @NotNull
     private TransactionType transactionType;
 
+    /**
+     * Empty default constructor needed by Spring to create a Transaction
+     * object from the JSON request body. 
+     * 
+     * It creates an empty object and then goes through all the setters and
+     * sets the values based on the JSON key/value pairs.
+     */
     public Transaction() {
     }
 
     /**
      * Creates a new Transaction object.
      *
-     * @param senderSortCode
-     * @param senderAccountNumber
-     * @param recipientSortCode
-     * @param recipientAccountNumber
-     * @param value - The customer's data of birth.
-     * @param date - The address of the customer.
+     * @param senderSortCode - The sort code of the sender.
+     * @param senderAccountNumber - The account number of the sender.
+     * @param recipientSortCode - The sort code of the recipient.
+     * @param recipientAccountNumber - The account number of the recipient.
+     * @param value - The value of the transaction. 
+     * @param date - The date the transaction was created.
      * @param type - The type of the transaction.
      */
     public Transaction(String senderSortCode, String senderAccountNumber, String recipientSortCode, String recipientAccountNumber, double value, Date date, TransactionType type) {
@@ -62,11 +78,10 @@ public final class Transaction {
         this.setValue(value);
         this.setDate(date);
         this.setTransactionType(type);
-        this.senderSortCode = senderSortCode;
     }
 
     /**
-     * Sets the account ID of the transaction.
+     * Sets the account number of the transaction.
      *
      * @param accountNumber - The account number of the transaction.
      */
@@ -102,6 +117,42 @@ public final class Transaction {
      */
     public void setTransactionType(TransactionType type) {
         this.transactionType = type;
+    }
+    
+        /**
+     * Sets the sender sort code. 
+     * 
+     * @param senderSortCode - The sender sort code.
+     */
+    public void setSenderSortCode(String senderSortCode) {
+        this.senderSortCode = senderSortCode;
+    }
+
+    /**
+     * Sets the sender account number.
+     * 
+     * @param senderAccountNumber - the sender account number.
+     */
+    public void setSenderAccountNumber(String senderAccountNumber) {
+        this.senderAccountNumber = senderAccountNumber;
+    }
+
+    /**
+     * Sets the recipient sort code.
+     * 
+     * @param recipientSortCode - the recipient sort code.
+     */
+    public void setRecipientSortCode(String recipientSortCode) {
+        this.recipientSortCode = recipientSortCode;
+    }
+
+    /**
+     * Sets the recipient account number.
+     * 
+     * @param recipientAccountNumber - the recipient account number.
+     */
+    public void setRecipientAccountNumber(String recipientAccountNumber) {
+        this.recipientAccountNumber = recipientAccountNumber;
     }
 
     /**
@@ -177,28 +228,11 @@ public final class Transaction {
     }
 
     /**
-     * Sets the date of the transaction.
+     * Sets the type of the transaction.
      *
-     * @return date - The date of the transaction.
+     * @return date - The type of the transaction.
      */
     public TransactionType getTransactionType() {
         return this.transactionType;
     }
-
-    public void setSenderSortCode(String senderSortCode) {
-        this.senderSortCode = senderSortCode;
-    }
-
-    public void setSenderAccountNumber(String senderAccountNumber) {
-        this.senderAccountNumber = senderAccountNumber;
-    }
-
-    public void setRecipientSortCode(String recipientSortCode) {
-        this.recipientSortCode = recipientSortCode;
-    }
-
-    public void setRecipientAccountNumber(String recipientAccountNumber) {
-        this.recipientAccountNumber = recipientAccountNumber;
-    }
-
 }
