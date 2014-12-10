@@ -26,7 +26,6 @@ public class Customer {
     @NotNull
     private PostalAddress address;          //Customer Address
     
-    @NotNull
     private String apiUserId;                   //API User ID
 
     public Customer() {
@@ -39,6 +38,7 @@ public class Customer {
      * @param lastName - The last name of the customer.
      * @param dateOfBirth - The customer's data of birth.
      * @param address - The address of the customer.
+     * @param apiUserId
      */
     public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address, String apiUserId) {
         super();
@@ -98,10 +98,11 @@ public class Customer {
         this.address = address;
     }
     
+    /**
+     * 
+     * @param apiUserId 
+     */
      public final void setApiUserId(String apiUserId) {
-        if (apiUserId == null || apiUserId.equals("")) {
-            throw new IllegalArgumentException("API User ID can not be empty.");
-        }
         this.apiUserId = apiUserId;
     }
 
