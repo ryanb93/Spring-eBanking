@@ -16,9 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User extends BaseEntity implements UserDetails {
 
     private String emailAddress;
-    private String firstName;
-    private String lastName;
-    private Integer age;
     private String hashedPassword;
     private Boolean verified = false;
     private List<Role> roles = new ArrayList();
@@ -35,16 +32,12 @@ public class User extends BaseEntity implements UserDetails {
         this();
         this.emailAddress = apiUser.getEmailAddress().toLowerCase();
         this.hashedPassword = hashedPassword;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.roles.add(role);
     }
 
     public User(DBObject dbObject) {
         this((String) dbObject.get("_id"));
         this.emailAddress = (String) dbObject.get("emailAddress");
-        this.firstName = (String) dbObject.get("firstName");
-        this.lastName = (String) dbObject.get("lastName");
         this.hashedPassword = (String) dbObject.get("hashedPassword");
         this.verified = (Boolean) dbObject.get("verified");
         List<String> roles = (List<String>) dbObject.get("roles");
@@ -101,32 +94,8 @@ public class User extends BaseEntity implements UserDetails {
         return emailAddress;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Boolean isVerified() {
