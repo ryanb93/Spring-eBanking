@@ -30,7 +30,7 @@ public final class Transaction {
     private String recipientAccountNumber;       // The recipient account number of the transaction
 
     @NotNull
-    private Double value;           // The value of the transaction.
+    private double value;           // The value of the transaction.
 
     @NotNull
     private Date date;              // The date the transaction was commited
@@ -52,7 +52,7 @@ public final class Transaction {
      * @param date - The address of the customer.
      * @param type - The type of the transaction.
      */
-    public Transaction(String senderSortCode, String senderAccountNumber, String recipientSortCode, String recipientAccountNumber, Double value, Date date, TransactionType type) {
+    public Transaction(String senderSortCode, String senderAccountNumber, String recipientSortCode, String recipientAccountNumber, double value, Date date, TransactionType type) {
         super();
         // Set values using setters.
         this.setSenderSortCode(senderSortCode);
@@ -79,11 +79,7 @@ public final class Transaction {
      *
      * @param value - The value of the transaction.
      */
-    public void setValue(Double value) {
-        if (value == null) {
-            throw new IllegalArgumentException("This value is invalid.");
-        }
-
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -96,7 +92,6 @@ public final class Transaction {
         if (date == null) {
             throw new IllegalArgumentException("This date is invalid.");
         }
-
         this.date = date;
     }
 
@@ -106,15 +101,11 @@ public final class Transaction {
      * @param type - The type of the transaction.
      */
     public void setTransactionType(TransactionType type) {
-        if (type == null) {
-            throw new IllegalArgumentException("This date is invalid.");
-        }
-
         this.transactionType = type;
     }
 
     /**
-     * Gets the transactionId.
+     * Gets the transaction database Id.
      *
      * @return transactionId - The ID of the transaction.
      */
@@ -123,7 +114,7 @@ public final class Transaction {
     }
 
     /**
-     * Gets the date of the transaction.
+     * Gets the Account Number of the account which owns this transaction.
      *
      * @return accountId - The id of the recipient or sender account.
      */
@@ -132,36 +123,36 @@ public final class Transaction {
     }
 
     /**
-     * Gets the sender in the transaction.
+     * Gets the sender account number of the transaction.
      *
-     * @return sender - The sender in the transaction.
+     * @return sender - The sender account number.
      */
     public String getSenderAccountNumber() {
         return this.senderAccountNumber;
     }
 
     /**
-     * Gets the sender in the transaction.
+     * Gets the sender sort code of the transaction.
      *
-     * @return sender - The sender in the transaction.
+     * @return sender sort code.
      */
     public String getSenderSortCode() {
         return this.senderSortCode;
     }
 
     /**
-     * Gets the date of the transaction.
+     * Gets the account number of the recipient.
      *
-     * @return recipient - the recipient in the transaction.
+     * @return recipient account number
      */
     public String getRecipientAccountNumber() {
         return this.recipientAccountNumber;
     }
 
     /**
-     * Gets the date of the transaction.
+     * Gets the sort code of the recipient.
      *
-     * @return recipient - the recipient in the transaction.
+     * @return recipient sort code
      */
     public String getRecipientSortCode() {
         return this.recipientSortCode;
@@ -172,7 +163,7 @@ public final class Transaction {
      *
      * @return value - The value of the transaction.
      */
-    public Double getValue() {
+    public double getValue() {
         return this.value;
     }
 
