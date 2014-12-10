@@ -82,7 +82,9 @@ public class TransactionEventHandler implements TransactionService {
         
         //Account account = accountEvent.getAccount();
          if (senderAccount != null){
-            UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(senderAccountNumber, newTransaction.getValue());
+            double inverseTransactionValue = newTransaction.getValue();
+            inverseTransactionValue = -inverseTransactionValue;
+            UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(senderAccountNumber, inverseTransactionValue);
             accountService.updateAccountBalance(balanceEvent);
             transactionRepository.save(newTransaction);
         }
