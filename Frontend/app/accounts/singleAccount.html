@@ -27,7 +27,7 @@
 	<ul class="timeline">
 		<li data-datetime="Now" class="timeline-separator"></li>
 		
-		<li ng-repeat="transaction in transactions.transactions | orderBy: '-date'" ng-class-even="'timeline-inverted'">
+		<li ng-repeat="transaction in transactions | orderBy: '-date'" ng-class-even="'timeline-inverted'">
 			<div class="timeline-badge {{getBadgeColour(transaction.transactionType)}}">
 				<em class="fa {{getIcon(transaction.transactionType)}}"></em>
 			</div>

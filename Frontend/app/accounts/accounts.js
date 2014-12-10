@@ -39,9 +39,9 @@ angular.module('eBanking.accountControllers', [])
         });
 
 
-        eBankingAPIservice.getTransactions(accountId, $scope.transactionPage).get(function(transactions) {
+        eBankingAPIservice.getTransactions(accountId, $scope.transactionPage).query(function(transactions) {
             $scope.transactions = transactions;
-            if(transactions.transactions.length != 10) {
+            if(transactions.length != 10) {
                 //There are less than 10 transactions, remove the + button.
                 $scope.finished = true;
             }
@@ -100,10 +100,10 @@ angular.module('eBanking.accountControllers', [])
             $scope.loading = true;
             $scope.transactionPage++;
 
-            eBankingAPIservice.getTransactions(accountId, $scope.transactionPage).get(function(loaded) {
+            eBankingAPIservice.getTransactions(accountId, $scope.transactionPage).query(function(loaded) {
                 
-                var existing = $scope.transactions.transactions;
-                var next = loaded.transactions;
+                var existing = $scope.transactions;
+                var next = loaded;
 
                 $scope.transactions.transactions.push.apply(existing, next);
                 if(next.length != 10 ) {
