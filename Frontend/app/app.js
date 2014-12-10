@@ -31,10 +31,20 @@ angular.module('eBanking', [
 
     }
 ])
-.controller('indexController', function ($http, $scope, $timeout, AccessToken) {
+.controller('indexController', function ($location, $http, $scope, $timeout, AccessToken) {
+    
     $scope.$on('oauth:authorized', function(event, token) {
       $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.access_token;
-    })
+    });
+
+    $scope.$on('oauth:logout', function(event) {
+      console.log('The user has signed out');
+    });
+
+    $scope.$on('oauth:loggedOut', function(event) {
+      console.log('The user is not signed in');
+    });
+
 })
 .filter('capitalize', function() {
   return function(input, scope) {
