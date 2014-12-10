@@ -111,6 +111,7 @@ public class TransactionsController {
         if (AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
             //If this user's customer owns the account given.
             if (authCustomerOwnsAccount(auth, accountNumber)) {
+                if(transaction.getValue() >= 0)  {
                 //Set the transaction account ID to the path variable.
                 transaction.setAccountNumber(accountNumber);
                 //Set the date to current date.
@@ -129,6 +130,10 @@ public class TransactionsController {
             } else {
                 status = HttpStatus.BAD_REQUEST;
             }
+            } else {
+                status = HttpStatus.BAD_REQUEST;
+                        }
+            
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }

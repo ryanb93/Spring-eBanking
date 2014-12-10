@@ -64,23 +64,40 @@ public class TransactionEventHandler implements TransactionService {
     public CreateTransactionEvent requestNewTransaction(RequestCreateTransactionEvent createTransactionEvent) {
         //Get the transaction object from the event.
         Transaction newTransaction = createTransactionEvent.getTransaction();
-        //Get the number of the account to add the transaction to.
-        String accountNumber = newTransaction.getAccountNumber();
-        //Create a new account details request event for this account.
-        RequestAccountDetailsFromNumberEvent event = new RequestAccountDetailsFromNumberEvent(accountNumber);
-        //Send this request to the account service.
-        AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(event); 
-        //Get the account object from the request.
-        Account account = accountEvent.getAccount();
-        //Create a balance update event.
-        UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(account, newTransaction.getValue());
-        //Send the balance update event to the account service.
-        accountService.updateAccountBalance(balanceEvent);
-        //Save the new transaction to the repository.
-        transactionRepository.save(newTransaction);
-        //Get the newly created transaction back from the repository.
-        Transaction created = transactionRepository.findOne(newTransaction.getTransactionId());
-        return new CreateTransactionEvent(created);
+        
+        //String accountNumber = newTransaction.getAccountNumber();
+        
+        String senderAccountNumber = newTransaction.getSenderAccountNumber();
+        String recipientAccountNumber = newTransaction.getRecipientAccountNumber();
+        
+        RequestAccountDetailsFromNumberEvent senderAccountDetails = new RequestAccountDetailsFromNumberEvent(senderAccountNumber);
+        RequestAccountDetailsFromNumberEvent recipientAccountDetails = new RequestAccountDetailsFromNumberEvent(recipientAccountNumber);
+        
+        Account senderAccount = accountService.requestAccountDetailsFromNumber(senderAccountDetails).getAccount();
+        Account recipientAccount = accountService.requestAccountDetailsFromNumber(recipientAccountDetails).getAccount();
+        
+        //RequestAccountDetailsFromNumberEvent event = new RequestAccountDetailsFromNumberEvent(accountNumber);
+        
+        //AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(event);
+        
+        //Account account = accountEvent.getAccount();
+         if (senderAccount != null){
+            UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(senderAccountNumber, newTransaction.getValue());
+            accountService.updateAccountBalance(balanceEvent);
+            transactionRepository.save(newTransaction);
+        }
+         
+        if (recipientAccount != null){
+            UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(recipientAccountNumber, newTransaction.getValue());
+            accountService.updateAccountBalance(balanceEvent);
+            
+            Transaction recipientTransaction = newTransaction;
+            recipientTransaction.clearTransactionId();
+            recipientTransaction.setAccountNumber(recipientAccount.getAccountId());
+            transactionRepository.save(recipientTransaction);    
+        }
+        return new CreateTransactionEvent(transactionRepository.findOne(newTransaction.getTransactionId()));
+
     }
 
 }

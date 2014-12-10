@@ -235,4 +235,9 @@ public final class Transaction {
     public TransactionType getTransactionType() {
         return this.transactionType;
     }
+    
+    public void clearTransactionId() {
+        this.transactionId = null;
+    }
+
 }

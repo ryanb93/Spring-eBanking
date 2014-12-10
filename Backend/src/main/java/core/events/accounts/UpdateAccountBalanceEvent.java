@@ -4,19 +4,19 @@ import core.domain.Account;
 
 public class UpdateAccountBalanceEvent {
 
-    private final Account account;
-    private final Double transactionValue;
-
-    public UpdateAccountBalanceEvent(Account account, Double transactionValue) {
-        this.account = account;
+    private final String accountNumber;
+    private final double transactionValue;
+    
+    public UpdateAccountBalanceEvent(String accountNumber, double transactionValue){
+        this.accountNumber = accountNumber;
         this.transactionValue = transactionValue;
     }
-
-    public Account getAccount() {
-        return this.account;
+    
+    public String getAccountNumber() {
+        return this.accountNumber;
     }
 
-    public Double getTransactionValue() {
+    public double getTransactionValue() {
         return this.transactionValue;
     }
 

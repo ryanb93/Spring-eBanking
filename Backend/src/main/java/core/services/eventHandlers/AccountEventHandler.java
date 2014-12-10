@@ -42,13 +42,16 @@ public class AccountEventHandler implements AccountService {
 
     @Override
     public UpdateAccountBalanceEvent updateAccountBalance(UpdateAccountBalanceEvent updateAccountBalanceEvent) {
-        Account account = updateAccountBalanceEvent.getAccount();
+        RequestAccountDetailsFromNumberEvent accountDetails = new RequestAccountDetailsFromNumberEvent(updateAccountBalanceEvent.getAccountNumber());
+        
+        Account account = requestAccountDetailsFromNumber(accountDetails).getAccount();
+        
         Double transactionValue = updateAccountBalanceEvent.getTransactionValue();
         if (account != null) {
             account.setBalance(account.getBalance() + transactionValue);
             accountRepository.save(account);
         }
-        return new UpdateAccountBalanceEvent(account, transactionValue);
+        return new UpdateAccountBalanceEvent(account.getAccountNumber(), transactionValue);
     }
 
 }
