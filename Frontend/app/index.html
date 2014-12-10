@@ -24,7 +24,7 @@
         </div>
       </a>
     </div>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" ng-show="hasToken">
       <ul class="nav navbar-nav navbar-right">
         <li>
           <a href="#/accounts" class="nav-link">
@@ -49,7 +49,7 @@
   <![endif]-->
   <div id="wrap">
     <div class="container">
-      <div ng-show="show!='logged-in'">
+      <div>
         <h1 class="page-header">Welcome to eBanking</h1>
         <oauth class="signIn"
           site="https://localhost:8080"

@@ -36,10 +36,14 @@ angular.module('eBanking', [
     
     $scope.$on('oauth:authorized', function(event, token) {
       $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.access_token;
+      $scope.hasToken = true;
     });
 
     $scope.$on('oauth:logout', function(event) {
-      console.log('The user has signed out');
+      $scope.reloadRoute = function() {
+        console.log("in here");
+        $state.reload();
+      };
     });
 
     $scope.$on('oauth:loggedOut', function(event) {
