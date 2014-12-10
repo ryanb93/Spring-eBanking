@@ -1,0 +1,62 @@
+	<div class="col-md-6 col-md-offset-3">
+		<div ng-app"eBanking" ng-controller="transferController">
+
+			<h1 class="page-header">Transfer between your accounts</h1>
+		 
+		 	<div id="messages"></div>
+
+			<form role="form" ng-submit="processForm()" >
+			  <div id="first-name-group" class="form-group">
+			    <label for="inputFirstName">From Account</label>
+			    <input type="text" class="form-control" id="inputFirstName" placeholder="Enter First Name" ng-model="details.firstName" ng-bind="details.firstName" required>
+			    <span class="help-block"></span>
+			  </div>
+			  <div id="last-name-group" class="form-group">
+			    <label for="inputSurname">Amount</label>
+			    <input type="text" class="form-control" id="inputSurname" placeholder="Enter Surname" ng-model="details.lastName" ng-bind="details.lastName" required>
+			    <span class="help-block"></span>
+			  </div>
+			  <div id="country-group" class="form-group">
+			    <label for="inputCountry">To Account</label>
+			    <input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" ng-model="details.address.country" ng-bind="details.address.country" required>
+			    <span class="help-block"></span>
+			  </div>
+			  	<button type="submit" class="btn btn-success btn-lg btn-block">
+					 Transfer
+				</button>
+			</form>
+
+
+			<hr>
+
+			<h1 class="page-header">Make a payment</h1>
+		 
+		 	<div id="messages"></div>
+
+			<form role="form" ng-submit="processForm()" >
+			  <div id="first-name-group" class="form-group">
+			    <label for="inputFirstName">From Account</label>
+			    <input type="text" class="form-control" id="inputFirstName" placeholder="Enter First Name" ng-model="details.firstName" ng-bind="details.firstName" required>
+			    <span class="help-block"></span>
+			  </div>
+			  <div id="last-name-group" class="form-group">
+			    <label for="inputSurname">Amount</label>
+			    <input type="text" class="form-control" id="inputSurname" placeholder="Enter Surname" ng-model="details.lastName" ng-bind="details.lastName" required>
+			    <span class="help-block"></span>
+			  </div>
+			  <div id="country-group" class="form-group">
+			    <label for="inputCountry">To Account Number</label>
+			    <input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" ng-model="details.address.country" ng-bind="details.address.country" required>
+			    <span class="help-block"></span>
+			    <label for="inputCountry">Sort Code</label>
+			    <input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" ng-model="details.address.country" ng-bind="details.address.country" required>
+			    <span class="help-block"></span>
+			  </div>
+			  	<button type="submit" class="btn btn-success btn-lg btn-block">
+					 Make Payment
+				</button>
+			</form>
+		</div>
+</div>
+
+
