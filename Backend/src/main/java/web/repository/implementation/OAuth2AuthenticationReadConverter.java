@@ -16,6 +16,13 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import web.domain.User;
 
+
+/**
+ * Accessed: 20:43 10/12/2014
+ * URL: https://github.com/iainporter/oauth2-provider/blob/master/src/main/java/com/porterhead/oauth2/mongodb/OAuth2AuthenticationReadConverter.java
+ * License: Apache License Version 2.0, January 2004 http://www.apache.org/licenses/
+ */
+
 //Hackery to deserialize back into an OAuth2Authentication Object made necessary because Spring Mongo can't map clientAuthentication to authorizationRequest
 @ReadingConverter
 public class OAuth2AuthenticationReadConverter implements Converter<DBObject, OAuth2Authentication> {

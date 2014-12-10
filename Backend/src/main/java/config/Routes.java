@@ -1,5 +1,8 @@
 package config;
 
+/**
+ * 
+ */
 public class Routes {
 
     /* Root URL. All Routes will go through this point */

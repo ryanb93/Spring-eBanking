@@ -15,6 +15,10 @@ import org.springframework.data.mongodb.core.convert.CustomConversions;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import web.repository.implementation.OAuth2AuthenticationReadConverter;
 
+/**
+ * This class sets up the MongoDB in Spring.
+ * It allows a connection to be opened to the database for performing transactions.
+ */
 @Configuration
 @EnableMongoRepositories(basePackages = {"core.repository", "web.repository"})
 public class MongoConfig extends AbstractMongoConfiguration {
@@ -33,10 +37,13 @@ public class MongoConfig extends AbstractMongoConfiguration {
     }
 
     /**
-     * TODO: Fix this.
-     *
+     * Method maps the Client authorisation to an authorisation request.
      * Override needed to convert OAuth2 token back from the database.
-     *
+     * 
+     * We had this problem and were unsure on how to resolve this. From searching
+     * online we found the solution by using "OAuth2AuthenticationReadConverter"
+     * which if you see the class you will find the reference.
+     * 
      * @return CustomConversions
      */
     @Override
@@ -60,8 +67,8 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     /**
      * Returns a new Mongo object.
-     *
-     * @return
+     * The Mongo object is what is used for Database interaction
+     * @return Mongo
      * @throws Exception
      */
     @Override
