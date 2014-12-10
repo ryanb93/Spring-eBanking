@@ -17,10 +17,12 @@ angular.module('eBanking.accountControllers', [])
 .controller('accountsController', ['$scope', 'eBankingAPIservice',
     function($scope, eBankingAPIservice) {
 
-        eBankingAPIservice.getAccounts().query(function(ids) {
-            $scope.accountsList = ids;
-            $scope.doShow = true;
-        });
+        if($scope.hasToken) {
+            eBankingAPIservice.getAccounts().query(function(ids) {
+                $scope.accountsList = ids;
+                $scope.doShow = true;
+            });
+        }
 
     }
 ])
