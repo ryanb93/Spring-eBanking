@@ -4,6 +4,7 @@ import core.domain.Account;
 import core.domain.Transaction;
 import core.events.accounts.AccountDetailsEvent;
 import core.events.accounts.RequestAccountDetailsEvent;
+import core.events.accounts.UpdateAccountBalanceEvent;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
@@ -45,8 +46,8 @@ public class TransactionEventHandler implements TransactionService {
         RequestAccountDetailsEvent event = new RequestAccountDetailsEvent(newTransaction.getAccountId());
         AccountDetailsEvent accountEvent = accountService.requestAccountDetails(event);
         Account account = accountEvent.getAccount();
-        account.setBalance(account.getBalance() + newTransaction.getValue());
-        accountRepository.save(account);
+        UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(account, newTransaction.getValue());
+        accountService.updateAccountBalance(balanceEvent);
         transactionRepository.save(newTransaction);
         return new CreateTransactionEvent(transactionRepository.findOne(newTransaction.getTransactionId()));
     }

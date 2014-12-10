@@ -7,6 +7,7 @@ import core.events.accounts.CreateAccountEvent;
 import core.events.accounts.RequestAccountDetailsEvent;
 import core.events.accounts.RequestAllAccountsEvent;
 import core.events.accounts.RequestNewAccountEvent;
+import core.events.accounts.UpdateAccountBalanceEvent;
 import core.repository.AccountRepository;
 import core.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,15 @@ public class AccountEventHandler implements AccountService {
     @Override
     public AccountDetailsEvent requestAccountDetails(RequestAccountDetailsEvent requestAccountDetailsEvent) {
         return new AccountDetailsEvent(accountRepository.findOne(requestAccountDetailsEvent.getAccountId()));
+    }
+    
+    @Override
+    public UpdateAccountBalanceEvent updateAccountBalance(UpdateAccountBalanceEvent updateAccountBalanceEvent) {
+        Account account = updateAccountBalanceEvent.account;
+        Double transactionValue = updateAccountBalanceEvent.transactionValue;
+        account.setBalance(account.getBalance() + transactionValue);
+        accountRepository.save(account);
+        return new UpdateAccountBalanceEvent(account, transactionValue);
     }
     
 }
