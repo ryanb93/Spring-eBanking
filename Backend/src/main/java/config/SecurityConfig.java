@@ -1,16 +1,10 @@
 package config;
 
 import components.CORSFilter;
-import components.HierarchicalJsr250Voter;
 import components.OAuthRestEntryPoint;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.access.vote.UnanimousBased;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -67,25 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public OAuthRestEntryPoint oauthRestEntryPoint() {
         return new OAuthRestEntryPoint();
-    }
-
-    @Bean
-    UnanimousBased accessDecisionManager() {
-        List<AccessDecisionVoter> votes = new ArrayList();
-        votes.add(roleVote());
-        return new UnanimousBased(votes);
-    }
-
-    @Bean
-    RoleHierarchyImpl roleHierarchy() {
-        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy("ROLE_USER > ROLE_READ_ONLY");
-        return hierarchy;
-    }
-
-    @Bean
-    HierarchicalJsr250Voter roleVote() {
-        return new HierarchicalJsr250Voter(roleHierarchy());
     }
 
 }
