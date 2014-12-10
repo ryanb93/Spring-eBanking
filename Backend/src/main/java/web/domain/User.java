@@ -31,7 +31,7 @@ public class User extends BaseEntity implements UserDetails {
         super(id);
     }
 
-    public User(final ApiUser apiUser, String firstName, String lastName, final String hashedPassword, Role role) {
+    public User(final ApiUser apiUser, final String hashedPassword, Role role) {
         this();
         this.emailAddress = apiUser.getEmailAddress().toLowerCase();
         this.hashedPassword = hashedPassword;
