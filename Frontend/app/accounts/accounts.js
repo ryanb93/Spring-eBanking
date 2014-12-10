@@ -19,6 +19,7 @@ angular.module('eBanking.accountControllers', [])
 
         eBankingAPIservice.getAccounts().query(function(ids) {
             $scope.accountsList = ids;
+            $scope.doShow = true;
         });
 
     }
