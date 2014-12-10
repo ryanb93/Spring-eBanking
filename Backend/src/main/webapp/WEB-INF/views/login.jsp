@@ -23,7 +23,7 @@
         <div class="navbar-header">
           <a href="#/" class="navbar-brand">
             <div class="brand-logo">
-              eBanking Backend
+              eBanking Backend - Login
             </div>
           </a>
         </div>
