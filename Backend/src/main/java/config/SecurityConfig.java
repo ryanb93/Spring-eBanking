@@ -15,27 +15,39 @@ import web.repository.OAuth2AccessTokenRepository;
 import web.repository.OAuth2RefreshTokenRepository;
 import web.repository.implementation.OAuth2RepositoryTokenStore;
 
+/**
+ * This class setups up all of the security configuration in the web app.
+ * More specifically it sets up:
+ *  - OAuth 2.0 Access
+ *  - Authentication
+ *  - Password encoding
+ *  - Cross Origin policies
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    
+    /** Token access from the DB */
     @Autowired
     public OAuth2AccessTokenRepository accessTokenRepository;
-
+    
+    /** Token refresh / update from DB */
     @Autowired
     public OAuth2RefreshTokenRepository refreshTokenRepository;
 
+    /**
+     * Creates a new PasswordEncoder which makes use of SHA-256
+     * @return StandardPasswordEncoder
+     */
     @Bean
     StandardPasswordEncoder passwordEncoder() {
         return new StandardPasswordEncoder();
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
+    /**
+     * Creates a new Entry point and sets the realm to eBanking for our app.
+     * @return OAuth2AuthenticationEntryPoint
+     */
     @Bean
     public OAuth2AuthenticationEntryPoint oauthAuthenticationEntryPoint() {
         OAuth2AuthenticationEntryPoint entry = new OAuth2AuthenticationEntryPoint();
@@ -43,24 +55,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return entry;
     }
 
+    /**
+     * Creates a new OAuth Denier.
+     * @return OAuth2AccessDeniedHandler
+     */
     @Bean
     public OAuth2AccessDeniedHandler oauthAccessDeniedHandler() {
         return new OAuth2AccessDeniedHandler();
     }
 
+    /**
+     * Sets up access to the DB for OAuth tokens
+     * @return OAuth2RepositoryTokenStore
+     */
     @Bean
     public OAuth2RepositoryTokenStore tokenStore() {
         return new OAuth2RepositoryTokenStore(accessTokenRepository, refreshTokenRepository);
     }
-
-    @Bean
-    public CORSFilter corsFilter() {
-        return new CORSFilter();
-    }
-
+    
+    /**
+     * Endpoint OAuth request handling
+     * @return OAuthRestEntryPoint
+     */
     @Bean
     public OAuthRestEntryPoint oauthRestEntryPoint() {
         return new OAuthRestEntryPoint();
+    }
+    
+    /**
+     * Sets up the Cross Origin filter
+     * @return CORSFilter
+     */
+    @Bean
+    public CORSFilter corsFilter() {
+        return new CORSFilter();
     }
 
 }
