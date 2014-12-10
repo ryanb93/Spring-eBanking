@@ -167,7 +167,13 @@
                             </div>
                             <div class="form-group">
                                 <label>API User ID</label>
-                                <input type="text" name="apiUserId" class="form-control" />
+                                <select name="apiUserId" class="form-control">
+                                    <% List<User> users = (List<User>) request.getAttribute( "users" ); %>
+                                    <% for (User user : users) {
+                                        pageContext.setAttribute("apiUserId", user.getId());%>
+                                    <option value="${apiUserId}" name="apiUserId">${apiUserId}</option>
+                                    <% } %>
+                                </select>
                             </div>
                             <input class="btn btn-default" type="submit" value="Add Customer" />
                         </form>
