@@ -22,7 +22,7 @@
                 authorities="ROLE_USER"
                 access-token-validity="5184000"
                 refresh-token-validity="5184000"
-                scope="read, write"
+                scope="read,write"
                 />
 
         <!-- An accepted third party application -->

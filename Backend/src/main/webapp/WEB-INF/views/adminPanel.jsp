@@ -273,7 +273,7 @@
                                 <% List<Transaction> allTransactions = (List<Transaction>) request.getAttribute( "transactions" ); %>
                                     <% for (Transaction transaction : allTransactions){
                                     pageContext.setAttribute("transactionId",transaction.getTransactionId());
-                                    pageContext.setAttribute("accId", transaction.getAccountId());
+                                    pageContext.setAttribute("accountNumber", transaction.getAccountNumber());
                                     pageContext.setAttribute("senderAccountNumber", transaction.getSenderAccountNumber());
                                     pageContext.setAttribute("senderSortCode", transaction.getSenderSortCode());
                                     pageContext.setAttribute("recipientAccountNumber", transaction.getRecipientAccountNumber());
@@ -302,8 +302,8 @@
                                                 <% List<Transaction> removeTransactions = (List<Transaction>) request.getAttribute( "transactions" ); %>
                                                     <% for (Transaction transaction : removeTransactions){
                                                     pageContext.setAttribute("transactionId",transaction.getTransactionId());
-                                                    pageContext.setAttribute("accId", transaction.getAccountId());%>
-                                                    <option value="${transactionId}">Transaction Id: ${transactionId}, Account Id ${accId}</option>
+                                                    pageContext.setAttribute("accountNumber", transaction.getAccountNumber());%>
+                                                    <option value="${transactionId}">Transaction Id: ${transactionId}, Account Number ${accountNumber}</option>
                                                     <% } %>
                                                 </select>
                                             </div>
@@ -327,11 +327,11 @@
                                                 <label>Value</label>
                                                 <input type="text" name="value" class="form-control" class="form-control"/>
                                                 <label>Account Id:</label>
-                                                <select name="accId" class="form-control">
+                                                <select name="accountNumber" class="form-control">
                                                     <% List<Account> accounts = (List<Account>) request.getAttribute("accounts"); %>
                                                         <% for (Account account : accounts) {
-                                                        pageContext.setAttribute("accId", account.getAccountId()); %>
-                                                        <option value="${accId}" name="accId">${accId}</option>
+                                                        pageContext.setAttribute("accountNumber", account.getAccountNumber()); %>
+                                                        <option value="${accountNumber}" name="accountNumber">${accountNumber}</option>
                                                         <% } %>
                                                     </select>
                                                 </div>

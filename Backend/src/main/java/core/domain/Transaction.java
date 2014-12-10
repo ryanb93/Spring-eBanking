@@ -9,28 +9,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * A class which encapsulates data for a Transaction.
  */
 @Document(collection = "transactions")
-public class Transaction {
+public final class Transaction {
 
     @Id
     private String transactionId;   // A unique transaction ID
 
     @NotNull
-    private String accountId;       // The unique ID of either the sender or recipient account
+    private String accountNumber;       // The account number linked to the transaction.
 
     @NotNull
-    private String senderSortCode;          // The UUID sender in the transaction
+    private String senderSortCode;          // The sort code of the sender in the transaction
     
     @NotNull
-    private String senderAccountNumber;          // The UUID sender in the transaction
+    private String senderAccountNumber;          // The account number of the sender in the transaction
 
     @NotNull
-    private String recipientSortCode;       // The recipient of the transaction
+    private String recipientSortCode;       // The recipient sort code of the transaction
     
     @NotNull
-    private String recipientAccountNumber;       // The recipient of the transaction
+    private String recipientAccountNumber;       // The recipient account number of the transaction
 
     @NotNull
-    private Double value;           // The value of the 
+    private Double value;           // The value of the transaction.
 
     @NotNull
     private Date date;              // The date the transaction was commited
@@ -68,10 +68,10 @@ public class Transaction {
     /**
      * Sets the account ID of the transaction.
      * 
-     * @param accountId - The account ID of the transaction.
+     * @param accountNumber - The account number of the transaction.
      */
-    public final void setAccountId(String accountId) {
-        this.accountId = accountId;    
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;    
     }
 
     /**
@@ -79,7 +79,7 @@ public class Transaction {
      *
      * @param value - The value of the transaction.
      */
-    public final void setValue(Double value) {
+    public void setValue(Double value) {
         if (value == null) {
             throw new IllegalArgumentException("This value is invalid.");
         }
@@ -92,7 +92,7 @@ public class Transaction {
      *
      * @param date - The date of the transaction.
      */
-    public final void setDate(Date date) {
+    public void setDate(Date date) {
         if (date == null) {
             throw new IllegalArgumentException("This date is invalid.");
         }
@@ -105,7 +105,7 @@ public class Transaction {
      *
      * @param type - The type of the transaction.
      */
-    public final void setTransactionType(TransactionType type) {
+    public void setTransactionType(TransactionType type) {
         if (type == null) {
             throw new IllegalArgumentException("This date is invalid.");
         }
@@ -127,8 +127,8 @@ public class Transaction {
      *
      * @return accountId - The id of the recipient or sender account.
      */
-    public String getAccountId() {
-        return this.accountId;
+    public String getAccountNumber() {
+        return this.accountNumber;
     }
 
     /**

@@ -4,7 +4,6 @@ import components.AuthHelper;
 import core.domain.Account;
 import core.events.accounts.AccountDetailsEvent;
 import core.events.accounts.AllAccountsEvent;
-import core.events.accounts.RequestAccountDetailsEvent;
 import core.events.accounts.RequestAllAccountsEvent;
 import core.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import config.Routes;
+import core.events.accounts.RequestAccountDetailsFromNumberEvent;
 import core.services.CustomerService;
 import java.util.List;
 import org.springframework.http.HttpHeaders;
@@ -71,11 +71,12 @@ public class AccountsController {
      * details of a single customer account.
      * 
      * @param auth
-     * @param accountId
+     * @param accountNumber
      * @return The Account details as JSON.
      */
     @RequestMapping(value = Routes.SINGLE_ACCOUNT, method = RequestMethod.GET)
-    public ResponseEntity<Account> getCustomerAccount(@AuthenticationPrincipal OAuth2Authentication auth, @PathVariable("account_id") String accountId) {
+    public ResponseEntity<Account> getCustomerAccount(@AuthenticationPrincipal OAuth2Authentication auth,
+                                                      @PathVariable("account_number") String accountNumber) {
                    
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
@@ -87,10 +88,13 @@ public class AccountsController {
                 status = HttpStatus.BAD_REQUEST;
             }
             else {
-                RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(accountId);
-                AccountDetailsEvent event = accountService.requestAccountDetails(request);
+                RequestAccountDetailsFromNumberEvent request = new RequestAccountDetailsFromNumberEvent(accountNumber);
+                AccountDetailsEvent event = accountService.requestAccountDetailsFromNumber(request);
                 account = event.getAccount();
-                if(!account.getCustomerId().equals(customerId)) {
+                if(account == null) {
+                    status = HttpStatus.BAD_REQUEST;
+                }
+                else if(!account.getCustomerId().equals(customerId)) {
                     account = null;
                     status = HttpStatus.BAD_REQUEST;
                 }

@@ -229,7 +229,7 @@ public class AdminController {
      * @param recipientSortCode
      * @param date
      * @param value
-     * @param accountId
+     * @param accountNumber
      * @param selectedTransactionType
      * @param builder
      * @return
@@ -242,7 +242,7 @@ public class AdminController {
                                        @RequestParam("recipientSortCode") String recipientSortCode, 
                                        @RequestParam("date") String date,
                                        @RequestParam("value") String value, 
-                                       @RequestParam("accId") String accountId,
+                                       @RequestParam("accountNumber") String accountNumber,
                                        @RequestParam("selectedTransactionType") String selectedTransactionType,
                                         UriComponentsBuilder builder) throws ParseException {
         
@@ -287,7 +287,7 @@ public class AdminController {
         transaction.setSenderSortCode(senderSortCode);
    
         transaction.setValue(transactionValue);
-        transaction.setAccountId(accountId);
+        transaction.setAccountNumber(accountNumber);
         RequestCreateTransactionEvent event = new RequestCreateTransactionEvent(transaction);
         transactionService.requestNewTransaction(event);
         

@@ -4,6 +4,7 @@ import core.domain.Account;
 import core.domain.Transaction;
 import core.events.accounts.AccountDetailsEvent;
 import core.events.accounts.RequestAccountDetailsEvent;
+import core.events.accounts.RequestAccountDetailsFromNumberEvent;
 import core.events.accounts.UpdateAccountBalanceEvent;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
@@ -35,17 +36,24 @@ public class TransactionEventHandler implements TransactionService {
     
     @Override
     public AllTransactionsEvent requestAllTransactions(RequestAllTransactionsEvent requestAllTransactionsEvent) {
-        String accountId = requestAllTransactionsEvent.getAccountId();
+        String accountNumber = requestAllTransactionsEvent.getAccountNumber();
         int page = requestAllTransactionsEvent.getPage();
-        return new AllTransactionsEvent(transactionRepository.findAllByAccountId(accountId, page));               
+        return new AllTransactionsEvent(transactionRepository.findAllByAccountNumber(accountNumber, page));               
     }
 
     @Override
     public CreateTransactionEvent requestNewTransaction(RequestCreateTransactionEvent createTransactionEvent) {
+        
         Transaction newTransaction = createTransactionEvent.getTransaction();
-        RequestAccountDetailsEvent event = new RequestAccountDetailsEvent(newTransaction.getAccountId());
-        AccountDetailsEvent accountEvent = accountService.requestAccountDetails(event);
+        
+        String accountNumber = newTransaction.getAccountNumber();
+        
+        RequestAccountDetailsFromNumberEvent event = new RequestAccountDetailsFromNumberEvent(accountNumber);
+        
+        AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(event);
+        
         Account account = accountEvent.getAccount();
+        
         UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(account, newTransaction.getValue());
         accountService.updateAccountBalance(balanceEvent);
         transactionRepository.save(newTransaction);

@@ -7,7 +7,7 @@ public class Routes {
     
     /* Accounts routes */
     public static final String ACCOUNTS = API + "/accounts";
-    public static final String SINGLE_ACCOUNT = "/{account_id}";
+    public static final String SINGLE_ACCOUNT = "/{account_number}";
     
     /* Transaction Routes */
     public static final String TRANSACTIONS = ACCOUNTS + SINGLE_ACCOUNT + "/transactions";

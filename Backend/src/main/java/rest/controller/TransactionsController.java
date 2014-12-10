@@ -21,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import config.Routes;
 import core.domain.Account;
-import core.events.accounts.RequestAccountDetailsEvent;
+import core.events.accounts.AccountDetailsEvent;
+import core.events.accounts.RequestAccountDetailsFromNumberEvent;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.RequestCreateTransactionEvent;
 import core.services.AccountService;
 import core.services.CustomerService;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
@@ -45,13 +48,13 @@ public class TransactionsController {
     /**
      * 
      * @param auth
-     * @param accountId
+     * @param accountNumber
      * @param request
      * @return 
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Transaction>> getAllTransactions(@AuthenticationPrincipal OAuth2Authentication auth, 
-                                                                @PathVariable("account_id") String accountId,
+                                                                @PathVariable("account_number") String accountNumber,
                                                                 HttpServletRequest request) {
         
         HttpHeaders headers = new HttpHeaders();
@@ -75,7 +78,7 @@ public class TransactionsController {
                 return new ResponseEntity(null, headers, HttpStatus.BAD_REQUEST);
             }
             //Request the transactions using the account ID and the page value.
-            RequestAllTransactionsEvent requestAll = new RequestAllTransactionsEvent(accountId, pageInt);
+            RequestAllTransactionsEvent requestAll = new RequestAllTransactionsEvent(accountNumber, pageInt);
             //Send the event to the service.
             AllTransactionsEvent all = transactionService.requestAllTransactions(requestAll);
             //Extract the list from the response.
@@ -91,13 +94,13 @@ public class TransactionsController {
     /**
      * 
      * @param auth
-     * @param accountId
+     * @param accountNumber
      * @param transaction
      * @return 
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Transaction> createNewTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
-                                                            @PathVariable("account_id") String accountId,
+                                                            @PathVariable("account_number") String accountNumber,
                                                             @RequestBody Transaction transaction) {
         
         HttpHeaders headers = new HttpHeaders();
@@ -107,9 +110,9 @@ public class TransactionsController {
         //If this user has permissions to write.
         if(AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {        
             //If this user's customer owns the account given.
-            if(authCustomerOwnsAccount(auth, accountId)) {
+            if(authCustomerOwnsAccount(auth, accountNumber)) {
                 //Set the transaction account ID to the path variable.
-                transaction.setAccountId(accountId);
+                transaction.setAccountNumber(accountNumber);
                 //Set the date to current date.
                 transaction.setDate(new Date());
                 
@@ -156,7 +159,7 @@ public class TransactionsController {
             transaction = event.getTransaction();
             
             //Make sure that the current OAuth user owns this transaction.
-            if(!authCustomerOwnsAccount(auth, transaction.getAccountId())) {
+            if(!authCustomerOwnsAccount(auth, transaction.getAccountNumber())) {
                 transaction = null;
                 status = HttpStatus.BAD_REQUEST;
             }
@@ -169,6 +172,9 @@ public class TransactionsController {
         return new ResponseEntity(transaction, headers, status);
     }
     
+    
+       static Logger log = Logger.getLogger(TransactionsController.class.getName());
+
     /**
      * 
      * @param auth
@@ -178,12 +184,26 @@ public class TransactionsController {
     private boolean authCustomerOwnsAccount(OAuth2Authentication auth, String accountId) {
         boolean result = false;
         //Get the current customer ID.
-        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);            
-        //Get the account of the transaction.
-        RequestAccountDetailsEvent details = new RequestAccountDetailsEvent(accountId);
-        Account account = accountService.requestAccountDetails(details).getAccount();
-        if(account.getCustomerId().equalsIgnoreCase(customerId)) {
-            result = true;
+        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);  
+        
+        log.log(Level.INFO, "customerId: {0}", customerId);
+        log.log(Level.INFO, "accountId: {0}", accountId);
+        
+        RequestAccountDetailsFromNumberEvent details = new RequestAccountDetailsFromNumberEvent(accountId);
+        
+        AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(details);
+        
+        log.log(Level.INFO, "accountEvent: {0}", accountEvent);
+
+        Account account =  accountEvent.getAccount();
+        
+        log.log(Level.INFO, "account: {0}", account);
+
+        if(account != null) {                             
+            log.log(Level.INFO, "getCustomerId: {0}", account.getCustomerId());
+            if(account.getCustomerId().equalsIgnoreCase(customerId)) {
+                result = true;
+            }
         }
         return result;
     }

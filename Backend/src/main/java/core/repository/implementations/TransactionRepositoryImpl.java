@@ -23,9 +23,9 @@ public class TransactionRepositoryImpl implements CustomTransactionRepository {
   }
 
   @Override
-  public List<Transaction> findAllByAccountId(String accountId, int page) {
+  public List<Transaction> findAllByAccountNumber(String accountNumber, int page) {
       Query findByAccount = new Query();
-      findByAccount.addCriteria(Criteria.where("accountId").is(accountId));
+      findByAccount.addCriteria(Criteria.where("accountNumber").is(accountNumber));
       findByAccount.limit(10);
       findByAccount.skip(10 * page);
       findByAccount.with(new Sort(Sort.Direction.DESC, "date"));

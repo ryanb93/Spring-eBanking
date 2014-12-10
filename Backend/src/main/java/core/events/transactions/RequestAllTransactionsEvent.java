@@ -2,16 +2,16 @@ package core.events.transactions;
 
 public class RequestAllTransactionsEvent {
   
-    private final String accountId;
+    private final String accountNumber;
     private final int page;
     
-    public RequestAllTransactionsEvent(String accountId, int page) {
-        this.accountId = accountId;
+    public RequestAllTransactionsEvent(String accountNumber, int page) {
+        this.accountNumber = accountNumber;
         this.page = page;
     }
     
-    public String getAccountId() {
-        return this.accountId;
+    public String getAccountNumber() {
+        return this.accountNumber;
     }
 
     public int getPage() {
