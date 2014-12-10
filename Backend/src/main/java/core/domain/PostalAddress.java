@@ -12,6 +12,13 @@ public class PostalAddress {
     private String country;     //The country of an address.
     private String postalCode;  //The postal code of an address.
 
+    /**
+     * Empty default constructor needed by Spring to create a PostalAddress
+     * object from the JSON request body. 
+     * 
+     * It creates an empty object and then goes through all the setters and
+     * sets the values based on the JSON key/value pairs.
+     */
     public PostalAddress() {
     }
 

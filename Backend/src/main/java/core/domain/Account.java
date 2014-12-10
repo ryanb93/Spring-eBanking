@@ -8,55 +8,61 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * A class which encapsulates data for an Account.
+ * A class which encapsulates data for a bank account.
+ * 
+ * The collection annotation saves these classes in an 'accounts'
+ * table on the mongo database.
  */
 @Document(collection = "accounts")
 public class Account {
 
+    /** The database ID of the account. */
     @Id
-    private String accountId;
+    private String accountId;                
 
+    /** The database ID of the customer who owns the account */
     @NotNull
-    private String customerId;                  //A customer ID
-
+    private String customerId;
+    
+    /** The unique bank account number. */
     @Indexed(unique = true)
-    private String accountNumber;               //A unique account number
+    private String accountNumber;
 
+    /** The sort code of the account. */ 
     @NotNull
-    private String sortCode;                    // An account sort code
+    private String sortCode;
 
+    /** The type of the account. */
     @NotNull
-    private AccountType accountType;            // An account type
+    private AccountType accountType;
 
+    /** The balance of the account. */
     @NotNull
-    private Double balance;                     // An account balance
+    private double balance;
 
     /**
-     * Constructor used to bind a JSON request into an Account object. We still
-     * need to call newAccount else variables wont get set.
+     * Empty default constructor needed by Spring to create an Account
+     * object from the JSON request body. 
+     * 
+     * It creates an empty object and then goes through all the setters and
+     * sets the values based on the JSON key/value pairs.
      */
     public Account() {
-        this.newAccount();
+        this.balance = 0.00;
     }
 
     /**
      * Creates a new Account object.
      *
-     * @param accountNumber - The first name of the customer.
-     * @param sortCode - The last name of the customer.
-     * @param accountType - The customer's data of birth.
+     * @param accountNumber - The account number of the account.
+     * @param sortCode - The sort code of the account.
+     * @param accountType - The type of account.
      */
     public Account(String accountNumber, String sortCode, AccountType accountType) {
         super();
-        //set values using setters.
         this.setAccountNumber(accountNumber);
         this.setSortCode(sortCode);
         this.setAccountType(accountType);
-        this.newAccount();
-    }
-
-    private void newAccount() {
-        //initialise the account balance when creating a new account.
         this.balance = 0.00;
     }
 
@@ -72,7 +78,7 @@ public class Account {
     /**
      * Returns the customer Id.
      *
-     * @return the customer who owns the account.
+     * @return the customer id who owns the account.
      */
     public String getCustomerId() {
         return this.customerId;
@@ -105,7 +111,12 @@ public class Account {
         return this.accountType;
     }
 
-    public Double getBalance() {
+    /**
+     * Returns the balance of the account.
+     * 
+     * @return the account balance.
+     */
+    public double getBalance() {
         return this.balance;
     }
 
@@ -125,7 +136,7 @@ public class Account {
     }
 
     /**
-     * Sets the customer who owns the account.
+     * Sets the id of the customer who owns the account.
      *
      * @param customerId - The customer who owns the account.
      */
@@ -151,16 +162,9 @@ public class Account {
     /**
      * Sets the AccountType of the Account.
      *
-     * @param accountType - The Account Type. Accepted types are CURRENT, ISA
-     * and SAVINGS.
+     * @param accountType - The Account Type.
      */
     public final void setAccountType(AccountType accountType) {
-        if (accountType != AccountType.CURRENT || accountType != AccountType.ISA
-                || accountType != AccountType.SAVINGS) {
-
-        } else {
-            throw new IllegalArgumentException("This account is not of the accepted specified account types");
-        }
         this.accountType = accountType;
     }
 
@@ -169,10 +173,7 @@ public class Account {
      *
      * @param balance - The Account Balance.
      */
-    public void setBalance(Double balance) {
-        if (balance == null) {
-            throw new IllegalArgumentException("This balance is invalid as it is null.");
-        }
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

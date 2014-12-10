@@ -11,23 +11,36 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "customers")
 public class Customer {
 
+    /** The database ID of the customer */
     @Id
-    private String customerId;              //A unique customer ID
+    private String customerId;
 
+    /** The first name of the customer */
     @NotNull
-    private String firstName;               //Customer First name
+    private String firstName;
 
+    /** The last name of the customer */
     @NotNull
-    private String lastName;                //Customer Last name
+    private String lastName;
 
+    /** The date of birth of the customer */
     @NotNull
-    private Date dateOfBirth;               //Customer Date of Birth
+    private Date dateOfBirth;
 
+    /** The PostalAddress of the customer */
     @NotNull
-    private PostalAddress address;          //Customer Address
+    private PostalAddress address;
+    
+    /** The API User ID linked to the customer */
+    private String apiUserId;
 
-    private String apiUserId;                   //API User ID
-
+    /**
+     * Empty default constructor needed by Spring to create a Customer
+     * object from the JSON request body. 
+     * 
+     * It creates an empty object and then goes through all the setters and
+     * sets the values based on the JSON key/value pairs.
+     */
     public Customer() {
     }
 
@@ -38,7 +51,7 @@ public class Customer {
      * @param lastName - The last name of the customer.
      * @param dateOfBirth - The customer's data of birth.
      * @param address - The address of the customer.
-     * @param apiUserId
+     * @param apiUserId - The ID of the API User object in the database. (Optional)
      */
     public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address, String apiUserId) {
         super();
@@ -99,17 +112,18 @@ public class Customer {
     }
 
     /**
-     *
-     * @param apiUserId
+     * Sets the ID of the API user.
+     * 
+     * @param apiUserId - The ID of the API user.
      */
     public final void setApiUserId(String apiUserId) {
         this.apiUserId = apiUserId;
     }
 
     /**
-     * Returns the UUID of the Customer.
+     * Returns the ID of the Customer.
      *
-     * @return the customer's UUID
+     * @return the customer's ID
      */
     public String getCustomerId() {
         return this.customerId;

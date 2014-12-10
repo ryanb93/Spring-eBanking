@@ -41,9 +41,10 @@ public class TransactionEventHandler implements TransactionService {
     }
     
     /**
+     * Method which returns the details of a all transactions for a given account.
      * 
-     * @param requestAllTransactionsEvent
-     * @return 
+     * @param requestAllTransactionsEvent - Event containing the request for all transactions of an account.
+     * @return The transaction object containing all transaction details.
      */
     @Override
     public AllTransactionsEvent requestAllTransactions(RequestAllTransactionsEvent requestAllTransactionsEvent) {
@@ -53,21 +54,33 @@ public class TransactionEventHandler implements TransactionService {
     }
 
     /**
+     * Method which creates a new transaction, adds it to the repository and updates the 
+     * account which it is linked to with a new value.
      * 
-     * @param createTransactionEvent
-     * @return 
+     * @param createTransactionEvent - The transaction request.
+     * @return Event object containing the newly created transaction.
      */
     @Override
     public CreateTransactionEvent requestNewTransaction(RequestCreateTransactionEvent createTransactionEvent) {
+        //Get the transaction object from the event.
         Transaction newTransaction = createTransactionEvent.getTransaction();
+        //Get the number of the account to add the transaction to.
         String accountNumber = newTransaction.getAccountNumber();
+        //Create a new account details request event for this account.
         RequestAccountDetailsFromNumberEvent event = new RequestAccountDetailsFromNumberEvent(accountNumber);
-        AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(event);        
+        //Send this request to the account service.
+        AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(event); 
+        //Get the account object from the request.
         Account account = accountEvent.getAccount();
+        //Create a balance update event.
         UpdateAccountBalanceEvent balanceEvent = new UpdateAccountBalanceEvent(account, newTransaction.getValue());
+        //Send the balance update event to the account service.
         accountService.updateAccountBalance(balanceEvent);
+        //Save the new transaction to the repository.
         transactionRepository.save(newTransaction);
-        return new CreateTransactionEvent(transactionRepository.findOne(newTransaction.getTransactionId()));
+        //Get the newly created transaction back from the repository.
+        Transaction created = transactionRepository.findOne(newTransaction.getTransactionId());
+        return new CreateTransactionEvent(created);
     }
 
 }
