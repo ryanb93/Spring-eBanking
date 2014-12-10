@@ -4,13 +4,13 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import static org.springframework.util.Assert.notNull;
 import web.domain.ApiUser;
 
-
 public class CreateUserResponse {
 
     private ApiUser apiCustomer;
     private OAuth2AccessToken oAuth2AccessToken;
 
-    public CreateUserResponse(){}
+    public CreateUserResponse() {
+    }
 
     public CreateUserResponse(final ApiUser customer, OAuth2AccessToken oAuth2AccessToken) {
         notNull(customer, "Mandatory argument 'user' missing.");

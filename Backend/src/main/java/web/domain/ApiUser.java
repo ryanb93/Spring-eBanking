@@ -49,7 +49,6 @@ public class ApiUser implements Principal {
         return firstName;
     }
 
-
     public void setFirstName(final String firstName) {
         notNull(firstName, "Mandatory argument 'firstName missing.'");
         this.firstName = firstName;

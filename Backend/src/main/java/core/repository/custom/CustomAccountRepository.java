@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomAccountRepository {
+
     public List<Account> findAllByCustomerId(String customerId);
+
     public Account findByAccountNumber(String accountNumber);
 }

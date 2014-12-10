@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
 
-
 public class HierarchicalJsr250Voter extends Jsr250Voter {
 
     private RoleHierarchy roleHierarchy = null;

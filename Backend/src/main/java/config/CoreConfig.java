@@ -8,20 +8,20 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CoreConfig {
-   
-  @Bean
-  public CustomerEventHandler createCustomerEventService() {
-    return new CustomerEventHandler();
-  }
-  
-  @Bean
-  public TransactionEventHandler createTransactionEventService() {
-      return new TransactionEventHandler();
-  }
-  
-  @Bean
-  public AccountEventHandler createAccountEventService() {
-      return new AccountEventHandler();
-  }
-  
+
+    @Bean
+    public CustomerEventHandler createCustomerEventService() {
+        return new CustomerEventHandler();
+    }
+
+    @Bean
+    public TransactionEventHandler createTransactionEventService() {
+        return new TransactionEventHandler();
+    }
+
+    @Bean
+    public AccountEventHandler createAccountEventService() {
+        return new AccountEventHandler();
+    }
+
 }

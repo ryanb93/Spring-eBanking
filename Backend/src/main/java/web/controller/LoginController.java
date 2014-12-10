@@ -13,12 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(Routes.LOGIN)
 public class LoginController {
-    
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ModelAndView login(Model model) {
         ModelAndView modelAndView = new ModelAndView("login", "model", null);
         return modelAndView;
-    }    
+    }
 }

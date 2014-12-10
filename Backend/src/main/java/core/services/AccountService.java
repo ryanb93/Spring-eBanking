@@ -10,12 +10,17 @@ import core.events.accounts.RequestNewAccountEvent;
 import core.events.accounts.UpdateAccountBalanceEvent;
 
 /**
- * Class is used to core things 
+ * Class is used to core things
  */
 public interface AccountService {
+
     public CreateAccountEvent requestNewAccount(RequestNewAccountEvent requestNewAccountEvent);
+
     public AllAccountsEvent requestAllAccounts(RequestAllAccountsEvent requestAllAccountsEvent);
+
     public AccountDetailsEvent requestAccountDetails(RequestAccountDetailsEvent requestAccountDetailsEvent);
+
     public AccountDetailsEvent requestAccountDetailsFromNumber(RequestAccountDetailsFromNumberEvent requestAccountDetailsFromNumberEvent);
+
     public UpdateAccountBalanceEvent updateAccountBalance(UpdateAccountBalanceEvent updateAccountBalanceEvent);
 }

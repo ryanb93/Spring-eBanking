@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomCustomerRepository {
+
     public Customer findByApiUserId(String apiUserId);
 }

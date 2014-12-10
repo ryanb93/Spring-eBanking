@@ -12,7 +12,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 @Document(collection = "app_user")
 public class User extends BaseEntity implements UserDetails {
 
@@ -42,30 +41,30 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     public User(DBObject dbObject) {
-        this((String)dbObject.get("_id"));
-        this.emailAddress = (String)dbObject.get("emailAddress");
-        this.firstName = (String)dbObject.get("firstName");
-        this.lastName = (String)dbObject.get("lastName");
-        this.hashedPassword = (String)dbObject.get("hashedPassword");
-        this.verified = (Boolean)dbObject.get("verified");
-        List<String> roles = (List<String>)dbObject.get("roles");
+        this((String) dbObject.get("_id"));
+        this.emailAddress = (String) dbObject.get("emailAddress");
+        this.firstName = (String) dbObject.get("firstName");
+        this.lastName = (String) dbObject.get("lastName");
+        this.hashedPassword = (String) dbObject.get("hashedPassword");
+        this.verified = (Boolean) dbObject.get("verified");
+        List<String> roles = (List<String>) dbObject.get("roles");
         deSerializeRoles(roles);
     }
 
     private void deSerializeRoles(List<String> roles) {
-         for(String role : roles) {
-             this.addRole(Role.valueOf(role));
-         }
+        for (String role : roles) {
+            this.addRole(Role.valueOf(role));
+        }
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-   for( Role role : this.getRoles() ){
-      GrantedAuthority authority = new SimpleGrantedAuthority(role.name());
-      authorities.add(authority);
-   }
-   return authorities;
+        for (Role role : this.getRoles()) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(role.name());
+            authorities.add(authority);
+        }
+        return authorities;
     }
 
     @Override

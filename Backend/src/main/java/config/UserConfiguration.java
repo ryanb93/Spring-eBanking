@@ -12,7 +12,7 @@ import web.services.eventHandlers.UserServiceEventHandler;
 
 @Configuration
 public class UserConfiguration {
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -26,12 +26,12 @@ public class UserConfiguration {
     public Validator validator() {
         return Validation.buildDefaultValidatorFactory().getValidator();
     }
-    
+
     @Bean
     public UserService userService() {
         return new UserServiceEventHandler(userRepository, validator, passwordEncoder);
-    } 
-    
+    }
+
     @Bean
     public UserServiceEventHandler userResource() {
         return new UserServiceEventHandler(userRepository, validator, passwordEncoder);

@@ -26,7 +26,7 @@ public class PostalAddress {
      */
     public PostalAddress(String houseNumber, String street, String city, String county, String country, String postalCode) {
         super();
-        
+
         this.setHouseNumber(houseNumber);
         this.setStreet(street);
         this.setCity(city);
@@ -142,10 +142,10 @@ public class PostalAddress {
     public String getPostalCode() {
         return this.postalCode;
     }
-    
+
     @Override
     public String toString() {
-        return (houseNumber+", " + street+", "+city+", "+county+", "+country+", "+postalCode);
+        return (houseNumber + ", " + street + ", " + city + ", " + county + ", " + country + ", " + postalCode);
     }
-    
+
 }

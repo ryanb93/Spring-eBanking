@@ -28,69 +28,71 @@ public class CustomersController {
 
     @Autowired
     private CustomerService customerService;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Customer> getSingleCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth) {
-        
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
         Customer customer = null;
 
-        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {  
+        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
 
-            if(customerId == null) {
+            if (customerId == null) {
                 status = HttpStatus.BAD_REQUEST;
-            }
-            else {
+            } else {
                 RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
                 CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
                 customer = event.getCustomer();
             }
-        }
-        else {
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
-        
+
         return new ResponseEntity(customer, headers, status);
 
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Customer> updateCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth, @RequestBody Customer customer, UriComponentsBuilder builder) {
-            
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         Customer newCustomer = null;
 
-        if(AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {  
-            if(!this.isValid(customer)) {
+        if (AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
+            if (!this.isValid(customer)) {
                 status = HttpStatus.BAD_REQUEST;
-            }
-            else {
+            } else {
                 UpdateCustomerDetailsEvent event = customerService.requestUpdateCustomer(new RequestUpdateCustomerDetailsEvent(customer));
-                if(event != null) {
+                if (event != null) {
                     newCustomer = event.getUpdatedCustomer();
                     headers.setLocation(builder.path(Routes.API).buildAndExpand(newCustomer.getCustomerId()).toUri());
                     status = HttpStatus.CREATED;
                 }
             }
-        }
-        else {
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
-        
+
         return new ResponseEntity(newCustomer, headers, status);
     }
-    
+
     private boolean isValid(Customer customer) {
         boolean valid = true;
-        if(customer.getCustomerId() == null) valid = false;
-        else if(customer.getFirstName() == null) valid = false;
-        else if(customer.getLastName() == null) valid = false;
-        else if(customer.getDateOfBirth() == null) valid = false;
-        else if(customer.getAddress() == null) valid = false;
+        if (customer.getCustomerId() == null) {
+            valid = false;
+        } else if (customer.getFirstName() == null) {
+            valid = false;
+        } else if (customer.getLastName() == null) {
+            valid = false;
+        } else if (customer.getDateOfBirth() == null) {
+            valid = false;
+        } else if (customer.getAddress() == null) {
+            valid = false;
+        }
         return valid;
     }
-    
+
 }

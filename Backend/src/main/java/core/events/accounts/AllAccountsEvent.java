@@ -9,11 +9,11 @@ public class AllAccountsEvent {
     private final List<Account> accounts;
 
     public AllAccountsEvent(List<Account> accounts) {
-      this.accounts = Collections.unmodifiableList(accounts);
+        this.accounts = Collections.unmodifiableList(accounts);
     }
 
     public List<Account> getAccounts() {
-      return this.accounts;
+        return this.accounts;
     }
-    
+
 }

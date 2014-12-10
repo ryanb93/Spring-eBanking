@@ -26,40 +26,38 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping(Routes.ACCOUNTS)
 @Secured("ROLE_USER")
 public class AccountsController {
-    
+
     @Autowired
     private AccountService accountService;
     @Autowired
     private CustomerService customerService;
-    
+
     /**
-     * When a user makes a GET request to this URL we want
-     * to return a list of all their accounts.
-     * 
+     * When a user makes a GET request to this URL we want to return a list of
+     * all their accounts.
+     *
      * @param auth
-     * 
+     *
      * @return All of this user's accounts.
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAllAccounts(@AuthenticationPrincipal OAuth2Authentication auth) {
-        
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
         List<Account> accounts = null;
 
-        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
 
-            if(customerId == null) {
+            if (customerId == null) {
                 status = HttpStatus.BAD_REQUEST;
-            }
-            else {
+            } else {
                 RequestAllAccountsEvent request = new RequestAllAccountsEvent(customerId);
                 AllAccountsEvent event = accountService.requestAllAccounts(request);
                 accounts = event.getAccounts();
             }
-        }
-        else {
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
         return new ResponseEntity(accounts, headers, status);
@@ -67,43 +65,40 @@ public class AccountsController {
     }
 
     /**
-     * When a user makes a GET request to this URL we want to return the 
-     * details of a single customer account.
-     * 
+     * When a user makes a GET request to this URL we want to return the details
+     * of a single customer account.
+     *
      * @param auth
      * @param accountNumber
      * @return The Account details as JSON.
      */
     @RequestMapping(value = Routes.SINGLE_ACCOUNT, method = RequestMethod.GET)
     public ResponseEntity<Account> getCustomerAccount(@AuthenticationPrincipal OAuth2Authentication auth,
-                                                      @PathVariable("account_number") String accountNumber) {
-                   
+            @PathVariable("account_number") String accountNumber) {
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
         Account account = null;
-        
-        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+
+        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
-            if(customerId == null) {
+            if (customerId == null) {
                 status = HttpStatus.BAD_REQUEST;
-            }
-            else {
+            } else {
                 RequestAccountDetailsFromNumberEvent request = new RequestAccountDetailsFromNumberEvent(accountNumber);
                 AccountDetailsEvent event = accountService.requestAccountDetailsFromNumber(request);
                 account = event.getAccount();
-                if(account == null) {
+                if (account == null) {
                     status = HttpStatus.BAD_REQUEST;
-                }
-                else if(!account.getCustomerId().equals(customerId)) {
+                } else if (!account.getCustomerId().equals(customerId)) {
                     account = null;
                     status = HttpStatus.BAD_REQUEST;
                 }
             }
-        }
-        else {
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
-        
+
         return new ResponseEntity(account, headers, status);
     }
 }

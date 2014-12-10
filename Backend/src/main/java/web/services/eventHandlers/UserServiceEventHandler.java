@@ -20,7 +20,6 @@ import web.events.users.CreateUserRequest;
 import web.repository.UserRepository;
 import web.services.UserService;
 
-
 @Service
 public class UserServiceEventHandler implements UserService, UserDetailsService {
 
@@ -29,10 +28,9 @@ public class UserServiceEventHandler implements UserService, UserDetailsService 
     private final PasswordEncoder passwordEncoder;
     private final Validator validator;
 
-
     @Autowired
     public UserServiceEventHandler(final UserRepository userRepository, Validator validator,
-                           PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder) {
         super();
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -43,10 +41,12 @@ public class UserServiceEventHandler implements UserService, UserDetailsService 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return getUserByUsername(username.toLowerCase());
     }
-    
+
     public User getUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmailAddress(username.toLowerCase());
-        if(user == null) throw new UsernameNotFoundException("Could not find user for username: " + username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Could not find user for username: " + username);
+        }
         return user;
     }
 
@@ -67,17 +67,17 @@ public class UserServiceEventHandler implements UserService, UserDetailsService 
         Assert.notNull(username);
         Assert.notNull(password);
         User user = getUserByUsername(username);
-        if(!passwordEncoder.encode(password).equals(user.getHashedPassword())) {
+        if (!passwordEncoder.encode(password).equals(user.getHashedPassword())) {
             throw new IllegalArgumentException();
         }
         return new ApiUser(user);
     }
-    
+
     @Override
     public ApiUser getUser(String userId) {
         Assert.notNull(userId);
         User user = userRepository.findById(userId);
-        if(user == null) {
+        if (user == null) {
 //            throw new UserNotFoundException();
             return null;
         }
@@ -89,7 +89,7 @@ public class UserServiceEventHandler implements UserService, UserDetailsService 
         User newUser = new User(createUserRequest.getUser(), hashedPassword, Role.ROLE_USER);
         return userRepository.save(newUser);
     }
-    
+
     protected void validate(Object request) {
         Set<? extends ConstraintViolation<?>> constraintViolations = validator.validate(request);
         if (constraintViolations.size() > 0) {

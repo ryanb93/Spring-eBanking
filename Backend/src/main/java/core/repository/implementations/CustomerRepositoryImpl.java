@@ -19,11 +19,11 @@ public class CustomerRepositoryImpl implements CustomCustomerRepository {
         Assert.notNull(operations, "MongoOperations must not be null!");
         this.operations = operations;
     }
-    
+
     @Override
     public Customer findByApiUserId(String apiUserId) {
         Query findByApiUserId = new Query();
         findByApiUserId.addCriteria(Criteria.where("apiUserId").is(apiUserId));
-        return operations.findOne(findByApiUserId, Customer.class);      
+        return operations.findOne(findByApiUserId, Customer.class);
     }
 }

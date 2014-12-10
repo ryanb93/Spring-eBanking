@@ -25,7 +25,7 @@ public class Customer {
 
     @NotNull
     private PostalAddress address;          //Customer Address
-    
+
     private String apiUserId;                   //API User ID
 
     public Customer() {
@@ -97,12 +97,12 @@ public class Customer {
         }
         this.address = address;
     }
-    
+
     /**
-     * 
-     * @param apiUserId 
+     *
+     * @param apiUserId
      */
-     public final void setApiUserId(String apiUserId) {
+    public final void setApiUserId(String apiUserId) {
         this.apiUserId = apiUserId;
     }
 
@@ -150,16 +150,14 @@ public class Customer {
     public PostalAddress getAddress() {
         return this.address;
     }
-    
+
     /**
      * Returns the API User ID of the Customer.
      *
      * @return the customer's API User ID
      */
-        public String getApiUserId() {
+    public String getApiUserId() {
         return this.apiUserId;
     }
-
-
 
 }

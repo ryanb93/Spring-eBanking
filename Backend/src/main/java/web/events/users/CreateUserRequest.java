@@ -14,7 +14,6 @@ public class CreateUserRequest {
     @Valid
     private String password;
 
-
     public CreateUserRequest() {
     }
 

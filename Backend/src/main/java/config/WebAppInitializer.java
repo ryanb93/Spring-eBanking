@@ -14,29 +14,28 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 public class WebAppInitializer implements WebApplicationInitializer {
 
-  @Override
-  public void onStartup(ServletContext servletContext) {
-    WebApplicationContext rootContext = createRootContext(servletContext);
-    configureSpringMvc(servletContext, rootContext);
-  }
+    @Override
+    public void onStartup(ServletContext servletContext) {
+        WebApplicationContext rootContext = createRootContext(servletContext);
+        configureSpringMvc(servletContext, rootContext);
+    }
 
-  private WebApplicationContext createRootContext(ServletContext servletContext) {
-    AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-    servletContext.addListener(new ContextLoaderListener(rootContext));
-    servletContext.setInitParameter("defaultHtmlEscape", "true");
-    return rootContext;
-  }
-  
-  private void configureSpringMvc(ServletContext servletContext, WebApplicationContext rootContext) {
-    AnnotationConfigWebApplicationContext mvcContext = new AnnotationConfigWebApplicationContext();
-    mvcContext.register(MVCConfig.class);
+    private WebApplicationContext createRootContext(ServletContext servletContext) {
+        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+        servletContext.addListener(new ContextLoaderListener(rootContext));
+        servletContext.setInitParameter("defaultHtmlEscape", "true");
+        return rootContext;
+    }
 
-    mvcContext.setParent(rootContext);
+    private void configureSpringMvc(ServletContext servletContext, WebApplicationContext rootContext) {
+        AnnotationConfigWebApplicationContext mvcContext = new AnnotationConfigWebApplicationContext();
+        mvcContext.register(MVCConfig.class);
 
-    ServletRegistration.Dynamic appServlet = servletContext.addServlet("dispatcher", new DispatcherServlet(mvcContext));
-    appServlet.setLoadOnStartup(1);
-    appServlet.addMapping("/");
-  }
-  
+        mvcContext.setParent(rootContext);
+
+        ServletRegistration.Dynamic appServlet = servletContext.addServlet("dispatcher", new DispatcherServlet(mvcContext));
+        appServlet.setLoadOnStartup(1);
+        appServlet.addMapping("/");
+    }
 
 }

@@ -27,9 +27,9 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     @Autowired
     public OAuth2RepositoryTokenStore(final OAuth2AccessTokenRepository oAuth2AccessTokenRepository, final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository) {
-        this.oAuth2AccessTokenRepository  = oAuth2AccessTokenRepository;
+        this.oAuth2AccessTokenRepository = oAuth2AccessTokenRepository;
         this.oAuth2RefreshTokenRepository = oAuth2RefreshTokenRepository;
-        this.authenticationKeyGenerator   = new DefaultAuthenticationKeyGenerator();
+        this.authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();
     }
 
     @Override
@@ -51,21 +51,21 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
-        
+
         OAuth2AuthenticationAccessToken token = this.oAuth2AccessTokenRepository.findByTokenId(tokenValue);
         OAuth2AccessToken accessToken = null;
-        
-        if(token != null) {
+
+        if (token != null) {
             accessToken = token.getoAuth2AccessToken();
         }
-        	
+
         return accessToken;
     }
 
     @Override
     public void removeAccessToken(OAuth2AccessToken token) {
         OAuth2AuthenticationAccessToken accessToken = this.oAuth2AccessTokenRepository.findByTokenId(token.getValue());
-        if(accessToken != null) {
+        if (accessToken != null) {
             this.oAuth2AccessTokenRepository.delete(accessToken);
         }
     }
@@ -97,16 +97,16 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
     @Override
     public void removeAccessTokenUsingRefreshToken(OAuth2RefreshToken refreshToken) {
         String tokenValue = refreshToken.getValue();
-        OAuth2AuthenticationAccessToken accessToken = this.oAuth2AccessTokenRepository.findByRefreshToken(tokenValue);        
+        OAuth2AuthenticationAccessToken accessToken = this.oAuth2AccessTokenRepository.findByRefreshToken(tokenValue);
         this.oAuth2AccessTokenRepository.delete(accessToken);
     }
 
     @Override
-    public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {        
+    public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
         String authKey = this.authenticationKeyGenerator.extractKey(authentication);
-        OAuth2AuthenticationAccessToken token =  this.oAuth2AccessTokenRepository.findByAuthenticationId(authKey);        
+        OAuth2AuthenticationAccessToken token = this.oAuth2AccessTokenRepository.findByAuthenticationId(authKey);
         OAuth2AccessToken accessToken = null;
-        if(token != null) {
+        if (token != null) {
             token.getoAuth2AccessToken();
         }
         return accessToken;
@@ -126,7 +126,7 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
 
     private Collection<OAuth2AccessToken> extractAccessTokens(List<OAuth2AuthenticationAccessToken> tokens) {
         List<OAuth2AccessToken> accessTokens = new ArrayList<OAuth2AccessToken>();
-        for(OAuth2AuthenticationAccessToken token : tokens) {
+        for (OAuth2AuthenticationAccessToken token : tokens) {
             accessTokens.add(token.getoAuth2AccessToken());
         }
         return accessTokens;

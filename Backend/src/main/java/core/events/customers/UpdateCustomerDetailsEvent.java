@@ -2,7 +2,6 @@ package core.events.customers;
 
 import core.domain.Customer;
 
-
 public class UpdateCustomerDetailsEvent {
 
     private final Customer updatedCustomer;
@@ -14,5 +13,5 @@ public class UpdateCustomerDetailsEvent {
     public Customer getUpdatedCustomer() {
         return this.updatedCustomer;
     }
-    
+
 }

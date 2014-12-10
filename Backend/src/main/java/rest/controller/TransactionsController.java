@@ -44,36 +44,37 @@ public class TransactionsController {
     private CustomerService customerService;
     @Autowired
     private AccountService accountService;
-    
+
     /**
-     * 
+     *
      * @param auth
      * @param accountNumber
      * @param request
-     * @return 
+     * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Transaction>> getAllTransactions(@AuthenticationPrincipal OAuth2Authentication auth, 
-                                                                @PathVariable("account_number") String accountNumber,
-                                                                HttpServletRequest request) {
-        
+    public ResponseEntity<List<Transaction>> getAllTransactions(@AuthenticationPrincipal OAuth2Authentication auth,
+            @PathVariable("account_number") String accountNumber,
+            HttpServletRequest request) {
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
         List<Transaction> transactions = null;
-        
+
         //If this user has permissions to read.
-        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             //Get the page parameter.
             String pageParam = request.getParameter("page");
             //If it is not found then use the value 0.
-            if(pageParam == null) pageParam = "0";
+            if (pageParam == null) {
+                pageParam = "0";
+            }
             //Set page to 0.
             int pageInt = 0;
             //Attempt to convert the intrusted input from the URL into an int.
-            try { 
-                pageInt = Integer.parseInt(pageParam); 
-            }
-            catch(NumberFormatException e) {
+            try {
+                pageInt = Integer.parseInt(pageParam);
+            } catch (NumberFormatException e) {
                 //If the value given was not an int then return bad request.
                 return new ResponseEntity(null, headers, HttpStatus.BAD_REQUEST);
             }
@@ -83,129 +84,124 @@ public class TransactionsController {
             AllTransactionsEvent all = transactionService.requestAllTransactions(requestAll);
             //Extract the list from the response.
             transactions = all.getTransactions();
-        }
-        else {
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
         //Return transactions to the user.
         return new ResponseEntity(transactions, headers, status);
     }
-    
+
     /**
-     * 
+     *
      * @param auth
      * @param accountNumber
      * @param transaction
-     * @return 
+     * @return
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Transaction> createNewTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
-                                                            @PathVariable("account_number") String accountNumber,
-                                                            @RequestBody Transaction transaction) {
-        
+            @PathVariable("account_number") String accountNumber,
+            @RequestBody Transaction transaction) {
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.CREATED;
         Transaction newTransaction = null;
-        
+
         //If this user has permissions to write.
-        if(AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {        
+        if (AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
             //If this user's customer owns the account given.
-            if(authCustomerOwnsAccount(auth, accountNumber)) {
+            if (authCustomerOwnsAccount(auth, accountNumber)) {
                 //Set the transaction account ID to the path variable.
                 transaction.setAccountNumber(accountNumber);
                 //Set the date to current date.
                 transaction.setDate(new Date());
-                
+
                 //Create the transaction in the database.
                 RequestCreateTransactionEvent request = new RequestCreateTransactionEvent(transaction);
                 CreateTransactionEvent event = transactionService.requestNewTransaction(request);
-                
+
                 //Get the transaction object back from the database.
                 newTransaction = event.getTransaction();
                 //Make sure it exists.
-                if(newTransaction == null) {
+                if (newTransaction == null) {
                     status = HttpStatus.INTERNAL_SERVER_ERROR;
                 }
-            }
-            else {
+            } else {
                 status = HttpStatus.BAD_REQUEST;
             }
-        }
-        else {
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
 
         return new ResponseEntity(newTransaction, headers, status);
     }
-    
+
     /**
-     * 
+     *
      * @param auth
      * @param transactionId
-     * @return 
+     * @return
      */
     @RequestMapping(value = Routes.TRANSACTIONS_ID, method = RequestMethod.GET)
     public ResponseEntity<Transaction> getSingleTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
-                                                            @PathVariable("transaction_id") String transactionId) {
-        
+            @PathVariable("transaction_id") String transactionId) {
+
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
         Transaction transaction = null;
-        
+
         //If this user has permissions to read.
-        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {  
+        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             RequestTransactionDetailsEvent request = new RequestTransactionDetailsEvent(transactionId);
             TransactionDetailsEvent event = transactionService.requestTransactionDetails(request);
             transaction = event.getTransaction();
-            
+
             //Make sure that the current OAuth user owns this transaction.
-            if(!authCustomerOwnsAccount(auth, transaction.getAccountNumber())) {
+            if (!authCustomerOwnsAccount(auth, transaction.getAccountNumber())) {
                 transaction = null;
                 status = HttpStatus.BAD_REQUEST;
             }
-            
-        }
-        else {
+
+        } else {
             status = HttpStatus.UNAUTHORIZED;
         }
-        
+
         return new ResponseEntity(transaction, headers, status);
     }
-    
-    
-       static Logger log = Logger.getLogger(TransactionsController.class.getName());
+
+    static Logger log = Logger.getLogger(TransactionsController.class.getName());
 
     /**
-     * 
+     *
      * @param auth
      * @param accountId
-     * @return 
+     * @return
      */
     private boolean authCustomerOwnsAccount(OAuth2Authentication auth, String accountId) {
         boolean result = false;
         //Get the current customer ID.
-        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);  
-        
+        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+
         log.log(Level.INFO, "customerId: {0}", customerId);
         log.log(Level.INFO, "accountId: {0}", accountId);
-        
+
         RequestAccountDetailsFromNumberEvent details = new RequestAccountDetailsFromNumberEvent(accountId);
-        
+
         AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(details);
-        
+
         log.log(Level.INFO, "accountEvent: {0}", accountEvent);
 
-        Account account =  accountEvent.getAccount();
-        
+        Account account = accountEvent.getAccount();
+
         log.log(Level.INFO, "account: {0}", account);
 
-        if(account != null) {                             
+        if (account != null) {
             log.log(Level.INFO, "getCustomerId: {0}", account.getCustomerId());
-            if(account.getCustomerId().equalsIgnoreCase(customerId)) {
+            if (account.getCustomerId().equalsIgnoreCase(customerId)) {
                 result = true;
             }
         }
         return result;
     }
-    
+
 }

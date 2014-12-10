@@ -1,25 +1,25 @@
 package config;
 
 public class Routes {
-    
+
     /* Root URL. All Routes will go through this point */
     public static final String API = "/api/customer";
-    
+
     /* Accounts routes */
     public static final String ACCOUNTS = API + "/accounts";
     public static final String SINGLE_ACCOUNT = "/{account_number}";
-    
+
     /* Transaction Routes */
     public static final String TRANSACTIONS = ACCOUNTS + SINGLE_ACCOUNT + "/transactions";
     public static final String TRANSACTIONS_ID = "/{transaction_id}";
-    
+
     /* Third Party Apps Routes */
     public static final String THIRD_PARTY_APP = API + "/apps";
     public static final String THIRD_PARTY_APP_ID = THIRD_PARTY_APP + "/{app_id}";
-    
+
     /* Web Portal Routes */
     public static final String LOGIN = "/login";
-    
+
     /* Admin Panel Routes */
     public static final String ADMIN_PANEL = "/adminPanel";
     public static final String ALL_CUSTOMERS = ADMIN_PANEL + "/allCustomers";
@@ -30,5 +30,5 @@ public class Routes {
     public static final String ADD_TRANSACTION = ADMIN_PANEL + "/addTransaction";
     public static final String REMOVE_TRANSACTION = ADMIN_PANEL + "/removeTransaction";
     public static final String ADD_USER = ADMIN_PANEL + "/addUser";
-    
+
 }

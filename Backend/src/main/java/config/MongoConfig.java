@@ -18,24 +18,25 @@ import web.repository.implementation.OAuth2AuthenticationReadConverter;
 @Configuration
 @EnableMongoRepositories(basePackages = {"core.repository", "web.repository"})
 public class MongoConfig extends AbstractMongoConfiguration {
-    
+
     /**
      * Creates a new factory to connect to our MongoDB connection.
-     * 
+     *
      * @return MongoDbFactory - Factory to create a connection to our database.
-     * @throws UnknownHostException - Thrown to indicate that the IP address of a host could not be determined. 
+     * @throws UnknownHostException - Thrown to indicate that the IP address of
+     * a host could not be determined.
      */
     @Bean
     @Override
     public MongoDbFactory mongoDbFactory() throws UnknownHostException {
-       return new SimpleMongoDbFactory(new MongoClient(), this.getDatabaseName());
+        return new SimpleMongoDbFactory(new MongoClient(), this.getDatabaseName());
     }
-    
+
     /**
      * TODO: Fix this.
-     * 
+     *
      * Override needed to convert OAuth2 token back from the database.
-     * 
+     *
      * @return CustomConversions
      */
     @Override
@@ -49,7 +50,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     /**
      * Returns the name of the database we want to connect to in the MongoDb.
-     * 
+     *
      * @return String - database name
      */
     @Override
@@ -59,14 +60,14 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     /**
      * Returns a new Mongo object.
-     * 
+     *
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     @Override
     @Bean
     public Mongo mongo() throws Exception {
         return new Mongo("localhost", 27017);
     }
-    
+
 }

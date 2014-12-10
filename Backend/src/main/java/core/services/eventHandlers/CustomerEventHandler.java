@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerEventHandler implements CustomerService {
-    
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -29,52 +29,52 @@ public class CustomerEventHandler implements CustomerService {
         Customer customer = customerRepository.findOne(id);
         return new CustomerDetailsEvent(customer);
     }
-    
+
     @Override
     public AllCustomersEvent requestAllCustomers(RequestAllCustomersEvent requestAllCustomersEvent) {
         List<Customer> customers = customerRepository.findAll();
         return new AllCustomersEvent(customers);
     }
-    
+
     @Override
     public CreateCustomerEvent requestNewCustomer(RequestNewCustomerEvent requestNewCustomerEvent) {
         Customer newCustomer = requestNewCustomerEvent.getCustomer();
         customerRepository.save(newCustomer);
         return new CreateCustomerEvent(customerRepository.findOne(newCustomer.getCustomerId()));
     }
-    
+
     @Override
     public UpdateCustomerDetailsEvent requestUpdateCustomer(RequestUpdateCustomerDetailsEvent requestUpdateCustomerDetailsEvent) {
         Customer newCustomer = requestUpdateCustomerDetailsEvent.getCustomer();
-        
+
         String existingId = newCustomer.getCustomerId();
-        
+
         Customer existingCustomer = customerRepository.findOne(existingId);
-        
-        if(existingCustomer == null) {
+
+        if (existingCustomer == null) {
             //Customer was not found!
             return null;
         }
-        
+
         Customer savedCustomer = customerRepository.save(newCustomer);
-               
+
         return new UpdateCustomerDetailsEvent(savedCustomer);
     }
-    
+
     @Override
     public CustomerIdEvent requestCustomerId(RequestCustomerIdEvent requestCustomerIdEvent) {
-            
+
         String apiUserId = requestCustomerIdEvent.getApiUserId();
-        
+
         //Find the customer that contains the API User ID.
         Customer customer = customerRepository.findByApiUserId(apiUserId);
-        
-        if(customer == null) {
+
+        if (customer == null) {
             return null;
         }
-        
+
         return new CustomerIdEvent(customer.getCustomerId());
-                
+
     }
 
 }

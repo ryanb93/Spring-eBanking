@@ -18,7 +18,7 @@ public class Account {
 
     @NotNull
     private String customerId;                  //A customer ID
-    
+
     @Indexed(unique = true)
     private String accountNumber;               //A unique account number
 
@@ -32,8 +32,8 @@ public class Account {
     private Double balance;                     // An account balance
 
     /**
-     * Constructor used to bind a JSON request into an Account object.
-     * We still need to call newAccount else variables wont get set.
+     * Constructor used to bind a JSON request into an Account object. We still
+     * need to call newAccount else variables wont get set.
      */
     public Account() {
         this.newAccount();
@@ -54,24 +54,24 @@ public class Account {
         this.setAccountType(accountType);
         this.newAccount();
     }
-    
+
     private void newAccount() {
         //initialise the account balance when creating a new account.
         this.balance = 0.00;
     }
-    
+
     /**
      * Returns the account Id.
-     * 
+     *
      * @return the unique account Id.
      */
     public String getAccountId() {
         return this.accountId;
     }
-    
+
     /**
      * Returns the customer Id.
-     * 
+     *
      * @return the customer who owns the account.
      */
     public String getCustomerId() {
@@ -123,10 +123,10 @@ public class Account {
         }
         this.accountNumber = accountNumber;
     }
-    
+
     /**
      * Sets the customer who owns the account.
-     * 
+     *
      * @param customerId - The customer who owns the account.
      */
     public final void setCustomerId(String customerId) {

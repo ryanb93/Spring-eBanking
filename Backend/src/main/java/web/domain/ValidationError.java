@@ -1,6 +1,5 @@
 package web.domain;
 
-
 public class ValidationError {
 
     private String propertyName;
