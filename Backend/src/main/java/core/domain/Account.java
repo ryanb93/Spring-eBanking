@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -18,7 +19,7 @@ public class Account {
     @NotNull
     private String customerId;                  //A customer ID
     
-    @NotNull
+    @Indexed(unique = true)
     private String accountNumber;               //A unique account number
 
     @NotNull
