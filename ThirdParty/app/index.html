@@ -42,7 +42,7 @@
         </oauth>
       </div>
       <div class="logged-in">
-        <div ng-view></div>
+        <div ng-view ng-show="hasToken"></div>
       </div>
     </div>
   </div>

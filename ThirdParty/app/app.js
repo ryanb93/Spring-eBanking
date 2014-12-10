@@ -34,7 +34,12 @@ angular.module('eBanking', [
 .controller('indexController', function ($http, $scope, $timeout, AccessToken) {
     $scope.$on('oauth:authorized', function(event, token) {
       $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.access_token;
-    })
+      $scope.hasToken = true;
+    });
+
+    $scope.$on('oauth:logout', function(event) {
+      $scope.hasToken = false;
+    });
 })
 .filter('capitalize', function() {
   return function(input, scope) {
