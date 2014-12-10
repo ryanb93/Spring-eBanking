@@ -20,7 +20,6 @@ angular.module('eBanking.accountControllers', [])
         if($scope.hasToken) {
             eBankingAPIservice.getAccounts().query(function(ids) {
                 $scope.accountsList = ids;
-                $scope.doShow = true;
             });
         }
 

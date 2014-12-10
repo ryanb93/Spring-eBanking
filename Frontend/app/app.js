@@ -29,8 +29,8 @@ angular.module('eBanking', [
 
         $scope.me = Profile.get();
         console.log($scope.me)
-
     }
+
 ])
 .controller('indexController', function ($location, $http, $scope, $timeout, AccessToken) {
     
@@ -40,10 +40,7 @@ angular.module('eBanking', [
     });
 
     $scope.$on('oauth:logout', function(event) {
-      $scope.reloadRoute = function() {
-        console.log("in here");
-        $state.reload();
-      };
+      $scope.hasToken = false;
     });
 
     $scope.$on('oauth:loggedOut', function(event) {
