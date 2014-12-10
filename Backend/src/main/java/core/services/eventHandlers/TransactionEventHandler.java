@@ -7,6 +7,7 @@ import core.events.accounts.RequestAccountDetailsEvent;
 import core.events.transactions.AllTransactionsEvent;
 import core.events.transactions.CreateTransactionEvent;
 import core.events.transactions.RequestAllTransactionsEvent;
+import core.events.transactions.RequestCreateTransactionEvent;
 import core.events.transactions.RequestTransactionDetailsEvent;
 import core.events.transactions.TransactionDetailsEvent;
 import core.repository.AccountRepository;
@@ -39,7 +40,7 @@ public class TransactionEventHandler implements TransactionService {
     }
 
     @Override
-    public CreateTransactionEvent requestNewTransaction(CreateTransactionEvent createTransactionEvent) {
+    public CreateTransactionEvent requestNewTransaction(RequestCreateTransactionEvent createTransactionEvent) {
         Transaction newTransaction = createTransactionEvent.getTransaction();
         RequestAccountDetailsEvent event = new RequestAccountDetailsEvent(newTransaction.getAccountId());
         AccountDetailsEvent accountEvent = accountService.requestAccountDetails(event);

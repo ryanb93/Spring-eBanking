@@ -1,5 +1,6 @@
 package rest.controller;
 
+import components.AuthHelper;
 import core.domain.Customer;
 import core.events.customers.CustomerDetailsEvent;
 import core.events.customers.RequestCustomerDetailsEvent;
@@ -33,41 +34,52 @@ public class CustomersController {
         
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
-
         Customer customer = null;
-        String customerId = AuthToCustomer.ID_FROM_AUTH(customerService, auth);
-        
-        if(customerId == null) {
-            status = HttpStatus.BAD_REQUEST;
+
+        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {  
+            String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+
+            if(customerId == null) {
+                status = HttpStatus.BAD_REQUEST;
+            }
+            else {
+                RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
+                CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
+                customer = event.getCustomer();
+            }
         }
         else {
-            RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
-            CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
-            customer = event.getCustomer();
+            status = HttpStatus.UNAUTHORIZED;
         }
+        
         return new ResponseEntity(customer, headers, status);
 
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Customer> updateCustomerDetails(@RequestBody Customer customer, UriComponentsBuilder builder) {
-
+    public ResponseEntity<Customer> updateCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth, @RequestBody Customer customer, UriComponentsBuilder builder) {
+            
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         Customer newCustomer = null;
 
-        if(!this.isValid(customer)) {
-            status = HttpStatus.BAD_REQUEST;
-        }
-        else {
-            UpdateCustomerDetailsEvent event = customerService.requestUpdateCustomer(new RequestUpdateCustomerDetailsEvent(customer));
-            if(event != null) {
-                newCustomer = event.getUpdatedCustomer();
-                headers.setLocation(builder.path(Routes.API).buildAndExpand(newCustomer.getCustomerId()).toUri());
-                status = HttpStatus.CREATED;
+        if(AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {  
+            if(!this.isValid(customer)) {
+                status = HttpStatus.BAD_REQUEST;
+            }
+            else {
+                UpdateCustomerDetailsEvent event = customerService.requestUpdateCustomer(new RequestUpdateCustomerDetailsEvent(customer));
+                if(event != null) {
+                    newCustomer = event.getUpdatedCustomer();
+                    headers.setLocation(builder.path(Routes.API).buildAndExpand(newCustomer.getCustomerId()).toUri());
+                    status = HttpStatus.CREATED;
+                }
             }
         }
- 
+        else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+        
         return new ResponseEntity(newCustomer, headers, status);
     }
     

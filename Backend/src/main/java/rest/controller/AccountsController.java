@@ -1,5 +1,6 @@
 package rest.controller;
 
+import components.AuthHelper;
 import core.domain.Account;
 import core.events.accounts.AccountDetailsEvent;
 import core.events.accounts.AllAccountsEvent;
@@ -12,10 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import config.Routes;
-import core.domain.Customer;
 import core.services.CustomerService;
 import java.util.List;
 import org.springframework.http.HttpHeaders;
@@ -23,14 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
-import web.domain.ApiUser;
-import web.domain.User;
 
 @RestController
 @RequestMapping(Routes.ACCOUNTS)
 @Secured("ROLE_USER")
 public class AccountsController {
-
+    
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -49,17 +45,22 @@ public class AccountsController {
         
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
-
         List<Account> accounts = null;
-        String customerId = AuthToCustomer.ID_FROM_AUTH(customerService, auth);
-        
-        if(customerId == null) {
-            status = HttpStatus.BAD_REQUEST;
+
+        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+            String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+
+            if(customerId == null) {
+                status = HttpStatus.BAD_REQUEST;
+            }
+            else {
+                RequestAllAccountsEvent request = new RequestAllAccountsEvent(customerId);
+                AllAccountsEvent event = accountService.requestAllAccounts(request);
+                accounts = event.getAccounts();
+            }
         }
         else {
-            RequestAllAccountsEvent request = new RequestAllAccountsEvent(customerId);
-            AllAccountsEvent event = accountService.requestAllAccounts(request);
-            accounts = event.getAccounts();
+            status = HttpStatus.UNAUTHORIZED;
         }
         return new ResponseEntity(accounts, headers, status);
 
@@ -75,27 +76,30 @@ public class AccountsController {
      */
     @RequestMapping(value = Routes.SINGLE_ACCOUNT, method = RequestMethod.GET)
     public ResponseEntity<Account> getCustomerAccount(@AuthenticationPrincipal OAuth2Authentication auth, @PathVariable("account_id") String accountId) {
-               
+                   
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
-
         Account account = null;
-        String customerId = AuthToCustomer.ID_FROM_AUTH(customerService, auth);
         
-        if(customerId == null) {
-            status = HttpStatus.BAD_REQUEST;
-        }
-        else {
-            RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(accountId);
-            AccountDetailsEvent event = accountService.requestAccountDetails(request);
-            account = event.getAccount();
-            
-            if(!account.getCustomerId().equals(customerId)) {
-                account = null;
+        if(AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+            String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+            if(customerId == null) {
                 status = HttpStatus.BAD_REQUEST;
             }
-            
+            else {
+                RequestAccountDetailsEvent request = new RequestAccountDetailsEvent(accountId);
+                AccountDetailsEvent event = accountService.requestAccountDetails(request);
+                account = event.getAccount();
+                if(!account.getCustomerId().equals(customerId)) {
+                    account = null;
+                    status = HttpStatus.BAD_REQUEST;
+                }
+            }
         }
+        else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+        
         return new ResponseEntity(account, headers, status);
     }
 }
