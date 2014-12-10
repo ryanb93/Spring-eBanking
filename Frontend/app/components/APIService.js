@@ -19,9 +19,20 @@ angular.module('eBanking.APIService', ['ngResource'])
       return $resource('https://localhost:8080/api/customer/');
     }
 
-    eBankingAPI.postCustomerDetails = function(customerId, newDetails) {
+    eBankingAPI.postCustomerDetails = function() {
       return $resource('https://localhost:8080/api/customer/',
         {},
+        { save: {
+            method: 'POST',
+            isArray: false,
+            headers:{'Content-Type':'application/json; charset=UTF-8'} 
+          }
+        });
+    }
+
+    eBankingAPI.postTransfer = function(accountId) {
+      return $resource('https://localhost:8080/api/customer/accounts/:accountId/transactions',
+        { accountId: accountId },
         { save: {
             method: 'POST',
             isArray: false,

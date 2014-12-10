@@ -1,55 +1,51 @@
-<div class="">
+<div>
 	<div ng-app"eBanking" ng-controller="transferController">
 		<h1 class="page-header">Transfer between your accounts</h1>
 		
 		<div id="messages"></div>
-		<form role="form" ng-submit="processForm()" >
+		<form role="form" ng-submit="processTransfer()" >
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
-				<select name="fromAccount" class="form-control">
+				<select name="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
 				</select>
 			</div>
 			<div id="last-name-group" class="form-group">
 				<label for="inputSurname">Amount</label>
-				<input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" required>
+				<input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" ng-model="transfer.value"required>
 			</div>
 			<div id="country-group" class="form-group">
 				<label for="inputCountry">To Account</label>
-				<select name="toAccount" class="form-control">
+				<select name="toAccount" class="form-control" ng-model="transfer.recipientAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
 				</select>
 			</div>
-			<button type="submit" class="btn btn-success btn-lg btn-block">
-			Transfer
-			</button>
+			<button type="submit" class="btn btn-success btn-lg btn-block">Transfer</button>
 		</form>
 		<hr>
 		<h1 class="page-header">Make a payment</h1>
 		
 		<div id="messages"></div>
-		<form role="form" ng-submit="processForm()" >
+		<form role="form" ng-submit="processPayment()" >
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
-				<select name="fromAccount" class="form-control">
+				<select name="fromAccount" class="form-control" ng-model="payment.senderAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
 				</select>
 			</div>
 			<div id="last-name-group" class="form-group">
 				<label for="inputSurname">Amount</label>
-				<input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" required>
+				<input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" ng-model="payment.value" required>
 			</div>
 			<div id="country-group" class="form-group">
 				<label for="inputCountry">To Account Number</label>
-				<input type="text" class="form-control" id="inputCountry" placeholder="Enter Account Number" ng-model="details.address.country" ng-bind="details.address.country" required>
+				<input type="text" class="form-control" id="inputCountry" placeholder="Enter Account Number" ng-model="payment.recipientAccountNumber" required>
 				<span class="help-block"></span>
 				<label for="inputCountry">Sort Code</label>
-				<input type="text" class="form-control" id="inputCountry" placeholder="Enter Sort Code" ng-model="details.address.country" ng-bind="details.address.country" required>
+				<input type="text" class="form-control" id="inputCountry" placeholder="Enter Sort Code" ng-model="payment.recipientSortCode" required>
 				<span class="help-block"></span>
 			</div>
-			<button type="submit" class="btn btn-success btn-lg btn-block">
-			Make Payment
-			</button>
+			<button type="submit" class="btn btn-success btn-lg btn-block">Make Payment</button>
 		</form>
 	</div>
 </div>
