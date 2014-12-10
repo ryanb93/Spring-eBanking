@@ -31,6 +31,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
 import core.events.transactions.RequestCreateTransactionEvent;
 import core.services.TransactionService;
+import java.util.Locale;
 import web.domain.ApiUser;
 import web.events.users.CreateUserRequest;
 import web.repository.UserRepository;
@@ -73,6 +74,10 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 
+     * @return 
+     */
     @RequestMapping(value = Routes.ALL_CUSTOMERS, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -81,6 +86,11 @@ public class AdminController {
         return event.getCustomerDetails();
     }
     
+    /**
+     * 
+     * @param model
+     * @return 
+     */
     @RequestMapping(Routes.ADMIN_PANEL)
     public ModelAndView showAdminPanel( ModelMap model ) {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
@@ -91,6 +101,12 @@ public class AdminController {
 	return modelAndView;
     }
     
+    /**
+     * 
+     * @param email
+     * @param password
+     * @return 
+     */
     @RequestMapping(Routes.ADD_USER)
     public ModelAndView addUser(@RequestParam("email")String email, @RequestParam("password")String password) {
         CreateUserRequest userRequest = new CreateUserRequest();
@@ -103,17 +119,38 @@ public class AdminController {
         return new ModelAndView("redirect:/adminPanel");
     }
     
-    
+    /**
+     * 
+     * @param firstName
+     * @param lastName
+     * @param dateOfBirth
+     * @param houseNumber
+     * @param street
+     * @param city
+     * @param county
+     * @param country
+     * @param postCode
+     * @param apiUserId
+     * @param builder
+     * @return
+     * @throws ParseException 
+     */
     @RequestMapping(value = Routes.ADD_CUSTOMER, method = RequestMethod.POST)
-    public ModelAndView createNewCustomer(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
-                                                       @RequestParam("dateOfBirth") String dateOfBirth, @RequestParam("houseNumber") String houseNumber, 
-                                                       @RequestParam("street") String street, @RequestParam("city") String city, 
-                                                       @RequestParam("county") String county, @RequestParam("country") String country, 
-                                                       @RequestParam("postCode") String postCode, @RequestParam("apiUserId") String apiUserId, 
-                                                       UriComponentsBuilder builder) throws ParseException {
+    public ModelAndView createNewCustomer(@RequestParam("firstName") String firstName,
+                                          @RequestParam("lastName") String lastName,
+                                          @RequestParam("dateOfBirth") String dateOfBirth,
+                                          @RequestParam("houseNumber") String houseNumber, 
+                                          @RequestParam("street") String street,
+                                          @RequestParam("city") String city, 
+                                          @RequestParam("county") String county,
+                                          @RequestParam("country") String country, 
+                                          @RequestParam("postCode") String postCode,
+                                          @RequestParam("apiUserId") String apiUserId, 
+                                          UriComponentsBuilder builder) throws ParseException {
         
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
         Date birth = formatter.parse(dateOfBirth);
+        
         Customer customer = new Customer();
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
@@ -125,53 +162,93 @@ public class AdminController {
         return new ModelAndView("redirect:/adminPanel");
     }
     
+    /**
+     * 
+     * @param customerId
+     * @param builder
+     * @return 
+     */
     @RequestMapping(value = Routes.REMOVE_CUSTOMER, method = RequestMethod.POST)
-    public ModelAndView RemoveCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder){
-     Customer customerToDelete =  customerRepository.findOne(customerId);
-     customerRepository.delete(customerToDelete);
-      return new ModelAndView("redirect:/adminPanel");
+    public ModelAndView removeCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder){
+        //TODO: This should be using the customerService. Not deleting directly.
+        Customer customerToDelete =  customerRepository.findOne(customerId);
+        customerRepository.delete(customerToDelete);
+        return new ModelAndView("redirect:/adminPanel");
     }
     
+    /**
+     * 
+     * @param customerId
+     * @param selectedAccountType
+     * @param sortCode
+     * @param accountNumber
+     * @param builder
+     * @return 
+     */
     @RequestMapping(value = Routes.ADD_ACCOUNT, method = RequestMethod.POST)
-    public ModelAndView AddAccount(@RequestParam("selectedCustomerId") String customerId, @RequestParam("selectedAccountType") String selectedAccountType, 
-                                             @RequestParam("sortCode") String sortCode, @RequestParam("accountNumber") String accountNumber, UriComponentsBuilder builder){
+    public ModelAndView addAccount(@RequestParam("selectedCustomerId") String customerId,
+                                   @RequestParam("selectedAccountType") String selectedAccountType, 
+                                   @RequestParam("sortCode") String sortCode,
+                                   @RequestParam("accountNumber") String accountNumber,
+                                   UriComponentsBuilder builder) {
+        
         Account account = new Account();
-        switch (selectedAccountType){
-                case "current":
-                        account.setAccountType(AccountType.CURRENT);
-                        break;
-                case "savings":
-                        account.setAccountType(AccountType.SAVINGS);
-                        break;
-                case "isa":
-                        account.setAccountType(AccountType.ISA);
-                        break;
-        }
+        
+        AccountType accountType = AccountType.valueOf(selectedAccountType.toUpperCase(Locale.US));
+    
+        account.setAccountType(accountType);
         account.setSortCode(sortCode);
         account.setAccountNumber(accountNumber);
         account.setCustomerId(customerId);
+        
+        //TODO: This should be passed to the accountService.
         accountRepository.save(account);
         
-      return new ModelAndView("redirect:/adminPanel");
+        return new ModelAndView("redirect:/adminPanel");
     }
     
+    /**
+     * 
+     * @param accountId
+     * @param builder
+     * @return 
+     */
     @RequestMapping(value = Routes.REMOVE_ACCOUNT, method = RequestMethod.POST)
-    public ModelAndView RemoveAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder){
-     Account accountToDelete =  accountRepository.findOne(accountId);
-     accountRepository.delete(accountToDelete);
-     
-      return new ModelAndView("redirect:/adminPanel");
+    public ModelAndView removeAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder){
+        //TODO: This should be passed to the accountService.
+        Account accountToDelete =  accountRepository.findOne(accountId);
+        accountRepository.delete(accountToDelete);
+        return new ModelAndView("redirect:/adminPanel");
     }
     
+    /**
+     * 
+     * @param senderAccountNumber
+     * @param senderSortCode
+     * @param recipientAccountNumber
+     * @param recipientSortCode
+     * @param date
+     * @param value
+     * @param accountId
+     * @param selectedTransactionType
+     * @param builder
+     * @return
+     * @throws ParseException 
+     */
     @RequestMapping(value = Routes.ADD_TRANSACTION, method = RequestMethod.POST)
-    public ModelAndView AddTransaction(@RequestParam("sender") String sender, @RequestParam("recipient") String recipient, 
-                                             @RequestParam("date") String date, @RequestParam("value") String value, 
-                                             @RequestParam("accId") String accountId, @RequestParam("selectedTransactionType") String selectedTransactionType,
-                                             UriComponentsBuilder builder) throws ParseException{
+    public ModelAndView addTransaction(@RequestParam("senderAccountNumber") String senderAccountNumber,
+                                       @RequestParam("senderSortCode") String senderSortCode, 
+                                       @RequestParam("recipientAccountNumber") String recipientAccountNumber,
+                                       @RequestParam("recipientSortCode") String recipientSortCode, 
+                                       @RequestParam("date") String date,
+                                       @RequestParam("value") String value, 
+                                       @RequestParam("accId") String accountId,
+                                       @RequestParam("selectedTransactionType") String selectedTransactionType,
+                                        UriComponentsBuilder builder) throws ParseException {
         
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
         Date transactionDate = formatter.parse(date);
-       Double transactionValue = Double.parseDouble(value);
+        Double transactionValue = Double.parseDouble(value);
         Transaction transaction = new Transaction();
         
         switch (selectedTransactionType){
@@ -202,19 +279,23 @@ public class AdminController {
         }
         
         transaction.setDate(transactionDate);
-        transaction.setRecipient(recipient);
-        transaction.setSender(sender);
+        
+        
+        transaction.setRecipientAccountNumber(recipientAccountNumber);
+        transaction.setRecipientSortCode(recipientSortCode);
+        transaction.setSenderAccountNumber(senderAccountNumber);
+        transaction.setSenderSortCode(senderSortCode);
+   
         transaction.setValue(transactionValue);
         transaction.setAccountId(accountId);
         RequestCreateTransactionEvent event = new RequestCreateTransactionEvent(transaction);
         transactionService.requestNewTransaction(event);
-        //transactionRepository.save(transaction);
         
-      return new ModelAndView("redirect:/adminPanel");
+        return new ModelAndView("redirect:/adminPanel");
     }
     
     @RequestMapping(value = Routes.REMOVE_TRANSACTION, method = RequestMethod.POST)
-    public ModelAndView RemoveTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder){
+    public ModelAndView removeTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder){
      Transaction transactionToDelete =  transactionRepository.findOne(transactionId);
      transactionRepository.delete(transactionToDelete);
      

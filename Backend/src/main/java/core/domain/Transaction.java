@@ -18,10 +18,16 @@ public class Transaction {
     private String accountId;       // The unique ID of either the sender or recipient account
 
     @NotNull
-    private String sender;          // The UUID sender in the transaction
+    private String senderSortCode;          // The UUID sender in the transaction
+    
+    @NotNull
+    private String senderAccountNumber;          // The UUID sender in the transaction
 
     @NotNull
-    private String recipient;       // The recipient of the transaction
+    private String recipientSortCode;       // The recipient of the transaction
+    
+    @NotNull
+    private String recipientAccountNumber;       // The recipient of the transaction
 
     @NotNull
     private Double value;           // The value of the 
@@ -38,19 +44,25 @@ public class Transaction {
     /**
      * Creates a new Transaction object.
      *
-     * @param sender - The ID of the sender.
-     * @param recipient - The last name of the customer.
+     * @param senderSortCode
+     * @param senderAccountNumber
+     * @param recipientSortCode
+     * @param recipientAccountNumber
      * @param value - The customer's data of birth.
      * @param date - The address of the customer.
+     * @param type - The type of the transaction.
      */
-    public Transaction(String sender, String recipient, Double value, Date date, TransactionType type) {
+    public Transaction(String senderSortCode, String senderAccountNumber, String recipientSortCode, String recipientAccountNumber, Double value, Date date, TransactionType type) {
         super();
         // Set values using setters.
-        this.setSender(sender);
-        this.setRecipient(recipient);
+        this.setSenderSortCode(senderSortCode);
+        this.setSenderAccountNumber(senderAccountNumber);
+        this.setRecipientSortCode(recipientSortCode);
+        this.setRecipientAccountNumber(recipientAccountNumber);
         this.setValue(value);
         this.setDate(date);
         this.setTransactionType(type);
+        this.senderSortCode = senderSortCode;
     }
     
     /**
@@ -59,36 +71,7 @@ public class Transaction {
      * @param accountId - The account ID of the transaction.
      */
     public final void setAccountId(String accountId) {
-        if (sender == null || sender.equals("")) {
-            throw new IllegalArgumentException("This account ID is either null or invalid.");
-        }
         this.accountId = accountId;    
-    }
-
-    /**
-     * Sets the name of the sender.
-     *
-     * @param sender - The name of the sender.
-     */
-    public final void setSender(String sender) {
-        if (sender == null || sender.equals("")) {
-            throw new IllegalArgumentException("This sender is either null or invalid.");
-        }
-        
-        this.sender = sender;
-    }
-
-    /**
-     * Sets the first name of the customer.
-     *
-     * @param recipient - The first name of the recipient.
-     */
-    public final void setRecipient(String recipient) {
-        if (recipient == null || recipient.equals("")) {
-            throw new IllegalArgumentException("This recipient is either null or invalid.");
-        }
-        
-        this.recipient = recipient;
     }
 
     /**
@@ -153,19 +136,40 @@ public class Transaction {
      *
      * @return sender - The sender in the transaction.
      */
-    public String getSender() {
-        return this.sender;
+    public String getSenderAccountNumber() {
+        return this.senderAccountNumber;
     }
 
+    /**
+     * Gets the sender in the transaction.
+     *
+     * @return sender - The sender in the transaction.
+     */
+    public String getSenderSortCode() {
+        return this.senderSortCode;
+    }
+    
+    
     /**
      * Gets the date of the transaction.
      *
      * @return recipient - the recipient in the transaction.
      */
-    public String getRecipient() {
-        return this.recipient;
+    public String getRecipientAccountNumber() {
+        return this.recipientAccountNumber;
     }
 
+    
+    /**
+     * Gets the date of the transaction.
+     *
+     * @return recipient - the recipient in the transaction.
+     */
+    public String getRecipientSortCode() {
+        return this.recipientSortCode;
+    }
+
+    
     /**
      * Gets the value of the transaction.
      *
@@ -191,6 +195,22 @@ public class Transaction {
      */
     public TransactionType getTransactionType() {
         return this.transactionType;
+    }
+
+    public void setSenderSortCode(String senderSortCode) {
+        this.senderSortCode = senderSortCode;
+    }
+
+    public void setSenderAccountNumber(String senderAccountNumber) {
+        this.senderAccountNumber = senderAccountNumber;
+    }
+
+    public void setRecipientSortCode(String recipientSortCode) {
+        this.recipientSortCode = recipientSortCode;
+    }
+
+    public void setRecipientAccountNumber(String recipientAccountNumber) {
+        this.recipientAccountNumber = recipientAccountNumber;
     }
     
 }
