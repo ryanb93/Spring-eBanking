@@ -38,7 +38,7 @@ public class Account {
 
     /** The balance of the account. */
     @NotNull
-    private double balance;
+    private double balance = 0;
 
     /**
      * Empty default constructor needed by Spring to create an Account
@@ -48,22 +48,22 @@ public class Account {
      * sets the values based on the JSON key/value pairs.
      */
     public Account() {
-        this.balance = 0.00;
     }
 
     /**
      * Creates a new Account object.
      *
      * @param accountNumber - The account number of the account.
+     * @param customerId - The ID of the customer who owns the account.
      * @param sortCode - The sort code of the account.
      * @param accountType - The type of account.
      */
-    public Account(String accountNumber, String sortCode, AccountType accountType) {
+    public Account(String accountNumber, String customerId, String sortCode, AccountType accountType) {
         super();
         this.setAccountNumber(accountNumber);
+        this.setCustomerId(customerId);
         this.setSortCode(sortCode);
         this.setAccountType(accountType);
-        this.balance = 0.00;
     }
 
     /**

@@ -10,6 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * Unit testing for the customer domain.
+ */
 public class CustomerTest {
 
     private Customer customer;
@@ -24,21 +27,19 @@ public class CustomerTest {
                                                                    "England",
                                                                    "TE5 T1N");
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
+    /**
+     * Setup method which is called before every test. Creates a new customer object.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.customer = new Customer(FIRST_NAME, LAST_NAME, ADDRESS,API_USER_ID);
     }
 
+    /**
+     * Teardown method which makes sure the customer is destroyed after each test.
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         this.customer = null;
     }
 

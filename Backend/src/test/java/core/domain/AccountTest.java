@@ -1,88 +1,145 @@
 package core.domain;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Unit testing for the Account domain.
+ */
 public class AccountTest {
     
+    /** The Account object to test against. */
     private Account account;
     
-    public AccountTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+    /** Constant values to use during testing. */
+    private static final String ACCOUNT_NUMBER = "12345678";
+    private static final String NEW_ACCOUNT_NUMBER = "87654321";
+    private static final String INVALID_ACCOUNT_NUMBER = "KASJHDFKJA";
+    private static final String CUSTOMER_ID = "CUSTOMER";
+    private static final String NEW_CUSTOMER_ID = "NEWCUSTOMER";
+    private static final String SORT_CODE = "112233";
+    private static final String NEW_SORT_CODE = "332211";
+    private static final String INVALID_SORT_CODE ="FDADFAF";
+    private static final AccountType ACCOUNT_TYPE = AccountType.CURRENT;
+    private static final AccountType NEW_ACCOUNT_TYPE = AccountType.SAVINGS;
+    private static final double TEST_BALANCE = 44.50;
+    /**
+     * Setup method which is called before every test. Creates a new account object.
+     */
     @Before
     public void setUp() {
-        this.account = new Account("12345678","223344",AccountType.CURRENT);
+        this.account = new Account(ACCOUNT_NUMBER, CUSTOMER_ID, SORT_CODE, ACCOUNT_TYPE);
     }
     
+    /**
+     * Teardown method which makes sure the Account is destroyed after each test.
+     */    
     @After
     public void tearDown() {
+        this.account = null;
     }
 
     /**
-     * Test of getAccountNumber method, of class Account.
+     * Tests that we can get the customer ID from the Account.
+     */
+    @Test
+    public void testGetCustomerId() {
+        assertEquals(account.getCustomerId(), CUSTOMER_ID);
+    }
+    
+    /**
+     * Tests that we can get the account number from the Account.
      */
     @Test
     public void testGetAccountNumber() {
-        System.out.println("getAccountNumber");
-        String result = account.getAccountNumber();
-        assertEquals(result, "12345678");
+        assertEquals(account.getAccountNumber(), ACCOUNT_NUMBER);
     }
 
     /**
-     * Test of getSortCode method, of class Account.
+     * Tests that we can get the sort code from the Account.
      */
     @Test
     public void testGetSortCode() {
-        System.out.println("getSortCode");
-        String result = account.getSortCode();
-        assertEquals(result, "223344");
+        assertEquals(account.getSortCode(), SORT_CODE);
     }
 
     /**
-     * Test of getAccountType method, of class Account.
+     * Tests that we can get the account type from the Account.
      */
     @Test
     public void testGetAccountType() {
-        System.out.println("getAccountType");
-        AccountType result = account.getAccountType();
-        assertEquals(result, AccountType.CURRENT);
+        assertEquals(account.getAccountType(), ACCOUNT_TYPE);
     }
     
     /**
-     * Test of getBalance method, of class Account.
+     * Tests that we can get the account balance from the Account.
      */
     @Test
     public void testGetBalance(){
-        System.out.println("getBalance");
-        Double balance = 0.00;
-        assertEquals(account.getBalance(), balance);
+        assertEquals(account.getBalance(), 0, 0);
     }
 
     /**
-     * Test of setBalance method, of class Account.
+     * Tests that we can set the account number.
+     */
+    @Test
+    public void testSetAccountNumber() {
+        account.setAccountNumber(NEW_ACCOUNT_NUMBER);
+        assertEquals(account.getAccountNumber(), NEW_ACCOUNT_NUMBER);
+    }   
+
+    /**
+     * Tests the sort code validation.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetAccountNumberValidation() {
+        account.setAccountNumber(INVALID_ACCOUNT_NUMBER);
+    }       
+    
+    /**
+     * Tests that we can set the account customer ID.
+     */
+    @Test
+    public void testSetCustomerId() {
+        account.setCustomerId(NEW_CUSTOMER_ID);
+        assertEquals(account.getCustomerId(), NEW_CUSTOMER_ID);
+    }       
+    
+    /**
+     * Tests that we can set the account sort code.
+     */
+    @Test
+    public void testSetSortCode() {
+        account.setSortCode(NEW_SORT_CODE);
+        assertEquals(account.getSortCode(), NEW_SORT_CODE);
+    }  
+
+    /**
+     * Tests the sort code validation.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetSortCodeValidation() {
+        account.setSortCode(INVALID_SORT_CODE);
+    }     
+    
+    /**
+     * Tests that we can set the account type.
+     */
+    @Test
+    public void testSetAccountType() {
+        account.setAccountType(NEW_ACCOUNT_TYPE);
+        assertEquals(account.getAccountType(), NEW_ACCOUNT_TYPE);
+    }      
+    
+    /**
+     * Tests that we can set the account balance.
      */
     @Test
     public void testSetBalance() {
-        System.out.println("setBalance");
-        Double balance = 44.50;
-        account.setBalance(balance);
-        assertEquals(account.getBalance(), balance);
+        account.setBalance(TEST_BALANCE);
+        assertEquals(account.getBalance(), TEST_BALANCE, 0);
     }
     
 }
