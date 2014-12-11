@@ -38,7 +38,16 @@
 		<hr>
 		<h1 class="page-header">Make a payment</h1>
 		
-		<div id="messages"></div>
+		<div id="messages">
+			<div ng-hide="!messages.payment.err.err" class="alert alert-danger" role="alert">
+                {{messages.payment.err.stat}}<br>
+                {{messages.payment.err.message}}               
+        	</div>
+			<div ng-hide="!messages.payment.success.success" class="alert alert-success" role="alert">
+                {{messages.payment.success.title}}               
+                {{messages.payment.success.message}}               
+        	</div>
+		</div>
 		<form role="form" ng-submit="processPayment()" >
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>

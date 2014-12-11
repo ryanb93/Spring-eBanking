@@ -24,6 +24,12 @@ angular.module('eBanking.transferControllers', [])
         $scope.messages.transfer.err.err = false;
         $scope.messages.transfer.success.success = false;
 
+        $scope.messages.payment = {};
+        $scope.messages.payment.err = {};
+        $scope.messages.payment.success = {};
+        $scope.messages.payment.err.err = false;
+        $scope.messages.payment.success.success = false;
+
         $scope.processTransfer = function() {
             var test = eBankingAPIservice.postTransfer($scope.transfer.senderAccountNumber).save($scope.transfer, function(result) {
                 
@@ -43,16 +49,27 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.transfer.err.message = data.statusText;
             });
 
-        }
+        };
 
         $scope.processPayment = function() {
             var test = eBankingAPIservice.postTransfer($scope.payment.senderAccountNumber).save($scope.payment, function(result) {
-                console.log(result);
+
+                $scope.messages.payment.success.success = true;
+                $scope.messages.payment.err.err = false;
+                $scope.messages.payment.success.title = "Transfer Successful";
+                $scope.messages.payment.success.message = "£" + result.value + "  has been sent to " + result.recipientAccountNumber + " from " + result.senderAccountNumber; 
+
                 eBankingAPIservice.getAccounts().query(function(ids) {
                     $scope.accountsList = ids;
                 });
+            }, 
+            function(data, status, headers, config) {
+                $scope.messages.payment.err.err = true;
+                $scope.messages.payment.success.success = false;
+                $scope.messages.payment.err.stat = data.status;
+                $scope.messages.payment.err.message = data.statusText;
             });
-        }
 
-    },
+        };
+    }
 ]);
