@@ -13,43 +13,54 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * 
+ * Domain model to represent Users in our application. 
+ * A User is specifically is linked to an APIUser along with a Customer,
+ * thereby allowing us to link login credentials and information with an account internal to the system.
+ * The link with APIUser allows us to administrate security privileges to Users
  */
 @Document(collection = "app_user")
 public class User extends BaseEntity implements UserDetails {
     
-    /** */
+    /*
+    *Email of the current User 
+    */
     private String emailAddress;
     
-    /** */
+    /**
+     * Hashed Password of the current User 
+     */
     private String hashedPassword;
     
-    /** */
+    /*
+    * Boleaan to detect whether a User is verified to access certain resources
+    */
     private Boolean verified = false;
     
-    /** */
+    /*
+     * A List or Roles assigned to the User, used in Security
+     */
     private List<Role> roles = new ArrayList();
 
     /**
-     * 
+     * Default Constructor.
      */
     public User() {
         super();
     }
     
     /**
-     * 
-     * @param id 
+     * Parameterised Constructor
+     * @param id the ID for the User
      */
     public User(String id) {
         super(id);
     }
     
     /**
-     * 
-     * @param apiUser
-     * @param hashedPassword
-     * @param role 
+     * Parameterised Constructor
+     * @param apiUser the APIUser a User will be linked to
+     * @param hashedPassword the hashed password of the User
+     * @param role a role to be assigned to the User
      */
     public User(final ApiUser apiUser, final String hashedPassword, Role role) {
         this();
@@ -59,8 +70,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @param dbObject 
+     * Parameterised Constructor
+     * @param dbObject the Database Object that the User Details are to be pulled from.
      */
     public User(DBObject dbObject) {
         this((String) dbObject.get("_id"));
@@ -72,8 +83,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @param roles 
+     * Method to deserialise roles assigned to the User
+     * @param roles a List of roles assigned to the User
      */
     private void deSerializeRoles(List<String> roles) {
         for (String role : roles) {
@@ -82,8 +93,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return Collection<? extends GrantedAuthority>
+     * Method to determine authorities for a User
+     * @return Collection<? extends GrantedAuthority> Returns a collection of granted authorities for the User
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -96,8 +107,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return String
+     * Method to retrieve Password
+     * @return String returns the User's hashed password
      */
     @Override
     public String getPassword() {
@@ -105,8 +116,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return String
+     * Method to retrieve Username
+     * @return String returns the User's Usernale
      */
     @Override
     public String getUsername() {
@@ -114,8 +125,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return boolean
+     * Method to determine if a User Account has Expired
+     * @return boolean returns true if Account is non-expired
      */
     @Override
     public boolean isAccountNonExpired() {
@@ -123,8 +134,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return boolean
+     * Method to determine if a User Account is locked
+     * @return boolean returns true if Account is not locked
      */
     @Override
     public boolean isAccountNonLocked() {
@@ -132,8 +143,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return boolean
+     * Method to determine if a User's Credentials has Expired
+     * @return boolean returns true if Credentials is non-expired
      */
     @Override
     public boolean isCredentialsNonExpired() {
@@ -141,8 +152,8 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return boolean
+     * Method to determine if a User is enabled
+     * @return boolean returns true if User is enabled
      */
     @Override
     public boolean isEnabled() {
@@ -150,73 +161,73 @@ public class User extends BaseEntity implements UserDetails {
     }
     
     /**
-     * 
-     * @return String
+     * Method to retrieve a User's Email Address
+     * @return String the User Email Address
      */
     public String getEmailAddress() {
         return emailAddress;
     }
     
     /**
-     * 
-     * @param emailAddress 
+     * Method to set User Email Address
+     * @param emailAddress the Email Address to set
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
     
     /**
-     * 
-     * @return Boolean
+     * Method to determine if a User is verified
+     * @return boolean returns true if User is verified
      */
     public Boolean isVerified() {
         return verified;
     }
     
     /**
-     * 
-     * @param verified 
+     * Method to set whether a User is verified
+     * @param verified value of verified to set (true or false)
      */
     public void setVerified(Boolean verified) {
         this.verified = verified;
     }
     
     /**
-     * 
-     * @return String
+     * Method to retrieve User's hashed password 
+     * @return String the User's hashed password
      */
     public String getHashedPassword() {
         return hashedPassword;
     }
     
     /**
-     * 
-     * @param hashedPassword 
+     * Method to set a User's hashed password
+     * @param hashedPassword the hashed password to set
      */
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
     
     /**
-     * 
-     * @return List<Role>
+     * Method to retrieve a User's roles
+     * @return List<Role> a list of roles assigned to the User
      */
     public List<Role> getRoles() {
         return Collections.unmodifiableList(this.roles);
     }
     
     /**
-     * 
-     * @param role 
+     * Method to add a User Role
+     * @param role the role to add to the User
      */
     public void addRole(Role role) {
         this.roles.add(role);
     }
     
     /**
-     * 
-     * @param role
-     * @return boolean
+     * Method to check if a User has a certain role
+     * @param role the role to check exists
+     * @return boolean true if the user has the role specified
      */
     public boolean hasRole(Role role) {
         return (this.roles.contains(role));
