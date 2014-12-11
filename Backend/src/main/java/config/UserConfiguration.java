@@ -1,7 +1,5 @@
 package config;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,20 +24,7 @@ public class UserConfiguration {
     
     /** */
     @Autowired
-    private Validator validator;
-    
-    /** */
-    @Autowired
     private PasswordEncoder passwordEncoder;
-    
-    /**
-     * Validates instances of Beans in our application
-     * @return Validator
-     */
-    @Bean
-    public Validator validator() {
-        return Validation.buildDefaultValidatorFactory().getValidator();
-    }
     
     /**
      * Sets up and creates the UserServiceEvent
@@ -47,7 +32,7 @@ public class UserConfiguration {
      */
     @Bean
     public UserServiceInterface userService() {
-        return new UserService(userRepository, validator, passwordEncoder);
+        return new UserService(userRepository, passwordEncoder);
     }
     
     /**
@@ -56,6 +41,6 @@ public class UserConfiguration {
      */
     @Bean
     public UserService userResource() {
-        return new UserService(userRepository, validator, passwordEncoder);
+        return new UserService(userRepository, passwordEncoder);
     }
 }
