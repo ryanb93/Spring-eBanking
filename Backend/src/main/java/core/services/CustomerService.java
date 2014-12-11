@@ -47,5 +47,15 @@ public class CustomerService implements CustomerServiceInterface {
     public String requestCustomerId(String apiUserId) {
         return customerRepository.findByApiUserId(apiUserId).getCustomerId();
     }
+    
+    /**
+     * Method which removes a Customer from MongoDB.
+     * 
+     * @param customerId - The ID of the Customer we want to remove..
+     */
+    @Override
+    public void removeCustomer(String customerId){
+        customerRepository.delete(customerRepository.findOne(customerId));
+    }
 
 }

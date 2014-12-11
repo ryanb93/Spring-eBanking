@@ -162,9 +162,8 @@ public class AdminController {
      */
     @RequestMapping(value = Routes.REMOVE_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView removeCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder) {
-        //TODO: This should be using the customerService. Not deleting directly.
-        Customer customerToDelete = customerRepository.findOne(customerId);
-        customerRepository.delete(customerToDelete);
+
+        customerService.removeCustomer(customerId);
         return new ModelAndView("redirect:/adminPanel");
     }
 
@@ -208,9 +207,8 @@ public class AdminController {
      */
     @RequestMapping(value = Routes.REMOVE_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView removeAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder) {
-        //TODO: This should be passed to the accountService.
-        Account accountToDelete = accountRepository.findOne(accountId);
-        accountRepository.delete(accountToDelete);
+
+        accountService.removeAccount(accountId);
         return new ModelAndView("redirect:/adminPanel");
     }
 
@@ -295,9 +293,8 @@ public class AdminController {
      */
     @RequestMapping(value = Routes.REMOVE_TRANSACTION, method = RequestMethod.POST)
     public ModelAndView removeTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder) {
-        Transaction transactionToDelete = transactionRepository.findOne(transactionId);
-        transactionRepository.delete(transactionToDelete);
 
+        transactionService.removeTransaction(transactionId);
         return new ModelAndView("redirect:/adminPanel");
     }
 

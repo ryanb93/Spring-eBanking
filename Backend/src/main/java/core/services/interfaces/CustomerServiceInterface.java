@@ -9,4 +9,5 @@ public interface CustomerServiceInterface {
     public Customer requestNewCustomer(Customer customer);
     public Customer requestUpdateCustomer(Customer customer);
     public String requestCustomerId(String apiUserId);
+    public void removeCustomer(String customerId);
 }

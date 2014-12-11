@@ -31,6 +31,15 @@ public class AccountService implements AccountServiceInterface {
     public Account requestAccountDetailsFromNumber(String accountNumber) {
         return accountRepository.findByAccountNumber(accountNumber);
     }
+    
+    /**
+     * Method which removes an Account from MongoDB.
+     * 
+     * @param accountId - The ID of the account we want to remove..
+     */
+    @Override public void removeAccount(String accountId){
+        accountRepository.delete(accountRepository.findOne(accountId));
+    }
 
     @Override
     public Account updateAccountBalance(String accountNumber, double transactionValue) {

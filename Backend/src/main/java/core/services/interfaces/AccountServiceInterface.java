@@ -15,6 +15,8 @@ public interface AccountServiceInterface {
     public Account requestAccountDetails(String accountId);
 
     public Account requestAccountDetailsFromNumber(String accountNumber);
+    
+    public void removeAccount(String accountId);
 
     public Account updateAccountBalance(String accountNumber, double transactionValue);
 }

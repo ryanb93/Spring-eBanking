@@ -39,6 +39,16 @@ public class TransactionService implements TransactionServiceInterface {
     public List<Transaction> requestAllTransactions(String accountNumber, int page) {
         return transactionRepository.findAllByAccountNumber(accountNumber, page);
     }
+    
+        /**
+     * Method which removes a Transaction from MongoDB.
+     * 
+     * @param transactionId - The ID of the transaction we want to remove..
+     */
+     @Override
+     public void removeTransaction(String transactionId) {
+        transactionRepository.delete(transactionRepository.findOne(transactionId));
+     }
 
     /**
      * Method which creates a new transaction, adds it to the repository and updates the 
