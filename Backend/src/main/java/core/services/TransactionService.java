@@ -3,7 +3,7 @@ package core.services;
 import core.domain.Account;
 import core.domain.Transaction;
 import core.domain.TransactionType;
-import core.repository.TransactionRepository;
+import core.repository.interfaces.TransactionRepository;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.List;

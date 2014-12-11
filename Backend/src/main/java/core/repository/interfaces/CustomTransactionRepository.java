@@ -1,4 +1,4 @@
-package core.repository.custom;
+package core.repository.interfaces;
 
 import core.domain.Transaction;
 import java.util.List;

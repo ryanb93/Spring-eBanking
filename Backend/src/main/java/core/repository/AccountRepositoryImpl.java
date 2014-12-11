@@ -1,7 +1,7 @@
-package core.repository.implementations;
+package core.repository;
 
 import core.domain.Account;
-import core.repository.custom.CustomAccountRepository;
+import core.repository.interfaces.CustomAccountRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;

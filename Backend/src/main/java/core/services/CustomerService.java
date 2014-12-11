@@ -1,7 +1,7 @@
 package core.services;
 
 import core.domain.Customer;
-import core.repository.CustomerRepository;
+import core.repository.interfaces.CustomerRepository;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

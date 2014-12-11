@@ -1,7 +1,7 @@
-package core.repository;
+package core.repository.interfaces;
 
 import core.domain.Customer;
-import core.repository.custom.CustomCustomerRepository;
+import core.repository.interfaces.CustomCustomerRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package core.repository.custom;
+package core.repository.interfaces;
 
 import core.domain.Customer;
 import org.springframework.stereotype.Repository;

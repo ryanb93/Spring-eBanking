@@ -1,7 +1,7 @@
 package core.services;
 
 import core.domain.Account;
-import core.repository.AccountRepository;
+import core.repository.interfaces.AccountRepository;
 import core.services.interfaces.AccountServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

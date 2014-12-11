@@ -1,7 +1,7 @@
-package core.repository;
+package core.repository.interfaces;
 
 import core.domain.Account;
-import core.repository.custom.CustomAccountRepository;
+import core.repository.interfaces.CustomAccountRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

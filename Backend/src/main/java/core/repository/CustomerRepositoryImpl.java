@@ -1,7 +1,7 @@
-package core.repository.implementations;
+package core.repository;
 
 import core.domain.Customer;
-import core.repository.custom.CustomCustomerRepository;
+import core.repository.interfaces.CustomCustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
