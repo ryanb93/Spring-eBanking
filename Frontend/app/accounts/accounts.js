@@ -77,7 +77,7 @@ angular.module('eBanking.accountControllers', [])
                 case "BACS": title = "BAC Transfer"; break;
                 case "DIRECT_DEBIT": title = "Direct Debit"; break;
                 case "STANDING_ORDER": title = "Standing Order"; break;
-                case "PAYPAL": title = "Paypay Transaction"; break;
+                case "PAYPAL": title = "Paypal Transaction"; break;
             }
 
             return title;
