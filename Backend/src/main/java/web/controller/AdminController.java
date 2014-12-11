@@ -33,13 +33,14 @@ import web.repository.UserRepository;
 import web.services.interfaces.UserServiceInterface;
 
 /**
- * TODO: REMOVE AFTER TESTING
+ * 
+ * This class is for administration control, DO NOT USE IN PRODUCTION.
  *
- * This class is for administration control.
- *
- * It should be the only controller that can create/delete new customers. We
- * keep this out of the Customers controller because that is for public facing
- * operations on individual Customers.
+ * This tool is purely built instead of providing you with a build script.
+ * Here you can manage everything without the security limitations of the
+ * OAuth API. The Admin controller runs on Backend web interface directly
+ * and mimics the power that a real bank would have including creating new
+ * customers and web users, adding money to accounts and deleting powers.
  */
 @RestController
 public class AdminController {
