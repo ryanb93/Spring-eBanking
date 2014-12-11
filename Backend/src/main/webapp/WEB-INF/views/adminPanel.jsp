@@ -89,7 +89,6 @@
                                 <td id="twentypercent">Customer Id</td>
                                 <td id="tenpercent">First Name</td>
                                 <td id="tenpercent">Last Name</td>
-                                <td id="twentypercent">Date Of Birth</td>
                                 <td id="fortypercent">Postal Address</td>
                                 <td id="fortypercent">API User ID</td>
                             </tr>
@@ -98,7 +97,6 @@
                             pageContext.setAttribute("customerId",customer.getCustomerId());
                             pageContext.setAttribute("firstName", customer.getFirstName());
                             pageContext.setAttribute("lastName", customer.getLastName());
-                            pageContext.setAttribute("dateOfBirth", customer.getDateOfBirth());
                             pageContext.setAttribute("address", customer.getAddress());
                             pageContext.setAttribute("apiUserID", customer.getApiUserId());
                             %>
@@ -106,7 +104,6 @@
                                 <td>${customerId}</td>
                                 <td>${firstName}</td>
                                 <td>${lastName}</td>
-                                <td>${dateOfBirth}</td>
                                 <td>${address}</td>
                                 <td>${apiUserID}</td>
                             </tr>
@@ -136,10 +133,6 @@
                             <div class="form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="lastName" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Date of Birth</label>
-                                <input type="text" name="dateOfBirth" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label>House Number</label>

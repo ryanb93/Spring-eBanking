@@ -110,7 +110,6 @@ public class AdminController {
      *
      * @param firstName
      * @param lastName
-     * @param dateOfBirth
      * @param houseNumber
      * @param street
      * @param city
@@ -125,7 +124,6 @@ public class AdminController {
     @RequestMapping(value = Routes.ADD_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView createNewCustomer(@RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
-            @RequestParam("dateOfBirth") String dateOfBirth,
             @RequestParam("houseNumber") String houseNumber,
             @RequestParam("street") String street,
             @RequestParam("city") String city,
@@ -135,13 +133,9 @@ public class AdminController {
             @RequestParam("apiUserId") String apiUserId,
             UriComponentsBuilder builder) throws ParseException {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
-        Date birth = formatter.parse(dateOfBirth);
-
         Customer customer = new Customer();
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
-        customer.setDateOfBirth(birth);
         customer.setAddress(new PostalAddress(houseNumber, street, city, county, country, postCode));
         customer.setApiUserId(apiUserId);
 

@@ -119,8 +119,6 @@ public class CustomersController {
             valid = false;
         } else if (customer.getLastName() == null) {
             valid = false;
-        } else if (customer.getDateOfBirth() == null) {
-            valid = false;
         } else if (customer.getAddress() == null) {
             valid = false;
         }

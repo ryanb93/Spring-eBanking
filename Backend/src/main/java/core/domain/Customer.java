@@ -23,10 +23,6 @@ public class Customer {
     @NotNull
     private String lastName;
 
-    /** The date of birth of the customer */
-    @NotNull
-    private Date dateOfBirth;
-
     /** The PostalAddress of the customer */
     @NotNull
     private PostalAddress address;
@@ -49,16 +45,14 @@ public class Customer {
      *
      * @param firstName - The first name of the customer.
      * @param lastName - The last name of the customer.
-     * @param dateOfBirth - The customer's data of birth.
      * @param address - The address of the customer.
      * @param apiUserId - The ID of the API User object in the database. (Optional)
      */
-    public Customer(String firstName, String lastName, Date dateOfBirth, PostalAddress address, String apiUserId) {
+    public Customer(String firstName, String lastName, PostalAddress address, String apiUserId) {
         super();
         //Set values using setters.
         this.setFirstName(firstName);
         this.setLastName(lastName);
-        this.setDateOfBirth(dateOfBirth);
         this.setAddress(address);
         this.setApiUserId(apiUserId);
     }
@@ -85,18 +79,6 @@ public class Customer {
             throw new IllegalArgumentException("Last name can not be empty.");
         }
         this.lastName = lastName;
-    }
-
-    /**
-     * Sets the last name of the customer.
-     *
-     * @param dateOfBirth - The new date of birth of the customer.
-     */
-    public final void setDateOfBirth(Date dateOfBirth) {
-        if (dateOfBirth == null) {
-            throw new IllegalArgumentException("Date of birth can not be null.");
-        }
-        this.dateOfBirth = dateOfBirth;
     }
 
     /**
@@ -145,15 +127,6 @@ public class Customer {
      */
     public String getLastName() {
         return this.lastName;
-    }
-
-    /**
-     * Returns the date of birth of the Customer.
-     *
-     * @return the customer's date of birth
-     */
-    public Date getDateOfBirth() {
-        return this.dateOfBirth;
     }
 
     /**
