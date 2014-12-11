@@ -22,8 +22,8 @@
 				</select>
 			</div>
 			<div id="last-name-group" class="form-group">
-				<label for="inputSurname">Amount</label>
-				<input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" ng-model="transfer.value"required>
+				<label for="transferAmount">Amount</label>
+				<input type="number" step="0.01" class="form-control" id="transferAmount" placeholder="Enter Amount" ng-model="transfer.value" required>
 			</div>
 			<div id="country-group" class="form-group">
 				<label for="inputCountry">To Account</label>
@@ -58,8 +58,8 @@
 				</select>
 			</div>
 			<div id="last-name-group" class="form-group">
-				<label for="inputSurname">Amount</label>
-				<input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" ng-model="payment.value" required>
+				<label for="paymentAmount">Amount</label>
+				<input type="number" step="0.01" class="form-control" id="paymentAmount" placeholder="Enter Amount" ng-model="payment.value" required>
 			</div>
 			<div id="country-group" class="form-group">
 				<label for="inputCountry">To Account Number</label>
