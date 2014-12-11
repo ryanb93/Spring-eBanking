@@ -15,6 +15,5 @@
     <oauth:expression-handler id="oauthExpressionHandler"/>
 
     <oauth:web-expression-handler id="oauthWebExpressionHandler"/>
-    
 
 </beans>

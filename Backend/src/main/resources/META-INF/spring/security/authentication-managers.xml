@@ -21,14 +21,6 @@
         <sec:authentication-provider user-service-ref="client-details-user-service"/>
     </sec:authentication-manager>
     
-    <sec:authentication-manager>
-     <sec:authentication-provider>
-         <sec:user-service>
-              <sec:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
-              </sec:user-service>
-     </sec:authentication-provider>
-    </sec:authentication-manager>
-    
     <bean id="client-details-user-service" class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
         <constructor-arg ref="client-details-service" />
     </bean>

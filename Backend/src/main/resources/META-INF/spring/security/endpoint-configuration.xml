@@ -22,11 +22,6 @@
         <custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
     </http>
-    
-    <http  pattern="/adminPanel" xmlns="http://www.springframework.org/schema/security">
-     <intercept-url pattern="/adminPanel" access="ROLE_ADMIN"/>
-     <http-basic />
-    </http>
 
 
 </beans>
