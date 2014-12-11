@@ -9,7 +9,7 @@
 							<em class="fa fa-university fa-5x"></em>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="text-lg balancePadding">£{{account.balance}}</div>
+							<div class="text-lg balancePadding">{{account.balance | currency : "£" : 2}}</div>
 						</div>
 					</div>
 				</div>
@@ -37,12 +37,12 @@
 			<div class="timeline-panel">
 				<div ng-class-odd="'popover left'" ng-class-even="'popover right'">
 					<div class="arrow"></div>
-					<h3 class="popover-title">{{getTitle(transaction.transactionType)}} - £{{transaction.value}}</h3>
+					<h3 class="popover-title">{{getTitle(transaction.transactionType)}}: <strong>{{transaction.value | currency : "£" : 2}}</strong></h3>
 					<div class="popover-content">
-					<p ng-if="account.accountNumber == transaction.senderAccountNumber">From Account: {{transaction.senderAccountNumber}} to Account: {{transaction.recipientAccountNumber}}</a>
+					<p ng-if="account.accountNumber == transaction.senderAccountNumber">Sent to Account: {{transaction.recipientAccountNumber}}</a>
 					<br>
 					</p>
-					<p ng-if="account.accountNumber == transaction.recipientAccountNumber">To Account: {{transaction.recipientAccountNumber}} from Account: {{transaction.senderAccountNumber}}</a>
+					<p ng-if="account.accountNumber == transaction.recipientAccountNumber">Recieved from Account: {{transaction.senderAccountNumber}}</a>
 					<br>
 					</p>
 

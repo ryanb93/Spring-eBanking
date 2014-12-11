@@ -12,7 +12,7 @@
                </div>
                <div class="col-xs-8 text-right">
                   <p class="m0">Account Number: {{account.accountNumber}}</p>
-                  <div class="text-lg">£{{account.balance}}</div>
+                  <div class="text-lg">{{account.balance | currency : "£" : 2}}</div>
                </div>
             </div>
          </div>
