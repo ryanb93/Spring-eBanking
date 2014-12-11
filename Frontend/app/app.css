@@ -373,6 +373,7 @@ ul.nav a:hover {
 }
 
 .fa {
+  margin-right: 7px;
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
