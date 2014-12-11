@@ -1,7 +1,7 @@
 package core.services;
 
 import core.domain.Customer;
-import core.repository.CustomerRepository;
+import core.repository.interfaces.CustomerRepositoryInterface;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class CustomerService implements CustomerServiceInterface {
      * The Customer Repository, required to save and retrieve Customers
      */
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerRepositoryInterface customerRepository;
 
     /**
      * Method which returns the details of a single Customer based on its

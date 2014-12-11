@@ -1,7 +1,7 @@
 package core.services;
 
 import core.domain.Account;
-import core.repository.AccountRepository;
+import core.repository.interfaces.AccountRepositoryInterface;
 import core.services.interfaces.AccountServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class AccountService implements AccountServiceInterface {
     * The Account Repository, required to save and retrieve Account
     */
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountRepositoryInterface accountRepository;
     
     /**
      * Method which creates a new Account in MongoDB

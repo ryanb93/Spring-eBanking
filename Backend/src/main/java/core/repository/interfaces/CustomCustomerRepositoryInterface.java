@@ -1,4 +1,4 @@
-package core.repository.custom;
+package core.repository.interfaces;
 
 import core.domain.Customer;
 import org.springframework.stereotype.Repository;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
  * The Customer Repository interface for Custom Methods
  */
 @Repository
-public interface CustomCustomerRepository {
+public interface CustomCustomerRepositoryInterface {
 
     /**
      * Method to retrieve a Customer by its API User ID

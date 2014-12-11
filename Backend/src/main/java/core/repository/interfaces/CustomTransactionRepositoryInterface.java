@@ -1,4 +1,4 @@
-package core.repository.custom;
+package core.repository.interfaces;
 
 import core.domain.Transaction;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * The Transaction Repository interface for Custom Methods
  */
 @Repository
-public interface CustomTransactionRepository {
+public interface CustomTransactionRepositoryInterface {
 
     /**
      * Method to find all Transactions owned by a specific Account

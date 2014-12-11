@@ -1,4 +1,4 @@
-package core.repository.custom;
+package core.repository.interfaces;
 
 import core.domain.Account;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * The Account Repository interface for Custom methods
  */
 @Repository
-public interface CustomAccountRepository {
+public interface CustomAccountRepositoryInterface {
     
     /**
      * Method to retrieve all Accounts owned by a single Customer
