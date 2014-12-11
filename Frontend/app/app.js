@@ -8,6 +8,7 @@ angular.module('eBanking', [
   'eBanking.accountControllers',
   'eBanking.detailsControllers',
   'eBanking.transferControllers',
+  'eBanking.branchControllers',
   'eBanking.APIService'
 ])
 .config(['$routeProvider', function($routeProvider) {
