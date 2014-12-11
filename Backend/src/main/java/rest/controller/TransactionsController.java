@@ -2,11 +2,7 @@ package rest.controller;
 
 import components.AuthHelper;
 import core.domain.Transaction;
-import core.events.transactions.CreateTransactionEvent;
-import core.events.transactions.RequestAllTransactionsEvent;
-import core.events.transactions.RequestTransactionDetailsEvent;
-import core.events.transactions.TransactionDetailsEvent;
-import core.services.TransactionService;
+import core.services.interfaces.TransactionServiceInterface;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import config.Routes;
 import core.domain.Account;
-import core.events.accounts.AccountDetailsEvent;
-import core.events.accounts.RequestAccountDetailsFromNumberEvent;
-import core.events.transactions.AllTransactionsEvent;
-import core.events.transactions.RequestCreateTransactionEvent;
-import core.services.AccountService;
-import core.services.CustomerService;
+import core.services.interfaces.AccountServiceInterface;
+import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -39,11 +30,11 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 public class TransactionsController {
 
     @Autowired
-    private TransactionService transactionService;
+    private TransactionServiceInterface transactionService;
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceInterface customerService;
     @Autowired
-    private AccountService accountService;
+    private AccountServiceInterface accountService;
 
     /**
      *
@@ -78,12 +69,8 @@ public class TransactionsController {
                 //If the value given was not an int then return bad request.
                 return new ResponseEntity(null, headers, HttpStatus.BAD_REQUEST);
             }
-            //Request the transactions using the account ID and the page value.
-            RequestAllTransactionsEvent requestAll = new RequestAllTransactionsEvent(accountNumber, pageInt);
-            //Send the event to the service.
-            AllTransactionsEvent all = transactionService.requestAllTransactions(requestAll);
-            //Extract the list from the response.
-            transactions = all.getTransactions();
+            transactions = transactionService.requestAllTransactions(accountNumber, pageInt);
+
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }
@@ -117,12 +104,8 @@ public class TransactionsController {
                 //Set the date to current date.
                 transaction.setDate(new Date());
 
-                //Create the transaction in the database.
-                RequestCreateTransactionEvent request = new RequestCreateTransactionEvent(transaction);
-                CreateTransactionEvent event = transactionService.requestNewTransaction(request);
-
                 //Get the transaction object back from the database.
-                newTransaction = event.getTransaction();
+                newTransaction = transactionService.requestNewTransaction(transaction);
                 //Make sure it exists.
                 if (newTransaction == null) {
                     status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -157,9 +140,7 @@ public class TransactionsController {
 
         //If this user has permissions to read.
         if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
-            RequestTransactionDetailsEvent request = new RequestTransactionDetailsEvent(transactionId);
-            TransactionDetailsEvent event = transactionService.requestTransactionDetails(request);
-            transaction = event.getTransaction();
+            transaction = transactionService.requestTransactionDetails(transactionId);
 
             //Make sure that the current OAuth user owns this transaction.
             if (!authCustomerOwnsAccount(auth, transaction.getAccountNumber())) {
@@ -187,21 +168,9 @@ public class TransactionsController {
         //Get the current customer ID.
         String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
 
-        log.log(Level.INFO, "customerId: {0}", customerId);
-        log.log(Level.INFO, "accountId: {0}", accountId);
-
-        RequestAccountDetailsFromNumberEvent details = new RequestAccountDetailsFromNumberEvent(accountId);
-
-        AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(details);
-
-        log.log(Level.INFO, "accountEvent: {0}", accountEvent);
-
-        Account account = accountEvent.getAccount();
-
-        log.log(Level.INFO, "account: {0}", account);
+        Account account = accountService.requestAccountDetailsFromNumber(accountId);
 
         if (account != null) {
-            log.log(Level.INFO, "getCustomerId: {0}", account.getCustomerId());
             if (account.getCustomerId().equalsIgnoreCase(customerId)) {
                 result = true;
             }

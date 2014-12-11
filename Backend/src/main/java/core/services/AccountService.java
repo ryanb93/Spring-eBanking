@@ -1,26 +1,47 @@
 package core.services;
 
-import core.events.accounts.AccountDetailsEvent;
-import core.events.accounts.AllAccountsEvent;
-import core.events.accounts.CreateAccountEvent;
-import core.events.accounts.RequestAccountDetailsEvent;
-import core.events.accounts.RequestAccountDetailsFromNumberEvent;
-import core.events.accounts.RequestAllAccountsEvent;
-import core.events.accounts.RequestNewAccountEvent;
-import core.events.accounts.UpdateAccountBalanceEvent;
+import core.domain.Account;
+import core.repository.AccountRepository;
+import core.services.interfaces.AccountServiceInterface;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Class is used to core things
- */
-public interface AccountService {
+public class AccountService implements AccountServiceInterface {
 
-    public CreateAccountEvent requestNewAccount(RequestNewAccountEvent requestNewAccountEvent);
+    @Autowired
+    private AccountRepository accountRepository;
 
-    public AllAccountsEvent requestAllAccounts(RequestAllAccountsEvent requestAllAccountsEvent);
+    @Override
+    public Account requestNewAccount(Account account) {
+        accountRepository.save(account);
+        return accountRepository.findOne(account.getAccountId());
+    }
 
-    public AccountDetailsEvent requestAccountDetails(RequestAccountDetailsEvent requestAccountDetailsEvent);
+    @Override
+    public List<Account> requestAllAccounts(String customerId) {
+        return accountRepository.findAllByCustomerId(customerId);
+    }
 
-    public AccountDetailsEvent requestAccountDetailsFromNumber(RequestAccountDetailsFromNumberEvent requestAccountDetailsFromNumberEvent);
+    @Override
+    public Account requestAccountDetails(String accountId) {
+        return accountRepository.findOne(accountId);
+    }
 
-    public UpdateAccountBalanceEvent updateAccountBalance(UpdateAccountBalanceEvent updateAccountBalanceEvent);
+    @Override
+    public Account requestAccountDetailsFromNumber(String accountNumber) {
+        return accountRepository.findByAccountNumber(accountNumber);
+    }
+
+    @Override
+    public Account updateAccountBalance(String accountNumber, double transactionValue) {
+        
+        Account account = requestAccountDetailsFromNumber(accountNumber);
+        
+        if (account != null) {
+            account.setBalance(account.getBalance() + transactionValue);
+            accountRepository.save(account);
+        }
+        return account;
+    }
+
 }

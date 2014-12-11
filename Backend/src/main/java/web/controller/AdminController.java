@@ -6,13 +6,10 @@ import core.domain.Customer;
 import core.domain.PostalAddress;
 import core.domain.Transaction;
 import core.domain.TransactionType;
-import core.events.customers.AllCustomersEvent;
-import core.events.customers.RequestAllCustomersEvent;
 import core.repository.AccountRepository;
 import core.repository.CustomerRepository;
 import core.repository.TransactionRepository;
-import core.services.AccountService;
-import core.services.CustomerService;
+import core.services.interfaces.CustomerServiceInterface;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,13 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
-import core.events.transactions.RequestCreateTransactionEvent;
-import core.services.TransactionService;
+import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
 import web.domain.ApiUser;
-import web.events.users.CreateUserRequest;
 import web.repository.UserRepository;
-import web.services.UserService;
+import web.services.interfaces.UserServiceInterface;
 
 /**
  * TODO: REMOVE AFTER TESTING
@@ -50,13 +45,10 @@ import web.services.UserService;
 public class AdminController {
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceInterface customerService;
 
     @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private TransactionService transactionService;
+    private TransactionServiceInterface transactionService;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -71,7 +63,7 @@ public class AdminController {
     private UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    private UserServiceInterface userService;
 
     /**
      *
@@ -81,8 +73,7 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Customer> getAllCustomers() {
-        AllCustomersEvent event = customerService.requestAllCustomers(new RequestAllCustomersEvent());
-        return event.getCustomerDetails();
+        return customerService.requestAllCustomers();
     }
 
     /**
@@ -108,13 +99,9 @@ public class AdminController {
      */
     @RequestMapping(Routes.ADD_USER)
     public ModelAndView addUser(@RequestParam("email") String email, @RequestParam("password") String password) {
-        CreateUserRequest userRequest = new CreateUserRequest();
         ApiUser user = new ApiUser();
         user.setEmailAddress(email);
-        userRequest.setPassword(password);
-        userRequest.setUser(user);
-        ApiUser createdUser = userService.createUser(userRequest);
-
+        ApiUser createdUser = userService.createUser(user, password);
         return new ModelAndView("redirect:/adminPanel");
     }
 
@@ -286,8 +273,7 @@ public class AdminController {
 
         transaction.setValue(transactionValue);
         transaction.setAccountNumber(accountNumber);
-        RequestCreateTransactionEvent event = new RequestCreateTransactionEvent(transaction);
-        transactionService.requestNewTransaction(event);
+        transactionService.requestNewTransaction(transaction);
 
         return new ModelAndView("redirect:/adminPanel");
     }

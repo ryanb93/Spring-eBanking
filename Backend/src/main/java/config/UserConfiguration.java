@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import web.repository.UserRepository;
+import web.services.interfaces.UserServiceInterface;
 import web.services.UserService;
-import web.services.eventHandlers.UserServiceEventHandler;
 
 /**
  *  This class sets up and configures users in our application.
@@ -46,8 +46,8 @@ public class UserConfiguration {
      * @return UserService
      */
     @Bean
-    public UserService userService() {
-        return new UserServiceEventHandler(userRepository, validator, passwordEncoder);
+    public UserServiceInterface userService() {
+        return new UserService(userRepository, validator, passwordEncoder);
     }
     
     /**
@@ -55,7 +55,7 @@ public class UserConfiguration {
      * @return UserServiceEventHandler
      */
     @Bean
-    public UserServiceEventHandler userResource() {
-        return new UserServiceEventHandler(userRepository, validator, passwordEncoder);
+    public UserService userResource() {
+        return new UserService(userRepository, validator, passwordEncoder);
     }
 }

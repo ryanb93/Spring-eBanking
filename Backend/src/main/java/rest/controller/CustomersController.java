@@ -2,11 +2,7 @@ package rest.controller;
 
 import components.AuthHelper;
 import core.domain.Customer;
-import core.events.customers.CustomerDetailsEvent;
-import core.events.customers.RequestCustomerDetailsEvent;
-import core.events.customers.RequestUpdateCustomerDetailsEvent;
-import core.events.customers.UpdateCustomerDetailsEvent;
-import core.services.CustomerService;
+import core.services.interfaces.CustomerServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +23,7 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 public class CustomersController {
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceInterface customerService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Customer> getSingleCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth) {
@@ -42,9 +38,7 @@ public class CustomersController {
             if (customerId == null) {
                 status = HttpStatus.BAD_REQUEST;
             } else {
-                RequestCustomerDetailsEvent request = new RequestCustomerDetailsEvent(customerId);
-                CustomerDetailsEvent event = customerService.requestCustomerDetails(request);
-                customer = event.getCustomer();
+                customer = customerService.requestCustomerDetails(customerId);
             }
         } else {
             status = HttpStatus.UNAUTHORIZED;
@@ -65,12 +59,9 @@ public class CustomersController {
             if (!this.isValid(customer)) {
                 status = HttpStatus.BAD_REQUEST;
             } else {
-                UpdateCustomerDetailsEvent event = customerService.requestUpdateCustomer(new RequestUpdateCustomerDetailsEvent(customer));
-                if (event != null) {
-                    newCustomer = event.getUpdatedCustomer();
+                    newCustomer = customerService.requestUpdateCustomer(customer);
                     headers.setLocation(builder.path(Routes.API).buildAndExpand(newCustomer.getCustomerId()).toUri());
                     status = HttpStatus.CREATED;
-                }
             }
         } else {
             status = HttpStatus.UNAUTHORIZED;

@@ -1,8 +1,6 @@
 package components;
 
-import core.events.customers.CustomerIdEvent;
-import core.events.customers.RequestCustomerIdEvent;
-import core.services.CustomerService;
+import core.services.interfaces.CustomerServiceInterface;
 import java.util.Set;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import web.domain.User;
@@ -19,20 +17,11 @@ public class AuthHelper {
      * @param auth - The authentication object.
      * @return The customer associated with this authentication session. Null if not found.
      */
-    public static String ID_FROM_AUTH(CustomerService customerService, OAuth2Authentication auth) {        
-        String customerId = null;
+    public static String ID_FROM_AUTH(CustomerServiceInterface customerService, OAuth2Authentication auth) {        
         //Convert the authentication principal into a User.
         User user = (User)auth.getPrincipal();
-        //Create a request for the Customer ID based on the User ID.
-        RequestCustomerIdEvent requestCustomerIdEvent = new RequestCustomerIdEvent(user.getId());
-        //Send the request event to the service.
-        CustomerIdEvent customerIdEvent = customerService.requestCustomerId(requestCustomerIdEvent);
-        //If the customer event is not null, get the customer ID.
-        if(customerIdEvent != null) {
-            customerId = customerIdEvent.getCustomerId();
-        }
         //Return the customer ID string.
-        return customerId;
+        return customerService.requestCustomerId(user.getId());
     }
     
     /**

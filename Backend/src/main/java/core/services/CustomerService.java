@@ -1,25 +1,51 @@
 package core.services;
 
-import core.events.customers.AllCustomersEvent;
-import core.events.customers.CreateCustomerEvent;
-import core.events.customers.CustomerDetailsEvent;
-import core.events.customers.CustomerIdEvent;
-import core.events.customers.RequestAllCustomersEvent;
-import core.events.customers.RequestCustomerDetailsEvent;
-import core.events.customers.RequestCustomerIdEvent;
-import core.events.customers.RequestNewCustomerEvent;
-import core.events.customers.RequestUpdateCustomerDetailsEvent;
-import core.events.customers.UpdateCustomerDetailsEvent;
+import core.domain.Customer;
+import core.repository.CustomerRepository;
+import core.services.interfaces.CustomerServiceInterface;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface CustomerService {
+@Service
+public class CustomerService implements CustomerServiceInterface {
 
-    public CustomerDetailsEvent requestCustomerDetails(RequestCustomerDetailsEvent requestCustomerDetailsEvent);
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    public AllCustomersEvent requestAllCustomers(RequestAllCustomersEvent requestAllCustomersEvent);
+    @Override
+    public Customer requestCustomerDetails(String customerId) {
+        return customerRepository.findOne(customerId);
+    }
 
-    public CreateCustomerEvent requestNewCustomer(RequestNewCustomerEvent requestNewCustomerEvent);
+    @Override
+    public List<Customer> requestAllCustomers() {
+        return customerRepository.findAll();
+    }
 
-    public UpdateCustomerDetailsEvent requestUpdateCustomer(RequestUpdateCustomerDetailsEvent requestUpdateCustomerDetailsEvent);
+    @Override
+    public Customer requestNewCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
 
-    public CustomerIdEvent requestCustomerId(RequestCustomerIdEvent requestCustomerIdEvent);
+    @Override
+    public Customer requestUpdateCustomer(Customer customer) {
+
+        String existingId = customer.getCustomerId();
+
+        Customer existingCustomer = customerRepository.findOne(existingId);
+
+        if (existingCustomer == null) {
+            //Customer was not found!
+            return null;
+        }
+
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public String requestCustomerId(String apiUserId) {
+        return customerRepository.findByApiUserId(apiUserId).getCustomerId();
+    }
+
 }

@@ -1,8 +1,8 @@
 package config;
 
-import core.services.eventHandlers.AccountEventHandler;
-import core.services.eventHandlers.CustomerEventHandler;
-import core.services.eventHandlers.TransactionEventHandler;
+import core.services.AccountService;
+import core.services.CustomerService;
+import core.services.TransactionService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,8 +20,8 @@ public class ServiceConfig {
      * @return CustomerEventHandler
      */
     @Bean
-    public CustomerEventHandler createCustomerEventService() {
-        return new CustomerEventHandler();
+    public CustomerService createCustomerEventService() {
+        return new CustomerService();
     }
     
     /**
@@ -29,8 +29,8 @@ public class ServiceConfig {
      * @return TransactionEventHandler
      */
     @Bean
-    public TransactionEventHandler createTransactionEventService() {
-        return new TransactionEventHandler();
+    public TransactionService createTransactionEventService() {
+        return new TransactionService();
     }
     
     /**
@@ -38,8 +38,8 @@ public class ServiceConfig {
      * @return AccountEventHandler
      */
     @Bean
-    public AccountEventHandler createAccountEventService() {
-        return new AccountEventHandler();
+    public AccountService createAccountEventService() {
+        return new AccountService();
     }
 
 }
