@@ -7,7 +7,9 @@
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
 				<select name="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
-					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
+					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
+						{{account.accountType}} ({{account.accountNumber}}) - Balance: £{{account.balance}}
+					</option>
 				</select>
 			</div>
 			<div id="last-name-group" class="form-group">
@@ -17,7 +19,9 @@
 			<div id="country-group" class="form-group">
 				<label for="inputCountry">To Account</label>
 				<select name="toAccount" class="form-control" ng-model="transfer.recipientAccountNumber">
-					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
+					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
+						{{account.accountType}} ({{account.accountNumber}}) - Balance: £{{account.balance}}
+					</option>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-success btn-lg btn-block">Transfer</button>
@@ -30,7 +34,9 @@
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
 				<select name="fromAccount" class="form-control" ng-model="payment.senderAccountNumber">
-					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
+					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
+						{{account.accountType}} ({{account.accountNumber}}) - Balance: £{{account.balance}}
+					</option>
 				</select>
 			</div>
 			<div id="last-name-group" class="form-group">
