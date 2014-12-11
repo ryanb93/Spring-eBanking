@@ -3,7 +3,7 @@ package core.services;
 import core.domain.Account;
 import core.domain.Transaction;
 import core.domain.TransactionType;
-import core.repository.interfaces.TransactionRepositoryInterface;
+import core.repository.TransactionRepository;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.List;
@@ -19,7 +19,7 @@ public class TransactionService implements TransactionServiceInterface {
      * The Transaction Repository, required to save and retrieve Transactions
      */
     @Autowired
-    private TransactionRepositoryInterface transactionRepository;
+    private TransactionRepository transactionRepository;
 
     /**
      * The Account Service, required to call methods on Accounts      
