@@ -69,19 +69,12 @@ public class TransactionService implements TransactionServiceInterface {
     @Override
     public Transaction requestNewTransaction(Transaction transaction) {
         
-        //String accountNumber = newTransaction.getAccountNumber();
-        
         String senderAccountNumber = transaction.getSenderAccountNumber();
         String recipientAccountNumber = transaction.getRecipientAccountNumber();
         
         Account senderAccount = accountService.requestAccountDetailsFromNumber(senderAccountNumber);
         Account recipientAccount = accountService.requestAccountDetailsFromNumber(recipientAccountNumber);
-        
-        //RequestAccountDetailsFromNumberEvent event = new RequestAccountDetailsFromNumberEvent(accountNumber);
-        
-        //AccountDetailsEvent accountEvent = accountService.requestAccountDetailsFromNumber(event);
-        
-        //Account account = accountEvent.getAccount();
+
          if (senderAccount != null){
             accountService.updateAccountBalance(senderAccountNumber, -transaction.getValue());
             transaction.setAccountNumber(senderAccount.getAccountNumber());
