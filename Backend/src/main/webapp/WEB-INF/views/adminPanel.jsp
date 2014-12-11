@@ -291,7 +291,7 @@
                                     pageContext.setAttribute("type", transaction.getTransactionType());%>
                                     <tr>
                                         <td>${transactionId}</td>
-                                        <td>${accId}</td>
+                                        <td>${accountNumber}</td>
                                         <td>${senderAccountNumber}</td>
                                         <td>${senderSortCode}</td>
                                         <td>${recipientAccountNumber}</td>
