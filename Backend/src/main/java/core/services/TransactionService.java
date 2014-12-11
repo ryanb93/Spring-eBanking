@@ -64,7 +64,7 @@ public class TransactionService implements TransactionServiceInterface {
         //Account account = accountEvent.getAccount();
          if (senderAccount != null){
             accountService.updateAccountBalance(senderAccountNumber, -transaction.getValue());
-            transaction.setAccountNumber(senderAccount.getAccountId());
+            transaction.setAccountNumber(senderAccount.getAccountNumber());
             transactionRepository.save(transaction);
         }
          
@@ -73,7 +73,7 @@ public class TransactionService implements TransactionServiceInterface {
             
             Transaction recipientTransaction = transaction;
             recipientTransaction.clearTransactionId();
-            recipientTransaction.setAccountNumber(recipientAccount.getAccountId());
+            recipientTransaction.setAccountNumber(recipientAccount.getAccountNumber());
             transactionRepository.save(recipientTransaction);    
         }
         return transactionRepository.findOne(transaction.getTransactionId());
