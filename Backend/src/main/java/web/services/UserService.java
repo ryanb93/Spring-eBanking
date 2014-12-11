@@ -23,7 +23,7 @@ import web.services.interfaces.UserServiceInterface;
  *  - Getting all the Users
  */
 @Service
-public class UserService implements UserServiceInterface {
+public class UserService implements UserServiceInterface, UserDetailsService {
     
     /** Access to the Users in the DB */
     private final UserRepositoryInterface userRepository;
@@ -58,6 +58,20 @@ public class UserService implements UserServiceInterface {
         }
         return user;
     }
+    
+    /**
+     * Method does a lookup in the DB for a given username.
+     * Stores user information into Authentication. Good way to encapsulate 
+     * common attributes that aren't security related in one location.
+     * @param username
+     * @return UserDetails 
+     * @throws UsernameNotFoundException When a user is not found
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return getUserByUsername(username.toLowerCase());
+    }
+
 
     /**
      * Method will create a user on the Application
