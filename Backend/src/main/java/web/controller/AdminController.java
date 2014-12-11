@@ -30,7 +30,7 @@ import core.services.AccountService;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
 import web.domain.ApiUser;
-import web.repository.UserRepository;
+import web.repository.interfaces.UserRepositoryInterface;
 import web.services.interfaces.UserServiceInterface;
 
 /**

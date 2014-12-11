@@ -1,4 +1,4 @@
-package web.repository.implementation;
+package components;
 
 import com.mongodb.DBObject;
 import java.util.Collection;

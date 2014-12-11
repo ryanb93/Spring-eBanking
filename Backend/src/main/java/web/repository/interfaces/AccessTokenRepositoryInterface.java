@@ -1,4 +1,4 @@
-package web.repository;
+package web.repository.interfaces;
 
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -9,7 +9,7 @@ import web.domain.OAuth2AuthenticationAccessToken;
  * 
  */
 @Repository
-public interface OAuth2AccessTokenRepository extends MongoRepository<OAuth2AuthenticationAccessToken, String> {
+public interface AccessTokenRepositoryInterface extends MongoRepository<OAuth2AuthenticationAccessToken, String> {
 
     /**
      * 

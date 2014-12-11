@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import web.repository.UserRepository;
+import web.repository.interfaces.UserRepositoryInterface;
 import web.services.interfaces.UserServiceInterface;
 import web.services.UserService;
 
@@ -20,7 +20,7 @@ public class UserConfiguration {
     
     /** */
     @Autowired
-    private UserRepository userRepository;
+    private UserRepositoryInterface userRepository;
     
     /** */
     @Autowired

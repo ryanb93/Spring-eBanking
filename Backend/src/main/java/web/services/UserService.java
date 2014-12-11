@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import web.domain.ApiUser;
 import web.domain.Role;
 import web.domain.User;
-import web.repository.UserRepository;
+import web.repository.interfaces.UserRepositoryInterface;
 import web.services.interfaces.UserServiceInterface;
 
 /**
@@ -23,10 +23,10 @@ import web.services.interfaces.UserServiceInterface;
  *  - Getting all the Users
  */
 @Service
-public class UserService implements UserServiceInterface, UserDetailsService {
+public class UserService implements UserServiceInterface {
     
     /** Access to the Users in the DB */
-    private final UserRepository userRepository;
+    private final UserRepositoryInterface userRepository;
     
     /** Hasher for converting plaintext passwords to SHA */
     private final PasswordEncoder passwordEncoder;
@@ -38,23 +38,10 @@ public class UserService implements UserServiceInterface, UserDetailsService {
      * @param passwordEncoder 
      */
     @Autowired
-    public UserService(final UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(final UserRepositoryInterface userRepository, PasswordEncoder passwordEncoder) {
         super();
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    /**
-     * Method does a lookup in the DB for a given username.
-     * Stores user information into Authentication. Good way to encapsulate 
-     * common attributes that aren't security related in one location.
-     * @param username
-     * @return UserDetails 
-     * @throws UsernameNotFoundException When a user is not found
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return getUserByUsername(username.toLowerCase());
     }
 
     /**

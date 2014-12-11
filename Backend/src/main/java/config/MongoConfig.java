@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.convert.CustomConversions;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import web.repository.implementation.OAuth2AuthenticationReadConverter;
+import components.OAuth2AuthenticationReadConverter;
 
 /**
  * This class sets up the MongoDB in Spring.

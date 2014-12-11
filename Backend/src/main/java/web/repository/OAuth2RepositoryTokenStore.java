@@ -1,4 +1,4 @@
-package web.repository.implementation;
+package web.repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,8 +13,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Repository;
 import web.domain.OAuth2AuthenticationAccessToken;
 import web.domain.OAuth2AuthenticationRefreshToken;
-import web.repository.OAuth2AccessTokenRepository;
-import web.repository.OAuth2RefreshTokenRepository;
+import web.repository.interfaces.AccessTokenRepositoryInterface;
+import web.repository.interfaces.RefreshTokenRepositoryInterface;
 
 /**
  * 
@@ -23,10 +23,10 @@ import web.repository.OAuth2RefreshTokenRepository;
 public class OAuth2RepositoryTokenStore implements TokenStore {
     
     /** */
-    private final OAuth2AccessTokenRepository oAuth2AccessTokenRepository;
+    private final AccessTokenRepositoryInterface oAuth2AccessTokenRepository;
 
     /** */
-    private final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository;
+    private final RefreshTokenRepositoryInterface oAuth2RefreshTokenRepository;
 
     /** */
     private final AuthenticationKeyGenerator authenticationKeyGenerator;
@@ -37,7 +37,7 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
      * @param oAuth2RefreshTokenRepository 
      */
     @Autowired
-    public OAuth2RepositoryTokenStore(final OAuth2AccessTokenRepository oAuth2AccessTokenRepository, final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository) {
+    public OAuth2RepositoryTokenStore(final AccessTokenRepositoryInterface oAuth2AccessTokenRepository, final RefreshTokenRepositoryInterface oAuth2RefreshTokenRepository) {
         this.oAuth2AccessTokenRepository = oAuth2AccessTokenRepository;
         this.oAuth2RefreshTokenRepository = oAuth2RefreshTokenRepository;
         this.authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();

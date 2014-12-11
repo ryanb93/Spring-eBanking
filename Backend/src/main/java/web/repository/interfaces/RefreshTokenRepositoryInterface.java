@@ -1,4 +1,4 @@
-package web.repository;
+package web.repository.interfaces;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import web.domain.OAuth2AuthenticationRefreshToken;
  * 
  */
 @Repository
-public interface OAuth2RefreshTokenRepository extends MongoRepository<OAuth2AuthenticationRefreshToken, String> {
+public interface RefreshTokenRepositoryInterface extends MongoRepository<OAuth2AuthenticationRefreshToken, String> {
 
     /**
      * 

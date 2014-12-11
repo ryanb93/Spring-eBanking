@@ -11,9 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
-import web.repository.OAuth2AccessTokenRepository;
-import web.repository.OAuth2RefreshTokenRepository;
-import web.repository.implementation.OAuth2RepositoryTokenStore;
+import web.repository.interfaces.AccessTokenRepositoryInterface;
+import web.repository.interfaces.RefreshTokenRepositoryInterface;
+import web.repository.OAuth2RepositoryTokenStore;
 
 /**
  * This class setups up all of the security configuration in the web app.
@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     /** Token access from the DB */
     @Autowired
-    public OAuth2AccessTokenRepository accessTokenRepository;
+    public AccessTokenRepositoryInterface accessTokenRepository;
     
     /** Token refresh / update from DB */
     @Autowired
-    public OAuth2RefreshTokenRepository refreshTokenRepository;
+    public RefreshTokenRepositoryInterface refreshTokenRepository;
 
     /**
      * Creates a new PasswordEncoder which makes use of SHA-256
