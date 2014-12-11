@@ -52,5 +52,10 @@ public class AccountService implements AccountServiceInterface {
         }
         return account;
     }
+    
+    @Override
+    public List<Account> fetchAllMongoDbAccounts(){
+        return accountRepository.findAll();
+    }
 
 }

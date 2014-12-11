@@ -8,4 +8,5 @@ public interface TransactionServiceInterface {
     public Transaction requestNewTransaction(Transaction transaction);
     public List<Transaction> requestAllTransactions(String accountNumber, int page);
     public void removeTransaction(String transactionId);
+    public List<Transaction> fetchAllMongoDbTransactions();
 }

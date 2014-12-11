@@ -57,5 +57,9 @@ public class CustomerService implements CustomerServiceInterface {
     public void removeCustomer(String customerId){
         customerRepository.delete(customerRepository.findOne(customerId));
     }
+    
+    public List<Customer> fetchAllMongoDbCustomers(){
+        return customerRepository.findAll();
+    }
 
 }

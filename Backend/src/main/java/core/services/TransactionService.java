@@ -49,6 +49,10 @@ public class TransactionService implements TransactionServiceInterface {
      public void removeTransaction(String transactionId) {
         transactionRepository.delete(transactionRepository.findOne(transactionId));
      }
+     
+     public List<Transaction> fetchAllMongoDbTransactions(){
+         return transactionRepository.findAll();
+     }
 
     /**
      * Method which creates a new transaction, adds it to the repository and updates the 

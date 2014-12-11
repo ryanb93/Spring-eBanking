@@ -19,4 +19,6 @@ public interface AccountServiceInterface {
     public void removeAccount(String accountId);
 
     public Account updateAccountBalance(String accountNumber, double transactionValue);
+    
+    public List<Account> fetchAllMongoDbAccounts();
 }

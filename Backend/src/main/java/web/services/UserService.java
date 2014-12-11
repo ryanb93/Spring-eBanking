@@ -1,5 +1,6 @@
 package web.services;
 
+import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
@@ -56,5 +57,10 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         } else {
             throw new IllegalArgumentException("This user already exists.");
         }
+    }
+    
+    @Override
+    public List<User> fetchAllMongoDbUsers(){
+       return userRepository.findAll();
     }
 }

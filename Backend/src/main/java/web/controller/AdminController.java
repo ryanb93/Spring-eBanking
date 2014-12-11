@@ -56,18 +56,6 @@ public class AdminController {
     private AccountService accountService;
 
     @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private UserServiceInterface userService;
 
     /**
@@ -93,10 +81,10 @@ public class AdminController {
     @RequestMapping(Routes.ADMIN_PANEL)
     public ModelAndView showAdminPanel(ModelMap model) {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
-        modelAndView.addObject("customers", customerRepository.findAll());
-        modelAndView.addObject("accounts", accountRepository.findAll());
-        modelAndView.addObject("transactions", transactionRepository.findAll());
-        modelAndView.addObject("users", userRepository.findAll());
+        modelAndView.addObject("customers", customerService.fetchAllMongoDbCustomers());
+        modelAndView.addObject("accounts", accountService.fetchAllMongoDbAccounts());
+        modelAndView.addObject("transactions", transactionService.fetchAllMongoDbTransactions());
+        modelAndView.addObject("users", userService.fetchAllMongoDbUsers());
         return modelAndView;
     }
 
