@@ -20,28 +20,53 @@ import core.domain.Account;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
-import java.util.logging.Logger;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
+/**
+ * Unlike traditional Controllers in an MVC architecture this is a RESTful
+ * controller. 
+ * 
+ * This means that it does not have a UI associated with it.
+ * The purpose of this controller is to manage transactions on 
+ * the web application.
+ * ! Will return all responses as JSON !
+ * 
+ * This controller performs the following:
+ *  - Gets a collection of Transactions
+ *  - Getting a single specific Transaction
+ *  - Creating a new Transaction
+ *  - Checks to see a customer owns the account before a transaction occurs
+ */
 @RestController
 @RequestMapping(Routes.TRANSACTIONS)
 @Secured("ROLE_USER")
 public class TransactionsController {
-
+    
+    /** TransactionServiceInterface instance from Bean on startup */
     @Autowired
     private TransactionServiceInterface transactionService;
+    
+    /** CustomerServiceInterface instance from Bean on startup */
     @Autowired
     private CustomerServiceInterface customerService;
+    
+    /** AccountServiceInterface instance from Bean on startup */
     @Autowired
     private AccountServiceInterface accountService;
 
     /**
-     *
+     * This method will return a collection of transactions for a given customers
+     * account. 
+     * Method occurs when a GET request occurs on this Route. 
+     * It also implements a paging system, by restricting the number of transactions
+     * returned. By default from the frontend it will request 10, however this number
+     * is completely flexible. 
+     * 
      * @param auth
      * @param accountNumber
      * @param request
-     * @return
+     * @return ResponseEntity<List<Transaction>>
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Transaction>> getAllTransactions(@AuthenticationPrincipal OAuth2Authentication auth,
@@ -52,21 +77,21 @@ public class TransactionsController {
         HttpStatus status = HttpStatus.OK;
         List<Transaction> transactions = null;
 
-        //If this user has permissions to read.
+        //  If this user has permissions to read.
         if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
-            //Get the page parameter.
+            //  Get the page parameter.
             String pageParam = request.getParameter("page");
-            //If it is not found then use the value 0.
+            //  If it is not found then use the value 0.
             if (pageParam == null) {
                 pageParam = "0";
             }
-            //Set page to 0.
+            //  Set page to 0.
             int pageInt = 0;
-            //Attempt to convert the intrusted input from the URL into an int.
+            //  Attempt to convert the intrusted input from the URL into an int.
             try {
                 pageInt = Integer.parseInt(pageParam);
             } catch (NumberFormatException e) {
-                //If the value given was not an int then return bad request.
+                //  If the value given was not an int then return bad request.
                 return new ResponseEntity(null, headers, HttpStatus.BAD_REQUEST);
             }
             transactions = transactionService.requestAllTransactions(accountNumber, pageInt);
@@ -74,16 +99,18 @@ public class TransactionsController {
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }
-        //Return transactions to the user.
+        //  Return transactions to the user.
         return new ResponseEntity(transactions, headers, status);
     }
 
     /**
-     *
+     * Method creates a new transaction for a given customers account. 
+     * This method is executed when a POST request to this Route is received.
+     * 
      * @param auth
      * @param accountNumber
      * @param transaction
-     * @return
+     * @return ResponseEntity<Transaction>
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Transaction> createNewTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
@@ -94,19 +121,19 @@ public class TransactionsController {
         HttpStatus status = HttpStatus.CREATED;
         Transaction newTransaction = null;
 
-        //If this user has permissions to write.
+        //  If this user has permissions to write.
         if (AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
-            //If this user's customer owns the account given.
+            //  If this user's customer owns the account given.
             if (authCustomerOwnsAccount(auth, accountNumber)) {
                 if(transaction.getValue() >= 0)  {
-                //Set the transaction account ID to the path variable.
+                //  Set the transaction account ID to the path variable.
                 transaction.setAccountNumber(accountNumber);
-                //Set the date to current date.
+                //  Set the date to current date.
                 transaction.setDate(new Date());
 
-                //Get the transaction object back from the database.
+                //  Get the transaction object back from the database.
                 newTransaction = transactionService.requestNewTransaction(transaction);
-                //Make sure it exists.
+                //  Make sure it exists.
                 if (newTransaction == null) {
                     status = HttpStatus.INTERNAL_SERVER_ERROR;
                 }
@@ -125,10 +152,12 @@ public class TransactionsController {
     }
 
     /**
-     *
+     * This method returns a single transaction for a given customers account. 
+     * When the Routes.TRANSACTIONS_ID receives a GET request this method is called
+     * 
      * @param auth
      * @param transactionId
-     * @return
+     * @return ResponseEntity<Transaction>
      */
     @RequestMapping(value = Routes.TRANSACTIONS_ID, method = RequestMethod.GET)
     public ResponseEntity<Transaction> getSingleTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
@@ -138,11 +167,11 @@ public class TransactionsController {
         HttpStatus status = HttpStatus.OK;
         Transaction transaction = null;
 
-        //If this user has permissions to read.
+        //  If this user has permissions to read.
         if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             transaction = transactionService.requestTransactionDetails(transactionId);
 
-            //Make sure that the current OAuth user owns this transaction.
+            //  Make sure that the current OAuth user owns this transaction.
             if (!authCustomerOwnsAccount(auth, transaction.getAccountNumber())) {
                 transaction = null;
                 status = HttpStatus.BAD_REQUEST;
@@ -155,17 +184,17 @@ public class TransactionsController {
         return new ResponseEntity(transaction, headers, status);
     }
 
-    static Logger log = Logger.getLogger(TransactionsController.class.getName());
-
     /**
-     *
+     * Helper method that checks to see that the OAuth session user owns the 
+     * requested resource before any processing occurs. 
+     * 
      * @param auth
      * @param accountId
-     * @return
+     * @return boolean
      */
     private boolean authCustomerOwnsAccount(OAuth2Authentication auth, String accountId) {
         boolean result = false;
-        //Get the current customer ID.
+        //  Get the current customer ID.
         String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
 
         Account account = accountService.requestAccountDetailsFromNumber(accountId);

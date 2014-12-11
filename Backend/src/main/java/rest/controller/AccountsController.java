@@ -18,13 +18,31 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/**
+ * Unlike traditional Controllers in an MVC architecture this is a RESTful
+ * controller. 
+ * This means that it does not have a UI associated with it.
+ * The purpose of this controller is to manage accounts on the web application.
+ * ! Will return all responses as JSON !
+ * 
+ * When requests are made to the application Route.ACCOUNTS dependent on the HTTP
+ * method and URL after the initial accounts route will dictate which method is 
+ * executed.
+ * 
+ * This controller can:
+ *  - Getting all accounts
+ *  - Getting a single account
+ */
 @RestController
 @RequestMapping(Routes.ACCOUNTS)
 @Secured("ROLE_USER")
 public class AccountsController {
-
+    
+    /** AccountServiceInterface instance from Bean on startup*/
     @Autowired
     private AccountServiceInterface accountService;
+    
+    /** CustomerServiceInterface instance from Bean on startup */
     @Autowired
     private CustomerServiceInterface customerService;
 
