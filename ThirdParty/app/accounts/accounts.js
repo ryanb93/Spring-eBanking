@@ -21,8 +21,8 @@ angular.module('eBanking.accountControllers', [])
             $scope.accountsList = ids;
         });
 
-                $scope.error = {};
-                $scope.error.error = false;
+        $scope.error = {};
+        $scope.error.error = false;
 
 
         $scope.processTransfer = function() {
