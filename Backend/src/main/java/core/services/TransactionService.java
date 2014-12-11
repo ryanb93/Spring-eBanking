@@ -2,6 +2,7 @@ package core.services;
 
 import core.domain.Account;
 import core.domain.Transaction;
+import core.domain.TransactionType;
 import core.repository.TransactionRepository;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
@@ -65,6 +66,9 @@ public class TransactionService implements TransactionServiceInterface {
          if (senderAccount != null){
             accountService.updateAccountBalance(senderAccountNumber, -transaction.getValue());
             transaction.setAccountNumber(senderAccount.getAccountNumber());
+            if (recipientAccount != null){
+                transaction.setTransactionType(TransactionType.BACS);
+            }
             transactionRepository.save(transaction);
         }
          
@@ -74,6 +78,9 @@ public class TransactionService implements TransactionServiceInterface {
             Transaction recipientTransaction = transaction;
             recipientTransaction.clearTransactionId();
             recipientTransaction.setAccountNumber(recipientAccount.getAccountNumber());
+            if (senderAccount != null){
+                recipientTransaction.setTransactionType(TransactionType.BACS);
+            }
             transactionRepository.save(recipientTransaction);    
         }
         return transactionRepository.findOne(transaction.getTransactionId());
