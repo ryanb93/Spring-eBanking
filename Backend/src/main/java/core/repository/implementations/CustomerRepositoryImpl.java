@@ -10,17 +10,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 /**
- * 
+ * The Implementation of CustomCustomerRepository, enabling custom DB Queries 
  */
 @Repository
 public class CustomerRepositoryImpl implements CustomCustomerRepository {
     
-    /** */
+        
+    /** 
+     *MongoOperations is a MongoDB component that enables the development and use of custom DB queries
+     */
     private final MongoOperations operations;
     
     /**
-     * 
-     * @param operations 
+     * Constructor for CustomerRepositoryImpl
+     * @param operations the MongoOperations variable. Needs to not be null.
      */
     @Autowired
     public CustomerRepositoryImpl(MongoOperations operations) {
@@ -29,9 +32,9 @@ public class CustomerRepositoryImpl implements CustomCustomerRepository {
     }
     
     /**
-     * 
-     * @param apiUserId
-     * @return Customer
+     * Method to retrieve a Customer by its API User ID
+     * @param apiUserId the API User ID of the Customer we want to retrieve
+     * @return Customer the Customer with the API User ID specified
      */
     @Override
     public Customer findByApiUserId(String apiUserId) {

@@ -12,17 +12,19 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 /**
- * 
+ * The Implementation of CustomTransactionRepository, enabling custom DB Queries 
  */
 @Repository
 public class TransactionRepositoryImpl implements CustomTransactionRepository {
     
-    /** */
+    /** 
+     *MongoOperations is a MongoDB component that enables the development and use of custom DB queries
+     */
     private final MongoOperations operations;
     
     /**
-     * 
-     * @param operations 
+     * Constructor for TransactionRepositoryImpl
+     * @param operations the MongoOperations variable. Needs to not be null.
      */
     @Autowired
     public TransactionRepositoryImpl(MongoOperations operations) {
@@ -31,10 +33,10 @@ public class TransactionRepositoryImpl implements CustomTransactionRepository {
     }
     
     /**
-     * 
-     * @param accountNumber
-     * @param page
-     * @return List<Transaction>
+     * Method to find all Transactions owned by a specific Account
+     * @param accountNumber the Account Number of the Account whose Transactions we want to retrieve
+     * @param page the page number for displaying the Transactions
+     * @return List<Transaction> a List of the Transactions owned by the specified AccountNumber
      */
     @Override
     public List<Transaction> findAllByAccountNumber(String accountNumber, int page) {

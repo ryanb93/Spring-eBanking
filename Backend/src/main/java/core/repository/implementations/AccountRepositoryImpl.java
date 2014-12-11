@@ -11,17 +11,19 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 /**
- * 
+ * The Implementation of CustomAccountRepository, enabling custom DB Queries 
  */
 @Repository
 public class AccountRepositoryImpl implements CustomAccountRepository {
     
-    /** */
+    /** 
+     *MongoOperations is a MongoDB component that enables the development and use of custom DB queries
+     */
     private final MongoOperations operations;
 
     /**
-     * 
-     * @param operations 
+     * Constructor for AccountRepositoryImpl
+     * @param operations the MongoOperations variable. Needs to not be null.
      */
     @Autowired
     public AccountRepositoryImpl(MongoOperations operations) {
@@ -30,9 +32,9 @@ public class AccountRepositoryImpl implements CustomAccountRepository {
     }
     
     /**
-     * 
-     * @param customerId
-     * @return List<Account>
+     * Method to retrieve all Accounts owned by a single Customer
+     * @param customerId the ID of the Customer whose Accounts we want to retrieve
+     * @return List<Account> a List of the Accounts owned by the Customer Specified 
      */
     @Override
     public List<Account> findAllByCustomerId(String customerId) {
@@ -42,9 +44,9 @@ public class AccountRepositoryImpl implements CustomAccountRepository {
     }
     
     /**
-     * 
-     * @param accountNumber
-     * @return Account
+     * Method to find an Account by its Account Number
+     * @param accountNumber the Account Number of the Account we want to retrieve
+     * @return Account the Account with the Account Number Specified
      */
     @Override
     public Account findByAccountNumber(String accountNumber) {
