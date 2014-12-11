@@ -1,7 +1,7 @@
 package core.domain;
 
 /**
- * A class which encapsulates types of payments.
+ * A class which encapsulates Enum types for Payments.
  *
  */
 public enum TransactionType {

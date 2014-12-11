@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import static org.springframework.util.Assert.notNull;
 
 /**
  * A class which encapsulates data for a bank account.
@@ -49,7 +48,21 @@ public class Account {
      * sets the values based on the JSON key/value pairs.
      */
     public Account() {
+        this.balance = 0.00;
+    }
+
+    /**
+     * Creates a new Account object.
+     *
+     * @param accountNumber - The account number of the account.
+     * @param sortCode - The sort code of the account.
+     * @param accountType - The type of account.
+     */
+    public Account(String accountNumber, String sortCode, AccountType accountType) {
         super();
+        this.setAccountNumber(accountNumber);
+        this.setSortCode(sortCode);
+        this.setAccountType(accountType);
         this.balance = 0.00;
     }
 
@@ -113,7 +126,6 @@ public class Account {
      * @param accountNumber - The account number.
      */
     public final void setAccountNumber(String accountNumber) {
-        notNull(accountNumber, "Mandatory argument 'accountNumber missing.'");
         String pattern = "^[0-9]{8}$";
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(accountNumber);
@@ -129,7 +141,6 @@ public class Account {
      * @param customerId - The customer who owns the account.
      */
     public final void setCustomerId(String customerId) {
-        notNull(customerId, "Mandatory argument 'customerId missing.'");
         this.customerId = customerId;
     }
 
@@ -139,7 +150,6 @@ public class Account {
      * @param sortCode - The sort code.
      */
     public final void setSortCode(String sortCode) {
-        notNull(sortCode, "Mandatory argument 'sortCode missing.'");
         String pattern = "^[0-9]{6}$";
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(sortCode);
@@ -155,7 +165,6 @@ public class Account {
      * @param accountType - The Account Type.
      */
     public final void setAccountType(AccountType accountType) {
-        notNull(accountType, "Mandatory argument 'accountType missing.'");
         this.accountType = accountType;
     }
 
@@ -165,7 +174,6 @@ public class Account {
      * @param balance - The Account Balance.
      */
     public void setBalance(double balance) {
-        notNull(balance, "Mandatory argument 'balance missing.'");
         this.balance = balance;
     }
 
