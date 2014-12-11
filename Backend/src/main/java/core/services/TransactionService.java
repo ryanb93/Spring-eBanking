@@ -31,7 +31,7 @@ public class TransactionService implements TransactionServiceInterface {
      * Method which returns the details of a single transaction based on its
      * database ID.
      *
-     * @param TransactionId - ID of the Transaction we want details of.
+     * @param transactionId - ID of the Transaction we want details of.
      * @return The transaction object containing details.
      */
     @Override
@@ -41,12 +41,15 @@ public class TransactionService implements TransactionServiceInterface {
     }
 
     /**
-     * Method which returns the details of a all transactions for a given
-     * account.
-     *
-     * @param accountNumber - The Account Number of the Account we want to view the Transactions of
-     * @param page - The page number of the Transactions we want to view
-     * @return List<Transaction> a list of Transactions belonging to the specified Account
+     * Method to request Transactions owned by a single account.
+     * This method will return 10 accounts maximum. The offset which this
+     * starts from can be changed by modifying the page value. Setting page to 
+     * 0 will give the 10 latest transactions, 1 will start the offset at 10, 2
+     * will start the offset 20, etc.
+     * 
+     * @param accountNumber - The account to get transactions from.
+     * @param page - The offset to start from.
+     * @return List<Transaction> - The transactions for that page.
      */
     @Override
     public List<Transaction> requestAllTransactions(String accountNumber, int page) {
@@ -55,20 +58,21 @@ public class TransactionService implements TransactionServiceInterface {
 
     /**
      * Method which removes a Transaction from MongoDB.
-     *
+     * 
      * @param transactionId - The ID of the transaction we want to remove..
      */
     @Override
-    public void removeTransaction(String transactionId) {
+    public void requestRemoveTransaction(String transactionId) {
         transactionRepository.delete(transactionRepository.findOne(transactionId));
     }
 
     /**
      * Method which returns all Transactions from MongoDB.
-     *
+     * 
      * @return List<Transaction> A List of all transactions stored in MongoDb
      */
-    public List<Transaction> fetchAllMongoDbTransactions() {
+    @Override
+    public List<Transaction> requestAllTransactions() {
         return transactionRepository.findAll();
     }
 
@@ -92,7 +96,7 @@ public class TransactionService implements TransactionServiceInterface {
         // If the senderAccount is not null, update the senderAccount balance and assign it a transaction
         if (senderAccount != null) {
 
-            accountService.updateAccountBalance(senderAccountNumber, -transaction.getValue());
+            accountService.requestUpdateAccountBalance(senderAccountNumber, -transaction.getValue());
             transaction.setAccountNumber(senderAccount.getAccountNumber());
             if (recipientAccount != null) {
                 if (transaction.getTransactionType() == null) {
@@ -103,7 +107,7 @@ public class TransactionService implements TransactionServiceInterface {
         }
         // If the recipientAccount is not null, update the recipientAccount balance and assign it a transaction
         if (recipientAccount != null) {
-            accountService.updateAccountBalance(recipientAccountNumber, transaction.getValue());
+            accountService.requestUpdateAccountBalance(recipientAccountNumber, transaction.getValue());
 
             Transaction recipientTransaction = transaction;
             if (recipientTransaction.getTransactionType() == null) {

@@ -96,8 +96,8 @@ public class AdminController {
     public ModelAndView showAdminPanel(ModelMap model) {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("customers", customerService.requestAllCustomers());
-        modelAndView.addObject("accounts", accountService.fetchAllMongoDbAccounts());
-        modelAndView.addObject("transactions", transactionService.fetchAllMongoDbTransactions());
+        modelAndView.addObject("accounts", accountService.requestAllAccounts());
+        modelAndView.addObject("transactions", transactionService.requestAllTransactions());
         modelAndView.addObject("users", userService.fetchAllMongoDbUsers());
         return modelAndView;
     }
@@ -173,7 +173,7 @@ public class AdminController {
     @RequestMapping(value = Routes.REMOVE_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView removeCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder) {
 
-        customerService.removeCustomer(customerId);
+        customerService.requestRemoveCustomer(customerId);
         return new ModelAndView("redirect:/adminPanel");
     }
 
@@ -225,7 +225,7 @@ public class AdminController {
     @RequestMapping(value = Routes.REMOVE_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView removeAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder) {
 
-        accountService.removeAccount(accountId);
+        accountService.requestRemoveAccount(accountId);
         return new ModelAndView("redirect:/adminPanel");
     }
 
@@ -325,7 +325,7 @@ public class AdminController {
     @RequestMapping(value = Routes.REMOVE_TRANSACTION, method = RequestMethod.POST)
     public ModelAndView removeTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder) {
 
-        transactionService.removeTransaction(transactionId);
+        transactionService.requestRemoveTransaction(transactionId);
         return new ModelAndView("redirect:/adminPanel");
     }
 

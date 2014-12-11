@@ -20,6 +20,7 @@ public class AccountService implements AccountServiceInterface {
     
     /**
      * Method which creates a new Account in MongoDB
+     * 
      * @param account the account we want to save into MongoDB
      * @return Account the newly saved Account
      */
@@ -31,6 +32,7 @@ public class AccountService implements AccountServiceInterface {
     
     /**
      * Method which returns all the Accounts for a given Customer
+     * 
      * @param customerId the ID of the Customer whose accounts we want to retrieve
      * @return List<Account> a list of all the Accounts under the particular customer
      */
@@ -41,6 +43,7 @@ public class AccountService implements AccountServiceInterface {
 
     /**
      * Method which returns the Account associated with a given Account ID
+     * 
      * @param accountId the ID of the Account we want to retrieve
      * @return Account the Account with the ID we specify
      */
@@ -51,6 +54,7 @@ public class AccountService implements AccountServiceInterface {
 
     /**
      * Method which returns the Account associated with a given Account Number
+     * 
      * @param accountNumber the Account Number of the Account we want to retrieve
      * @return Account the Account with the Account Number we specify
      */
@@ -64,18 +68,19 @@ public class AccountService implements AccountServiceInterface {
      * 
      * @param accountId - The ID of the account we want to remove..
      */
-    @Override public void removeAccount(String accountId){
+    @Override public void requestRemoveAccount(String accountId){
         accountRepository.delete(accountRepository.findOne(accountId));
     }
 
     /**
      * Method which updates the Account Balance of a given Account with a given Transaction Value
+     * 
      * @param accountNumber the Account Number of the Account with the Balance we want to update
      * @param transactionValue the value we want to update the Balance with
      * @return Account the Account with the Balance successfully updated
      */
     @Override
-    public Account updateAccountBalance(String accountNumber, double transactionValue) {
+    public Account requestUpdateAccountBalance(String accountNumber, double transactionValue) {
         
         Account account = requestAccountDetailsFromNumber(accountNumber);
         
@@ -88,10 +93,11 @@ public class AccountService implements AccountServiceInterface {
     
     /**
      * Method to return all Accounts stored in MongoDB
+     * 
      * @return List<Account> a list of all the Accounts stored in MongoDB
      */
     @Override
-    public List<Account> fetchAllMongoDbAccounts(){
+    public List<Account> requestAllAccounts(){
         return accountRepository.findAll();
     }
 

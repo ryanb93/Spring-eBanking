@@ -23,6 +23,7 @@ public class CustomerService implements CustomerServiceInterface {
     /**
      * Method which returns the details of a single Customer based on its
      * database ID.
+     * 
      * @param customerId the ID of the Customer we want to retrieve
      * @return Customer the Customer with the ID specified
      */
@@ -33,6 +34,7 @@ public class CustomerService implements CustomerServiceInterface {
     
     /**
      * Method to retrieve all Customers stored in MongoDB
+     * 
      * @return List<Customer> a list of all Customers stored in MongoDB
      */
     @Override
@@ -42,6 +44,7 @@ public class CustomerService implements CustomerServiceInterface {
     
     /**
      * Method to save a new Customer to MongoDB
+     * 
      * @param customer the Customer we want to save to MongoDB
      * @return Customer the newly saved Customer
      */
@@ -52,6 +55,7 @@ public class CustomerService implements CustomerServiceInterface {
 
     /**
      * Method to update a Customer saved in MongoDB
+     * 
      * @param customer the Customer we want to update
      * @return Customer the newly updated Customer
      */
@@ -72,8 +76,9 @@ public class CustomerService implements CustomerServiceInterface {
 
     /**
      * Method to retrieve the Customer ID of the Customer linked to an API User
+     * 
      * @param apiUserId the API User ID that we want to search for
-     * @return String the Customer ID that posesses the API User ID we specify
+     * @return String the Customer ID that possesses the API User ID we specify
      */
     @Override
     public String requestCustomerId(String apiUserId) {
@@ -86,7 +91,7 @@ public class CustomerService implements CustomerServiceInterface {
      * @param customerId - The ID of the Customer we want to remove..
      */
     @Override
-    public void removeCustomer(String customerId){
+    public void requestRemoveCustomer(String customerId){
         customerRepository.delete(customerRepository.findOne(customerId));
     }
 
