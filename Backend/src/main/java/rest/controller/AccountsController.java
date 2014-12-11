@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  * executed.
  * 
  * This controller can:
- *  - Getting all accounts
- *  - Getting a single account
+ *  - Get all accounts
+ *  - Get a single account
  */
 @RestController
 @RequestMapping(Routes.ACCOUNTS)
@@ -50,7 +50,7 @@ public class AccountsController {
      * When a user makes a GET request to this URL we want to return a list of
      * all their accounts.
      *
-     * @param auth
+     * @param auth the OAuth Athentication for a user's permissions
      *
      * @return All of this user's accounts.
      */
@@ -80,8 +80,8 @@ public class AccountsController {
      * When a user makes a GET request to this URL we want to return the details
      * of a single customer account.
      *
-     * @param auth
-     * @param accountNumber
+     * @param auth the OAuth Athentication for a user's permissions
+     * @param accountNumber the accountNumber that we want to retrieve
      * @return The Account details as JSON.
      */
     @RequestMapping(value = Routes.SINGLE_ACCOUNT, method = RequestMethod.GET)

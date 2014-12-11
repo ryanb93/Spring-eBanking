@@ -63,10 +63,10 @@ public class TransactionsController {
      * returned. By default from the frontend it will request 10, however this number
      * is completely flexible. 
      * 
-     * @param auth
-     * @param accountNumber
-     * @param request
-     * @return ResponseEntity<List<Transaction>>
+     * @param auth the OAuth Athentication for a user's permissions
+     * @param accountNumber the Account Number of the Account whose Transactions we want to retrieve
+     * @param request the HTTP Request for all Transactions to be retrieved
+     * @return ResponseEntity<List<Transaction>> A Response with a List of all transactions linked to the Account specifiec
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Transaction>> getAllTransactions(@AuthenticationPrincipal OAuth2Authentication auth,
@@ -107,10 +107,10 @@ public class TransactionsController {
      * Method creates a new transaction for a given customers account. 
      * This method is executed when a POST request to this Route is received.
      * 
-     * @param auth
-     * @param accountNumber
-     * @param transaction
-     * @return ResponseEntity<Transaction>
+     * @param auth the OAuth Athentication for a user's permissions
+     * @param accountNumber the Account Number of the Account we want to save a new Transaction to
+     * @param transaction the Transaction we want to save and link to the account specified
+     * @return ResponseEntity<Transaction> A response with confirmation of a faliure or success to save the Transaction
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Transaction> createNewTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
@@ -155,9 +155,9 @@ public class TransactionsController {
      * This method returns a single transaction for a given customers account. 
      * When the Routes.TRANSACTIONS_ID receives a GET request this method is called
      * 
-     * @param auth
-     * @param transactionId
-     * @return ResponseEntity<Transaction>
+     * @param auth the OAuth Athentication for a user's permissions
+     * @param transactionId the ID of the Transaction we want to retrieve
+     * @return ResponseEntity<Transaction> A Response containing the Transaction we have retrieved
      */
     @RequestMapping(value = Routes.TRANSACTIONS_ID, method = RequestMethod.GET)
     public ResponseEntity<Transaction> getSingleTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
@@ -188,9 +188,9 @@ public class TransactionsController {
      * Helper method that checks to see that the OAuth session user owns the 
      * requested resource before any processing occurs. 
      * 
-     * @param auth
-     * @param accountId
-     * @return boolean
+     * @param auth the OAuth Athentication for a user's permissions
+     * @param accountId the Accont ID of the Account we want to check Authorisation for
+     * @return boolean returns true if the User is Authorised to view the resource
      */
     private boolean authCustomerOwnsAccount(OAuth2Authentication auth, String accountId) {
         boolean result = false;

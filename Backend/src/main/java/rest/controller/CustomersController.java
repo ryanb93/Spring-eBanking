@@ -43,8 +43,8 @@ public class CustomersController {
      * It looks up the requested customer by ID from the OAuth session 
      * and then queries MongoDB for said customer. 
      * 
-     * @param auth
-     * @return ResponseEntity<Customer> JSON
+     * @param auth the OAuth Athentication for a user's permissions
+     * @return ResponseEntity<Customer> JSON the Customer Details as JSON
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Customer> getSingleCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth) {
@@ -77,9 +77,9 @@ public class CustomersController {
      * customer domain and can therefore be easily checked and validated before
      * updating. 
      * 
-     * @param auth
-     * @param customer
-     * @param builder
+     * @param auth the OAuth Athentication for a user's permissions
+     * @param customer the Customer we want to Update
+     * @param builder the URI Components Builder to map Strings to Values. A Spring Framework component.
      * @return ResponseEntity<Customer> JSON
      */
     @RequestMapping(method = RequestMethod.POST)
@@ -108,8 +108,8 @@ public class CustomersController {
      * This method checks to see that all the required data held on a Customer 
      * is present, before the application processes a customer any further.
      * 
-     * @param customer
-     * @return boolean
+     * @param customer the Customer whose details we are currently checking
+     * @return boolean true or false dependent on whether all expected fields are present and correct.
      */
     private boolean isValid(Customer customer) {
         boolean valid = true;
