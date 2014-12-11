@@ -9,11 +9,16 @@ import core.services.interfaces.TransactionServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * 
+ */
 public class TransactionService implements TransactionServiceInterface {
-
+    
+    /** */
     @Autowired
     private TransactionRepository transactionRepository;
-
+    
+    /** */
     @Autowired
     private AccountServiceInterface accountService;
 
@@ -40,7 +45,7 @@ public class TransactionService implements TransactionServiceInterface {
         return transactionRepository.findAllByAccountNumber(accountNumber, page);
     }
     
-        /**
+    /**
      * Method which removes a Transaction from MongoDB.
      * 
      * @param transactionId - The ID of the transaction we want to remove..

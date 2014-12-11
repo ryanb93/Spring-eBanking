@@ -10,24 +10,42 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+/**
+ * 
+ */
 @Repository
 public class AccountRepositoryImpl implements CustomAccountRepository {
-
+    
+    /** */
     private final MongoOperations operations;
 
+    /**
+     * 
+     * @param operations 
+     */
     @Autowired
     public AccountRepositoryImpl(MongoOperations operations) {
         Assert.notNull(operations, "MongoOperations must not be null!");
         this.operations = operations;
     }
-
+    
+    /**
+     * 
+     * @param customerId
+     * @return List<Account>
+     */
     @Override
     public List<Account> findAllByCustomerId(String customerId) {
         Query findByCustomer = new Query();
         findByCustomer.addCriteria(Criteria.where("customerId").is(customerId));
         return operations.find(findByCustomer, Account.class);
     }
-
+    
+    /**
+     * 
+     * @param accountNumber
+     * @return Account
+     */
     @Override
     public Account findByAccountNumber(String accountNumber) {
         Query findByAccNum = new Query();

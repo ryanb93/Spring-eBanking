@@ -1,12 +1,6 @@
 package web.services;
 
 import java.util.List;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,13 +13,23 @@ import web.domain.User;
 import web.repository.UserRepository;
 import web.services.interfaces.UserServiceInterface;
 
+/**
+ * 
+ */
 @Service
 public class UserService implements UserServiceInterface, UserDetailsService {
-
-    private final Logger LOG = LoggerFactory.getLogger(UserServiceInterface.class);
+    
+    /** */
     private final UserRepository userRepository;
+    
+    /** */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * 
+     * @param userRepository
+     * @param passwordEncoder 
+     */
     @Autowired
     public UserService(final UserRepository userRepository, PasswordEncoder passwordEncoder) {
         super();
@@ -33,11 +37,23 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * 
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException 
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return getUserByUsername(username.toLowerCase());
     }
 
+    /**
+     * 
+     * @param username
+     * @return User
+     * @throws UsernameNotFoundException 
+     */
     public User getUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmailAddress(username.toLowerCase());
         if (user == null) {
@@ -46,6 +62,12 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         return user;
     }
 
+    /**
+     * 
+     * @param user
+     * @param password
+     * @return ApiUser
+     */
     @Override
     public ApiUser createUser(ApiUser user, String password) {
         final String emailAddress = user.getEmailAddress().toLowerCase();
@@ -59,6 +81,10 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         }
     }
     
+    /**
+     * 
+     * @return List<User> 
+     */
     @Override
     public List<User> fetchAllMongoDbUsers(){
        return userRepository.findAll();

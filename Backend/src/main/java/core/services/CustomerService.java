@@ -7,27 +7,50 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 
+ */
 @Service
 public class CustomerService implements CustomerServiceInterface {
-
+    
+    /** */
     @Autowired
     private CustomerRepository customerRepository;
 
+    /**
+     * 
+     * @param customerId
+     * @return Customer
+     */
     @Override
     public Customer requestCustomerDetails(String customerId) {
         return customerRepository.findOne(customerId);
     }
-
+    
+    /**
+     * 
+     * @return List<Customer>
+     */
     @Override
     public List<Customer> requestAllCustomers() {
         return customerRepository.findAll();
     }
-
+    
+    /**
+     * 
+     * @param customer
+     * @return Customer
+     */
     @Override
     public Customer requestNewCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 
+    /**
+     * 
+     * @param customer
+     * @return Customer
+     */
     @Override
     public Customer requestUpdateCustomer(Customer customer) {
 
@@ -43,6 +66,11 @@ public class CustomerService implements CustomerServiceInterface {
         return customerRepository.save(customer);
     }
 
+    /**
+     * 
+     * @param apiUserId
+     * @return String of customer id
+     */
     @Override
     public String requestCustomerId(String apiUserId) {
         return customerRepository.findByApiUserId(apiUserId).getCustomerId();

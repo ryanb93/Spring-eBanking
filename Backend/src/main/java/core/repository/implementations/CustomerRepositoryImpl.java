@@ -9,17 +9,30 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+/**
+ * 
+ */
 @Repository
 public class CustomerRepositoryImpl implements CustomCustomerRepository {
-
+    
+    /** */
     private final MongoOperations operations;
-
+    
+    /**
+     * 
+     * @param operations 
+     */
     @Autowired
     public CustomerRepositoryImpl(MongoOperations operations) {
         Assert.notNull(operations, "MongoOperations must not be null!");
         this.operations = operations;
     }
-
+    
+    /**
+     * 
+     * @param apiUserId
+     * @return Customer
+     */
     @Override
     public Customer findByApiUserId(String apiUserId) {
         Query findByApiUserId = new Query();

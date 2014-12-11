@@ -16,32 +16,58 @@ import web.domain.OAuth2AuthenticationRefreshToken;
 import web.repository.OAuth2AccessTokenRepository;
 import web.repository.OAuth2RefreshTokenRepository;
 
+/**
+ * 
+ */
 @Repository
 public class OAuth2RepositoryTokenStore implements TokenStore {
-
+    
+    /** */
     private final OAuth2AccessTokenRepository oAuth2AccessTokenRepository;
 
+    /** */
     private final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository;
 
+    /** */
     private final AuthenticationKeyGenerator authenticationKeyGenerator;
-
+    
+    /**
+     * 
+     * @param oAuth2AccessTokenRepository
+     * @param oAuth2RefreshTokenRepository 
+     */
     @Autowired
     public OAuth2RepositoryTokenStore(final OAuth2AccessTokenRepository oAuth2AccessTokenRepository, final OAuth2RefreshTokenRepository oAuth2RefreshTokenRepository) {
         this.oAuth2AccessTokenRepository = oAuth2AccessTokenRepository;
         this.oAuth2RefreshTokenRepository = oAuth2RefreshTokenRepository;
         this.authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();
     }
-
+    
+    /**
+     * 
+     * @param token
+     * @return OAuth2Authentication
+     */
     @Override
     public OAuth2Authentication readAuthentication(OAuth2AccessToken token) {
         return readAuthentication(token.getValue());
     }
-
+    
+    /**
+     * 
+     * @param tokenId
+     * @return OAuth2Authentication
+     */
     @Override
     public OAuth2Authentication readAuthentication(String tokenId) {
         return oAuth2AccessTokenRepository.findByTokenId(tokenId).getAuthentication();
     }
-
+    
+    /**
+     * 
+     * @param token
+     * @param authentication 
+     */
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
         String authID = authenticationKeyGenerator.extractKey(authentication);
@@ -49,6 +75,11 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         this.oAuth2AccessTokenRepository.save(accessToken);
     }
 
+    /**
+     * 
+     * @param tokenValue
+     * @return OAuth2AccessToken
+     */
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
 
@@ -62,6 +93,10 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         return accessToken;
     }
 
+    /**
+     * 
+     * @param token 
+     */
     @Override
     public void removeAccessToken(OAuth2AccessToken token) {
         OAuth2AuthenticationAccessToken accessToken = this.oAuth2AccessTokenRepository.findByTokenId(token.getValue());
@@ -70,16 +105,31 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         }
     }
 
+    /**
+     * 
+     * @param refreshToken
+     * @param authentication 
+     */
     @Override
     public void storeRefreshToken(OAuth2RefreshToken refreshToken, OAuth2Authentication authentication) {
         this.oAuth2RefreshTokenRepository.save(new OAuth2AuthenticationRefreshToken(refreshToken, authentication));
     }
 
+    /**
+     * 
+     * @param tokenValue
+     * @return 
+     */
     @Override
     public OAuth2RefreshToken readRefreshToken(String tokenValue) {
         return this.oAuth2RefreshTokenRepository.findByTokenId(tokenValue).getoAuth2RefreshToken();
     }
 
+    /**
+     * 
+     * @param token
+     * @return OAuth2Authentication
+     */
     @Override
     public OAuth2Authentication readAuthenticationForRefreshToken(OAuth2RefreshToken token) {
         String tokenValue = token.getValue();
@@ -87,6 +137,10 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         return refreshToken.getAuthentication();
     }
 
+    /**
+     * 
+     * @param refreshToken 
+     */
     @Override
     public void removeRefreshToken(OAuth2RefreshToken refreshToken) {
         String tokenValue = refreshToken.getValue();
@@ -94,6 +148,10 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         this.oAuth2RefreshTokenRepository.delete(authRefreshToken);
     }
 
+    /**
+     * 
+     * @param refreshToken 
+     */
     @Override
     public void removeAccessTokenUsingRefreshToken(OAuth2RefreshToken refreshToken) {
         String tokenValue = refreshToken.getValue();
@@ -101,6 +159,11 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         this.oAuth2AccessTokenRepository.delete(accessToken);
     }
 
+    /**
+     * 
+     * @param authentication
+     * @return OAuth2AccessToken
+     */
     @Override
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
         String authKey = this.authenticationKeyGenerator.extractKey(authentication);
@@ -112,18 +175,34 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
         return accessToken;
     }
 
+    /**
+     * 
+     * @param clientId
+     * @return Collection<OAuth2AccessToken>
+     */
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
         List<OAuth2AuthenticationAccessToken> tokens = this.oAuth2AccessTokenRepository.findByClientId(clientId);
         return extractAccessTokens(tokens);
     }
 
+    /**
+     * 
+     * @param clientId
+     * @param userName
+     * @return Collection<OAuth2AccessToken>
+     */
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
         List<OAuth2AuthenticationAccessToken> tokens = this.oAuth2AccessTokenRepository.findByClientIdAndUserName(clientId, userName);
         return extractAccessTokens(tokens);
     }
 
+    /**
+     * 
+     * @param tokens
+     * @return Collection<OAuth2AccessToken>
+     */
     private Collection<OAuth2AccessToken> extractAccessTokens(List<OAuth2AuthenticationAccessToken> tokens) {
         List<OAuth2AccessToken> accessTokens = new ArrayList<OAuth2AccessToken>();
         for (OAuth2AuthenticationAccessToken token : tokens) {

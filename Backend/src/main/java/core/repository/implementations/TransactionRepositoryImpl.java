@@ -11,17 +11,31 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+/**
+ * 
+ */
 @Repository
 public class TransactionRepositoryImpl implements CustomTransactionRepository {
-
+    
+    /** */
     private final MongoOperations operations;
-
+    
+    /**
+     * 
+     * @param operations 
+     */
     @Autowired
     public TransactionRepositoryImpl(MongoOperations operations) {
         Assert.notNull(operations, "MongoOperations must not be null!");
         this.operations = operations;
     }
-
+    
+    /**
+     * 
+     * @param accountNumber
+     * @param page
+     * @return List<Transaction>
+     */
     @Override
     public List<Transaction> findAllByAccountNumber(String accountNumber, int page) {
         Query findByAccount = new Query();
