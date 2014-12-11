@@ -107,7 +107,7 @@ angular.module('eBanking.accountControllers', [])
                 var existing = $scope.transactions;
                 var next = loaded;
 
-                $scope.transactions.transactions.push.apply(existing, next);
+                $scope.transactions.push.apply(existing, next);
                 if(next.length != 10 ) {
                     $scope.finished = true;
                 }

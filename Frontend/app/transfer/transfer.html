@@ -2,7 +2,16 @@
 	<div ng-app"eBanking" ng-controller="transferController" ng-show="hasToken">
 		<h1 class="page-header">Transfer between your accounts</h1>
 		
-		<div id="messages"></div>
+		<div id="messages">
+			<div ng-hide="!messages.transfer.err.err" class="alert alert-danger" role="alert">
+                {{messages.transfer.err.stat}}<br>
+                {{messages.transfer.err.message}}               
+        	</div>
+			<div ng-hide="!messages.transfer.success.success" class="alert alert-success" role="alert">
+                {{messages.transfer.success.title}}               
+                {{messages.transfer.success.message}}               
+        	</div>
+		</div>
 		<form role="form" ng-submit="processTransfer()" >
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
