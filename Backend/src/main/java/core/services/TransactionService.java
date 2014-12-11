@@ -63,9 +63,7 @@ public class TransactionService implements TransactionServiceInterface {
         
         //Account account = accountEvent.getAccount();
          if (senderAccount != null){
-            double inverseTransactionValue = transaction.getValue();
-            inverseTransactionValue = -inverseTransactionValue;
-            accountService.updateAccountBalance(senderAccountNumber, inverseTransactionValue);
+            accountService.updateAccountBalance(senderAccountNumber, -transaction.getValue());
             transactionRepository.save(transaction);
         }
          
