@@ -35,6 +35,7 @@ public class ApiUser implements Principal {
      * @param user 
      */
     public ApiUser(User user) {
+        super();
         this.emailAddress = user.getEmailAddress();
         this.id = user.getId();
     }

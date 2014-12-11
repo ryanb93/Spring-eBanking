@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import static org.springframework.util.Assert.notNull;
 
 /**
  * A class which encapsulates data for a Transaction.
@@ -55,30 +56,10 @@ public final class Transaction {
      * sets the values based on the JSON key/value pairs.
      */
     public Transaction() {
+        super();
     }
 
-    /**
-     * Creates a new Transaction object.
-     *
-     * @param senderSortCode - The sort code of the sender.
-     * @param senderAccountNumber - The account number of the sender.
-     * @param recipientSortCode - The sort code of the recipient.
-     * @param recipientAccountNumber - The account number of the recipient.
-     * @param value - The value of the transaction. 
-     * @param date - The date the transaction was created.
-     * @param type - The type of the transaction.
-     */
-    public Transaction(String senderSortCode, String senderAccountNumber, String recipientSortCode, String recipientAccountNumber, double value, Date date, TransactionType type) {
-        super();
-        // Set values using setters.
-        this.setSenderSortCode(senderSortCode);
-        this.setSenderAccountNumber(senderAccountNumber);
-        this.setRecipientSortCode(recipientSortCode);
-        this.setRecipientAccountNumber(recipientAccountNumber);
-        this.setValue(value);
-        this.setDate(date);
-        this.setTransactionType(type);
-    }
+
 
     /**
      * Sets the account number of the transaction.
@@ -86,6 +67,7 @@ public final class Transaction {
      * @param accountNumber - The account number of the transaction.
      */
     public void setAccountNumber(String accountNumber) {
+        notNull(accountNumber, "Mandatory argument 'accountNumber missing.'");
         this.accountNumber = accountNumber;
     }
 
@@ -95,6 +77,7 @@ public final class Transaction {
      * @param value - The value of the transaction.
      */
     public void setValue(double value) {
+        notNull(value, "Mandatory argument 'value missing.'");
         this.value = value;
     }
 
@@ -104,9 +87,7 @@ public final class Transaction {
      * @param date - The date of the transaction.
      */
     public void setDate(Date date) {
-        if (date == null) {
-            throw new IllegalArgumentException("This date is invalid.");
-        }
+        notNull(date, "Mandatory argument 'date missing.'");
         this.date = date;
     }
 
@@ -116,15 +97,17 @@ public final class Transaction {
      * @param type - The type of the transaction.
      */
     public void setTransactionType(TransactionType type) {
+        notNull(type, "Mandatory argument 'type missing.'");
         this.transactionType = type;
     }
     
-        /**
+    /**
      * Sets the sender sort code. 
      * 
      * @param senderSortCode - The sender sort code.
      */
     public void setSenderSortCode(String senderSortCode) {
+        notNull(senderSortCode, "Mandatory argument 'senderSortCode missing.'");
         this.senderSortCode = senderSortCode;
     }
 
@@ -134,6 +117,7 @@ public final class Transaction {
      * @param senderAccountNumber - the sender account number.
      */
     public void setSenderAccountNumber(String senderAccountNumber) {
+        notNull(senderAccountNumber, "Mandatory argument 'senderAccountNumber missing.'");
         this.senderAccountNumber = senderAccountNumber;
     }
 
@@ -143,6 +127,7 @@ public final class Transaction {
      * @param recipientSortCode - the recipient sort code.
      */
     public void setRecipientSortCode(String recipientSortCode) {
+        notNull(recipientSortCode, "Mandatory argument 'recipientSortCode missing.'");
         this.recipientSortCode = recipientSortCode;
     }
 
@@ -152,6 +137,7 @@ public final class Transaction {
      * @param recipientAccountNumber - the recipient account number.
      */
     public void setRecipientAccountNumber(String recipientAccountNumber) {
+        notNull(recipientAccountNumber, "Mandatory argument 'recipientAccountNumber missing.'");
         this.recipientAccountNumber = recipientAccountNumber;
     }
 
@@ -237,8 +223,7 @@ public final class Transaction {
     }
     
     /**
-     * Clears the Transaction ID so a new one can be created..
-     *
+     * Clears the Transaction ID so the transaction can be cloned.
      */
     public void clearTransactionId() {
         this.transactionId = null;

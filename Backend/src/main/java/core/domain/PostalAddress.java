@@ -20,6 +20,7 @@ public class PostalAddress {
      * sets the values based on the JSON key/value pairs.
      */
     public PostalAddress() {
+        super();
     }
 
     /**
@@ -33,7 +34,6 @@ public class PostalAddress {
      */
     public PostalAddress(String houseNumber, String street, String city, String county, String country, String postalCode) {
         super();
-
         this.setHouseNumber(houseNumber);
         this.setStreet(street);
         this.setCity(city);

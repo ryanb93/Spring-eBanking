@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import static org.springframework.util.Assert.notNull;
 
 /**
  * A class which encapsulates data for a Customer.
@@ -38,23 +39,7 @@ public class Customer {
      * sets the values based on the JSON key/value pairs.
      */
     public Customer() {
-    }
-
-    /**
-     * Creates a new customer object.
-     *
-     * @param firstName - The first name of the customer.
-     * @param lastName - The last name of the customer.
-     * @param address - The address of the customer.
-     * @param apiUserId - The ID of the API User object in the database. (Optional)
-     */
-    public Customer(String firstName, String lastName, PostalAddress address, String apiUserId) {
         super();
-        //Set values using setters.
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setAddress(address);
-        this.setApiUserId(apiUserId);
     }
 
     /**
@@ -63,9 +48,7 @@ public class Customer {
      * @param firstName - The new first name of the customer.
      */
     public final void setFirstName(String firstName) {
-        if (firstName == null || firstName.equals("")) {
-            throw new IllegalArgumentException("First name can not be empty.");
-        }
+        notNull(firstName, "Mandatory argument 'firstName missing.'");
         this.firstName = firstName;
     }
 
@@ -75,9 +58,7 @@ public class Customer {
      * @param lastName - The new last name of the customer.
      */
     public final void setLastName(String lastName) {
-        if (lastName == null || lastName.equals("")) {
-            throw new IllegalArgumentException("Last name can not be empty.");
-        }
+        notNull(lastName, "Mandatory argument 'lastName missing.'");
         this.lastName = lastName;
     }
 
@@ -87,14 +68,14 @@ public class Customer {
      * @param address - The new address of the customer.
      */
     public final void setAddress(PostalAddress address) {
-        if (address == null) {
-            throw new IllegalArgumentException("Address can not be null.");
-        }
+        notNull(address, "Mandatory argument 'address missing.'");
         this.address = address;
     }
 
     /**
      * Sets the ID of the API user.
+     * 
+     * Not required, a customer could not have an online account set up.
      * 
      * @param apiUserId - The ID of the API user.
      */
