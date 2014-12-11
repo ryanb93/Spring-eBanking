@@ -372,8 +372,11 @@ ul.nav a:hover {
   }
 }
 
+.barIcon {
+    margin-right: 7px;
+}
+
 .fa {
-  margin-right: 7px;
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
