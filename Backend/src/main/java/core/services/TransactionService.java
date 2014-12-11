@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This is the TransactionService, which holds methods that may access
- * the MongoDB Database
- *  This allows for modularisation of the codebase
+ * the MongoDB Database to manipulate Transactions
  */
 public class TransactionService implements TransactionServiceInterface {
 
@@ -32,7 +31,7 @@ public class TransactionService implements TransactionServiceInterface {
      * Method which returns the details of a single transaction based on its
      * database ID.
      *
-     * @param requestTransactionDetailsEvent - Event containing transaction ID.
+     * @param TransactionId - ID of the Transaction we want details of.
      * @return The transaction object containing details.
      */
     @Override
@@ -45,9 +44,9 @@ public class TransactionService implements TransactionServiceInterface {
      * Method which returns the details of a all transactions for a given
      * account.
      *
-     * @param requestAllTransactionsEvent - Event containing the request for all
-     * transactions of an account.
-     * @return The transaction object containing all transaction details.
+     * @param accountNumber - The Account Number of the Account we want to view the Transactions of
+     * @param page - The page number of the Transactions we want to view
+     * @return List<Transaction> a list of Transactions belonging to the specified Account
      */
     @Override
     public List<Transaction> requestAllTransactions(String accountNumber, int page) {
@@ -67,7 +66,7 @@ public class TransactionService implements TransactionServiceInterface {
     /**
      * Method which returns all Transactions from MongoDB.
      *
-     * @return A List of all transactions stored in MongoDb
+     * @return List<Transaction> A List of all transactions stored in MongoDb
      */
     public List<Transaction> fetchAllMongoDbTransactions() {
         return transactionRepository.findAll();
@@ -77,8 +76,8 @@ public class TransactionService implements TransactionServiceInterface {
      * Method which creates a new transaction, adds it to the repository and
      * updates the account which it is linked to with a new value.
      *
-     * @param createTransactionEvent - The transaction request.
-     * @return Event object containing the newly created transaction.
+     * @param transaction - The transaction we want to save.
+     * @return Transaction the newly saved Transaction
      */
     @Override
     public Transaction requestNewTransaction(Transaction transaction) {

@@ -8,19 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 
+ * This is the CustomerService, which holds methods that may access
+ * the MongoDB Database to manipulate Customers
  */
 @Service
 public class CustomerService implements CustomerServiceInterface {
     
-    /** */
+    /**
+     * The Customer Repository, required to save and retrieve Customers
+     */
     @Autowired
     private CustomerRepository customerRepository;
 
     /**
-     * 
-     * @param customerId
-     * @return Customer
+     * Method which returns the details of a single Customer based on its
+     * database ID.
+     * @param customerId the ID of the Customer we want to retrieve
+     * @return Customer the Customer with the ID specified
      */
     @Override
     public Customer requestCustomerDetails(String customerId) {
@@ -28,8 +32,8 @@ public class CustomerService implements CustomerServiceInterface {
     }
     
     /**
-     * 
-     * @return List<Customer>
+     * Method to retrieve all Customers stored in MongoDB
+     * @return List<Customer> a list of all Customers stored in MongoDB
      */
     @Override
     public List<Customer> requestAllCustomers() {
@@ -37,9 +41,9 @@ public class CustomerService implements CustomerServiceInterface {
     }
     
     /**
-     * 
-     * @param customer
-     * @return Customer
+     * Method to save a new Customer to MongoDB
+     * @param customer the Customer we want to save to MongoDB
+     * @return Customer the newly saved Customer
      */
     @Override
     public Customer requestNewCustomer(Customer customer) {
@@ -47,9 +51,9 @@ public class CustomerService implements CustomerServiceInterface {
     }
 
     /**
-     * 
-     * @param customer
-     * @return Customer
+     * Method to update a Customer saved in MongoDB
+     * @param customer the Customer we want to update
+     * @return Customer the newly updated Customer
      */
     @Override
     public Customer requestUpdateCustomer(Customer customer) {
@@ -67,9 +71,9 @@ public class CustomerService implements CustomerServiceInterface {
     }
 
     /**
-     * 
-     * @param apiUserId
-     * @return String of customer id
+     * Method to retrieve the Customer ID of the Customer linked to an API User
+     * @param apiUserId the API User ID that we want to search for
+     * @return String the Customer ID that posesses the API User ID we specify
      */
     @Override
     public String requestCustomerId(String apiUserId) {
