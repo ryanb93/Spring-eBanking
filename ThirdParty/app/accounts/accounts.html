@@ -16,17 +16,36 @@
                </div>
             </div>
          </div>
-         <a href="#/accounts/{{account.accountId}}" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
-            <span class="pull-left">View Details</span>
-            <span class="pull-right">
-               <em class="fa fa-chevron-circle-right"></em>
-            </span>
-         </a>
+         <div class="panel-footer bg-gray-dark bt0 clearfix btn-block">
+         </div>
          <!-- END panel-->
       </div>
    </div>
-
-
    </div>
-
+   <h1 class="page-header">Transfer between your accounts</h1>   
+      <div id="messages"></div>
+      <form role="form" ng-submit="processTransfer()" >
+         <div id="first-name-group" class="form-group">
+            <label for="inputFirstName">From Account</label>
+            <select name="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
+               <option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
+            </select>
+         </div>
+         <div id="last-name-group" class="form-group">
+            <label for="inputSurname">Amount</label>
+            <input type="text" class="form-control" id="inputSurname" placeholder="Enter Amount" ng-model="transfer.value"required>
+         </div>
+         <div id="country-group" class="form-group">
+            <label for="inputCountry">To Account</label>
+            <select name="toAccount" class="form-control" ng-model="transfer.recipientAccountNumber">
+               <option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
+            </select>
+         </div>
+         <button type="submit" class="btn btn-success btn-lg btn-block">Transfer</button>
+         <br>
+         <div ng-hide="!error.error" class="alert alert-danger" role="alert">
+                {{error.status}}<br>
+                {{error.message}}               
+         </div>
+      </form>
 </div>

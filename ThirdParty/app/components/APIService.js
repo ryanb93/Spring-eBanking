@@ -30,6 +30,17 @@ angular.module('eBanking.APIService', ['ngResource'])
         });
     }
 
+    eBankingAPI.postTransfer = function(accountId) {
+      return $resource('https://localhost:8080/api/customer/accounts/:accountId/transactions',
+        { accountId: accountId },
+        { save: {
+            method: 'POST',
+            isArray: false,
+            headers:{'Content-Type':'application/json; charset=UTF-8'} 
+          }
+        });
+    }
+
     eBankingAPI.getTransactions = function(accountId, page) {
       return $resource('https://localhost:8080/api/customer/accounts/:accountId/transactions?page=:page',
         { accountId: accountId, page: page },
