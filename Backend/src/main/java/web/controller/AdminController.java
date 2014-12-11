@@ -81,7 +81,7 @@ public class AdminController {
     @RequestMapping(Routes.ADMIN_PANEL)
     public ModelAndView showAdminPanel(ModelMap model) {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
-        modelAndView.addObject("customers", customerService.fetchAllMongoDbCustomers());
+        modelAndView.addObject("customers", customerService.requestAllCustomers());
         modelAndView.addObject("accounts", accountService.fetchAllMongoDbAccounts());
         modelAndView.addObject("transactions", transactionService.fetchAllMongoDbTransactions());
         modelAndView.addObject("users", userService.fetchAllMongoDbUsers());
