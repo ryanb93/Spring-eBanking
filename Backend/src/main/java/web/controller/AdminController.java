@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
+import core.services.AccountService;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
 import web.domain.ApiUser;
@@ -50,6 +51,9 @@ public class AdminController {
 
     @Autowired
     private TransactionServiceInterface transactionService;
+    
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -67,8 +71,10 @@ public class AdminController {
     private UserServiceInterface userService;
 
     /**
+     * This method allows for the return of all Customers in the MongoDB
+     * as a List so they can by shown in a table on the Admin Panel.
      *
-     * @return
+     * @return A List of all the Customers stored in MongoDB
      */
     @RequestMapping(value = Routes.ALL_CUSTOMERS, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -78,9 +84,11 @@ public class AdminController {
     }
 
     /**
-     *
+     *This method allows for the return of all Customers, Accounts, Transactions,
+     * and Users stored in MongoDB as Lists so they can by shown in tables on the Admin Panel.
+     * 
      * @param model
-     * @return
+     * @return a modelandview with Lists of Customers, Accounts, Users, and Transactions.
      */
     @RequestMapping(Routes.ADMIN_PANEL)
     public ModelAndView showAdminPanel(ModelMap model) {
@@ -93,10 +101,11 @@ public class AdminController {
     }
 
     /**
-     *
-     * @param email
-     * @param password
-     * @return
+     *This method allows us to add a User to MongoDB from the Admin Panel.
+     * 
+     * @param email the User Email Address
+     * @param password the User Password
+     * @return the AdminPanel ModelAndView via a redirect after saving the new user.
      */
     @RequestMapping(Routes.ADD_USER)
     public ModelAndView addUser(@RequestParam("email") String email, @RequestParam("password") String password) {
@@ -107,19 +116,20 @@ public class AdminController {
     }
 
     /**
+     * This method allows us to add a Customer to MongoDB from the Admin Panel.
      *
-     * @param firstName
-     * @param lastName
-     * @param houseNumber
-     * @param street
-     * @param city
-     * @param county
-     * @param country
-     * @param postCode
-     * @param apiUserId
-     * @param builder
-     * @return
-     * @throws ParseException
+     * @param firstName the Customer First Name
+     * @param lastName the Customer Last Name
+     * @param houseNumber the Customer House Number
+     * @param street the Customer Street
+     * @param city the Customer City
+     * @param county the Customer County
+     * @param country the Customer Country
+     * @param postCode the Customer PostCode
+     * @param apiUserId the APIUser ID that we want to link this Customer to.
+     * @param builder a Spring Framework component to map Uri Components to String Values
+     * @return the AdminPanel ModelAndView via a redirect after saving the new Customer.
+     * @throws ParseException when the date of birth is entered in an incorrect format
      */
     @RequestMapping(value = Routes.ADD_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView createNewCustomer(@RequestParam("firstName") String firstName,
@@ -138,16 +148,17 @@ public class AdminController {
         customer.setLastName(lastName);
         customer.setAddress(new PostalAddress(houseNumber, street, city, county, country, postCode));
         customer.setApiUserId(apiUserId);
-
-        customerRepository.save(customer);
+        
+        customerService.requestNewCustomer(customer);
         return new ModelAndView("redirect:/adminPanel");
     }
 
     /**
-     *
-     * @param customerId
-     * @param builder
-     * @return
+     *This method allows us to remove a Customer from MongoDB from the Admin Panel.
+     * 
+     * @param customerId the ID of the customer we want to remove
+     * @param builder a Spring Framework component to map Uri Components to String Values
+     * @return the AdminPanel ModelAndView via a redirect after removing the Customer.
      */
     @RequestMapping(value = Routes.REMOVE_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView removeCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder) {
@@ -158,13 +169,14 @@ public class AdminController {
     }
 
     /**
-     *
-     * @param customerId
-     * @param selectedAccountType
-     * @param sortCode
-     * @param accountNumber
-     * @param builder
-     * @return
+     *This method allows us to add an Account to MongoDB from the Admin Panel.
+     * 
+     * @param customerId the ID of the Customer we want to link the account to
+     * @param selectedAccountType the Type of Account we want to create
+     * @param sortCode the Sort Code of the account we want to create
+     * @param accountNumber - the Account Number of the Account we want to create
+     * @param builder a Spring Framework component to map Uri Components to String Values
+     * @return the AdminPanel ModelAndView via a redirect after saving the new Account.
      */
     @RequestMapping(value = Routes.ADD_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView addAccount(@RequestParam("selectedCustomerId") String customerId,
@@ -182,17 +194,17 @@ public class AdminController {
         account.setAccountNumber(accountNumber);
         account.setCustomerId(customerId);
 
-        //TODO: This should be passed to the accountService.
-        accountRepository.save(account);
+        accountService.requestNewAccount(account);
 
         return new ModelAndView("redirect:/adminPanel");
     }
 
     /**
+     * This method allows us to remove an Account from MongoDB from the Admin Panel.
      *
-     * @param accountId
-     * @param builder
-     * @return
+     * @param accountId the ID of the Account we want to Remove
+     * @param builder a Spring Framework component to map Uri Components to String Values
+     * @return the AdminPanel ModelAndView via a redirect after removing the Account.
      */
     @RequestMapping(value = Routes.REMOVE_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView removeAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder) {
@@ -203,18 +215,19 @@ public class AdminController {
     }
 
     /**
+     * This method allows us to add a Transaction to MongoDB from the Admin Panel.
      *
-     * @param senderAccountNumber
-     * @param senderSortCode
-     * @param recipientAccountNumber
-     * @param recipientSortCode
-     * @param date
-     * @param value
-     * @param accountNumber
-     * @param selectedTransactionType
-     * @param builder
-     * @return
-     * @throws ParseException
+     * @param senderAccountNumber the Account Number of the Sender in the Transaction
+     * @param senderSortCode the Sort Code of the Sender in the Transaction
+     * @param recipientAccountNumber the Account Number of the Recipient in the Transaction
+     * @param recipientSortCode the Sort Code of the Recipient in the Transaction
+     * @param date the Date of the Transaction
+     * @param value the monetary Value of the Transaction
+     * @param accountNumber the Account Number that will own this Transaction
+     * @param selectedTransactionType the Type of Transaction we want to create
+     * @param builder a Spring Framework component to map Uri Components to String Values
+     * @return the AdminPanel ModelAndView via a redirect after saving the new Customer.
+     * @throws ParseException when the date of the Transaction is entered in an incorrect format
      */
     @RequestMapping(value = Routes.ADD_TRANSACTION, method = RequestMethod.POST)
     public ModelAndView addTransaction(@RequestParam("senderAccountNumber") String senderAccountNumber,
@@ -273,6 +286,13 @@ public class AdminController {
         return new ModelAndView("redirect:/adminPanel");
     }
 
+    /**
+     * This method allows us to remove aa Transaction from MongoDB from the Admin Panel.
+     *
+     * @param transactionId the ID of the Transaction we want to Remove
+     * @param builder a Spring Framework component to map Uri Components to String Values
+     * @return the AdminPanel ModelAndView via a redirect after removing the Account.
+     */
     @RequestMapping(value = Routes.REMOVE_TRANSACTION, method = RequestMethod.POST)
     public ModelAndView removeTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder) {
         Transaction transactionToDelete = transactionRepository.findOne(transactionId);

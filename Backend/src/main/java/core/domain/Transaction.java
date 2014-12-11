@@ -236,6 +236,10 @@ public final class Transaction {
         return this.transactionType;
     }
     
+    /**
+     * Clears the Transaction ID so a new one can be created..
+     *
+     */
     public void clearTransactionId() {
         this.transactionId = null;
     }
