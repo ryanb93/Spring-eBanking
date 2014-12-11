@@ -18,15 +18,13 @@ angular.module('eBanking.transferControllers', [])
         });
 
         $scope.processTransfer = function() {
-            console.log("Transfer Requested");
-            console.log($scope.transfer);
             var test = eBankingAPIservice.postTransfer($scope.transfer.senderAccountNumber).save($scope.transfer, function(result) {
                 console.log(result);
             });
         }
 
         $scope.processPayment = function() {
-            var test = eBankingAPIservice.postPayment().save($scope.payment, function(result) {
+            var test = eBankingAPIservice.postTransfer($scope.payment.senderAccountNumber).save($scope.payment, function(result) {
                 console.log(result);
             });
         }
