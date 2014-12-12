@@ -12,38 +12,43 @@ import web.domain.OAuth2AuthenticationAccessToken;
 public interface AccessTokenRepositoryInterface extends MongoRepository<OAuth2AuthenticationAccessToken, String> {
 
     /**
+     * Method to find an authentication token by its ID.
      * 
-     * @param tokenId
-     * @return OAuth2AuthenticationAccessToken
+     * @param tokenId - The ID of the token.
+     * @return OAuth2AuthenticationAccessToken -  The authentication access token.
      */
     public OAuth2AuthenticationAccessToken findByTokenId(String tokenId);
 
     /**
+     * Method to find an authentication token by its refresh token.
      * 
-     * @param refreshToken
-     * @return OAuth2AuthenticationAccessToken
+     * @param refreshToken - The refresh token linked to the authentication token.
+     * @return OAuth2AuthenticationAccessToken -  The authentication access token.
      */
     public OAuth2AuthenticationAccessToken findByRefreshToken(String refreshToken);
 
     /**
+     * Method to find an authentication token by its authentication ID.
      * 
-     * @param authenticationId
-     * @return OAuth2AuthenticationAccessToken
+     * @param authenticationId - The authentication ID.
+     * @return OAuth2AuthenticationAccessToken - The authentication access token.
      */
     public OAuth2AuthenticationAccessToken findByAuthenticationId(String authenticationId);
 
     /**
+     * Method to find all authentication tokens linked to a client id and user name..
      * 
-     * @param clientId
-     * @param userName
-     * @return List<OAuth2AuthenticationAccessToken>
+     * @param clientId - The ID of the client.
+     * @param userName - The username.
+     * @return List<OAuth2AuthenticationAccessToken> - A list of all the tokens.
      */
     public List<OAuth2AuthenticationAccessToken> findByClientIdAndUserName(String clientId, String userName);
 
     /**
+     * Method to find all authentication tokens linked to a client id.
      * 
-     * @param clientId
-     * @return List<OAuth2AuthenticationAccessToken>
+     * @param clientId - The ID of the client.
+     * @return List<OAuth2AuthenticationAccessToken> - A list of all the tokens.
      */
     public List<OAuth2AuthenticationAccessToken> findByClientId(String clientId);
 }

@@ -11,9 +11,10 @@ import web.domain.OAuth2AuthenticationRefreshToken;
 public interface RefreshTokenRepositoryInterface extends MongoRepository<OAuth2AuthenticationRefreshToken, String> {
 
     /**
+     * Finds the refresh token based on the ID.
      * 
-     * @param tokenId
-     * @return OAuth2AuthenticationRefreshToken
+     * @param tokenId - The ID of the token to find.
+     * @return OAuth2AuthenticationRefreshToken - The token or null if not found.
      */
     public OAuth2AuthenticationRefreshToken findByTokenId(String tokenId);
 }
