@@ -67,7 +67,7 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.payment.err.err = true;
                 $scope.messages.payment.success.success = false;
                 $scope.messages.payment.err.stat = "Transfer Failed";
-                $scope.messages.payment.err.message = "Do you have enough funds?;
+                $scope.messages.payment.err.message = "Do you have enough funds?";
             });
 
         };
