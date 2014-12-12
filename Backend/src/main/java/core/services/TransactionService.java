@@ -96,6 +96,11 @@ public class TransactionService implements TransactionServiceInterface {
         // If the senderAccount is not null, update the senderAccount balance and assign it a transaction
         if (senderAccount != null) {
 
+            //If the sender doesn't have enough money.
+            if(senderAccount.getBalance() < transaction.getValue()) {
+                return null;
+            }
+            
             accountService.requestUpdateAccountBalance(senderAccountNumber, -transaction.getValue());
             transaction.setAccountNumber(senderAccount.getAccountNumber());
             if (recipientAccount != null) {

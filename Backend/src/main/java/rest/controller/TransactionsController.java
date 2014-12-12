@@ -135,7 +135,7 @@ public class TransactionsController {
                 newTransaction = transactionService.requestNewTransaction(transaction);
                 //  Make sure it exists.
                 if (newTransaction == null) {
-                    status = HttpStatus.INTERNAL_SERVER_ERROR;
+                    status = HttpStatus.BAD_REQUEST;
                 }
             } else {
                 status = HttpStatus.BAD_REQUEST;
