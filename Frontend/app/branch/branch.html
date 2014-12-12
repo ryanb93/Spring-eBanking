@@ -1,27 +1,23 @@
 <div>
-	<div ng-app="eBanking" ng-controller="branchController" ng-show="hasToken">
-		<h1 class="page-header">Find your local branch</h1>
-
-		<div class="findMeDiv">
-      		<a ng-click="findMe()" class="button button-icon icon">
-				<em class="fa fa-map-marker barIcon findMe"> Find Me</em>
-      		</a>
-    	</div>
-
-    	<div class="searching well" ng-show="searching">
-    		<i class="fa fa-spinner fa-spin"></i>
-    		<br>    		
-    		Getting your location...
-    	</div>
-
-		<ui-gmap-google-map center='map.center' zoom='map.zoom' ng-show="found">
-			
-			<ui-gmap-marker ng-repeat="marker in map.markers" coords="marker.coords" idkey="marker.id" >
-                <ui-gmap-window isIconVisibleOnClick="true">
-                    <p ng-cloak>{{marker.details}}</p>
-                </ui-gmap-window>
-            </ui-gmap-marker>
-
-		</ui-gmap-google-map>
-	</div>
+    <div ng-app="eBanking" ng-controller="branchController" ng-show="hasToken">
+        <h1 class="page-header">Find your local branch</h1>
+        <div class="findMeDiv">
+            <a ng-click="findMe()" class="button button-icon icon">
+                <em class="fa fa-map-marker barIcon findMe"> Find Me</em>
+            </a>
+        </div>
+        <div class="searching well" ng-show="searching">
+            <i class="fa fa-spinner fa-spin"></i>
+            <br>
+            Getting your location...
+        </div>
+        <ui-gmap-google-map center='map.center' zoom='map.zoom' ng-show="found">
+        
+        <ui-gmap-marker ng-repeat="marker in map.markers" coords="marker.coords" idkey="marker.id" >
+        <ui-gmap-window isIconVisibleOnClick="true">
+        <p ng-cloak>{{marker.details}}</p>
+        </ui-gmap-window>
+        </ui-gmap-marker>
+        </ui-gmap-google-map>
+    </div>
 </div>
