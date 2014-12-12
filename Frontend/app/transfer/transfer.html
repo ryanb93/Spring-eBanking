@@ -17,7 +17,7 @@
 				<label for="inputFirstName">From Account</label>
 				<select name="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
-						{{account.accountType}} ({{account.accountNumber}}) - Balance: £{{account.balance}}
+						{{account.accountType}} ({{account.accountNumber}}) - Balance: {{account.balance | currency : "£" : 2}}
 					</option>
 				</select>
 			</div>
@@ -29,7 +29,7 @@
 				<label for="inputCountry">To Account</label>
 				<select name="toAccount" class="form-control" ng-model="transfer.recipientAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
-						{{account.accountType}} ({{account.accountNumber}}) - Balance: £{{account.balance}}
+						{{account.accountType}} ({{account.accountNumber}}) - Balance: {{account.balance | currency : "£" : 2}}
 					</option>
 				</select>
 			</div>
@@ -53,7 +53,7 @@
 				<label for="inputFirstName">From Account</label>
 				<select name="fromAccount" class="form-control" ng-model="payment.senderAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
-						{{account.accountType}} ({{account.accountNumber}}) - Balance: £{{account.balance}}
+						{{account.accountType}} ({{account.accountNumber}}) - Balance: {{account.balance | currency : "£" : 2}}
 					</option>
 				</select>
 			</div>
