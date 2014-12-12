@@ -55,7 +55,67 @@
   <div id="wrap">
     <div class="container">
       <div>
-        <h1 class="page-header">eBanking Frontend</h1>
+        <h1 class="page-header">eBanking Frontend <a id="help" class="fa fa-question-circle help" data-toggle="modal" data-target="#myModal"></a></h1>
+        
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Help!</h4>
+      </div>
+      <div class="modal-body">
+
+        <div role="tabpanel">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Logging In</a></li>
+            <li role="presentation"><a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">Accounts</a></li>
+            <li role="presentation"><a href="#transfer" aria-controls="transfer" role="tab" data-toggle="tab">Transfers</a></li>
+            <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
+            <li role="presentation"><a href="#branch" aria-controls="branch" role="tab" data-toggle="tab">Branch Locator</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="login">
+              <p>
+                Log in by clicking the 'Authorise with Bank' button. This will take you to the backend service and ask you to log
+                in with a set of valid User details. By default you can use "test@test.com" with password "test". <br><br>
+                You will then be automatically be taken back to this service. Behind the scenes what has really happened is that
+                on a successful login, an authentication token has been generated and returned back to this application, which it can
+                then use for all future connectinos to the service.
+              </p>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="accounts">
+              <p>
+
+              </p>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="transfer">
+              
+            </div>
+            <div role="tabpanel" class="tab-pane" id="details">
+              
+            </div>
+            <div role="tabpanel" class="tab-pane" id="branch">
+                This page 
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
         <oauth class="signIn"
           site="https://localhost:8080"
           client-id="353b302c44574f565045687e534e7d6a"
