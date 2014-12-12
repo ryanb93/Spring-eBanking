@@ -5,6 +5,7 @@ angular.module('eBanking', [
 	'ngRoute',
   'oauth',
   'ngStorage',
+  'uiGmapgoogle-maps',
   'eBanking.accountControllers',
   'eBanking.detailsControllers',
   'eBanking.transferControllers',

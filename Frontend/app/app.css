@@ -372,10 +372,29 @@ ul.nav a:hover {
   }
 }
 
+.searching {
+  width: 300px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.findMe {
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+
+.findMeDiv {
+  text-align: center;
+  cursor: pointer;
+}
+
 .barIcon {
     margin-right: 7px;
 }
-
+.angular-google-map-container { height: 400px; }
 .fa {
   display: inline-block;
   font-family: FontAwesome;
