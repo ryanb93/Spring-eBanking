@@ -1,7 +1,7 @@
 <div ng-app"eBanking" ng-controller="detailsController" ng-show="hasToken">
 	<h1 class="page-header">Customer Details</h1>
 	
-		<form role="form" ng-submit="processForm()" >
+		<form role="form" ng-submit="processForm()" class="paddedForm">
 		<div id="first-name-group" class="form-group">
 			<label for="inputFirstName">First Name</label>
 			<input type="text" class="form-control" id="inputFirstName" placeholder="Enter First Name" ng-model="details.firstName" ng-bind="details.firstName" required>
@@ -42,7 +42,7 @@
 			<input type="text" class="form-control" id="inputCountry" placeholder="Enter Country" ng-model="details.address.country" ng-bind="details.address.country" required>
 			<span class="help-block"></span>
 		</div>
-		<button type="submit" class="btn btn-success btn-lg btn-block">
+		<button type="submit" class="btn btn-success btn-lg btn-block paddedButton">
 		Submit!
 		</button>
 	</form>

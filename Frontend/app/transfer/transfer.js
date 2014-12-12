@@ -39,7 +39,9 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.transfer.success.message = "£" + result.value + "  has been sent from " + result.senderAccountNumber + " to " + result.recipientAccountNumber; 
 
                 eBankingAPIservice.getAccounts().query(function(ids) {
-                    $scope.accountsList = ids;
+                   for (var i = 0; i < ids.length; i++) {
+                        $scope.accountsList[i].balance = ids[i].balance;
+                    };
                 });
             }, 
             function(data, status, headers, config) {
@@ -60,7 +62,11 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.payment.success.message = "£" + result.value + "  has been sent from " + result.senderAccountNumber + " to " + result.recipientAccountNumber; 
 
                 eBankingAPIservice.getAccounts().query(function(ids) {
-                    $scope.accountsList = ids;
+                    
+                    for (var i = 0; i < ids.length; i++) {
+                        $scope.accountsList[i].balance = ids[i].balance;
+                    };
+
                 });
             }, 
             function(data, status, headers, config) {

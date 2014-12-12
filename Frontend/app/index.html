@@ -55,77 +55,72 @@
   <div id="wrap">
     <div class="container">
       <div>
-        <h1 class="page-header">eBanking Frontend <a id="help" class="fa fa-question-circle help" data-toggle="modal" data-target="#myModal"></a></h1>
-        
+        <h1 class="page-header">
+          eBanking Frontend
+          <a id="help" class="fa fa-question-circle help" data-toggle="modal" data-target="#myModal"></a>
+        </h1>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Help!</h4>
+              </div>
+              <div class="modal-body">
+                <div role="tabpanel">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Logging In</a></li>
+                    <li role="presentation"><a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">Accounts</a></li>
+                    <li role="presentation"><a href="#transfer" aria-controls="transfer" role="tab" data-toggle="tab">Transfers</a></li>
+                    <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
+                    <li role="presentation"><a href="#branch" aria-controls="branch" role="tab" data-toggle="tab">Branch Locator</a></li>
+                  </ul>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Help!</h4>
-      </div>
-      <div class="modal-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="login">
+                      <p>
+                        Log in by clicking the 'Authorise with Bank' button. This will take you to the backend service and ask you to log
+                        in with a set of valid User details. By default you can use "test@test.com" with password "test". <br><br>
+                        You will then be automatically taken back to this service. Behind the scenes what has really happened is that
+                        on a successful login, an authentication token has been generated on the backend and returned to this application, 
+                        which it can then use for all future connections to the backend service.
+                      </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="accounts">
+                      <p>
+                        After you have logged in you will be shown an overview of your accounts. Click on one of the accounts will take you to a page where you can see more details about the account including a list of most recent transactions on a timeline. If you have more than 10 transactions you can load the next 10 by pressing the circular button with the + inside it.
+                      </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="transfer">
+                      <p>
+                        The transfer page has two functions, moving money between two personal accounts owned by the current customer and then being able to send money out of an account to an external person using their sort code and account number.
+                        <br><br>
+                        Creating a transfer between accounts will create two new transaction objects on the backend, one for each account and the new account balances will be calculated and automatically shown.
+                        <br><br>
+                        Creating a payment create a single transaction object if the recipient account number does not exist in our system. If it does exist then we create two transaction objects as normal. This allows us to send moeny to accounts not owned by the customer but existing on the system.
+                      </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="details">
+                      <p>
+                        Here you can see the details linked to the current customer. Modifying these values and pressing the submit button will update the customer record on the server.
+                      </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="branch">
+                      <p>
+                        This page lets you find the nearest bank branches near your current location. Just click the "Find Me" button and your browser should prompt you to allow this website to access your current location. Accept this and the map will load and find you. The pins on the map show nearby eBanking Branches, this data is just spoofed to show that we can interface with the third-party API.
+                      </p>
+                    </div>
+                  </div>
 
-        <div role="tabpanel">
-
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Logging In</a></li>
-            <li role="presentation"><a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">Accounts</a></li>
-            <li role="presentation"><a href="#transfer" aria-controls="transfer" role="tab" data-toggle="tab">Transfers</a></li>
-            <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
-            <li role="presentation"><a href="#branch" aria-controls="branch" role="tab" data-toggle="tab">Branch Locator</a></li>
-          </ul>
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="login">
-              <p>
-                Log in by clicking the 'Authorise with Bank' button. This will take you to the backend service and ask you to log
-                in with a set of valid User details. By default you can use "test@test.com" with password "test". <br><br>
-                You will then be automatically taken back to this service. Behind the scenes what has really happened is that
-                on a successful login, an authentication token has been generated on the backend and returned to this application, 
-                which it can then use for all future connections to the backend service.
-              </p>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="accounts">
-              <p>
-                After you have logged in you will be shown an overview of your accounts. Click on one of the accounts will take you to a page where you can see more details about the account including a list of most recent transactions on a timeline. If you have more than 10 transactions you can load the next 10 by pressing the circular button with the + inside it.
-              </p>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="transfer">
-              <p>
-                The transfer page has two functions, moving money between two personal accounts owned by the current customer and then being able to send money out of an account to an external person using their sort code and account number.
-                <br><br>
-                Creating a transfer between accounts will create two new transaction objects on the backend, one for each account and the new account balances will be calculated and automatically shown.
-                <br><br>
-                Creating a payment create a single transaction object if the recipient account number does not exist in our system. If it does exist then we create two transaction objects as normal. This allows us to send moeny to accounts not owned by the customer but existing on the system.
-              </p>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="details">
-              <p>
-                Here you can see the details linked to the current customer. Modifying these values and pressing the submit button will update the customer record on the server.
-              </p>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="branch">
-              <p>
-                This page lets you find the nearest bank branches near your current location. Just click the "Find Me" button and your browser should prompt you to allow this website to access your current location. Accept this and the map will load and find you. The pins on the map show nearby eBanking Branches, this data is just spoofed to show that we can interface with the third-party API.
-              </p>
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
-
-
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
+        <!-- Authentication button -->
         <oauth class="signIn"
           site="https://localhost:8080"
           client-id="353b302c44574f565045687e534e7d6a"
@@ -144,9 +139,9 @@
 
   <footer class="footer">
       <div class="container">
-        <center>
-          <img class="scale" src="components/ssl.png" alt="SSL logo">
-        </center>
+          <p>Created by Ryan Burke, Jorden Whitefield and Ben Fletcher</p>
+          <p>Powered by AngularJS, Bootstrap, jQuery, oauth-ng</p>
+          <img class="ssl" src="components/ssl.png" alt="SSL logo">
       </div>
   </footer>
 

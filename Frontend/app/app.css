@@ -47,6 +47,19 @@ body {
   line-height: 200px;
   color: white;
 }
+
+.paddedButton {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+
+.paddedForm {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
 .bt0 {
   border-top-width: 0 !important;
 }
@@ -174,6 +187,8 @@ ul.nav a:hover {
   filter: none;
 }
 .navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+
   position: relative;
   min-height: 55px;
   margin-bottom: 21px;
@@ -275,7 +290,9 @@ ul.nav a:hover {
   display: block;
   margin: 0;
   width: 100%;
-  max-width: none
+  max-width: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2) !important;
+
 }
 .timeline>li>.timeline-panel .popover .arrow {
   display: none
@@ -310,7 +327,9 @@ ul.nav a:hover {
   text-align: center;
   color: #fff;
   background-color: #999;
-  z-index: 100
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+
 }
 .timeline>li>.timeline-badge.primary {
   background-color: #5d9cec
@@ -372,12 +391,17 @@ ul.nav a:hover {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ssl {
+  height: 40px;
+}
+
 .signIn {
   width:100%;
   height: 100%;
 }
 
 .signIn span {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
   color: #fff;
   background-color: #428bca;
   border-color: #357ebd;
@@ -399,7 +423,6 @@ ul.nav a:hover {
 }
 
 .signIn span:hover {
-  color: #fff;
   background-color: #3071a9;
   border-color: #285e8e;
 }
@@ -408,9 +431,21 @@ ul.nav a:hover {
   text-decoration: none !important;
 }
 
+.row {
+    display: table;
+}
+
+[class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+
 .container {
   background-color: white;
   padding-bottom: 25px;
+  margin-top: 25px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 .footer {
@@ -422,6 +457,8 @@ ul.nav a:hover {
 
 .footer > .container {
   background-color: transparent !important;
+  box-shadow: none;
+  text-align: center;
 }
 
 @media only screen and (max-width : 767px) {
@@ -429,6 +466,11 @@ ul.nav a:hover {
   .navbar-header {
     width: 100% !important;
     text-align: center !important;
+  }
+
+  .paddedForm {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 
 }

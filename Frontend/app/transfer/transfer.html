@@ -1,18 +1,17 @@
 <div>
 	<div ng-app="eBanking" ng-controller="transferController" ng-show="hasToken">
-		<h1 class="page-header">Transfer between your accounts</h1>
-		
+		<h2 class="page-header">Transfer between your accounts</h2>
 		<div id="messages">
 			<div ng-hide="!messages.transfer.err.err" class="alert alert-danger" role="alert">
-                {{messages.transfer.err.stat}}<br>
-                {{messages.transfer.err.message}}               
-        	</div>
+				{{messages.transfer.err.stat}}<br>
+				{{messages.transfer.err.message}}
+			</div>
 			<div ng-hide="!messages.transfer.success.success" class="alert alert-success" role="alert">
-                {{messages.transfer.success.title}}               
-                {{messages.transfer.success.message}}               
-        	</div>
+				{{messages.transfer.success.title}}
+				{{messages.transfer.success.message}}
+			</div>
 		</div>
-		<form role="form" ng-submit="processTransfer()" >
+		<form role="form" ng-submit="processTransfer()" class="paddedForm">
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
 				<select name="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
@@ -33,22 +32,21 @@
 					</option>
 				</select>
 			</div>
-			<button type="submit" class="btn btn-success btn-lg btn-block">Transfer</button>
+			<button type="submit" class="btn btn-success btn-lg btn-block paddedButton">Transfer</button>
 		</form>
-		<hr>
-		<h1 class="page-header">Make a payment</h1>
-		
+
+		<h2 class="page-header">Make a payment</h2>		
 		<div id="messages">
 			<div ng-hide="!messages.payment.err.err" class="alert alert-danger" role="alert">
-                {{messages.payment.err.stat}}<br>
-                {{messages.payment.err.message}}               
-        	</div>
+				{{messages.payment.err.stat}}<br>
+				{{messages.payment.err.message}}
+			</div>
 			<div ng-hide="!messages.payment.success.success" class="alert alert-success" role="alert">
-                {{messages.payment.success.title}}               
-                {{messages.payment.success.message}}               
-        	</div>
+				{{messages.payment.success.title}}
+				{{messages.payment.success.message}}
+			</div>
 		</div>
-		<form role="form" ng-submit="processPayment()" >
+		<form role="form" ng-submit="processPayment()" class="paddedForm">
 			<div id="first-name-group" class="form-group">
 				<label for="inputFirstName">From Account</label>
 				<select name="fromAccount" class="form-control" ng-model="payment.senderAccountNumber">
@@ -69,7 +67,7 @@
 				<input type="text" class="form-control" id="inputCountry" placeholder="Enter Sort Code" ng-model="payment.recipientSortCode" required>
 				<span class="help-block"></span>
 			</div>
-			<button type="submit" class="btn btn-success btn-lg btn-block">Make Payment</button>
+			<button type="submit" class="btn btn-success btn-lg btn-block paddedButton">Make Payment</button>
 		</form>
 	</div>
 </div>
