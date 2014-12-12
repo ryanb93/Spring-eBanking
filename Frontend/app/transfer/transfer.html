@@ -4,12 +4,11 @@
 		
 		<div id="messages">
 			<div ng-hide="!messages.transfer.err.err" class="alert alert-danger" role="alert">
-                {{messages.transfer.err.stat}}<br>
-                {{messages.transfer.err.message}}               
+                The Transfer was not successful. <br/>
+                Something went wrong... do you have enough funds?              
         	</div>
 			<div ng-hide="!messages.transfer.success.success" class="alert alert-success" role="alert">
-                {{messages.transfer.success.title}}               
-                {{messages.transfer.success.message}}               
+                The Transfer was successful!                
         	</div>
 		</div>
 		<form role="form" ng-submit="processTransfer()" >
