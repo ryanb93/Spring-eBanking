@@ -1,4 +1,4 @@
-<div ng-app"eBanking" ng-controller="singleAccountController" ng-show="hasToken">
+<div ng-app="eBanking" ng-controller="singleAccountController" ng-show="hasToken">
 	<h1 class="page-header"><a href="#/">Accounts</a>  <em class="fa fa-angle-right"></em> {{account.accountType | capitalize}} Account</h1>
 	<div class="row">
 		<div class="col-lg-4 col-md-4 col-sm-5 col-xs-8 col-centered">
@@ -30,7 +30,7 @@
 				<em class="fa {{getIcon(transaction.transactionType)}}"></em>
 			</div>
 			<div class="timeline-date">
-				<time datetime="{{transaction.date | date:'medium'}}"></time>
+				<p>{{transaction.date | date:'medium'}}</p>
 			</div>
 			<div class="timeline-panel">
 				<div ng-class-odd="'popover left'" ng-class-even="'popover right'">
