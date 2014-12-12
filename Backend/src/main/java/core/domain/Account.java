@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  * A class which encapsulates data for a bank account.
@@ -132,7 +133,7 @@ public class Account {
         if (!matcher.matches()) {
             throw new IllegalArgumentException("This account number does not match the expected input of 8 digits.");
         }
-        this.accountNumber = accountNumber;
+        this.accountNumber = HtmlUtils.htmlEscape(accountNumber);
     }
 
     /**
@@ -141,7 +142,7 @@ public class Account {
      * @param customerId - The customer who owns the account.
      */
     public final void setCustomerId(String customerId) {
-        this.customerId = customerId;
+        this.customerId = HtmlUtils.htmlEscape(customerId);
     }
 
     /**
@@ -156,7 +157,7 @@ public class Account {
         if (!matcher.matches()) {
             throw new IllegalArgumentException("This sort code does not match the expected input of 6 digits.");
         }
-        this.sortCode = sortCode;
+        this.sortCode = HtmlUtils.htmlEscape(sortCode);
     }
 
     /**

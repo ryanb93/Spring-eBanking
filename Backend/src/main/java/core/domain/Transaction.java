@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  * A class which encapsulates data for a Transaction.
@@ -87,7 +88,7 @@ public final class Transaction {
      * @param accountNumber - The account number of the transaction.
      */
     public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+        this.accountNumber = HtmlUtils.htmlEscape(accountNumber);
     }
 
     /**
@@ -130,7 +131,7 @@ public final class Transaction {
      * @param senderSortCode - The sender sort code.
      */
     public void setSenderSortCode(String senderSortCode) {
-        this.senderSortCode = senderSortCode;
+        this.senderSortCode = HtmlUtils.htmlEscape(senderSortCode);
     }
 
     /**
@@ -139,7 +140,7 @@ public final class Transaction {
      * @param senderAccountNumber - the sender account number.
      */
     public void setSenderAccountNumber(String senderAccountNumber) {
-        this.senderAccountNumber = senderAccountNumber;
+        this.senderAccountNumber = HtmlUtils.htmlEscape(senderAccountNumber);
     }
 
     /**
@@ -148,7 +149,7 @@ public final class Transaction {
      * @param recipientSortCode - the recipient sort code.
      */
     public void setRecipientSortCode(String recipientSortCode) {
-        this.recipientSortCode = recipientSortCode;
+        this.recipientSortCode = HtmlUtils.htmlEscape(recipientSortCode);
     }
 
     /**
@@ -157,7 +158,7 @@ public final class Transaction {
      * @param recipientAccountNumber - the recipient account number.
      */
     public void setRecipientAccountNumber(String recipientAccountNumber) {
-        this.recipientAccountNumber = recipientAccountNumber;
+        this.recipientAccountNumber = HtmlUtils.htmlEscape(recipientAccountNumber);
     }
 
     /**

@@ -1,9 +1,9 @@
 package core.domain;
 
-import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  * A class which encapsulates data for a Customer.
@@ -66,7 +66,7 @@ public class Customer {
         if (firstName == null || firstName.equals("")) {
             throw new IllegalArgumentException("First name can not be empty.");
         }
-        this.firstName = firstName;
+        this.firstName = HtmlUtils.htmlEscape(firstName);
     }
 
     /**
@@ -78,7 +78,7 @@ public class Customer {
         if (lastName == null || lastName.equals("")) {
             throw new IllegalArgumentException("Last name can not be empty.");
         }
-        this.lastName = lastName;
+        this.lastName = HtmlUtils.htmlEscape(lastName);
     }
 
     /**
@@ -99,7 +99,7 @@ public class Customer {
      * @param apiUserId - The ID of the API user.
      */
     public final void setApiUserId(String apiUserId) {
-        this.apiUserId = apiUserId;
+        this.apiUserId = HtmlUtils.htmlEscape(apiUserId);
     }
 
     /**

@@ -1,5 +1,7 @@
 package core.domain;
 
+import org.springframework.web.util.HtmlUtils;
+
 /**
  * A class that stores all the necessary data for an address.
  */
@@ -48,7 +50,7 @@ public class PostalAddress {
      * @param houseNumber - the house number
      */
     public final void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
+        this.houseNumber = HtmlUtils.htmlEscape(houseNumber);
     }
 
     /**
@@ -57,7 +59,7 @@ public class PostalAddress {
      * @param street - the street
      */
     public final void setStreet(String street) {
-        this.street = street;
+        this.street = HtmlUtils.htmlEscape(street);
     }
 
     /**
@@ -66,7 +68,7 @@ public class PostalAddress {
      * @param city - the city
      */
     public final void setCity(String city) {
-        this.city = city;
+        this.city = HtmlUtils.htmlEscape(city);
     }
 
     /**
@@ -75,7 +77,7 @@ public class PostalAddress {
      * @param county - the county
      */
     public final void setCounty(String county) {
-        this.county = county;
+        this.county = HtmlUtils.htmlEscape(county);
     }
 
     /**
@@ -84,7 +86,7 @@ public class PostalAddress {
      * @param country - the country
      */
     public final void setCountry(String country) {
-        this.country = country;
+        this.country = HtmlUtils.htmlEscape(country);
     }
 
     /**
@@ -93,7 +95,7 @@ public class PostalAddress {
      * @param postalCode - the postal code
      */
     public final void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+        this.postalCode = HtmlUtils.htmlEscape(postalCode);
     }
 
     /**
