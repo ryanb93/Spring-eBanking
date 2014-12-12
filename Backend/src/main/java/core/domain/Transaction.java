@@ -1,5 +1,6 @@
 package core.domain;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
@@ -95,7 +96,11 @@ public final class Transaction {
      * @param value - The value of the transaction.
      */
     public void setValue(double value) {
-        this.value = value;
+        //Limit the value to two decimal places.
+        DecimalFormat df = new DecimalFormat("#.00");
+        String dfValue = df.format(value);
+        double dfDouble = Double.parseDouble(dfValue);
+        this.value = dfDouble;
     }
 
     /**
