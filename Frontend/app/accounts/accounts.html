@@ -1,32 +1,28 @@
 <div ng-app="eBanking" ng-controller="accountsController" ng-show="hasToken">
-  <h1 class="page-header">Accounts</h1>
-
-  <div class="row">
-	<div ng-repeat="account in accountsList" class="col-lg-4 col-md-6">
-      <!-- START panel-->
-      <div class="panel panel-primary">
-         <div class="panel-heading">
-            <div class="row">
-               <div class="col-xs-4 panel-icon">
-                  <em class="fa fa-university fa-5x"></em>
-               </div>
-               <div class="col-xs-8 text-right">
-                  <p class="m0">Account Number: {{account.accountNumber}}</p>
-                  <div class="text-lg">{{account.balance | currency : "£" : 2}}</div>
+   <h1 class="page-header">Accounts</h1>
+   <div class="row">
+      <div ng-repeat="account in accountsList" class="col-lg-4 col-md-6">
+         <!-- START panel-->
+         <div class="panel panel-primary">
+            <div class="panel-heading">
+               <div class="row">
+                  <div class="col-xs-4 panel-icon">
+                     <em class="fa fa-university fa-5x"></em>
+                  </div>
+                  <div class="col-xs-8 text-right">
+                     <p class="m0">Account Number: {{account.accountNumber}}</p>
+                     <div class="text-lg">{{account.balance | currency : "£" : 2}}</div>
+                  </div>
                </div>
             </div>
-         </div>
-         <a href="#/accounts/{{account.accountNumber}}" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
-            <span class="pull-left">View Details</span>
-            <span class="pull-right">
+            <a href="#/accounts/{{account.accountNumber}}" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
+               <span class="pull-left">View Details</span>
+               <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
-            </span>
-         </a>
-         <!-- END panel-->
+               </span>
+            </a>
+            <!-- END panel-->
+         </div>
       </div>
    </div>
-
-
-   </div>
-
 </div>

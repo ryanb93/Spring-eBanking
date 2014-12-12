@@ -21,9 +21,7 @@
 			</div>
 		</div>
 	</div>
-	<h2 class="ng-scope">Timeline</h2>
-	<hr>
-
+	<h2 class="page-header ng-scope">Timeline</h2>
 	<ul class="timeline">
 		<li data-datetime="Now" class="timeline-separator"></li>
 		
@@ -42,18 +40,16 @@
 					<p ng-if="account.accountNumber == transaction.senderAccountNumber">Sent to Account: {{transaction.recipientAccountNumber}}</a>
 					<br>
 					</p>
-					<p ng-if="account.accountNumber == transaction.recipientAccountNumber">Recieved from Account: {{transaction.senderAccountNumber}}</a>
-					<br>
-					</p>
-
-				</div>
+				<p ng-if="account.accountNumber == transaction.recipientAccountNumber">Recieved from Account: {{transaction.senderAccountNumber}}</a>
+				<br>
+				</p>
 			</div>
 		</li>
 		<li data-datetime="Older Payments" class="timeline-separator wide" ng-show="!finished"></li>
 		<li>
 			<a href="" class="timeline-badge" ng-show="loading">
 				<em class="fa fa-circle-o-notch fa-spin"></em>
-			</a>				
+			</a>
 			<a href="" ng-click="loadNext()" class="timeline-badge" ng-show="!loading; !finished">
 				<em class="fa fa-plus"></em>
 			</a>

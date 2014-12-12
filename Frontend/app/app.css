@@ -241,7 +241,8 @@ ul.nav a:hover {
 .timeline {
   list-style: none;
   padding: 0 0 0px;
-  position: relative
+  position: relative;
+  padding-bottom: 20px;
 }
 .timeline:before {
   top: 0;
@@ -431,16 +432,6 @@ ul.nav a:hover {
   text-decoration: none !important;
 }
 
-.row {
-    display: table;
-}
-
-[class*="col-"] {
-    float: none;
-    display: table-cell;
-    vertical-align: top;
-}
-
 .container {
   background-color: white;
   padding-bottom: 25px;
@@ -479,18 +470,13 @@ ul.nav a:hover {
 @media only screen and (min-width:992px) {
   .timeline:before {
     left: 50%;
-    margin-left: 25px
   }
   .timeline>li.timeline-separator {
-    margin-left: 25px;
     text-align: center
-  }
-  .timeline>li.timeline-separator:before {
-    margin-left: 25px
   }
   .timeline>li>.timeline-badge {
     left: 50%;
-    margin-left: 0
+    margin-left: -24px;
   }
   .timeline>li>.timeline-date {
     float: none;
@@ -504,7 +490,7 @@ ul.nav a:hover {
   .timeline>li>.timeline-panel {
     float: left;
     margin: 0;
-    width: 48%
+    width: 46%%
   }
   .timeline>li>.timeline-panel:before {
     border-left-width: 15px;
@@ -526,13 +512,12 @@ ul.nav a:hover {
   }
   .timeline>li.timeline-inverted>.timeline-panel {
     float: right;
-    padding-left: 50px
   }
   .timeline>li.timeline-inverted .timeline-date {
     left: auto;
     right: 50%;
     width: auto;
     margin-left: 0;
-    margin-right: 50px
+    margin-right: 47px
   }
 }
