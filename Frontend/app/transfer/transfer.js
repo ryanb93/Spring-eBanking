@@ -36,7 +36,7 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.transfer.success.success = true;
                 $scope.messages.transfer.err.err = false;
                 $scope.messages.transfer.success.title = "Transfer Successful";
-                $scope.messages.transfer.success.message = "£" + result.value + "  has been sent to " + result.recipientAccountNumber + " from " + result.senderAccountNumber; 
+                $scope.messages.transfer.success.message = "£" + result.value + "  has been sent from " + result.senderAccountNumber + " to " + result.recipientAccountNumber; 
 
                 eBankingAPIservice.getAccounts().query(function(ids) {
                     $scope.accountsList = ids;
@@ -45,8 +45,8 @@ angular.module('eBanking.transferControllers', [])
             function(data, status, headers, config) {
                 $scope.messages.transfer.err.err = true;
                 $scope.messages.transfer.success.success = false;
-                $scope.messages.transfer.err.stat = data.status;
-                $scope.messages.transfer.err.message = data.statusText;
+                $scope.messages.transfer.err.stat = "Transfer Failed";
+                $scope.messages.transfer.err.message = "Do you have enough funds?";
             });
 
         };
@@ -57,7 +57,7 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.payment.success.success = true;
                 $scope.messages.payment.err.err = false;
                 $scope.messages.payment.success.title = "Transfer Successful";
-                $scope.messages.payment.success.message = "£" + result.value + "  has been sent to " + result.recipientAccountNumber + " from " + result.senderAccountNumber; 
+                $scope.messages.payment.success.message = "£" + result.value + "  has been sent from " + result.senderAccountNumber + " to " + result.recipientAccountNumber; 
 
                 eBankingAPIservice.getAccounts().query(function(ids) {
                     $scope.accountsList = ids;
@@ -66,8 +66,8 @@ angular.module('eBanking.transferControllers', [])
             function(data, status, headers, config) {
                 $scope.messages.payment.err.err = true;
                 $scope.messages.payment.success.success = false;
-                $scope.messages.payment.err.stat = data.status;
-                $scope.messages.payment.err.message = data.statusText;
+                $scope.messages.payment.err.stat = "Transfer Failed";
+                $scope.messages.payment.err.message = "Do you have enough funds?;
             });
 
         };
