@@ -18,11 +18,11 @@ import web.services.UserService;
 @Configuration
 public class UserConfiguration {
     
-    /** */
+    /** A reference to the user repository. */
     @Autowired
     private UserRepositoryInterface userRepository;
     
-    /** */
+    /** A reference to the password encoder */
     @Autowired
     private PasswordEncoder passwordEncoder;
     

@@ -8,8 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * 
- * 
+ * This class sets up our MVC config to correctly render JSPs.
  */
 @Configuration
 @EnableWebMvc
@@ -26,12 +25,11 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-
         // Sets resources to come from WEB-INF
         resolver.setPrefix("/WEB-INF/views/");
         // Sets all files in view with JSP
         resolver.setSuffix(".jsp");
         return resolver;
     }
-
+   
 }
