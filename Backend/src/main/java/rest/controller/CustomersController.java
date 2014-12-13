@@ -62,7 +62,7 @@ public class CustomersController {
                 customer = customerService.requestCustomerDetails(customerId);
             }
         } else {
-            status = HttpStatus.UNAUTHORIZED;
+            status = HttpStatus.FORBIDDEN;
         }
 
         return new ResponseEntity(customer, headers, status);
@@ -98,7 +98,7 @@ public class CustomersController {
                     status = HttpStatus.CREATED;
             }
         } else {
-            status = HttpStatus.UNAUTHORIZED;
+            status = HttpStatus.FORBIDDEN;
         }
 
         return new ResponseEntity(newCustomer, headers, status);

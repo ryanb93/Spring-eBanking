@@ -70,7 +70,7 @@ public class AccountsController {
                 accounts = accountService.requestAllAccounts(customerId);
             }
         } else {
-            status = HttpStatus.UNAUTHORIZED;
+            status = HttpStatus.FORBIDDEN;
         }
         return new ResponseEntity(accounts, headers, status);
 
@@ -106,7 +106,7 @@ public class AccountsController {
                 }
             }
         } else {
-            status = HttpStatus.UNAUTHORIZED;
+            status = HttpStatus.FORBIDDEN;
         }
 
         return new ResponseEntity(account, headers, status);
