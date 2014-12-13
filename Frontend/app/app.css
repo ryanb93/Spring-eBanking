@@ -17,6 +17,7 @@ li > a {
 
 .nav-tabs {
   margin-right: 3px;
+  background-color: gray;
 }
 
 .tab-content {
