@@ -22,6 +22,7 @@ public class Routes {
 
     /* Web Portal Routes */
     public static final String LOGIN = "/login";
+    public static final String ERROR = "/error";
 
     /* Admin Panel Routes */
     public static final String ADMIN_PANEL = "/adminPanel";
