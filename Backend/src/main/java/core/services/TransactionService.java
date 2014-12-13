@@ -3,6 +3,7 @@ package core.services;
 import core.domain.Account;
 import core.domain.Transaction;
 import core.domain.TransactionType;
+import core.exceptions.InsufficientFundsException;
 import core.repository.interfaces.TransactionRepository;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
@@ -82,10 +83,12 @@ public class TransactionService implements TransactionServiceInterface {
      *
      * @param transaction - The transaction we want to save.
      * @return Transaction the newly saved Transaction
+     * @throws core.exceptions.InsufficientFundsException
      */
     @Override
-    public Transaction requestNewTransaction(Transaction transaction) {
+    public Transaction requestNewTransaction(Transaction transaction) throws InsufficientFundsException {
 
+        //Get the account numbers for both the sender and recipient.
         String senderAccountNumber = transaction.getSenderAccountNumber();
         String recipientAccountNumber = transaction.getRecipientAccountNumber();
         
@@ -93,37 +96,53 @@ public class TransactionService implements TransactionServiceInterface {
         Account senderAccount = accountService.requestAccountDetailsFromNumber(senderAccountNumber);
         Account recipientAccount = accountService.requestAccountDetailsFromNumber(recipientAccountNumber);
         
-        // If the senderAccount is not null, update the senderAccount balance and assign it a transaction
+        //If the senderAccount is not null.
         if (senderAccount != null) {
 
-            //If the sender doesn't have enough money.
-            if(senderAccount.getBalance() < transaction.getValue()) {
+            //Insufficient funds check.
+            if(transaction.getValue() > senderAccount.getBalance()) {
+                throw new InsufficientFundsException("Insufficient funds in this account.");
+            }
+            
+            //Set the transaction account owner to this account.
+            transaction.setAccountNumber(senderAccount.getAccountNumber());
+            //If a transaction type has not been sent assume it is a BACS.
+            if (transaction.getTransactionType() == null) {
+                transaction.setTransactionType(TransactionType.BACS);
+            }
+            
+            //Attempt to save the transaction in the repository.
+            Transaction saved = transactionRepository.save(transaction);
+            
+            //If the transaction was successfully saved.
+            if(saved != null) {
+                accountService.requestUpdateAccountBalance(senderAccountNumber, -transaction.getValue());
+            }
+            else {
                 return null;
             }
             
-            accountService.requestUpdateAccountBalance(senderAccountNumber, -transaction.getValue());
-            transaction.setAccountNumber(senderAccount.getAccountNumber());
-            if (recipientAccount != null) {
-                if (transaction.getTransactionType() == null) {
-                    transaction.setTransactionType(TransactionType.BACS);
-                }
-            }
-            transactionRepository.save(transaction);
         }
-        // If the recipientAccount is not null, update the recipientAccount balance and assign it a transaction
-        if (recipientAccount != null) {
-            accountService.requestUpdateAccountBalance(recipientAccountNumber, transaction.getValue());
 
+        //If the recipient is in our system.
+        if (recipientAccount != null) {
+            //Make a copy of the transaction.
             Transaction recipientTransaction = transaction;
+            //Clear the transaction ID.
+            recipientTransaction.clearTransactionId();
+            //If there is no transaction type set it to BACS.
             if (recipientTransaction.getTransactionType() == null) {
                 recipientTransaction.setTransactionType(TransactionType.BACS);
             }
-            recipientTransaction.clearTransactionId();
+            //Set the account number to this account.
             recipientTransaction.setAccountNumber(recipientAccount.getAccountNumber());
-            if (senderAccount != null) {
-                recipientTransaction.setTransactionType(TransactionType.BACS);
+            //Save the transaction into the repository.
+            Transaction saved = transactionRepository.save(recipientTransaction);
+            //If the transaction was saved successfully.
+            if(saved != null) {
+                //Update the account with the new balance.
+                accountService.requestUpdateAccountBalance(recipientAccountNumber, transaction.getValue());
             }
-            transactionRepository.save(recipientTransaction);
         }
         return transactionRepository.findOne(transaction.getTransactionId());
 

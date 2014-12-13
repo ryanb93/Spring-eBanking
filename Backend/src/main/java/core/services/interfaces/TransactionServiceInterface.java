@@ -1,6 +1,7 @@
 package core.services.interfaces;
 
 import core.domain.Transaction;
+import core.exceptions.InsufficientFundsException;
 import java.util.List;
 
 /**
@@ -25,8 +26,9 @@ public interface TransactionServiceInterface {
      *
      * @param transaction - The transaction we want to save.
      * @return Transaction the newly saved Transaction
+     * @throws core.exceptions.InsufficientFundsException
      */
-    public Transaction requestNewTransaction(Transaction transaction);
+    public Transaction requestNewTransaction(Transaction transaction) throws InsufficientFundsException;
     
     /**
      * Method to request Transactions owned by a single account.

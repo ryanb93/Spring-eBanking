@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import config.Routes;
 import core.domain.Account;
+import core.exceptions.InsufficientFundsException;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
@@ -97,7 +98,7 @@ public class TransactionsController {
             transactions = transactionService.requestAllTransactions(accountNumber, pageInt);
 
         } else {
-            status = HttpStatus.UNAUTHORIZED;
+            status = HttpStatus.FORBIDDEN;
         }
         //  Return transactions to the user.
         return new ResponseEntity(transactions, headers, status);
@@ -121,31 +122,34 @@ public class TransactionsController {
         HttpStatus status = HttpStatus.CREATED;
         Transaction newTransaction = null;
 
-        //  If this user has permissions to write.
+        //If this user has permissions to write.
         if (AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
-            //  If this user's customer owns the account given.
+            //If this user's customer owns the account given.
             if (authCustomerOwnsAccount(auth, accountNumber)) {
+                //If the transaction value is greater than zero
                 if(transaction.getValue() >= 0)  {
-                //  Set the transaction account ID to the path variable.
-                transaction.setAccountNumber(accountNumber);
-                //  Set the date to current date.
-                transaction.setDate(new Date());
-
-                //  Get the transaction object back from the database.
-                newTransaction = transactionService.requestNewTransaction(transaction);
-                //  Make sure it exists.
-                if (newTransaction == null) {
+                    //Set the transaction account ID to the path variable.
+                    transaction.setAccountNumber(accountNumber);
+                    //Set the date to current date.
+                    transaction.setDate(new Date());
+                    //Add the transaction to the system.
+                    try {
+                        newTransaction = transactionService.requestNewTransaction(transaction);
+                    }
+                    catch(InsufficientFundsException e) {
+                        status = HttpStatus.BAD_REQUEST;
+                    }
+                }
+                else {
                     status = HttpStatus.BAD_REQUEST;
                 }
-            } else {
-                status = HttpStatus.BAD_REQUEST;
             }
-            } else {
-                status = HttpStatus.BAD_REQUEST;
-                        }
-            
-        } else {
-            status = HttpStatus.UNAUTHORIZED;
+            else {
+                status = HttpStatus.FORBIDDEN;
+            }
+        } 
+        else {
+            status = HttpStatus.FORBIDDEN;
         }
 
         return new ResponseEntity(newTransaction, headers, status);
@@ -178,7 +182,7 @@ public class TransactionsController {
             }
 
         } else {
-            status = HttpStatus.UNAUTHORIZED;
+            status = HttpStatus.FORBIDDEN;
         }
 
         return new ResponseEntity(transaction, headers, status);

@@ -6,9 +6,6 @@ import core.domain.Customer;
 import core.domain.PostalAddress;
 import core.domain.Transaction;
 import core.domain.TransactionType;
-import core.repository.interfaces.AccountRepository;
-import core.repository.interfaces.CustomerRepository;
-import core.repository.interfaces.TransactionRepository;
 import core.services.interfaces.CustomerServiceInterface;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
+import core.exceptions.InsufficientFundsException;
 import core.services.AccountService;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
 import web.domain.ApiUser;
-import web.repository.interfaces.UserRepositoryInterface;
 import web.services.interfaces.UserServiceInterface;
 
 /**
@@ -272,33 +269,9 @@ public class AdminController {
         //Set the Transaction Value
         Double transactionValue = Double.parseDouble(value);
         
-        //Set the Transaction Type
-        switch (selectedTransactionType) {
-            case "cash":
-                transaction.setTransactionType(TransactionType.CASH);
-                break;
-            case "creditCard":
-                transaction.setTransactionType(TransactionType.CREDIT_CARD);
-                break;
-            case "debitCard":
-                transaction.setTransactionType(TransactionType.DEBIT_CARD);
-                break;
-            case "directDebit":
-                transaction.setTransactionType(TransactionType.DIRECT_DEBIT);
-                break;
-            case "bacs":
-                transaction.setTransactionType(TransactionType.BACS);
-                break;
-            case "standingOrder":
-                transaction.setTransactionType(TransactionType.STANDING_ORDER);
-                break;
-            case "paypal":
-                transaction.setTransactionType(TransactionType.PAYPAL);
-                break;
-            case "other":
-                transaction.setTransactionType(TransactionType.OTHER);
-                break;
-        }
+        //Set the Transaction type.
+        TransactionType type = TransactionType.fromString(selectedTransactionType);
+        transaction.setTransactionType(type);
         
         // Build new Transaction
         transaction.setRecipientAccountNumber(recipientAccountNumber);
@@ -307,7 +280,12 @@ public class AdminController {
         transaction.setSenderSortCode(senderSortCode);
         transaction.setValue(transactionValue);
         transaction.setAccountNumber(accountNumber);
-        transactionService.requestNewTransaction(transaction);
+        try {
+            transactionService.requestNewTransaction(transaction);
+        }
+        catch(InsufficientFundsException e) {
+            //Do nothing.
+        } 
 
         return new ModelAndView("redirect:/adminPanel");
     }
