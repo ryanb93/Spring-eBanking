@@ -2,6 +2,7 @@ package core.domain;
 
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.util.HtmlUtils;
 
@@ -28,6 +29,7 @@ public class Customer {
     private PostalAddress address;
     
     /** The API User ID linked to the customer */
+    @Indexed(unique = true)
     private String apiUserId;
 
     /**
