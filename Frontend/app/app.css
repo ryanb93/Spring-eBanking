@@ -34,18 +34,98 @@ body {
   text-decoration: none;
 }
 
-.placeholder {
+.ssl {
+  height: 40px;
+}
+
+.signIn {
+  width:100%;
+  height: 100%;
+}
+
+.signIn span {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  max-width: 300px;
+  padding: 15px;
+  margin: 50px auto;
+  cursor: pointer;
+  vertical-align: middle;
+  font-weight: 400;
+  touch-action: manipulation;
+  text-transform: none;
+}
+
+.signIn span:hover {
+  background-color: #3071a9;
+  border-color: #285e8e;
+}
+
+.signIn a:hover {
+  text-decoration: none !important;
+}
+
+.searching {
+  width: 300px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
   text-align: center;
 }
-.amount {
-  display: inline-block;
-  border-radius: 50%;
-  background-color: #2a7dd3;
-  width: 200px;
-  height: 200px;
-  font-size: 36px;
-  line-height: 200px;
-  color: white;
+
+.findMe {
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+
+.findMeDiv {
+  text-align: center;
+  cursor: pointer;
+}
+
+.barIcon {
+    margin-right: 7px;
+}
+
+.container {
+  background-color: white;
+  padding-bottom: 25px;
+  margin-top: 25px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.footer {
+  padding-top: 100px;
+  bottom:0;
+  width:100%;
+  height:60px;   /* Height of the footer */
+}
+
+.footer > .container {
+  background-color: transparent !important;
+  box-shadow: none;
+  text-align: center;
+}
+
+.col-centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+.balancePadding {
+  padding-top: 5px;
 }
 
 .paddedButton {
@@ -60,13 +140,14 @@ body {
   padding-right: 20%;
 }
 
-.bt0 {
+.bt-link {
   border-top-width: 0 !important;
 }
-.bg-primary {
-  background-color: #5d9cec;
-  color: #fff !important;
-}
+
+.angular-google-map-container { height: 400px; }
+
+/* Navbar START*/
+
 .panel-footer {
   padding: 10px 15px;
   background-color: #fafafa;
@@ -74,29 +155,26 @@ body {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.bg-primary-dark {
-  background-color: #2f80e7;
-  color: #fff !important;
-}
+
 .bg-gray-dark {
   background-color: #3a3f51;
   color: #fff !important;
 }
-.pv-lg {
-  padding-top: 15px !important;
-  padding-bottom: 15px !important;
-}
+
 .panel-primary>.panel-heading {
   color: #fff;
   background-color: #5d9cec;
   border-color: #cfdbe2;
 }
+
 .panel-icon {
   padding-top: 10px;
 }
+
 .panel-primary {
   border-color: #cfdbe2;
 }
+
 .panel {
   margin-bottom: 21px;
   background-color: #fff;
@@ -105,36 +183,23 @@ body {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
+
 .text-lg {
   font-size: 42px;
 }
-.row-table {
-  display: table;
-  table-layout: fixed;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
+
 .panel-heading {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
+
 .panel .panel-heading {
   border-bottom: 0;
   font-size: 14px;
 }
-.row-table>[class*=col-] {
-  display: table-cell;
-  float: none;
-  table-layout: fixed;
-  vertical-align: middle;
-}
-.widget {
-  margin-bottom: 20px;
-  border: 0;
-}
+
 .nav-wrapper {
   padding: 0 15px;
   background-color: transparent;
@@ -187,18 +252,17 @@ ul.nav a:hover {
   filter: none;
 }
 .navbar {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 
   position: relative;
   min-height: 55px;
   margin-bottom: 21px;
   border: 1px solid transparent;
 }
+
 .navbar {
   border-radius: 4px;
 }
-
-
 
 .topnavbar {
   -webkit-backface-visibility: hidden;
@@ -220,24 +284,28 @@ ul.nav a:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff23b7e5', endColorstr='#ff51c6ea', GradientType=1);
 }
 
-.layout-fixed .topnavbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+@media only screen and (max-width : 767px) {
+
+  .navbar-header {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .paddedForm {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
 }
 
-.col-centered {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  float: none;
-}
+/*  Navbar END */
 
-.balancePadding {
-  padding-top: 5px;
-}
-
+/**
+  * DW Timeline. 
+  * All CSS in this section was used from the following source:
+  * URL: http://www.designwall.com/wordpress/themes/dw-timeline/;
+  * Accessed: 13/12/2014 13:23;
+  */
 .timeline {
   list-style: none;
   padding: 0 0 0px;
@@ -347,10 +415,6 @@ ul.nav a:hover {
 .timeline>li>.timeline-badge.info {
   background-color: #23b7e5
 }
-.timeline-title {
-  margin-top: 0;
-  color: inherit
-}
 .timeline-body>p,
 .timeline-body>ul {
   margin-bottom: 0
@@ -358,114 +422,6 @@ ul.nav a:hover {
 .timeline-body>p+p {
   margin-top: 5px
 }
-
-.searching {
-  width: 300px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 20px;
-  text-align: center;
-}
-
-.findMe {
-  font-size: 40px;
-  padding-bottom: 20px;
-}
-
-.findMeDiv {
-  text-align: center;
-  cursor: pointer;
-}
-
-.barIcon {
-    margin-right: 7px;
-}
-.angular-google-map-container { height: 400px; }
-.fa {
-  display: inline-block;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.ssl {
-  height: 40px;
-}
-
-.signIn {
-  width:100%;
-  height: 100%;
-}
-
-.signIn span {
-  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-  color: #fff;
-  background-color: #428bca;
-  border-color: #357ebd;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 6px;
-  display: block;
-  width: 100%;
-  text-align: center;
-  max-width: 300px;
-  padding: 15px;
-  margin: 50px auto;
-  cursor: pointer;
-  vertical-align: middle;
-  font-weight: 400;
-  touch-action: manipulation;
-  text-transform: none;
-}
-
-.signIn span:hover {
-  background-color: #3071a9;
-  border-color: #285e8e;
-}
-
-.signIn a:hover {
-  text-decoration: none !important;
-}
-
-.container {
-  background-color: white;
-  padding-bottom: 25px;
-  margin-top: 25px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.footer {
-  padding-top: 100px;
-  bottom:0;
-  width:100%;
-  height:60px;   /* Height of the footer */
-}
-
-.footer > .container {
-  background-color: transparent !important;
-  box-shadow: none;
-  text-align: center;
-}
-
-@media only screen and (max-width : 767px) {
-
-  .navbar-header {
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  .paddedForm {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-
-}
-
 
 @media only screen and (min-width:992px) {
   .timeline:before {
@@ -520,4 +476,17 @@ ul.nav a:hover {
     margin-left: 0;
     margin-right: 47px
   }
+}
+
+/* DW TIMELINE END */
+
+/* FONT AWESOME */
+.fa {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
