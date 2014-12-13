@@ -101,7 +101,7 @@ public class TransactionService implements TransactionServiceInterface {
 
             //Insufficient funds check.
             if(transaction.getValue() > senderAccount.getBalance()) {
-                throw new InsufficientFundsException("Insufficient funds in this account.");
+                throw new InsufficientFundsException();
             }
             
             //Set the transaction account owner to this account.

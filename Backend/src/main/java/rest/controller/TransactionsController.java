@@ -116,7 +116,7 @@ public class TransactionsController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Transaction> createNewTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
             @PathVariable("account_number") String accountNumber,
-            @RequestBody Transaction transaction) {
+            @RequestBody Transaction transaction) throws InsufficientFundsException {
 
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.CREATED;
@@ -133,12 +133,12 @@ public class TransactionsController {
                     //Set the date to current date.
                     transaction.setDate(new Date());
                     //Add the transaction to the system.
-                    try {
+//                    try {
                         newTransaction = transactionService.requestNewTransaction(transaction);
-                    }
-                    catch(InsufficientFundsException e) {
-                        status = HttpStatus.BAD_REQUEST;
-                    }
+//                    }
+//                    catch(InsufficientFundsException e) {
+//                        status = HttpStatus.BAD_REQUEST;
+//                    }
                 }
                 else {
                     status = HttpStatus.BAD_REQUEST;
