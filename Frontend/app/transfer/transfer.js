@@ -37,10 +37,11 @@ angular.module('eBanking.transferControllers', [])
                 });
             }, 
             function(data, status, headers, config) {
+                console.log(data);
                 $scope.messages.transfer.err.err = true;
                 $scope.messages.transfer.success.success = false;
                 $scope.messages.transfer.err.stat = "Transfer Failed";
-                $scope.messages.transfer.err.message = "Do you have enough funds?";
+                $scope.messages.transfer.err.message = data.data.message;
             });
 
         };
@@ -65,7 +66,7 @@ angular.module('eBanking.transferControllers', [])
                 $scope.messages.payment.err.err = true;
                 $scope.messages.payment.success.success = false;
                 $scope.messages.payment.err.stat = "Transfer Failed";
-                $scope.messages.payment.err.message = "Do you have enough funds?";
+                $scope.messages.payment.err.message = data.data.message;
             });
 
         };
