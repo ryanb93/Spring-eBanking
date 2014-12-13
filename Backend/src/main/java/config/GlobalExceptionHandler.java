@@ -4,21 +4,29 @@ import core.exceptions.InsufficientFundsException;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
- 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+     
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
 
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason="Insufficient Funds In Account") 
-    @ExceptionHandler(InsufficientFundsException.class)
-    public void handleInsufficientFunds(HttpServletRequest request, Exception ex){
-        logger.error("InsufficientFundsException Occured:: URL="+request.getRequestURL());
-    }
+        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
+            throw e;
 
+        // Otherwise setup and send the user to a default error-view.
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("status", "501");
+        mav.setViewName("errorPage");
+        return mav;
+    }  
+    
 }

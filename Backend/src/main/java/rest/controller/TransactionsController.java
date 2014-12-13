@@ -112,6 +112,7 @@ public class TransactionsController {
      * @param accountNumber the Account Number of the Account we want to save a new Transaction to
      * @param transaction the Transaction we want to save and link to the account specified
      * @return ResponseEntity<Transaction> A response with confirmation of a faliure or success to save the Transaction
+     * @throws core.exceptions.InsufficientFundsException
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Transaction> createNewTransaction(@AuthenticationPrincipal OAuth2Authentication auth,
