@@ -2,13 +2,6 @@
 
 angular.module('eBanking.branchControllers', [])
 
-.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.when('/branch', {
-            templateUrl: 'branch/branch.html',
-        });
-    }
-])
 .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         v: '3.17',

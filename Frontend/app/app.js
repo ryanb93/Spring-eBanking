@@ -11,9 +11,16 @@ angular.module('eBanking', [
   'eBanking.transferControllers',
   'eBanking.branchControllers',
   'eBanking.APIService'
-])
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/access_token=:accessToken', {
+]).
+
+/*
+ * Routes for the AngularJS Application 
+ */
+config(['$routeProvider', function($routeProvider) {
+  $routeProvider.
+
+  // OAuth 2.0 Route for handling tokens
+  when('/access_token=:accessToken', {
       template: '',
       controller: function ($location, AccessToken) {
         var hash = $location.path().substr(1);
@@ -21,20 +28,54 @@ angular.module('eBanking', [
         $location.path('/');
         $location.replace();
       }
-    }).otherwise({redirectTo: '/accounts'});
-}])
-.config(function($httpProvider){
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8'
-    })
-.controller('indexController', ['$scope', 'Profile',
-    function($scope, Profile) {
+  }).
 
-        $scope.me = Profile.get();
-        console.log($scope.me)
-    }
+  // Route displays all accounts
+  when('/accounts', {
+    templateUrl: 'accounts/accounts.html',
+    controller: 'accountsController'
+  }).
 
-])
-.controller('indexController', function ($location, $http, $scope, $timeout, AccessToken) {
+  // Route to display a single account
+  when('/accounts/:accountNumber', {
+    templateUrl: 'accounts/singleAccount.html',
+    controller: 'singleAccountController'
+  }).
+
+  // Route for initiating a Transfer
+  when('/transfer', {
+    templateUrl: 'transfer/transfer.html',
+    controller: 'transferController'
+  }).
+
+  // Route to display customer details
+  when('/details', {
+    templateUrl: 'details/details.html',
+    controller: 'detailsController'
+  }).
+
+  //  Route for Branch location with GMaps
+  when('/branch', {
+    templateUrl: 'branch/branch.html',
+    controller: 'branchController'
+  }).
+
+  // When a Route does is not found auto re-direct to accounts
+  otherwise({redirectTo: '/accounts'});
+}]).
+
+config(function($httpProvider){
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8'
+}).
+
+controller('indexController', ['$scope', 'Profile',
+  function($scope, Profile) {
+    $scope.me = Profile.get();
+    console.log($scope.me)
+  }
+]).
+
+controller('indexController', function ($location, $http, $scope, $timeout, AccessToken) {
     
     $scope.$on('oauth:authorized', function(event, token) {
       $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.access_token;
@@ -49,8 +90,9 @@ angular.module('eBanking', [
       console.log('The user is not signed in');
     });
 
-})
-.filter('capitalize', function() {
+}).
+
+filter('capitalize', function() {
   return function(input, scope) {
     if (input) {
     	input = input.toLowerCase();

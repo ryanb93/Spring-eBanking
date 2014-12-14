@@ -2,18 +2,6 @@
 
 angular.module('eBanking.accountControllers', [])
 
-.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.when('/accounts', {
-            templateUrl: 'accounts/accounts.html',
-        });
-
-        $routeProvider.when('/accounts/:accountNumber', {
-            templateUrl: 'accounts/singleAccount.html',
-        });
-    }
-])
-
 .controller('accountsController', ['$scope', 'eBankingAPIservice',
     function($scope, eBankingAPIservice) {
 
