@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+		$('#error_message').hide();
+
+
 	/*
 		When login is pressed the OAuth js is called and credentials from form sent. 
 		If there is no error then the window redirect the user to the desiered service. 
@@ -41,7 +44,7 @@ $(document).ready(function () {
 							}
 						},
 						function error(message) {
-							$('#error_message').html(message.responseJSON.message).show();
+							$('#error_message').html(message.responseJSON.error_description).show();
 						}
 			);
 			

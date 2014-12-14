@@ -34,7 +34,8 @@
               <input id="email" class="form-control" type="email" placeholder="Email" required autofocus>
               <input id="password" class="form-control" type="password" placeholder="Password" required>
               <button class="btn btn-lg btn-primary btn-block" type="submit" id="login_button">Login</button>
-              <div id="error_message" class="bg-danger"></div>
+              <br><br>
+              <div id="error_message" class="alert alert-danger"></div>
               <div id="token_message" class="bg-success"></div>
             </form>
         </div>
