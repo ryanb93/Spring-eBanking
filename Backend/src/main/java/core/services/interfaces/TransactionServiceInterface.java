@@ -1,7 +1,7 @@
 package core.services.interfaces;
 
 import core.domain.Transaction;
-import core.exceptions.InsufficientFundsException;
+import core.exceptions.APIException;
 import java.util.List;
 
 /**
@@ -17,8 +17,9 @@ public interface TransactionServiceInterface {
      *
      * @param transactionId - ID of the Transaction we want details of.
      * @return The transaction object containing details.
+     * @throws core.exceptions.APIException
      */
-    public Transaction requestTransactionDetails(String transactionId);
+    public Transaction requestTransactionDetails(String transactionId) throws APIException;
     
     /**
      * Method which creates a new transaction, adds it to the repository and
@@ -26,9 +27,9 @@ public interface TransactionServiceInterface {
      *
      * @param transaction - The transaction we want to save.
      * @return Transaction the newly saved Transaction
-     * @throws core.exceptions.InsufficientFundsException
+     * @throws core.exceptions.APIException
      */
-    public Transaction requestNewTransaction(Transaction transaction) throws InsufficientFundsException;
+    public Transaction requestNewTransaction(Transaction transaction) throws APIException;
     
     /**
      * Method to request Transactions owned by a single account.
@@ -41,21 +42,24 @@ public interface TransactionServiceInterface {
      * @param accountNumber - The account to get transactions from.
      * @param page - The offset to start from.
      * @return List<Transaction> - The transactions for that page.
+     * @throws core.exceptions.APIException
      */
-    public List<Transaction> requestAllTransactions(String accountNumber, int page);
+    public List<Transaction> requestAllTransactions(String accountNumber, int page) throws APIException ;
     
     /**
      * Method which removes a Transaction from MongoDB.
      *
      * @param transactionId - The ID of the transaction we want to remove..
+     * @throws core.exceptions.APIException
      */
-    public void requestRemoveTransaction(String transactionId);
+    public void requestRemoveTransaction(String transactionId) throws APIException;
     
     /**
      * Method which returns all Transactions from MongoDB.
      *
      * @return List<Transaction> A List of all transactions stored in MongoDb
+     * @throws core.exceptions.APIException
      */
-    public List<Transaction> requestAllTransactions();
+    public List<Transaction> requestAllTransactions() throws APIException ;
     
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
+import core.exceptions.APIException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
@@ -47,23 +48,18 @@ public class CustomersController {
      * @return ResponseEntity<Customer> JSON the Customer Details as JSON
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Customer> getSingleCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth) {
+    public ResponseEntity<Customer> getSingleCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth) throws APIException {
 
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
-        Customer customer = null;
 
-        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
-            String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
-
-            if (customerId == null) {
-                status = HttpStatus.BAD_REQUEST;
-            } else {
-                customer = customerService.requestCustomerDetails(customerId);
-            }
-        } else {
-            status = HttpStatus.FORBIDDEN;
+        //Check that the customer has read permissions.
+        if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+            throw new APIException("No read permissions.");
         }
+        
+        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+        Customer customer = customerService.requestCustomerDetails(customerId);
 
         return new ResponseEntity(customer, headers, status);
 
@@ -83,23 +79,23 @@ public class CustomersController {
      * @return ResponseEntity<Customer> JSON
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Customer> updateCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth, @RequestBody Customer customer, UriComponentsBuilder builder) {
+    public ResponseEntity<Customer> updateCustomerDetails(@AuthenticationPrincipal OAuth2Authentication auth, @RequestBody Customer customer, UriComponentsBuilder builder) throws APIException {
 
         HttpHeaders headers = new HttpHeaders();
-        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        Customer newCustomer = null;
+        HttpStatus status = HttpStatus.CREATED;
 
-        if (AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
-            if (!this.isValid(customer)) {
-                status = HttpStatus.BAD_REQUEST;
-            } else {
-                    newCustomer = customerService.requestUpdateCustomer(customer);
-                    headers.setLocation(builder.path(Routes.API).buildAndExpand(newCustomer.getCustomerId()).toUri());
-                    status = HttpStatus.CREATED;
-            }
-        } else {
-            status = HttpStatus.FORBIDDEN;
+        //Check that the customer has read permissions.
+        if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+            throw new APIException("No read permissions.");
         }
+        
+        //Check that the customer is valid.
+        if (!this.isValid(customer)) {
+            throw new APIException("Customer is not valid.");
+        }
+            
+        //Get the customer from the database.
+        Customer newCustomer = customerService.requestUpdateCustomer(customer);       
 
         return new ResponseEntity(newCustomer, headers, status);
     }
@@ -113,13 +109,13 @@ public class CustomersController {
      */
     private boolean isValid(Customer customer) {
         boolean valid = true;
-        if (customer.getCustomerId() == null) {
+        if (customer.getCustomerId() == null || customer.getCustomerId().equals("")) {
             valid = false;
-        } else if (customer.getFirstName() == null) {
+        } else if (customer.getFirstName() == null || customer.getFirstName().equals("")) {
             valid = false;
-        } else if (customer.getLastName() == null) {
+        } else if (customer.getLastName() == null || customer.getLastName().equals("")) {
             valid = false;
-        } else if (customer.getAddress() == null) {
+        } else if (customer.getAddress() == null || customer.getAddress().equals("")) {
             valid = false;
         }
         return valid;

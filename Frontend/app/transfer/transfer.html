@@ -14,7 +14,7 @@
 		<form role="form" ng-submit="processTransfer()" class="paddedForm">
 			<div class="form-group">
 				<label for="fromAccount">From Account</label>
-				<select name="fromAccount" id="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
+				<select name="fromAccount" id="fromAccount" class="form-control" ng-model="transfer.accountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
 						{{account.accountType}} ({{account.accountNumber}}) - Balance: {{account.balance | currency : "£" : 2}}
 					</option>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="form-group">
 				<label for="toAccount">To Account</label>
-				<select name="toAccount" id="toAccount" class="form-control" ng-model="transfer.recipientAccountNumber">
+				<select name="toAccount" id="toAccount" class="form-control" ng-model="transfer.otherAccountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
 						{{account.accountType}} ({{account.accountNumber}}) - Balance: {{account.balance | currency : "£" : 2}}
 					</option>
@@ -49,7 +49,7 @@
 		<form role="form" ng-submit="processPayment()" class="paddedForm">
 			<div class="form-group">
 				<label for="fromAccount">From Account</label>
-				<select name="fromAccount" id="fromAccount" class="form-control" ng-model="payment.senderAccountNumber">
+				<select name="fromAccount" id="fromAccount" class="form-control" ng-model="payment.accountNumber">
 					<option value="{{account.accountNumber}}" ng-repeat="account in accountsList">
 						{{account.accountType}} ({{account.accountNumber}}) - Balance: {{account.balance | currency : "£" : 2}}
 					</option>
@@ -61,10 +61,10 @@
 			</div>
 			<div class="form-group">
 				<label for="accountNumber">To Account Number</label>
-				<input type="text" class="form-control" id="accountNumber" placeholder="Enter Account Number" ng-model="payment.recipientAccountNumber" required>
+				<input type="text" class="form-control" id="accountNumber" placeholder="Enter Account Number" ng-model="payment.otherAccountNumber" required>
 				<span class="help-block"></span>
 				<label for="sortCode">Sort Code</label>
-				<input type="text" class="form-control" id="sortCode" placeholder="Enter Sort Code" ng-model="payment.recipientSortCode" required>
+				<input type="text" class="form-control" id="sortCode" placeholder="Enter Sort Code" ng-model="payment.otherSortCode" required>
 				<span class="help-block"></span>
 			</div>
 			<button type="submit" class="btn btn-success btn-lg btn-block paddedButton">Make Payment</button>

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
-import core.exceptions.InsufficientFundsException;
+import core.exceptions.APIException;
 import core.services.AccountService;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
@@ -76,7 +76,7 @@ public class AdminController {
     @RequestMapping(value = Routes.ALL_CUSTOMERS, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getAllCustomers() throws APIException {
         return customerService.requestAllCustomers();
     }
 
@@ -90,7 +90,7 @@ public class AdminController {
      * Transactions.
      */
     @RequestMapping(Routes.ADMIN_PANEL)
-    public ModelAndView showAdminPanel(ModelMap model) {
+    public ModelAndView showAdminPanel(ModelMap model) throws APIException {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("customers", customerService.requestAllCustomers());
         modelAndView.addObject("accounts", accountService.requestAllAccounts());
@@ -133,6 +133,7 @@ public class AdminController {
      * Customer.
      * @throws ParseException when the date of birth is entered in an incorrect
      * format
+     * @throws core.exceptions.APIException
      */
     @RequestMapping(value = Routes.ADD_CUSTOMER, method = RequestMethod.POST)
     public ModelAndView createNewCustomer(@RequestParam("firstName") String firstName,
@@ -144,7 +145,7 @@ public class AdminController {
             @RequestParam("country") String country,
             @RequestParam("postCode") String postCode,
             @RequestParam("apiUserId") String apiUserId,
-            UriComponentsBuilder builder) throws ParseException {
+            UriComponentsBuilder builder) throws ParseException, APIException {
         
         // Build new Customer
         Customer customer = new Customer();
@@ -166,9 +167,10 @@ public class AdminController {
      * String Values
      * @return the AdminPanel ModelAndView via a redirect after removing the
      * Customer.
+     * @throws core.exceptions.APIException
      */
     @RequestMapping(value = Routes.REMOVE_CUSTOMER, method = RequestMethod.POST)
-    public ModelAndView removeCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder) {
+    public ModelAndView removeCustomer(@RequestParam("selectedCustomerId") String customerId, UriComponentsBuilder builder) throws APIException {
 
         customerService.requestRemoveCustomer(customerId);
         return new ModelAndView("redirect:/adminPanel");
@@ -186,13 +188,14 @@ public class AdminController {
      * String Values
      * @return the AdminPanel ModelAndView via a redirect after saving the new
      * Account.
+     * @throws core.exceptions.APIException
      */
     @RequestMapping(value = Routes.ADD_ACCOUNT, method = RequestMethod.POST)
     public ModelAndView addAccount(@RequestParam("selectedCustomerId") String customerId,
             @RequestParam("selectedAccountType") String selectedAccountType,
             @RequestParam("sortCode") String sortCode,
             @RequestParam("accountNumber") String accountNumber,
-            UriComponentsBuilder builder) {
+            UriComponentsBuilder builder) throws APIException {
 
         Account account = new Account();
         // Set Account Type
@@ -218,10 +221,10 @@ public class AdminController {
      * String Values
      * @return the AdminPanel ModelAndView via a redirect after removing the
      * Account.
+     * @throws core.exceptions.APIException
      */
     @RequestMapping(value = Routes.REMOVE_ACCOUNT, method = RequestMethod.POST)
-    public ModelAndView removeAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder) {
-
+    public ModelAndView removeAccount(@RequestParam("selectedAccountId") String accountId, UriComponentsBuilder builder) throws APIException {
         accountService.requestRemoveAccount(accountId);
         return new ModelAndView("redirect:/adminPanel");
     }
@@ -230,12 +233,10 @@ public class AdminController {
      * This method allows us to add a Transaction to MongoDB from the Admin
      * Panel.
      *
-     * @param senderAccountNumber the Account Number of the Sender in the
+     * @param otherAccountNumber the Account Number of the Recipient in the
      * Transaction
-     * @param senderSortCode the Sort Code of the Sender in the Transaction
-     * @param recipientAccountNumber the Account Number of the Recipient in the
-     * Transaction
-     * @param recipientSortCode the Sort Code of the Recipient in the
+     * @param sending
+     * @param otherSortCode the Sort Code of the Recipient in the
      * Transaction
      * @param date the Date of the Transaction
      * @param value the monetary Value of the Transaction
@@ -247,24 +248,21 @@ public class AdminController {
      * Customer.
      * @throws ParseException when the date of the Transaction is entered in an
      * incorrect format
+     * @throws core.exceptions.APIException
      */
     @RequestMapping(value = Routes.ADD_TRANSACTION, method = RequestMethod.POST)
-    public ModelAndView addTransaction(@RequestParam("senderAccountNumber") String senderAccountNumber,
-            @RequestParam("senderSortCode") String senderSortCode,
-            @RequestParam("recipientAccountNumber") String recipientAccountNumber,
-            @RequestParam("recipientSortCode") String recipientSortCode,
-            @RequestParam("date") String date,
+    public ModelAndView addTransaction(@RequestParam("accountNumber") String accountNumber,
+            @RequestParam("otherAccountNumber") String otherAccountNumber,
+            @RequestParam("otherSortCode") String otherSortCode,
+            @RequestParam("sending") String sending,
             @RequestParam("value") String value,
-            @RequestParam("accountNumber") String accountNumber,
             @RequestParam("selectedTransactionType") String selectedTransactionType,
-            UriComponentsBuilder builder) throws ParseException {
+            UriComponentsBuilder builder) throws ParseException, APIException {
         
         Transaction transaction = new Transaction();
         
         // Set the Transaction Date
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
-        Date transactionDate = formatter.parse(date);
-        transaction.setDate(transactionDate);
+        transaction.setDate(new Date());
         
         //Set the Transaction Value
         Double transactionValue = Double.parseDouble(value);
@@ -273,19 +271,17 @@ public class AdminController {
         TransactionType type = TransactionType.fromString(selectedTransactionType);
         transaction.setTransactionType(type);
         
+        boolean boolSending = Boolean.parseBoolean(sending);
+        transaction.setSending(boolSending);
+        
         // Build new Transaction
-        transaction.setRecipientAccountNumber(recipientAccountNumber);
-        transaction.setRecipientSortCode(recipientSortCode);
-        transaction.setSenderAccountNumber(senderAccountNumber);
-        transaction.setSenderSortCode(senderSortCode);
-        transaction.setValue(transactionValue);
         transaction.setAccountNumber(accountNumber);
-        try {
-            transactionService.requestNewTransaction(transaction);
-        }
-        catch(InsufficientFundsException e) {
-            //Do nothing.
-        } 
+        transaction.setOtherAccountNumber(otherAccountNumber);
+        transaction.setOtherSortCode(otherSortCode);
+        transaction.setValue(transactionValue);
+        
+        
+        transactionService.requestNewTransaction(transaction);
 
         return new ModelAndView("redirect:/adminPanel");
     }
@@ -299,10 +295,10 @@ public class AdminController {
      * String Values
      * @return the AdminPanel ModelAndView via a redirect after removing the
      * Account.
+     * @throws core.exceptions.APIException
      */
     @RequestMapping(value = Routes.REMOVE_TRANSACTION, method = RequestMethod.POST)
-    public ModelAndView removeTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder) {
-
+    public ModelAndView removeTransaction(@RequestParam("selectedTransactionId") String transactionId, UriComponentsBuilder builder) throws APIException {
         transactionService.requestRemoveTransaction(transactionId);
         return new ModelAndView("redirect:/adminPanel");
     }

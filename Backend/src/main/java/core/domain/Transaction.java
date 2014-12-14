@@ -20,22 +20,22 @@ public final class Transaction {
     /** The account number linked to the transaction. */
     @NotNull
     private String accountNumber;
-
-    /** The sort code of the sender in the transaction */
+    
+    /** If the transaction is sending out of the account */
     @NotNull
-    private String senderSortCode;
+    private boolean sending;
 
-    /** The account number of the sender in the transaction. */
+    /** If the transaction is receiving into the account */
     @NotNull
-    private String senderAccountNumber;
+    private boolean receiving = !sending;
 
-    /** The sort code of the recipient in the transaction. */
+    /** The sort code of the other account in the transaction. */
     @NotNull
-    private String recipientSortCode;
+    private String otherSortCode;
 
-    /** The account number of the recipient in the transaction. */
+    /** The account number of the other account in the transaction. */
     @NotNull
-    private String recipientAccountNumber;
+    private String otherAccountNumber;
 
     /** The value of the transaction. */
     @NotNull
@@ -62,21 +62,19 @@ public final class Transaction {
     /**
      * Creates a new Transaction object.
      *
-     * @param senderSortCode - The sort code of the sender.
-     * @param senderAccountNumber - The account number of the sender.
-     * @param recipientSortCode - The sort code of the recipient.
-     * @param recipientAccountNumber - The account number of the recipient.
+     * @param sending - If the transaction is sending out of the account.
+     * @param otherAccountNumber - The account number of the other account.
+     * @param otherSortCode - The sort code of the other account.
      * @param value - The value of the transaction. 
      * @param date - The date the transaction was created.
      * @param type - The type of the transaction.
      */
-    public Transaction(String senderSortCode, String senderAccountNumber, String recipientSortCode, String recipientAccountNumber, double value, Date date, TransactionType type) {
+    public Transaction(boolean sending, String otherAccountNumber, String otherSortCode, double value, Date date, TransactionType type) {
         super();
         // Set values using setters.
-        this.setSenderSortCode(senderSortCode);
-        this.setSenderAccountNumber(senderAccountNumber);
-        this.setRecipientSortCode(recipientSortCode);
-        this.setRecipientAccountNumber(recipientAccountNumber);
+        this.setSending(sending);
+        this.setOtherAccountNumber(otherAccountNumber);
+        this.setOtherSortCode(otherSortCode);
         this.setValue(value);
         this.setDate(date);
         this.setTransactionType(type);
@@ -89,6 +87,15 @@ public final class Transaction {
      */
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = HtmlUtils.htmlEscape(accountNumber);
+    }
+    
+    /**
+     * Sets the value if the transaction is sending or not.
+     * 
+     * @param sending - If the transaction is going in or out the account.
+     */
+    public void setSending(boolean sending) {
+        this.sending = sending;
     }
 
     /**
@@ -115,7 +122,7 @@ public final class Transaction {
         }
         this.date = date;
     }
-
+    
     /**
      * Sets the type of the transaction.
      *
@@ -125,40 +132,22 @@ public final class Transaction {
         this.transactionType = type;
     }
     
-        /**
-     * Sets the sender sort code. 
+    /**
+     * Sets the other sort code.
      * 
-     * @param senderSortCode - The sender sort code.
+     * @param otherSortCode - the other sort code.
      */
-    public void setSenderSortCode(String senderSortCode) {
-        this.senderSortCode = HtmlUtils.htmlEscape(senderSortCode);
+    public void setOtherSortCode(String otherSortCode) {
+        this.otherSortCode = HtmlUtils.htmlEscape(otherSortCode);
     }
 
     /**
-     * Sets the sender account number.
+     * Sets the other account number.
      * 
-     * @param senderAccountNumber - the sender account number.
+     * @param otherAccountNumber - the other account number.
      */
-    public void setSenderAccountNumber(String senderAccountNumber) {
-        this.senderAccountNumber = HtmlUtils.htmlEscape(senderAccountNumber);
-    }
-
-    /**
-     * Sets the recipient sort code.
-     * 
-     * @param recipientSortCode - the recipient sort code.
-     */
-    public void setRecipientSortCode(String recipientSortCode) {
-        this.recipientSortCode = HtmlUtils.htmlEscape(recipientSortCode);
-    }
-
-    /**
-     * Sets the recipient account number.
-     * 
-     * @param recipientAccountNumber - the recipient account number.
-     */
-    public void setRecipientAccountNumber(String recipientAccountNumber) {
-        this.recipientAccountNumber = HtmlUtils.htmlEscape(recipientAccountNumber);
+    public void setOtherAccountNumber(String otherAccountNumber) {
+        this.otherAccountNumber = HtmlUtils.htmlEscape(otherAccountNumber);
     }
 
     /**
@@ -168,6 +157,24 @@ public final class Transaction {
      */
     public String getTransactionId() {
         return this.transactionId;
+    }
+    
+    /**
+     * Gets if the transaction is sending.
+     * 
+     * @return sending - If the transaction is sending.
+     */
+    public boolean getSending() {
+        return this.sending;
+    }
+    
+    /**
+     * Gets if the transaction is receiving.
+     * 
+     * @return receiving - If the transaction is receiving.
+     */
+    public boolean getReceiving() {
+        return this.receiving;
     }
 
     /**
@@ -180,39 +187,21 @@ public final class Transaction {
     }
 
     /**
-     * Gets the sender account number of the transaction.
+     * Gets the account number of the other account.
      *
-     * @return sender - The sender account number.
+     * @return other account number
      */
-    public String getSenderAccountNumber() {
-        return this.senderAccountNumber;
+    public String getOtherAccountNumber() {
+        return this.otherAccountNumber;
     }
 
     /**
-     * Gets the sender sort code of the transaction.
+     * Gets the sort code of the other account.
      *
-     * @return sender sort code.
+     * @return other sort code
      */
-    public String getSenderSortCode() {
-        return this.senderSortCode;
-    }
-
-    /**
-     * Gets the account number of the recipient.
-     *
-     * @return recipient account number
-     */
-    public String getRecipientAccountNumber() {
-        return this.recipientAccountNumber;
-    }
-
-    /**
-     * Gets the sort code of the recipient.
-     *
-     * @return recipient sort code
-     */
-    public String getRecipientSortCode() {
-        return this.recipientSortCode;
+    public String getOtherSortCode() {
+        return this.otherSortCode;
     }
 
     /**

@@ -1,6 +1,7 @@
 package core.services.interfaces;
 
 import core.domain.Account;
+import core.exceptions.APIException;
 import java.util.List;
 
 /**
@@ -15,8 +16,9 @@ public interface AccountServiceInterface {
      * 
      * @param account the account we want to save into MongoDB
      * @return Account the newly saved Account
+     * @throws core.exceptions.APIException
      */
-    public Account requestNewAccount(Account account);
+    public Account requestNewAccount(Account account) throws APIException;
 
     /**
      * Method which returns all the Accounts for a given Customer
@@ -24,7 +26,7 @@ public interface AccountServiceInterface {
      * @param customerId the ID of the Customer whose accounts we want to retrieve
      * @return List<Account> a list of all the Accounts under the particular customer
      */
-    public List<Account> requestAllAccounts(String customerId);
+    public List<Account> requestAllAccounts(String customerId) throws APIException;
     
     /**
      * Method to return all Accounts stored in MongoDB
@@ -39,7 +41,7 @@ public interface AccountServiceInterface {
      * @param accountId the ID of the Account we want to retrieve
      * @return Account the Account with the ID we specify
      */
-    public Account requestAccountDetails(String accountId);
+    public Account requestAccountDetails(String accountId) throws APIException;
 
 
     /**
@@ -47,15 +49,17 @@ public interface AccountServiceInterface {
      * 
      * @param accountNumber the Account Number of the Account we want to retrieve
      * @return Account the Account with the Account Number we specify
+     * @throws core.exceptions.APIException
      */
-    public Account requestAccountDetailsFromNumber(String accountNumber);
+    public Account requestAccountDetailsFromNumber(String accountNumber) throws APIException;
     
     /**
      * Method which removes an Account from MongoDB.
      * 
      * @param accountId - The ID of the account we want to remove..
+     * @throws core.exceptions.APIException
      */
-    public void requestRemoveAccount(String accountId);
+    public void requestRemoveAccount(String accountId) throws APIException;
 
     /**
      * Method which updates the Account Balance of a given Account with a given Transaction Value
@@ -63,7 +67,8 @@ public interface AccountServiceInterface {
      * @param accountNumber the Account Number of the Account with the Balance we want to update
      * @param transactionValue the value we want to update the Balance with
      * @return Account the Account with the Balance successfully updated
+     * @throws core.exceptions.APIException
      */
-    public Account requestUpdateAccountBalance(String accountNumber, double transactionValue);
+    public Account requestUpdateAccountBalance(String accountNumber, double transactionValue) throws APIException;
     
 }

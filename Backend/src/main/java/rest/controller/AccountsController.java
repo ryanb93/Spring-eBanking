@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import config.Routes;
+import core.exceptions.APIException;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -55,23 +58,18 @@ public class AccountsController {
      * @return All of this user's accounts.
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Account>> getAllAccounts(@AuthenticationPrincipal OAuth2Authentication auth) {
+    public ResponseEntity<List<Account>> getAllAccounts(@AuthenticationPrincipal OAuth2Authentication auth) throws APIException {
 
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
-        List<Account> accounts = null;
 
-        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
-            String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
-
-            if (customerId == null) {
-                status = HttpStatus.BAD_REQUEST;
-            } else {
-                accounts = accountService.requestAllAccounts(customerId);
-            }
-        } else {
-            status = HttpStatus.FORBIDDEN;
+        if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+            throw new APIException("No read permissions.");
         }
+        
+        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+        List<Account> accounts = accountService.requestAllAccounts(customerId);
+        
         return new ResponseEntity(accounts, headers, status);
 
     }
@@ -86,27 +84,24 @@ public class AccountsController {
      */
     @RequestMapping(value = Routes.SINGLE_ACCOUNT, method = RequestMethod.GET)
     public ResponseEntity<Account> getCustomerAccount(@AuthenticationPrincipal OAuth2Authentication auth,
-            @PathVariable("account_number") String accountNumber) {
+            @PathVariable("account_number") String accountNumber) throws APIException {
 
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
-        Account account = null;
-
-        if (AuthHelper.CAN_READ_FROM_AUTH(auth)) {
-            String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
-            if (customerId == null) {
-                status = HttpStatus.BAD_REQUEST;
-            } else {
-                account = accountService.requestAccountDetailsFromNumber(accountNumber);
-                if (account == null) {
-                    status = HttpStatus.BAD_REQUEST;
-                } else if (!account.getCustomerId().equals(customerId)) {
-                    account = null;
-                    status = HttpStatus.BAD_REQUEST;
-                }
-            }
-        } else {
-            status = HttpStatus.FORBIDDEN;
+        
+        //If the user has read permissions.
+        if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
+            throw new APIException("No read permissions.");
+        }
+            
+        //Get the customer ID from the auth request.
+        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+        Account account = accountService.requestAccountDetailsFromNumber(accountNumber);
+        String accountCustomerId = account.getCustomerId();
+        
+        //Check that the customer owns this account.
+        if (!accountCustomerId.equals(customerId)) {
+            throw new APIException("Customer does not own this account.");
         }
 
         return new ResponseEntity(account, headers, status);

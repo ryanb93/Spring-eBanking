@@ -263,10 +263,9 @@
                                 <tr>
                                     <td id="twentypercent">Transaction Id</td>
                                     <td id="twentypercent">Account Id</td>
-                                    <td id="tenpercent">Sender Account</td>
-                                    <td id="tenpercent">Sender Sort</td>
-                                    <td id="tenpercent">Recipient Account</td>
-                                    <td id="tenpercent">Recipient Sort</td>
+                                    <td id="tenpercent">Other Account</td>
+                                    <td id="tenpercent">Other Sort</td>
+                                    <td id="tenpercent">Send/Receive</td>
                                     <td id="tenpercent">Value</td>
                                     <td id="tenpercent">Date</td>
                                     <td id="tenpercent">Transaction Type </td>
@@ -275,20 +274,18 @@
                                     <% for (Transaction transaction : allTransactions){
                                     pageContext.setAttribute("transactionId",transaction.getTransactionId());
                                     pageContext.setAttribute("accountNumber", transaction.getAccountNumber());
-                                    pageContext.setAttribute("senderAccountNumber", transaction.getSenderAccountNumber());
-                                    pageContext.setAttribute("senderSortCode", transaction.getSenderSortCode());
-                                    pageContext.setAttribute("recipientAccountNumber", transaction.getRecipientAccountNumber());
-                                    pageContext.setAttribute("recipientSortCode", transaction.getRecipientSortCode());
+                                    pageContext.setAttribute("otherAccountNumber", transaction.getOtherAccountNumber());
+                                    pageContext.setAttribute("otherSortCode", transaction.getOtherSortCode());
+                                    pageContext.setAttribute("sending", transaction.getSending());
                                     pageContext.setAttribute("value", transaction.getValue());
                                     pageContext.setAttribute("date", transaction.getDate());
                                     pageContext.setAttribute("type", transaction.getTransactionType());%>
                                     <tr>
                                         <td>${transactionId}</td>
                                         <td>${accountNumber}</td>
-                                        <td>${senderAccountNumber}</td>
-                                        <td>${senderSortCode}</td>
-                                        <td>${recipientAccountNumber}</td>
-                                        <td>${recipientSortCode}</td>
+                                        <td>${otherAccountNumber}</td>
+                                        <td>${otherSortCode}</td>
+                                        <td>${sending}</td>
                                         <td>${value}</td>
                                         <td>${date}</td>
                                         <td>${type}</td>
@@ -315,18 +312,6 @@
                                         <h2>Add Transaction</h2>
                                         <form name="addTransaction" action="/adminPanel/addTransaction" method="POST" role="form">
                                             <div class="form-group">
-                                                <label>Sender Sort Code:</label>
-                                                <input type="text" name="senderSortCode" class="form-control"/>
-                                                <label>Sender Account Number:</label>
-                                                <input type="text" name="senderAccountNumber" class="form-control"/>
-                                                <label>Recipient Sort Code:</label>
-                                                <input type="text" name="recipientSortCode" class="form-control"/>
-                                                <label>Recipient Account Number:</label>
-                                                <input type="text" name="recipientAccountNumber" class="form-control"/>
-                                                <label>Date</label>
-                                                <input type="text" name="date" class="form-control" class="form-control"/>
-                                                <label>Value</label>
-                                                <input type="text" name="value" class="form-control" class="form-control"/>
                                                 <label>Account Id:</label>
                                                 <select name="accountNumber" class="form-control">
                                                     <% List<Account> accounts = (List<Account>) request.getAttribute("accounts"); %>
@@ -334,7 +319,18 @@
                                                         pageContext.setAttribute("accountNumber", account.getAccountNumber()); %>
                                                         <option value="${accountNumber}" name="accountNumber">${accountNumber}</option>
                                                         <% } %>
-                                                    </select>
+                                                </select>
+                                                <label>Other Sort Code:</label>
+                                                <input type="text" name="otherSortCode" class="form-control"/>
+                                                <label>Other Account Number:</label>
+                                                <input type="text" name="otherAccountNumber" class="form-control"/>
+                                                <label>Sending/Receiving</label>
+                                                <select name="sending" class="form-control">
+                                                    <option value="true" name="accountNumber">Send</option>
+                                                    <option value="false" name="accountNumber">Receive</option>
+                                                </select>
+                                                <label>Value</label>
+                                                <input type="text" name="value" class="form-control" class="form-control"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Transaction Type</label>

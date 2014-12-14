@@ -3,7 +3,7 @@ package core.services;
 import core.domain.Account;
 import core.domain.Transaction;
 import core.domain.TransactionType;
-import core.exceptions.InsufficientFundsException;
+import core.exceptions.APIException;
 import core.repository.interfaces.TransactionRepository;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
@@ -34,11 +34,14 @@ public class TransactionService implements TransactionServiceInterface {
      *
      * @param transactionId - ID of the Transaction we want details of.
      * @return The transaction object containing details.
+     * @throws core.exceptions.APIException
      */
     @Override
-    public Transaction requestTransactionDetails(String transactionId) {
+    public Transaction requestTransactionDetails(String transactionId) throws APIException {
         //Return the transaction details event.
-        return transactionRepository.findOne(transactionId);
+        Transaction transaction = transactionRepository.findOne(transactionId);
+        if(transaction == null) throw new APIException("Transaction not found.");
+        return transaction;
     }
 
     /**
@@ -53,8 +56,12 @@ public class TransactionService implements TransactionServiceInterface {
      * @return List<Transaction> - The transactions for that page.
      */
     @Override
-    public List<Transaction> requestAllTransactions(String accountNumber, int page) {
-        return transactionRepository.findAllByAccountNumber(accountNumber, page);
+    public List<Transaction> requestAllTransactions(String accountNumber, int page) throws APIException {
+        List<Transaction> transactions = transactionRepository.findAllByAccountNumber(accountNumber, page);
+        if(transactions == null || transactions.isEmpty()) {
+            throw new APIException("No transactions found.");
+        }
+        return transactions;
     }
 
     /**
@@ -63,8 +70,10 @@ public class TransactionService implements TransactionServiceInterface {
      * @param transactionId - The ID of the transaction we want to remove..
      */
     @Override
-    public void requestRemoveTransaction(String transactionId) {
-        transactionRepository.delete(transactionRepository.findOne(transactionId));
+    public void requestRemoveTransaction(String transactionId) throws APIException {
+        Transaction transaction = transactionRepository.findOne(transactionId);
+        if(transaction == null) throw new APIException("Transaction does not exist.");
+        transactionRepository.delete(transaction);
     }
 
     /**
@@ -73,8 +82,12 @@ public class TransactionService implements TransactionServiceInterface {
      * @return List<Transaction> A List of all transactions stored in MongoDb
      */
     @Override
-    public List<Transaction> requestAllTransactions() {
-        return transactionRepository.findAll();
+    public List<Transaction> requestAllTransactions() throws APIException {
+        List<Transaction> transactions = transactionRepository.findAll();
+        if(transactions == null || transactions.isEmpty()) {
+            throw new APIException("No transactions found.");
+        }
+        return transactions;
     }
 
     /**
@@ -83,49 +96,55 @@ public class TransactionService implements TransactionServiceInterface {
      *
      * @param transaction - The transaction we want to save.
      * @return Transaction the newly saved Transaction
-     * @throws core.exceptions.InsufficientFundsException
+     * @throws core.exceptions.APIException
      */
     @Override
-    public Transaction requestNewTransaction(Transaction transaction) throws InsufficientFundsException {
+    public Transaction requestNewTransaction(Transaction transaction) throws APIException {
 
-        //Get the account numbers for both the sender and recipient.
-        String senderAccountNumber = transaction.getSenderAccountNumber();
-        String recipientAccountNumber = transaction.getRecipientAccountNumber();
-        
-        // Pull the Sender and Recipient Account from MongoDb. If it does not exist, return null.
-        Account senderAccount = accountService.requestAccountDetailsFromNumber(senderAccountNumber);
-        Account recipientAccount = accountService.requestAccountDetailsFromNumber(recipientAccountNumber);
-        
-        //If the senderAccount is not null.
-        if (senderAccount != null) {
-
-            //Insufficient funds check.
-            if(transaction.getValue() > senderAccount.getBalance()) {
-                throw new InsufficientFundsException("Insufficient funds in account.");
-            }
-            
-            //Set the transaction account owner to this account.
-            transaction.setAccountNumber(senderAccount.getAccountNumber());
-            //If a transaction type has not been sent assume it is a BACS.
-            if (transaction.getTransactionType() == null) {
-                transaction.setTransactionType(TransactionType.BACS);
-            }
-            
-            //Attempt to save the transaction in the repository.
-            Transaction saved = transactionRepository.save(transaction);
-            
-            //If the transaction was successfully saved.
-            if(saved != null) {
-                accountService.requestUpdateAccountBalance(senderAccountNumber, -transaction.getValue());
-            }
-            else {
-                return null;
-            }
-            
+        if(transaction == null) {
+            throw new APIException("No transaction given.");
         }
-
-        //If the recipient is in our system.
-        if (recipientAccount != null) {
+        
+        //If the transaction value is greater than zero
+        if(transaction.getValue() <= 0)  {
+            throw new APIException("Transaction value can not be negative.");
+        }
+                
+        //Get the account numbers.
+        String accountNumber = transaction.getAccountNumber();
+        String otherAccountNumber = transaction.getOtherAccountNumber();
+        
+        Account ownerAccount = null;
+        Account otherAccount = null;
+        
+        //If a transaction type has not been sent assume it is a BACS.
+        if (transaction.getTransactionType() == null) {
+            transaction.setTransactionType(TransactionType.BACS);
+        }
+        
+        //See if the account exists.
+        try {
+            ownerAccount = accountService.requestAccountDetailsFromNumber(accountNumber);
+        }
+        catch(APIException e) {
+            throw new APIException("No account linked to this transaction.");
+        }
+          
+        Transaction saved = null;
+        
+        //If money should be going out of the account.
+        if(transaction.getSending()) {
+            //Check the account has enough funds.
+            if(transaction.getValue() > ownerAccount.getBalance()) {
+                throw new APIException("Insufficient funds in account.");
+            }
+            //Attempt to save the transaction in the repository.
+            saved = transactionRepository.save(transaction);
+            //Update the account with the new value.
+            accountService.requestUpdateAccountBalance(accountNumber, -transaction.getValue());
+            
+            //See if the other account exists on our system.
+            otherAccount = accountService.requestAccountDetailsFromNumber(otherAccountNumber);
             //Make a copy of the transaction.
             Transaction recipientTransaction = transaction;
             //Clear the transaction ID.
@@ -135,16 +154,20 @@ public class TransactionService implements TransactionServiceInterface {
                 recipientTransaction.setTransactionType(TransactionType.BACS);
             }
             //Set the account number to this account.
-            recipientTransaction.setAccountNumber(recipientAccount.getAccountNumber());
+            recipientTransaction.setAccountNumber(otherAccountNumber);
             //Save the transaction into the repository.
-            Transaction saved = transactionRepository.save(recipientTransaction);
-            //If the transaction was saved successfully.
-            if(saved != null) {
-                //Update the account with the new balance.
-                accountService.requestUpdateAccountBalance(recipientAccountNumber, transaction.getValue());
-            }
+            Transaction otherSaved = transactionRepository.save(recipientTransaction);
+            //Update the account with the new balance.
+            accountService.requestUpdateAccountBalance(otherAccountNumber, otherSaved.getValue());
+            
         }
-        return transactionRepository.findOne(transaction.getTransactionId());
+        //If money should be going into the account.
+        else {
+            saved = transactionRepository.save(transaction);
+            accountService.requestUpdateAccountBalance(accountNumber, transaction.getValue());
+        }
+        
+        return this.requestTransactionDetails(saved.getTransactionId());
 
     }
 

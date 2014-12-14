@@ -1,6 +1,7 @@
 package core.services;
 
 import core.domain.Account;
+import core.exceptions.APIException;
 import core.repository.interfaces.AccountRepository;
 import core.services.interfaces.AccountServiceInterface;
 import java.util.List;
@@ -25,9 +26,10 @@ public class AccountService implements AccountServiceInterface {
      * @return Account the newly saved Account
      */
     @Override
-    public Account requestNewAccount(Account account) {
-        accountRepository.save(account);
-        return accountRepository.findOne(account.getAccountId());
+    public Account requestNewAccount(Account account) throws APIException {
+        Account saved = accountRepository.save(account);
+        if(saved == null) throw new APIException("Could not create new account.");
+        return saved;
     }
     
     /**
@@ -48,8 +50,10 @@ public class AccountService implements AccountServiceInterface {
      * @return Account the Account with the ID we specify
      */
     @Override
-    public Account requestAccountDetails(String accountId) {
-        return accountRepository.findOne(accountId);
+    public Account requestAccountDetails(String accountId) throws APIException {
+        Account account = accountRepository.findOne(accountId);
+        if(account == null) throw new APIException("Could not find account.");
+        return account;
     }
 
     /**
@@ -57,10 +61,13 @@ public class AccountService implements AccountServiceInterface {
      * 
      * @param accountNumber the Account Number of the Account we want to retrieve
      * @return Account the Account with the Account Number we specify
+     * @throws core.exceptions.APIException
      */
     @Override
-    public Account requestAccountDetailsFromNumber(String accountNumber) {
-        return accountRepository.findByAccountNumber(accountNumber);
+    public Account requestAccountDetailsFromNumber(String accountNumber) throws APIException {
+        Account account = accountRepository.findByAccountNumber(accountNumber);
+        if(account == null) throw new APIException("Could not find account.");
+        return account;
     }
     
     /**
@@ -68,8 +75,12 @@ public class AccountService implements AccountServiceInterface {
      * 
      * @param accountId - The ID of the account we want to remove..
      */
-    @Override public void requestRemoveAccount(String accountId){
-        accountRepository.delete(accountRepository.findOne(accountId));
+    @Override public void requestRemoveAccount(String accountId) throws APIException {
+        Account account = accountRepository.findOne(accountId);
+        if(account == null) throw new APIException("Could not find account.");
+        accountRepository.delete(account);
+        account = accountRepository.findOne(accountId);
+        if(account != null) throw new APIException("Account could not be deleted.");    
     }
 
     /**
@@ -80,15 +91,13 @@ public class AccountService implements AccountServiceInterface {
      * @return Account the Account with the Balance successfully updated
      */
     @Override
-    public Account requestUpdateAccountBalance(String accountNumber, double transactionValue) {
-        
+    public Account requestUpdateAccountBalance(String accountNumber, double transactionValue) throws APIException {
         Account account = requestAccountDetailsFromNumber(accountNumber);
-        
-        if (account != null) {
-            account.setBalance(account.getBalance() + transactionValue);
-            accountRepository.save(account);
-        }
-        return account;
+        if(account == null) throw new APIException("Could not find account.");
+        account.setBalance(account.getBalance() + transactionValue);
+        Account savedAccount = accountRepository.save(account);
+        if(savedAccount == null) throw new APIException("Could not save account.");
+        return savedAccount;
     }
     
     /**
@@ -97,7 +106,7 @@ public class AccountService implements AccountServiceInterface {
      * @return List<Account> a list of all the Accounts stored in MongoDB
      */
     @Override
-    public List<Account> requestAllAccounts(){
+    public List<Account> requestAllAccounts() {
         return accountRepository.findAll();
     }
 

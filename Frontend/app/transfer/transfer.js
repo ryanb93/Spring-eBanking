@@ -23,12 +23,12 @@ angular.module('eBanking.transferControllers', [])
         $scope.messages.payment.success.success = false;
 
         $scope.processTransfer = function() {
-            var test = eBankingAPIservice.postTransfer($scope.transfer.senderAccountNumber).save($scope.transfer, function(result) {
+            var test = eBankingAPIservice.postTransfer($scope.transfer.accountNumber).save($scope.transfer, function(result) {
                 
                 $scope.messages.transfer.success.success = true;
                 $scope.messages.transfer.err.err = false;
                 $scope.messages.transfer.success.title = "Transfer Successful";
-                $scope.messages.transfer.success.message = "£" + result.value + "  has been sent from " + result.senderAccountNumber + " to " + result.recipientAccountNumber; 
+                $scope.messages.transfer.success.message = "£" + result.value + "  has been sent from " + result.accountNumber + " to " + result.otherAccountNumber; 
 
                 eBankingAPIservice.getAccounts().query(function(ids) {
                    for (var i = 0; i < ids.length; i++) {
@@ -47,12 +47,12 @@ angular.module('eBanking.transferControllers', [])
         };
 
         $scope.processPayment = function() {
-            var test = eBankingAPIservice.postTransfer($scope.payment.senderAccountNumber).save($scope.payment, function(result) {
+            var test = eBankingAPIservice.postTransfer($scope.payment.accountNumber).save($scope.payment, function(result) {
 
                 $scope.messages.payment.success.success = true;
                 $scope.messages.payment.err.err = false;
                 $scope.messages.payment.success.title = "Transfer Successful";
-                $scope.messages.payment.success.message = "£" + result.value + "  has been sent from " + result.senderAccountNumber + " to " + result.recipientAccountNumber; 
+                $scope.messages.payment.success.message = "£" + result.value + "  has been sent from " + result.accountNumber + " to " + result.otherAccountNumber; 
 
                 eBankingAPIservice.getAccounts().query(function(ids) {
                     
