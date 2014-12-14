@@ -59,7 +59,7 @@ angular.module('eBanking.accountControllers', [])
             var title = "Transaction";
 
             switch(accountType) {
-                case "CASH": title = "Cash Withdrawal"; break;
+                case "CASH": title = "Cash Payment"; break;
                 case "DEBIT_CARD": title = "Debit Card Payment"; break;
                 case "CREDIT_CARD": title = "Credit Card Payment"; break;
                 case "BACS": title = "BAC Transfer"; break;
