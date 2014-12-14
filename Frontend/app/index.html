@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> 
-<html lang="en" ng-app="eBanking" ng-controller="indexController" class="no-js">
+<html lang="en" ng-app="eBanking" ng-controller="oauthController" class="no-js">
 <!--<![endif]-->
   <head>
     <meta charset="utf-8">
@@ -135,6 +135,7 @@
         </div>
       </div>
     </div>
+    
     <footer class="footer">
       <div class="container">
         <p>Created by Ryan Burke, Jorden Whitefield and Ben Fletcher</p>
@@ -142,6 +143,7 @@
         <img class="ssl" src="components/ssl.png" alt="SSL logo">
       </div>
     </footer>
+
     <!-- Load dependencies -->
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -154,14 +156,19 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
+
     <!-- Import the API Service -->
     <script src="components/APIService.js"></script>
+
     <!-- Import the view controllers -->
+    <script src="oauth/oauth.js"></script>
     <script src="accounts/accounts.js"></script>
     <script src="details/details.js"></script>
     <script src="transfer/transfer.js"></script>
     <script src="branch/branch.js"></script>
+
     <!-- Load the main application -->
     <script src="app.js"></script>
+
   </body>
 </html>
