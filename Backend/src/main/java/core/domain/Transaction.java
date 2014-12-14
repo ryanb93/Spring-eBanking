@@ -1,5 +1,6 @@
 package core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.text.DecimalFormat;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public final class Transaction {
 
     /** The transaction database ID */
     @Id
+    @JsonIgnore
     private String transactionId;
 
     /** The account number linked to the transaction. */
@@ -24,10 +26,6 @@ public final class Transaction {
     /** If the transaction is sending out of the account */
     @NotNull
     private boolean sending;
-
-    /** If the transaction is receiving into the account */
-    @NotNull
-    private boolean receiving = !sending;
 
     /** The sort code of the other account in the transaction. */
     @NotNull
@@ -155,6 +153,7 @@ public final class Transaction {
      *
      * @return transactionId - The ID of the transaction.
      */
+    @JsonIgnore
     public String getTransactionId() {
         return this.transactionId;
     }
@@ -168,15 +167,6 @@ public final class Transaction {
         return this.sending;
     }
     
-    /**
-     * Gets if the transaction is receiving.
-     * 
-     * @return receiving - If the transaction is receiving.
-     */
-    public boolean getReceiving() {
-        return this.receiving;
-    }
-
     /**
      * Gets the Account Number of the account which owns this transaction.
      *

@@ -7,6 +7,7 @@ import core.exceptions.APIException;
 import core.repository.interfaces.TransactionRepository;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -106,6 +107,10 @@ public class TransactionService implements TransactionServiceInterface {
         String accountNumber = transaction.getAccountNumber();
         String otherAccountNumber = transaction.getOtherAccountNumber();
         
+        if(otherAccountNumber == null || otherAccountNumber.equals("")) {
+            throw new APIException("Other account number is missing.");
+        }
+        
         Account ownerAccount = null;
         Account otherAccount = null;
         
@@ -145,17 +150,21 @@ public class TransactionService implements TransactionServiceInterface {
             
             if(otherAccount != null) {
                 //Make a copy of the transaction.
-                Transaction recipientTransaction = saved;
-                //Clear the transaction ID.
-                recipientTransaction.clearTransactionId();
-                //Set the account number to this account.
+                Transaction recipientTransaction = new Transaction();
+                //Set the date.
+                recipientTransaction.setDate(new Date());
+                //Set the transaction type to the same as saved.
+                recipientTransaction.setTransactionType(saved.getTransactionType());
+                //Set the account number to the other account number.
                 recipientTransaction.setAccountNumber(otherAccountNumber);
-                //Set sending to false.
+                //Set sending to false as it is receiving.
                 recipientTransaction.setSending(false);
                 //Set other account number to account who sent money.
                 recipientTransaction.setOtherAccountNumber(accountNumber);
                 //Set other sort code to account who sent money.
                 recipientTransaction.setOtherSortCode(ownerAccount.getSortCode());
+                //Set the value.
+                recipientTransaction.setValue(saved.getValue());
                 //Save the transaction into the repository.
                 Transaction otherSaved = transactionRepository.save(recipientTransaction);
                 //Update the account with the new balance.
