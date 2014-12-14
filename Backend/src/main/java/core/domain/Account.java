@@ -1,5 +1,6 @@
 package core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.validation.constraints.NotNull;
@@ -19,10 +20,12 @@ public class Account {
 
     /** The database ID of the account. */
     @Id
+    @JsonIgnore
     private String accountId;                
 
     /** The database ID of the customer who owns the account */
     @NotNull
+    @JsonIgnore
     private String customerId;
     
     /** The unique bank account number. */
@@ -72,6 +75,7 @@ public class Account {
      *
      * @return the unique account Id.
      */
+    @JsonIgnore
     public String getAccountId() {
         return this.accountId;
     }
@@ -81,6 +85,7 @@ public class Account {
      *
      * @return the customer id who owns the account.
      */
+    @JsonIgnore
     public String getCustomerId() {
         return this.customerId;
     }

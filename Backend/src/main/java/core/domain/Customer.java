@@ -1,6 +1,7 @@
 package core.domain;
 
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,6 +15,7 @@ public class Customer {
 
     /** The database ID of the customer */
     @Id
+    @JsonIgnore
     private String customerId;
 
     /** The first name of the customer */
@@ -30,6 +32,7 @@ public class Customer {
     
     /** The API User ID linked to the customer */
     @Indexed(unique = true)
+    @JsonIgnore
     private String apiUserId;
 
     /**
@@ -109,6 +112,7 @@ public class Customer {
      *
      * @return the customer's ID
      */
+    @JsonIgnore
     public String getCustomerId() {
         return this.customerId;
     }
@@ -145,6 +149,7 @@ public class Customer {
      *
      * @return the customer's API User ID
      */
+    @JsonIgnore
     public String getApiUserId() {
         return this.apiUserId;
     }
