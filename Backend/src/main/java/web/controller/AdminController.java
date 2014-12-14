@@ -8,7 +8,6 @@ import core.domain.Transaction;
 import core.domain.TransactionType;
 import core.services.interfaces.CustomerServiceInterface;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
 import core.exceptions.APIException;
-import core.services.AccountService;
+import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
 import web.domain.ApiUser;
@@ -59,7 +58,7 @@ public class AdminController {
      * The Account Service, required to call methods on Accounts  
      */
     @Autowired
-    private AccountService accountService;
+    private AccountServiceInterface accountService;
 
     /**
      * The User Service, required to call methods on Users  
@@ -90,12 +89,13 @@ public class AdminController {
      * Transactions.
      */
     @RequestMapping(Routes.ADMIN_PANEL)
-    public ModelAndView showAdminPanel(ModelMap model) throws APIException {
+    public ModelAndView showAdminPanel(ModelMap model) {
+        
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("customers", customerService.requestAllCustomers());
         modelAndView.addObject("accounts", accountService.requestAllAccounts());
         modelAndView.addObject("transactions", transactionService.requestAllTransactions());
-        modelAndView.addObject("users", userService.fetchAllMongoDbUsers());
+        modelAndView.addObject("users", userService.requestAllUsers());
         return modelAndView;
     }
 

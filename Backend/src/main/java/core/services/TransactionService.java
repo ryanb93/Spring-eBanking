@@ -56,12 +56,8 @@ public class TransactionService implements TransactionServiceInterface {
      * @return List<Transaction> - The transactions for that page.
      */
     @Override
-    public List<Transaction> requestAllTransactions(String accountNumber, int page) throws APIException {
-        List<Transaction> transactions = transactionRepository.findAllByAccountNumber(accountNumber, page);
-        if(transactions == null || transactions.isEmpty()) {
-            throw new APIException("No transactions found.");
-        }
-        return transactions;
+    public List<Transaction> requestAllTransactions(String accountNumber, int page) {
+        return transactionRepository.findAllByAccountNumber(accountNumber, page);
     }
 
     /**
@@ -82,12 +78,8 @@ public class TransactionService implements TransactionServiceInterface {
      * @return List<Transaction> A List of all transactions stored in MongoDb
      */
     @Override
-    public List<Transaction> requestAllTransactions() throws APIException {
-        List<Transaction> transactions = transactionRepository.findAll();
-        if(transactions == null || transactions.isEmpty()) {
-            throw new APIException("No transactions found.");
-        }
-        return transactions;
+    public List<Transaction> requestAllTransactions() {
+        return transactionRepository.findAll();
     }
 
     /**
@@ -143,22 +135,32 @@ public class TransactionService implements TransactionServiceInterface {
             //Update the account with the new value.
             accountService.requestUpdateAccountBalance(accountNumber, -transaction.getValue());
             
-            //See if the other account exists on our system.
-            otherAccount = accountService.requestAccountDetailsFromNumber(otherAccountNumber);
-            //Make a copy of the transaction.
-            Transaction recipientTransaction = transaction;
-            //Clear the transaction ID.
-            recipientTransaction.clearTransactionId();
-            //If there is no transaction type set it to BACS.
-            if (recipientTransaction.getTransactionType() == null) {
-                recipientTransaction.setTransactionType(TransactionType.BACS);
+            try {
+                //See if the other account exists on our system.
+                otherAccount = accountService.requestAccountDetailsFromNumber(otherAccountNumber);
             }
-            //Set the account number to this account.
-            recipientTransaction.setAccountNumber(otherAccountNumber);
-            //Save the transaction into the repository.
-            Transaction otherSaved = transactionRepository.save(recipientTransaction);
-            //Update the account with the new balance.
-            accountService.requestUpdateAccountBalance(otherAccountNumber, otherSaved.getValue());
+            catch(APIException e) {
+                //Sending money to an account outside of the bank.
+            }
+            
+            if(otherAccount != null) {
+                //Make a copy of the transaction.
+                Transaction recipientTransaction = saved;
+                //Clear the transaction ID.
+                recipientTransaction.clearTransactionId();
+                //Set the account number to this account.
+                recipientTransaction.setAccountNumber(otherAccountNumber);
+                //Set sending to false.
+                recipientTransaction.setSending(false);
+                //Set other account number to account who sent money.
+                recipientTransaction.setOtherAccountNumber(accountNumber);
+                //Set other sort code to account who sent money.
+                recipientTransaction.setOtherSortCode(ownerAccount.getSortCode());
+                //Save the transaction into the repository.
+                Transaction otherSaved = transactionRepository.save(recipientTransaction);
+                //Update the account with the new balance.
+                accountService.requestUpdateAccountBalance(otherAccountNumber, otherSaved.getValue());
+            }
             
         }
         //If money should be going into the account.

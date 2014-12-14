@@ -48,11 +48,11 @@
 	<br>
 	<div id="messages">
 		<div ng-hide="!messages.details.err.err" class="alert alert-danger" role="alert">
-			{{messages.details.err.stat}}<br>
+			{{messages.details.err.title}}<br>
 			{{messages.details.err.message}}
 		</div>
 		<div ng-hide="!messages.details.success.success" class="alert alert-success" role="alert">
-			{{messages.details.success.title}}
+			{{messages.details.success.title}}<br>
 			{{messages.details.success.message}}
 		</div>
 	</div>

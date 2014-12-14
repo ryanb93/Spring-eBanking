@@ -106,7 +106,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
      * @return List<User> 
      */
     @Override
-    public List<User> fetchAllMongoDbUsers(){
+    public List<User> requestAllUsers(){
        return userRepository.findAll();
     }
 }

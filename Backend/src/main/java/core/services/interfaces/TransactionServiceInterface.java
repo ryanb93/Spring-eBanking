@@ -44,7 +44,7 @@ public interface TransactionServiceInterface {
      * @return List<Transaction> - The transactions for that page.
      * @throws core.exceptions.APIException
      */
-    public List<Transaction> requestAllTransactions(String accountNumber, int page) throws APIException ;
+    public List<Transaction> requestAllTransactions(String accountNumber, int page);
     
     /**
      * Method which removes a Transaction from MongoDB.
@@ -60,6 +60,6 @@ public interface TransactionServiceInterface {
      * @return List<Transaction> A List of all transactions stored in MongoDb
      * @throws core.exceptions.APIException
      */
-    public List<Transaction> requestAllTransactions() throws APIException ;
+    public List<Transaction> requestAllTransactions();
     
 }

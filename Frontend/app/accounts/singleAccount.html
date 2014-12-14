@@ -37,10 +37,10 @@
 					<div class="arrow"></div>
 					<h3 class="popover-title">{{getTitle(transaction.transactionType)}}: <strong>{{transaction.value | currency : "£" : 2}}</strong></h3>
 					<div class="popover-content">
-					<p ng-if="account.accountNumber == transaction.senderAccountNumber">Sent to Account: {{transaction.recipientAccountNumber}}</a>
+					<p ng-if="transaction.sending">Sent to Account: {{transaction.otherAccountNumber}}</a>
 					<br>
 					</p>
-				<p ng-if="account.accountNumber == transaction.recipientAccountNumber">Recieved from Account: {{transaction.senderAccountNumber}}</a>
+				<p ng-if="!transaction.sending">Recieved from Account: {{transaction.otherAccountNumber}}</a>
 				<br>
 				</p>
 			</div>

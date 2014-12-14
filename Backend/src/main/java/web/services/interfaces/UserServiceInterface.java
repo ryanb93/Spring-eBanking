@@ -23,6 +23,6 @@ public interface UserServiceInterface {
      * Method returns a list of all the users in the DB
      * @return List<User> 
      */
-    public List<User> fetchAllMongoDbUsers();
+    public List<User> requestAllUsers();
 
 }

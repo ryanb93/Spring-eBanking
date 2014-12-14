@@ -19,14 +19,16 @@ angular.module('eBanking.detailsControllers', [])
         $scope.processForm = function() {
             var test = eBankingAPIservice.postCustomerDetails().save($scope.details, function(result) {
                 $scope.messages.details.success.success = true;
-                $scope.messages.details.err.err = false;
-                $scope.messages.details.success.message = "Thank you, your details have been updated successfully."; 
+                $scope.messages.details.success.title = "Thank you";
+                $scope.messages.details.success.message = "Your details have been updated successfully."; 
             }, 
             function(data, status, headers, config) {
+                console.log(data);
+                console.log(data.message);
                 $scope.messages.details.err.err = true;
                 $scope.messages.details.success.success = false;
-                $scope.messages.details.err.stat = data.status;
-                $scope.messages.details.err.message = data.statusText;
+                $scope.messages.details.err.title = "Update Failed";
+                $scope.messages.details.err.message = data.data.message;
             });
 
         };

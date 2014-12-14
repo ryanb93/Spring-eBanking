@@ -27,7 +27,7 @@ public interface CustomerServiceInterface {
      * @return List<Customer> a list of all Customers stored in MongoDB
      * @throws core.exceptions.APIException
      */
-    public List<Customer> requestAllCustomers() throws APIException;
+    public List<Customer> requestAllCustomers();
     
     /**
      * Method to save a new Customer to MongoDB

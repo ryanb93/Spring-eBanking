@@ -42,12 +42,8 @@ public class CustomerService implements CustomerServiceInterface {
      * @return List<Customer> a list of all Customers stored in MongoDB
      */
     @Override
-    public List<Customer> requestAllCustomers() throws APIException {
-        List<Customer> customers = customerRepository.findAll();
-        if(customers == null || customers.isEmpty()) {
-            throw new APIException("No customers found.");
-        }
-        return customers;
+    public List<Customer> requestAllCustomers() {
+        return customerRepository.findAll();
     }
     
     /**
