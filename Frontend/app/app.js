@@ -68,13 +68,6 @@ config(function($httpProvider){
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8'
 }).
 
-controller('indexController', ['$scope', 'Profile',
-  function($scope, Profile) {
-    $scope.me = Profile.get();
-    console.log($scope.me)
-  }
-]).
-
 controller('indexController', function ($location, $http, $scope, $timeout, AccessToken) {
     
     $scope.$on('oauth:authorized', function(event, token) {
@@ -85,11 +78,6 @@ controller('indexController', function ($location, $http, $scope, $timeout, Acce
     $scope.$on('oauth:logout', function(event) {
       $scope.hasToken = false;
     });
-
-    $scope.$on('oauth:loggedOut', function(event) {
-      console.log('The user is not signed in');
-    });
-
 }).
 
 filter('capitalize', function() {
