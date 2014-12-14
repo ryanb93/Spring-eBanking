@@ -24,7 +24,6 @@ angular.module('eBanking.transferControllers', [])
 
         $scope.processTransfer = function() {
             var test = eBankingAPIservice.postTransfer($scope.transfer.accountNumber).save($scope.transfer, function(result) {
-                
                 $scope.messages.transfer.success.success = true;
                 $scope.messages.transfer.err.err = false;
                 $scope.messages.transfer.success.title = "Transfer Successful";
@@ -37,7 +36,6 @@ angular.module('eBanking.transferControllers', [])
                 });
             }, 
             function(data, status, headers, config) {
-                console.log(data);
                 $scope.messages.transfer.err.err = true;
                 $scope.messages.transfer.success.success = false;
                 $scope.messages.transfer.err.stat = "Transfer Failed";
