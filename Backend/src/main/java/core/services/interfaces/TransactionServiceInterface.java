@@ -42,7 +42,6 @@ public interface TransactionServiceInterface {
      * @param accountNumber - The account to get transactions from.
      * @param page - The offset to start from.
      * @return List<Transaction> - The transactions for that page.
-     * @throws core.exceptions.APIException
      */
     public List<Transaction> requestAllTransactions(String accountNumber, int page);
     
@@ -58,7 +57,6 @@ public interface TransactionServiceInterface {
      * Method which returns all Transactions from MongoDB.
      *
      * @return List<Transaction> A List of all transactions stored in MongoDb
-     * @throws core.exceptions.APIException
      */
     public List<Transaction> requestAllTransactions();
     

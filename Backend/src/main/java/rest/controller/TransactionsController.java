@@ -31,7 +31,6 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
  * This means that it does not have a UI associated with it.
  * The purpose of this controller is to manage transactions on 
  * the web application.
- * ! Will return all responses as JSON !
  * 
  * This controller performs the following:
  *  - Gets a collection of Transactions
@@ -61,10 +60,10 @@ public class TransactionsController {
      * account. 
      * Method occurs when a GET request occurs on this Route. 
      * It also implements a paging system, by restricting the number of transactions
-     * returned. By default from the frontend it will request 10, however this number
+     * returned. By default from the front-end it will request 10, however this number
      * is completely flexible. 
      * 
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth Authentication for a user's permissions
      * @param accountNumber the Account Number of the Account whose Transactions we want to retrieve
      * @param request the HTTP Request for all Transactions to be retrieved
      * @return ResponseEntity<List<Transaction>> A Response with a List of all transactions linked to the Account specifiec
@@ -110,10 +109,10 @@ public class TransactionsController {
      * Method creates a new transaction for a given customers account. 
      * This method is executed when a POST request to this Route is received.
      * 
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth Authentication for a user's permissions
      * @param accountNumber the Account Number of the Account we want to save a new Transaction to
      * @param transaction the Transaction we want to save and link to the account specified
-     * @return ResponseEntity<Transaction> A response with confirmation of a faliure or success to save the Transaction
+     * @return ResponseEntity<Transaction> A response with confirmation of a failure or success to save the Transaction
      * @throws core.exceptions.APIException
      */
     @RequestMapping(method = RequestMethod.POST)
@@ -156,7 +155,7 @@ public class TransactionsController {
      * This method returns a single transaction for a given customers account. 
      * When the Routes.TRANSACTIONS_ID receives a GET request this method is called
      * 
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth authentication for a user's permissions
      * @param transactionId the ID of the Transaction we want to retrieve
      * @return ResponseEntity<Transaction> A Response containing the Transaction we have retrieved
      * @throws core.exceptions.APIException
@@ -188,9 +187,9 @@ public class TransactionsController {
      * Helper method that checks to see that the OAuth session user owns the 
      * requested resource before any processing occurs. 
      * 
-     * @param auth the OAuth Athentication for a user's permissions
-     * @param accountId the Accont ID of the Account we want to check Authorisation for
-     * @return boolean returns true if the User is Authorised to view the resource
+     * @param auth the OAuth Authentication for a user's permissions
+     * @param accountId the Account ID of the Account we want to check authorisation for
+     * @return boolean returns true if the User is authorised to view the resource
      */
     private boolean authCustomerOwnsAccount(OAuth2Authentication auth, String accountId) throws APIException {
         boolean result = false;

@@ -13,8 +13,6 @@ import config.Routes;
 import core.exceptions.APIException;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  * controller. 
  * This means that it does not have a UI associated with it.
  * The purpose of this controller is to manage accounts on the web application.
- * ! Will return all responses as JSON !
  * 
  * When requests are made to the application Route.ACCOUNTS dependent on the HTTP
  * method and URL after the initial accounts route will dictate which method is 
@@ -53,7 +50,7 @@ public class AccountsController {
      * When a user makes a GET request to this URL we want to return a list of
      * all their accounts.
      *
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth Authentication for a user's permissions
      *
      * @return All of this user's accounts.
      */
@@ -79,7 +76,7 @@ public class AccountsController {
      * When a user makes a GET request to this URL we want to return the details
      * of a single customer account.
      *
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth Authentication for a user's permissions
      * @param accountNumber the accountNumber that we want to retrieve
      * @return The Account details as JSON.
      */

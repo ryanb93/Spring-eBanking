@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 import web.domain.APIUser;
 
 /**
- * The APIUser Repository Interface
+ * The APIUser Repository Interface.
+ * 
+ * Based on the work of: https://github.com/iainporter/oauth2-provider/
  */
 @Repository
 public interface UserRepositoryInterface extends MongoRepository<APIUser, String> {

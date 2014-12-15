@@ -23,7 +23,6 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
  * controller. 
  * This means that it does not have a UI associated with it.
  * The purpose of this controller is to manage customers on the web application.
- * ! Will return all responses as JSON !
  * 
  * When requests are made to the application from Routes.API depending on the 
  * HTTP request method will dictate which method is executed. 
@@ -44,7 +43,7 @@ public class CustomersController {
      * It looks up the requested customer by ID from the OAuth session 
      * and then queries MongoDB for said customer. 
      * 
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth Authentication for a user's permissions
      * @return ResponseEntity<Customer> JSON the Customer Details as JSON
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -73,7 +72,7 @@ public class CustomersController {
      * customer domain and can therefore be easily checked and validated before
      * updating. 
      * 
-     * @param auth the OAuth Athentication for a user's permissions
+     * @param auth the OAuth Authentication for a user's permissions
      * @param customer the Customer we want to Update
      * @param builder the URI Components Builder to map Strings to Values. A Spring Framework component.
      * @return ResponseEntity<Customer> JSON

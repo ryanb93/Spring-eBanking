@@ -25,6 +25,7 @@ public interface AccountServiceInterface {
      * 
      * @param customerId the ID of the Customer whose accounts we want to retrieve
      * @return List<Account> a list of all the Accounts under the particular customer
+     * @throws core.exceptions.APIException
      */
     public List<Account> requestAllAccounts(String customerId) throws APIException;
     
@@ -40,6 +41,7 @@ public interface AccountServiceInterface {
      * 
      * @param accountId the ID of the Account we want to retrieve
      * @return Account the Account with the ID we specify
+     * @throws core.exceptions.APIException
      */
     public Account requestAccountDetails(String accountId) throws APIException;
 

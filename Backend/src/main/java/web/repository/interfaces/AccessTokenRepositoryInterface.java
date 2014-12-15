@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 import web.domain.OAuth2AuthenticationAccessToken;
 
 /**
+ * The interface for the access token repository.
  * 
+ * Based on the work of: https://github.com/iainporter/oauth2-provider/
  */
 @Repository
 public interface AccessTokenRepositoryInterface extends MongoRepository<OAuth2AuthenticationAccessToken, String> {

@@ -25,7 +25,6 @@ public interface CustomerServiceInterface {
      * Method to retrieve all Customers stored in MongoDB
      * 
      * @return List<Customer> a list of all Customers stored in MongoDB
-     * @throws core.exceptions.APIException
      */
     public List<Customer> requestAllCustomers();
     

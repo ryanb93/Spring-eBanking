@@ -26,7 +26,6 @@ import core.exceptions.APIException;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
-import web.domain.APIUser;
 import web.services.interfaces.UserServiceInterface;
 
 /**

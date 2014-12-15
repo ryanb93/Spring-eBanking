@@ -1,7 +1,7 @@
 package config;
 
 /**
- * 
+ * The global routes file. Defines the endpoints for our API and Web interface.
  */
 public class Routes {
 

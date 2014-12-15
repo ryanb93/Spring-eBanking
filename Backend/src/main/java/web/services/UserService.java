@@ -13,12 +13,12 @@ import web.services.interfaces.UserServiceInterface;
 
 /**
  * This class deals with all things users in our web application 
- The classes methods use the repositories to edit database values and these
- transactions include:
-  - Creating a APIUser
-  - Getting a user by their email (username)
-  - Setting the APIUser into Spring security Authentication 
-  - Getting all the Users
+ * The classes methods use the repositories to edit database values and these
+ * transactions include:
+ *  - Creating a APIUser
+ *  - Getting a user by their email (username)
+ *  - Setting the APIUser into Spring security Authentication 
+ *  - Getting all the Users
  */
 @Service
 public class UserService implements UserServiceInterface, UserDetailsService {
