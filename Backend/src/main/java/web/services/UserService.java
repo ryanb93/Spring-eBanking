@@ -70,7 +70,6 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         return getUserByUsername(username.toLowerCase());
     }
 
-
     /**
      * Method will create a user on the Application
      * @param emailAddress emailAddress is linked with a APIUser for application 
