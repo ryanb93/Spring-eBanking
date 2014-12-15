@@ -19,7 +19,7 @@ public class TransactionTest {
      */
     @Before
     public void setUp() {
-        this.transaction = new Transaction("123456", "12345678", "123456", "87654321", 450.50, new Date(16523), TransactionType.OTHER);
+        this.transaction = new Transaction(true, "12345678", "123456", "87654321", 450.50, new Date(16523), TransactionType.OTHER);
     }
 
     /**
@@ -44,10 +44,10 @@ public class TransactionTest {
      * Test of setSenderAccountNumber method, of class Transaction.
      */
     @Test
-    public void testSetSenderAccountNumber() {
-        String accountNumber = "12345678";
-        transaction.setSenderAccountNumber(accountNumber);
-        assertEquals(transaction.getSenderAccountNumber(), accountNumber);
+    public void testSetOtherAccountNumber() {
+        String accountNumber = "11223344";
+        transaction.setOtherAccountNumber(accountNumber);
+        assertEquals(transaction.getOtherAccountNumber(), accountNumber);
     }
 
     /**
@@ -55,30 +55,11 @@ public class TransactionTest {
      */
     @Test
     public void testSetSenderSortCode() {
-        String sortCode = "123456";
-        transaction.setSenderSortCode(sortCode);
-        assertEquals(transaction.getSenderSortCode(), sortCode);
+        String sortCode = "112233";
+        transaction.setOtherSortCode(sortCode);
+        assertEquals(transaction.getOtherSortCode(), sortCode);
     }
 
-    /**
-     * Test of setRecipientAccountNumber method, of class Transaction.
-     */
-    @Test
-    public void testSetRecipientAccountNumber() {
-        String accountNumber = "87654321";
-        transaction.setRecipientAccountNumber(accountNumber);
-        assertEquals(transaction.getRecipientAccountNumber(), accountNumber);
-    }
-
-    /**
-     * Test of setRecipientAccountNumber method, of class Transaction.
-     */
-    @Test
-    public void testSetRecipientSortCode() {
-        String sortCode = "654321";
-        transaction.setRecipientSortCode(sortCode);
-        assertEquals(transaction.getRecipientSortCode(), sortCode);
-    }
     
     /**
      * Test of setValue method, of class Transaction.

@@ -61,15 +61,17 @@ public final class Transaction {
      * Creates a new Transaction object.
      *
      * @param sending - If the transaction is sending out of the account.
+     * @param accountNumber - The account number linked to this transaction.
      * @param otherAccountNumber - The account number of the other account.
      * @param otherSortCode - The sort code of the other account.
      * @param value - The value of the transaction. 
      * @param date - The date the transaction was created.
      * @param type - The type of the transaction.
      */
-    public Transaction(boolean sending, String otherAccountNumber, String otherSortCode, double value, Date date, TransactionType type) {
+    public Transaction(boolean sending, String accountNumber, String otherAccountNumber, String otherSortCode, double value, Date date, TransactionType type) {
         super();
         // Set values using setters.
+        this.setAccountNumber(accountNumber);
         this.setSending(sending);
         this.setOtherAccountNumber(otherAccountNumber);
         this.setOtherSortCode(otherSortCode);
