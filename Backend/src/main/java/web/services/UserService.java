@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import web.domain.APIUser;
-import web.domain.Role;
-import web.domain.APIUser;
 import web.repository.interfaces.UserRepositoryInterface;
 import web.services.interfaces.UserServiceInterface;
 
@@ -63,8 +61,8 @@ public class UserService implements UserServiceInterface, UserDetailsService {
      * Method does a lookup in the DB for a given username.
      * Stores user information into Authentication. Good way to encapsulate 
      * common attributes that aren't security related in one location.
-     * @param username
-     * @return UserDetails 
+     * @param username in the application is the email address signed up with
+     * @return UserDetails The details of the user.
      * @throws UsernameNotFoundException When a user is not found
      */
     @Override
@@ -75,30 +73,25 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 
     /**
      * Method will create a user on the Application
-     * @param user APIUser is linked with a APIUser for application 
+     * @param emailAddress emailAddress is linked with a APIUser for application 
      * @param password the users password 
      * @return ApiUser of the newly created user. 
      */
     @Override
-    public APIUser createUser(APIUser user, String password) {
-        
-        //Email address signed up with forced to lower case
-        final String emailAddress = user.getEmailAddress().toLowerCase();
-        
-        //If the user email doesn't exist create the user
-        if (userRepository.findByEmailAddress(emailAddress) == null) {
-            
-            //Encode password from plaintext to SHA
-            String hashedPassword = passwordEncoder.encode(password);
-            
-            //Create a new user and save it
-            APIUser newUser = new APIUser(user, hashedPassword);
-            newUser = userRepository.save(newUser);
-            return newUser;
-        } else {
-            //Else the email exists and an exception is thrown to indicate a user exists
+    public APIUser createUser(String emailAddress, String password) {
+                
+        //Make sure the user does not already exist.
+        if (userRepository.findByEmailAddress(emailAddress.toLowerCase()) != null) {
             throw new IllegalArgumentException("This user already exists.");
         }
+
+        //Encode password from plaintext to SHA
+        String hashedPassword = passwordEncoder.encode(password);
+        //Create a new user and save it
+        APIUser newUser = new APIUser(emailAddress, hashedPassword);
+        newUser = userRepository.save(newUser);
+        return newUser;
+
     }
     
     /**

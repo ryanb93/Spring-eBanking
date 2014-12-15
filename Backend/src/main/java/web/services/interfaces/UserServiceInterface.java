@@ -12,14 +12,16 @@ public interface UserServiceInterface {
 
     /**
      * Method creates an API APIUser in the DB
-     * @param user
-     * @param password
+     * 
+     * @param emailAddress - The email address of the user to create.
+     * @param password - The password of the user to create.
      * @return ApiUser of the newly entered user
      */
-    public APIUser createUser(APIUser user, String password);
+    public APIUser createUser(String emailAddress, String password);
     
     /**
      * Method returns a list of all the users in the DB
+     * 
      * @return List<User> 
      */
     public List<APIUser> requestAllUsers();

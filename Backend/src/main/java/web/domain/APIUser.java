@@ -67,13 +67,12 @@ public class APIUser implements UserDetails, Principal {
     
     /**
      * Parameterised Constructor
-     * @param apiUser the APIUser a User will be linked to
+     * @param email the email a User will be linked to
      * @param hashedPassword the hashed password of the User
-     * @param role a role to be assigned to the User
      */
-    public APIUser(final APIUser apiUser, final String hashedPassword) {
-        this();
-        this.emailAddress = apiUser.getEmailAddress().toLowerCase();
+    public APIUser(final String email, final String hashedPassword) {
+        super();
+        this.emailAddress = email.toLowerCase();
         this.hashedPassword = hashedPassword;
     }
     

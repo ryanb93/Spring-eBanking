@@ -109,9 +109,7 @@ public class AdminController {
      */
     @RequestMapping(Routes.ADD_USER)
     public ModelAndView addUser(@RequestParam("email") String email, @RequestParam("password") String password) {
-        APIUser user = new APIUser();
-        user.setEmailAddress(email);
-        APIUser createdUser = userService.createUser(user, password);
+        userService.createUser(email, password);
         return new ModelAndView("redirect:/adminPanel");
     }
 
