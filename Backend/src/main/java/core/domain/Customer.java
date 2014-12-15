@@ -61,6 +61,25 @@ public class Customer {
         this.setAddress(address);
         this.setApiUserId(apiUserId);
     }
+    
+    public Customer update(Customer newCustomer) {
+        this.setFirstName(newCustomer.getFirstName());
+        this.setLastName(newCustomer.getLastName());
+        this.setAddress(newCustomer.getAddress());
+        return this;
+    }
+    
+    /**
+     * Sets the customer ID of the customer.
+     *
+     * @param customerId - The new customer ID of the customer.
+     */
+    public final void setCustomerId(String customerId) {
+        if (customerId == null || customerId.equals("")) {
+            throw new IllegalArgumentException("Customer ID can not be empty.");
+        }
+        this.customerId = customerId;
+    }
 
     /**
      * Sets the first name of the customer.
@@ -152,6 +171,25 @@ public class Customer {
     @JsonIgnore
     public String getApiUserId() {
         return this.apiUserId;
+    }
+    
+    /**
+     * This method checks to see that all the required data held on a Customer 
+     * is present.
+     * 
+     * @return boolean true or false dependent on whether all expected fields are present and correct.
+     */
+    @JsonIgnore
+    public boolean isValid() {
+        boolean valid = true;
+        if (this.getFirstName() == null || this.getFirstName().equals("")) {
+            valid = false;
+        } else if (this.getLastName() == null || this.getLastName().equals("")) {
+            valid = false;
+        } else if (!this.getAddress().isValid()) {
+            valid = false;
+        }
+        return valid;
     }
 
 }

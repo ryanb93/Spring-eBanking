@@ -1,5 +1,6 @@
 package core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.util.HtmlUtils;
 
 /**
@@ -12,7 +13,7 @@ public class PostalAddress {
     private String city;        //The city of an address.
     private String county;      //The county of an address.
     private String country;     //The country of an address.
-    private String postalCode;  //The postal code of an address.
+    private String postCode;  //The postal code of an address.
 
     /**
      * Empty default constructor needed by Spring to create a PostalAddress
@@ -31,9 +32,9 @@ public class PostalAddress {
      * @param city - City of an address.
      * @param county - County of an address.
      * @param country - Country of an address.
-     * @param postalCode - Postal code of an address.
+     * @param postCode - Postal code of an address.
      */
-    public PostalAddress(String houseNumber, String street, String city, String county, String country, String postalCode) {
+    public PostalAddress(String houseNumber, String street, String city, String county, String country, String postCode) {
         super();
 
         this.setHouseNumber(houseNumber);
@@ -41,7 +42,7 @@ public class PostalAddress {
         this.setCity(city);
         this.setCounty(county);
         this.setCountry(country);
-        this.setPostalCode(postalCode);
+        this.setPostCode(postCode);
     }
 
     /**
@@ -90,12 +91,12 @@ public class PostalAddress {
     }
 
     /**
-     * Sets the postal code.
+     * Sets the post code.
      *
-     * @param postalCode - the postal code
+     * @param postCode - the postal code
      */
-    public final void setPostalCode(String postalCode) {
-        this.postalCode = HtmlUtils.htmlEscape(postalCode);
+    public final void setPostCode(String postCode) {
+        this.postCode = HtmlUtils.htmlEscape(postCode);
     }
 
     /**
@@ -148,13 +149,40 @@ public class PostalAddress {
      *
      * @return the postal code
      */
-    public String getPostalCode() {
-        return this.postalCode;
+    public String getPostCode() {
+        return this.postCode;
     }
 
     @Override
     public String toString() {
-        return (houseNumber + ", " + street + ", " + city + ", " + county + ", " + country + ", " + postalCode);
+        return (houseNumber + ", " + street + ", " + city + ", " + county + ", " + country + ", " + postCode);
+    }
+    
+    /**
+     * This method checks to see that all the required data held on a Postal Address 
+     * is present.
+     * 
+     * @return boolean true or false dependent on whether all expected fields are present and correct.
+     */
+    @JsonIgnore
+    public boolean isValid() {
+        boolean valid = true;
+        
+        if (this.getHouseNumber() == null || this.getHouseNumber().equals("")) {
+            valid = false;
+        } else if (this.getStreet() == null || this.getStreet().equals("")) {
+            valid = false;
+        } else if (this.getCity() == null || this.getCity().equals("")) {
+            valid = false;
+        } else if (this.getCounty() == null || this.getCounty().equals("")) {
+            valid = false;
+        } else if (this.getCountry() == null || this.getCountry().equals("")) {
+            valid = false;
+        } else if (this.getPostCode() == null || this.getPostCode().equals("")) {
+            valid = false;
+        }
+        
+        return valid;
     }
 
 }

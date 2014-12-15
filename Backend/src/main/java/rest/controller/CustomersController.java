@@ -90,35 +90,23 @@ public class CustomersController {
         }
         
         //Check that the customer is valid.
-        if (!this.isValid(customer)) {
+        if (!customer.isValid()) {
             throw new APIException("Customer is not valid.");
         }
+
+        //Get the current customer ID.
+        String customerId = AuthHelper.ID_FROM_AUTH(customerService, auth);
+
+        //Get the existing customer object.
+        Customer oldCustomer = customerService.requestCustomerDetails(customerId);
+        
+        //Update the existing customer with the submitted values.
+        Customer updatedCustomer = oldCustomer.update(customer);
             
-        //Get the customer from the database.
-        Customer newCustomer = customerService.requestUpdateCustomer(customer);       
+        //Request the update with the service.
+        Customer newCustomer = customerService.requestUpdateCustomer(updatedCustomer);       
 
         return new ResponseEntity(newCustomer, headers, status);
     }
     
-    /**
-     * This method checks to see that all the required data held on a Customer 
-     * is present, before the application processes a customer any further.
-     * 
-     * @param customer the Customer whose details we are currently checking
-     * @return boolean true or false dependent on whether all expected fields are present and correct.
-     */
-    private boolean isValid(Customer customer) {
-        boolean valid = true;
-        if (customer.getCustomerId() == null || customer.getCustomerId().equals("")) {
-            valid = false;
-        } else if (customer.getFirstName() == null || customer.getFirstName().equals("")) {
-            valid = false;
-        } else if (customer.getLastName() == null || customer.getLastName().equals("")) {
-            valid = false;
-        } else if (customer.getAddress() == null || customer.getAddress().equals("")) {
-            valid = false;
-        }
-        return valid;
-    }
-
 }
