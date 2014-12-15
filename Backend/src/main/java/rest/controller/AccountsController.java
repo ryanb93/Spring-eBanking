@@ -63,6 +63,7 @@ public class AccountsController {
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
 
+        //If the user has read permissions.
         if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             throw new APIException("No read permissions.");
         }

@@ -84,9 +84,9 @@ public class CustomersController {
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.CREATED;
 
-        //Check that the customer has read permissions.
-        if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
-            throw new APIException("No read permissions.");
+        //Check that the customer has write permissions.
+        if (!AuthHelper.CAN_WRITE_FROM_AUTH(auth)) {
+            throw new APIException("No write permissions.");
         }
         
         //Check that the customer is valid.

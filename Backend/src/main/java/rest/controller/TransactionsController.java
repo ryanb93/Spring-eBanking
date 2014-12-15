@@ -161,7 +161,7 @@ public class TransactionsController {
         HttpHeaders headers = new HttpHeaders();
         HttpStatus status = HttpStatus.OK;
 
-        //If this user has permissions to write.
+        //If this user has permissions to read.
         if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             throw new APIException("No read permissions.");
         }
