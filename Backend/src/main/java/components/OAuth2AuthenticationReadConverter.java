@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
-import web.domain.User;
+import web.domain.APIUser;
 
 
 /**
@@ -45,7 +45,7 @@ public class OAuth2AuthenticationReadConverter implements Converter<DBObject, OA
     private Object getPrincipalObject(Object principal) {
         if (principal instanceof DBObject) {
             DBObject principalDBObject = (DBObject) principal;
-            User user = new User(principalDBObject);
+            APIUser user = new APIUser(principalDBObject);
             return user;
         } else {
             return principal;

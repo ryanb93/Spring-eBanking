@@ -7,20 +7,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import web.domain.ApiUser;
+import web.domain.APIUser;
 import web.domain.Role;
-import web.domain.User;
+import web.domain.APIUser;
 import web.repository.interfaces.UserRepositoryInterface;
 import web.services.interfaces.UserServiceInterface;
 
 /**
  * This class deals with all things users in our web application 
- * The classes methods use the repositories to edit database values and these
- * transactions include:
- *  - Creating a User
- *  - Getting a user by their email (username)
- *  - Setting the User into Spring security Authentication 
- *  - Getting all the Users
+ The classes methods use the repositories to edit database values and these
+ transactions include:
+  - Creating a APIUser
+  - Getting a user by their email (username)
+  - Setting the APIUser into Spring security Authentication 
+  - Getting all the Users
  */
 @Service
 public class UserService implements UserServiceInterface, UserDetailsService {
@@ -48,11 +48,11 @@ public class UserService implements UserServiceInterface, UserDetailsService {
      * Method does a lookup for a username in the repository.
      * The username is an email address
      * @param username in the application is the email address signed up with
-     * @return User that has the associated username
+     * @return APIUser that has the associated username
      * @throws UsernameNotFoundException when the username is not found in DB
      */
-    public User getUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmailAddress(username.toLowerCase());
+    public APIUser getUserByUsername(String username) throws UsernameNotFoundException {
+        APIUser user = userRepository.findByEmailAddress(username.toLowerCase());
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user for username: " + username);
         }
@@ -75,12 +75,12 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 
     /**
      * Method will create a user on the Application
-     * @param user APIUser is linked with a User for application 
+     * @param user APIUser is linked with a APIUser for application 
      * @param password the users password 
      * @return ApiUser of the newly created user. 
      */
     @Override
-    public ApiUser createUser(ApiUser user, String password) {
+    public APIUser createUser(APIUser user, String password) {
         
         //  Email address signed up with forced to lower case
         final String emailAddress = user.getEmailAddress().toLowerCase();
@@ -92,9 +92,9 @@ public class UserService implements UserServiceInterface, UserDetailsService {
             String hashedPassword = passwordEncoder.encode(password);
             
             //  Create a new user and save it
-            User newUser = new User(user, hashedPassword, Role.ROLE_USER);
+            APIUser newUser = new APIUser(user, hashedPassword, Role.ROLE_USER);
             newUser = userRepository.save(newUser);
-            return new ApiUser(newUser);
+            return newUser;
         } else {
             // Else the email exists and an exception is thrown to indicate a user exists
             throw new IllegalArgumentException("This user already exists.");
@@ -106,7 +106,7 @@ public class UserService implements UserServiceInterface, UserDetailsService {
      * @return List<User> 
      */
     @Override
-    public List<User> requestAllUsers(){
+    public List<APIUser> requestAllUsers(){
        return userRepository.findAll();
     }
 }

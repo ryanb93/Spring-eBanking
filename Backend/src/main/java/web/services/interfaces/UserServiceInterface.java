@@ -1,8 +1,7 @@
 package web.services.interfaces;
 
 import java.util.List;
-import web.domain.ApiUser;
-import web.domain.User;
+import web.domain.APIUser;
 
 /**
  * Interface to ensure that the UserService implements the following methods. 
@@ -12,17 +11,17 @@ import web.domain.User;
 public interface UserServiceInterface {
 
     /**
-     * Method creates an API User in the DB
+     * Method creates an API APIUser in the DB
      * @param user
      * @param password
      * @return ApiUser of the newly entered user
      */
-    public ApiUser createUser(ApiUser user, String password);
+    public APIUser createUser(APIUser user, String password);
     
     /**
      * Method returns a list of all the users in the DB
      * @return List<User> 
      */
-    public List<User> requestAllUsers();
+    public List<APIUser> requestAllUsers();
 
 }

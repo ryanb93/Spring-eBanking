@@ -26,7 +26,7 @@ import core.exceptions.APIException;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
-import web.domain.ApiUser;
+import web.domain.APIUser;
 import web.services.interfaces.UserServiceInterface;
 
 /**
@@ -61,7 +61,7 @@ public class AdminController {
     private AccountServiceInterface accountService;
 
     /**
-     * The User Service, required to call methods on Users  
+     * The APIUser Service, required to call methods on Users  
      */
     @Autowired
     private UserServiceInterface userService;
@@ -100,18 +100,18 @@ public class AdminController {
     }
 
     /**
-     * This method allows us to add a User to MongoDB from the Admin Panel.
+     * This method allows us to add a APIUser to MongoDB from the Admin Panel.
      *
-     * @param email the User Email Address
-     * @param password the User Password
+     * @param email the APIUser Email Address
+     * @param password the APIUser Password
      * @return the AdminPanel ModelAndView via a redirect after saving the new
      * user.
      */
     @RequestMapping(Routes.ADD_USER)
     public ModelAndView addUser(@RequestParam("email") String email, @RequestParam("password") String password) {
-        ApiUser user = new ApiUser();
+        APIUser user = new APIUser();
         user.setEmailAddress(email);
-        ApiUser createdUser = userService.createUser(user, password);
+        APIUser createdUser = userService.createUser(user, password);
         return new ModelAndView("redirect:/adminPanel");
     }
 

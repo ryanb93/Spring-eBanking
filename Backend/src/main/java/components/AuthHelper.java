@@ -4,7 +4,7 @@ import core.exceptions.APIException;
 import core.services.interfaces.CustomerServiceInterface;
 import java.util.Set;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import web.domain.User;
+import web.domain.APIUser;
 
 /**
  * A helper class which provides methods to do with user and client authentication.
@@ -19,10 +19,10 @@ public class AuthHelper {
      * @return The customer associated with this authentication session. Null if not found.
      */
     public static String ID_FROM_AUTH(CustomerServiceInterface customerService, OAuth2Authentication auth) throws APIException {        
-        //Convert the authentication principal into a User.
-        User user = (User)auth.getPrincipal();
+        //Convert the authentication principal into a APIUser.
+        APIUser user = (APIUser)auth.getPrincipal();
         //Return the customer ID string.
-        String customerId = customerService.requestCustomerId(user.getId());
+        String customerId = customerService.requestCustomerId(user.getId().toString());
         if(customerId == null) {
             throw new APIException("Customer does not exist.");
         }
