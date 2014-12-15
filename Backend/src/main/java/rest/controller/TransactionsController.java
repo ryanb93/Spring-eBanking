@@ -82,6 +82,11 @@ public class TransactionsController {
         if (!AuthHelper.CAN_READ_FROM_AUTH(auth)) {
             throw new APIException("No read permissions.");
         }
+
+        //If this user's customer owns the account given.
+        if (!authCustomerOwnsAccount(auth, accountNumber)) {
+            throw new APIException("Account is not owned by this customer.");
+        }
         
         //  Get the page parameter.
         String pageParam = request.getParameter("page");
