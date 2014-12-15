@@ -82,21 +82,21 @@ public class UserService implements UserServiceInterface, UserDetailsService {
     @Override
     public APIUser createUser(APIUser user, String password) {
         
-        //  Email address signed up with forced to lower case
+        //Email address signed up with forced to lower case
         final String emailAddress = user.getEmailAddress().toLowerCase();
         
-        // If the user email doesn't exist create the user
+        //If the user email doesn't exist create the user
         if (userRepository.findByEmailAddress(emailAddress) == null) {
             
-            //  Encode password from plaintext to SHA
+            //Encode password from plaintext to SHA
             String hashedPassword = passwordEncoder.encode(password);
             
-            //  Create a new user and save it
-            APIUser newUser = new APIUser(user, hashedPassword, Role.ROLE_USER);
+            //Create a new user and save it
+            APIUser newUser = new APIUser(user, hashedPassword);
             newUser = userRepository.save(newUser);
             return newUser;
         } else {
-            // Else the email exists and an exception is thrown to indicate a user exists
+            //Else the email exists and an exception is thrown to indicate a user exists
             throw new IllegalArgumentException("This user already exists.");
         }
     }

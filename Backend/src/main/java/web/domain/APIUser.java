@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.DBObject;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,12 +17,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import static org.springframework.util.Assert.notNull;
+import static web.domain.Role.ROLE_USER;
 
 /**
- * Domain model to represent Users in our application. 
- * A APIUser is specifically is linked to an APIUser along with a Customer,
- thereby allowing us to link login credentials and information with an account internal to the system.
- The link with APIUser allows us to administrate security privileges to Users
+ * Domain model to represent API Users in our application. 
+ * 
+ * Our web application is separated from our business logic of a "Customer"
+ * through the use of an API User. This is a representation of a user who
+ * logs into the system with an email and password.
  */
 @Document(collection = "users")
 public class APIUser implements UserDetails, Principal {
@@ -47,7 +48,7 @@ public class APIUser implements UserDetails, Principal {
     /*
      * A List or Roles assigned to the APIUser, used in Security
      */
-    private List<Role> roles = new ArrayList();
+    private final Role role = ROLE_USER;
 
     /**
      * Default Constructor.
@@ -70,11 +71,10 @@ public class APIUser implements UserDetails, Principal {
      * @param hashedPassword the hashed password of the User
      * @param role a role to be assigned to the User
      */
-    public APIUser(final APIUser user, final String hashedPassword, Role role) {
+    public APIUser(final APIUser apiUser, final String hashedPassword) {
         this();
-        this.emailAddress = user.getEmailAddress().toLowerCase();
+        this.emailAddress = apiUser.getEmailAddress().toLowerCase();
         this.hashedPassword = hashedPassword;
-        this.roles.add(role);
     }
     
     /**
@@ -85,18 +85,6 @@ public class APIUser implements UserDetails, Principal {
         this((ObjectId)dbObject.get("_id"));
         this.emailAddress = (String) dbObject.get("emailAddress");
         this.hashedPassword = (String) dbObject.get("hashedPassword");
-        List<String> roles = (List<String>) dbObject.get("roles");
-        deSerializeRoles(roles);
-    }
-    
-    /**
-     * Method to deserialise roles assigned to the APIUser
-     * @param roles a List of roles assigned to the APIUser
-     */
-    private void deSerializeRoles(List<String> roles) {
-        for (String role : roles) {
-            this.addRole(Role.valueOf(role));
-        }
     }
     
     /**
@@ -105,11 +93,9 @@ public class APIUser implements UserDetails, Principal {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        for (Role role : this.getRoles()) {
-            GrantedAuthority authority = new SimpleGrantedAuthority(role.name());
-            authorities.add(authority);
-        }
+        Set<GrantedAuthority> authorities = new HashSet();
+        GrantedAuthority authority = new SimpleGrantedAuthority(this.getRole().name());
+        authorities.add(authority);
         return authorities;
     }
     
@@ -230,24 +216,16 @@ public class APIUser implements UserDetails, Principal {
      * Method to retrieve a APIUser's roles
      * @return List<Role> a list of roles assigned to the APIUser
      */
-    public List<Role> getRoles() {
-        return Collections.unmodifiableList(this.roles);
+    public Role getRole() {
+        return this.role;
     }
-    
-    /**
-     * Method to add a APIUser Role
-     * @param role the role to add to the APIUser
-     */
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
-    
+
     /**
      * Method to check if a APIUser has a certain role
      * @param role the role to check exists
      * @return boolean true if the user has the role specified
      */
     public boolean hasRole(Role role) {
-        return (this.roles.contains(role));
+        return this.role.equals(role);
     }
 }
