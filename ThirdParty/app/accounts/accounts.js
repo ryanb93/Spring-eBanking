@@ -26,14 +26,13 @@ angular.module('eBanking.accountControllers', [])
 
 
         $scope.processTransfer = function() {
-            var test = eBankingAPIservice.postTransfer($scope.transfer.senderAccountNumber).save($scope.transfer, function(result) {
-                console.log(result);
+            var test = eBankingAPIservice.postTransfer($scope.transfer.accountNumber).save($scope.transfer, function(result) {
+                //Transfer should fail.
             },
             function(data, status, headers, config) {
                 $scope.error.error = true;
-                $scope.error.status = data.status;
-                $scope.error.message = data.statusText;
-                console.log($scope.error);
+                $scope.error.status = "Transfer Failed";
+                $scope.error.message = data.data.message;
             });
         }
 

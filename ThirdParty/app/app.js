@@ -6,7 +6,6 @@ angular.module('eBanking', [
   'oauth',
   'ngStorage',
   'eBanking.accountControllers',
-  'eBanking.detailsControllers',
   'eBanking.APIService'
 ])
 .config(['$routeProvider', function($routeProvider) {

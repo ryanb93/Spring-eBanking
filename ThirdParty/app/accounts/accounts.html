@@ -27,7 +27,7 @@
       <form role="form" ng-submit="processTransfer()" >
          <div id="first-name-group" class="form-group">
             <label for="inputFirstName">From Account</label>
-            <select name="fromAccount" class="form-control" ng-model="transfer.senderAccountNumber">
+            <select name="fromAccount" class="form-control" ng-model="transfer.accountNumber">
                <option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
             </select>
          </div>
@@ -37,7 +37,7 @@
          </div>
          <div id="country-group" class="form-group">
             <label for="inputCountry">To Account</label>
-            <select name="toAccount" class="form-control" ng-model="transfer.recipientAccountNumber">
+            <select name="toAccount" class="form-control" ng-model="transfer.otherAccountNumber">
                <option value="{{account.accountNumber}}" ng-repeat="account in accountsList">{{account.accountType}} ({{account.accountNumber}})</option>
             </select>
          </div>
