@@ -12,3 +12,6 @@
 *.aux
 *.synctex.gz
 *.toc
+
+# Monogo
+mongo
