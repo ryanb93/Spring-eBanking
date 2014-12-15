@@ -143,6 +143,8 @@ public class TransactionsController {
         transaction.setDate(new Date());
         //All transactions from the API are "send" requests.
         transaction.setSending(true);
+        //Clear the transaction ID just incase someone tried to set it already.
+        transaction.clearTransactionId();
         
         //Add the transaction to the system.
         Transaction newTransaction = transactionService.requestNewTransaction(transaction);
