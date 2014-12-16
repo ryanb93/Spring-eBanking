@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.util.HtmlUtils;
 
 /**
- * A class which encapsulates data for a Transaction.
+ * A class which encapsulates data for a Transaction from an account.
  */
 @Document(collection = "transactions")
 public final class Transaction {

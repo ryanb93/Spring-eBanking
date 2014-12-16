@@ -31,6 +31,7 @@ public class AuthHelper {
     
     /**
      * Checks the scope of the authentication session to see if it has READ access.
+     * 
      * @param auth - The authentication object to check.
      * @return If the authentication object has read access.
      */
@@ -45,6 +46,7 @@ public class AuthHelper {
 
     /**
      * Checks the scope of the authentication session to see if it has WRITE access.
+     * 
      * @param auth - The authentication object to check.
      * @return If the authentication object has write access.
      */
