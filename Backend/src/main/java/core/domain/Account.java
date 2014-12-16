@@ -1,6 +1,7 @@
 package core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.validation.constraints.NotNull;
@@ -123,7 +124,11 @@ public class Account {
      * @return the account balance.
      */
     public double getBalance() {
-        return this.balance;
+        //Limit the value to two decimal places.
+        DecimalFormat df = new DecimalFormat("#.00");
+        String dfValue = df.format(this.balance);
+        double dfDouble = Double.parseDouble(dfValue);
+        return dfDouble;     
     }
 
     /**
@@ -180,7 +185,11 @@ public class Account {
      * @param balance - The Account Balance.
      */
     public void setBalance(double balance) {
-        this.balance = balance;
+        //Limit the value to two decimal places.
+        DecimalFormat df = new DecimalFormat("#.00");
+        String dfValue = df.format(balance);
+        double dfDouble = Double.parseDouble(dfValue);
+        this.balance = dfDouble;        
     }
 
 }
