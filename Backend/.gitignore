@@ -27,6 +27,7 @@ hs_err_pid*
 **/lib/dependencies
 **/build/
 /out
+**/private 
 
 #netbeans specific
 nbproject/*
