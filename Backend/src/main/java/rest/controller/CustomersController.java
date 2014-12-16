@@ -1,22 +1,22 @@
 package rest.controller;
 
 import components.AuthHelper;
+import config.Routes;
 import core.domain.Customer;
+import core.exceptions.APIException;
 import core.services.interfaces.CustomerServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import config.Routes;
-import core.exceptions.APIException;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 
 /**
  * Unlike traditional Controllers in an MVC architecture this is a RESTful

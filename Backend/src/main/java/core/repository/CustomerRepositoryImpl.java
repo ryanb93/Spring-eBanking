@@ -17,12 +17,13 @@ public class CustomerRepositoryImpl implements CustomCustomerRepository {
     
         
     /** 
-     *MongoOperations is a MongoDB component that enables the development and use of custom DB queries
+     * MongoOperations is a MongoDB component that enables the development and use of custom DB queries
      */
     private final MongoOperations operations;
     
     /**
      * Constructor for CustomerRepositoryImpl
+     * 
      * @param operations the MongoOperations variable. Needs to not be null.
      */
     @Autowired
@@ -33,6 +34,7 @@ public class CustomerRepositoryImpl implements CustomCustomerRepository {
     
     /**
      * Method to retrieve a Customer by its API User ID
+     * 
      * @param apiUserId the API User ID of the Customer we want to retrieve
      * @return Customer the Customer with the API User ID specified
      */
