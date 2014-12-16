@@ -1,6 +1,7 @@
 package core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
 import org.springframework.web.util.HtmlUtils;
 
 /**
@@ -8,12 +9,29 @@ import org.springframework.web.util.HtmlUtils;
  */
 public class PostalAddress {
 
-    private String houseNumber; //House number of an address.
-    private String street;      //Street of an address.
-    private String city;        //The city of an address.
-    private String county;      //The county of an address.
-    private String country;     //The country of an address.
-    private String postCode;  //The postal code of an address.
+    /** House number of an address. */
+    @NotNull
+    private String houseNumber;
+    
+    /** Street of an address. */
+    @NotNull
+    private String street;      
+    
+    /** City of an address. */
+    @NotNull
+    private String city;   
+
+    /** Country of an address. */
+    @NotNull
+    private String county;      
+    
+    /** Country of an address. */
+    @NotNull
+    private String country; 
+    
+    /** Post code of an address. */
+    @NotNull
+    private String postCode;
 
     /**
      * Empty default constructor needed by Spring to create a PostalAddress
@@ -36,7 +54,6 @@ public class PostalAddress {
      */
     public PostalAddress(String houseNumber, String street, String city, String county, String country, String postCode) {
         super();
-
         this.setHouseNumber(houseNumber);
         this.setStreet(street);
         this.setCity(city);
