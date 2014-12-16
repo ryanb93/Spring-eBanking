@@ -276,7 +276,11 @@
                                                 pageContext.setAttribute("accountNumber", transaction.getAccountNumber());
                                                 pageContext.setAttribute("otherAccountNumber", transaction.getOtherAccountNumber());
                                                 pageContext.setAttribute("otherSortCode", transaction.getOtherSortCode());
-                                                pageContext.setAttribute("sending", transaction.getSending());
+                                                if(transaction.getSending()) {
+                                                    pageContext.setAttribute("sending", "Sending");
+                                                } else if(!transaction.getSending()) {
+                                                    pageContext.setAttribute("sending", "Receiving");
+                                                }
                                                 pageContext.setAttribute("value", transaction.getValue());
                                                 pageContext.setAttribute("date", transaction.getDate());
                                                 pageContext.setAttribute("type", transaction.getTransactionType());%>
