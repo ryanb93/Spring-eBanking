@@ -22,7 +22,39 @@ angular.module('eBanking.transferControllers', [])
         $scope.messages.payment.err.err = false;
         $scope.messages.payment.success.success = false;
 
+
+        $scope.displayTransferError = function(message) {
+                $scope.messages.transfer.err.err = true;
+                $scope.messages.transfer.success.success = false;
+                $scope.messages.transfer.err.stat = "Transfer failed";
+                $scope.messages.transfer.err.message = message;
+                return;
+        }
+
+        $scope.displayPaymentError = function(message) {
+                $scope.messages.payment.err.err = true;
+                $scope.messages.payment.success.success = false;
+                $scope.messages.payment.err.stat = "Transfer failed";
+                $scope.messages.payment.err.message = message;
+                return;
+        }
+
         $scope.processTransfer = function() {
+
+            //Front end validation on the sender account number existing.
+            if(!$scope.transfer.accountNumber) {
+                return $scope.displayTransferError("You must chose a sender account.");
+            }
+
+            //Front end validation on the receiver account number existing.
+            if(!$scope.transfer.otherAccountNumber) {
+                return $scope.displayTransferError("You must chose a recipient account.");
+            }
+            //Front end validation on the value being positive.
+            if($scope.transfer.value < 0) {
+                return $scope.displayTransferError("You must send a value greater than zero.");
+            } 
+
             var test = eBankingAPIservice.postTransfer($scope.transfer.accountNumber).save($scope.transfer, function(result) {
                 $scope.messages.transfer.success.success = true;
                 $scope.messages.transfer.err.err = false;
@@ -36,15 +68,29 @@ angular.module('eBanking.transferControllers', [])
                 });
             }, 
             function(data, status, headers, config) {
-                $scope.messages.transfer.err.err = true;
-                $scope.messages.transfer.success.success = false;
-                $scope.messages.transfer.err.stat = "Transfer Failed";
-                $scope.messages.transfer.err.message = data.data.message;
+                $scope.displayTransferError(data.data.message);
             });
 
         };
 
+
+
         $scope.processPayment = function() {
+
+            //Front end validation on the sender account number existing.
+            if(!$scope.payment.accountNumber) {
+                return $scope.displayPaymentError("You must chose a sender account.");
+            }
+            //Front end validation on the receiver account number existing.
+            if(!$scope.payment.otherAccountNumber) {
+                return $scope.displayPaymentError("You must chose a recipient account.");
+            }
+            //Front end validation on the value being positive.
+            if($scope.payment.value < 0) {
+                return $scope.displayPaymentError("You must send a value greater than zero.");
+            } 
+
+
             var test = eBankingAPIservice.postTransfer($scope.payment.accountNumber).save($scope.payment, function(result) {
 
                 $scope.messages.payment.success.success = true;
