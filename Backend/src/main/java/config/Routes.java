@@ -16,13 +16,8 @@ public class Routes {
     public static final String TRANSACTIONS = ACCOUNTS + SINGLE_ACCOUNT + "/transactions";
     public static final String TRANSACTIONS_ID = "/{transaction_id}";
 
-    /* Third Party Apps Routes */
-    public static final String THIRD_PARTY_APP = API + "/apps";
-    public static final String THIRD_PARTY_APP_ID = THIRD_PARTY_APP + "/{app_id}";
-
     /* Web Portal Routes */
     public static final String LOGIN = "/login";
-    public static final String ERROR = "/error";
 
     /* Admin Panel Routes */
     public static final String ADMIN_PANEL = "/adminPanel";
