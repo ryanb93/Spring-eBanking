@@ -3,221 +3,123 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
   color: #656565;
+  background-color: #eee;
   padding-bottom: 75px;
 }
-label {
-    float: left;
+
+li > a {
+  color: #fff;
+}
+
+.modal-dialog {
+  padding-top: 10%;
+}
+
+.nav-tabs {
+  margin-right: 3px;
+  background-color: gray;
+}
+
+.tab-content {
+  border-radius: 0 4px 4px 4px;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+}
+
+.help {
+  font-size: 42px;
+  float: right;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.help:hover {
+  text-decoration: none;
+}
+
+.ssl {
+  height: 40px;
+}
+
+.signIn {
+  width:100%;
+  height: 100%;
+}
+
+.signIn span {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  max-width: 300px;
+  padding: 15px;
+  margin: 50px auto;
+  cursor: pointer;
+  vertical-align: middle;
+  font-weight: 400;
+  touch-action: manipulation;
+  text-transform: none;
+}
+
+.signIn span:hover {
+  background-color: #3071a9;
+  border-color: #285e8e;
+}
+
+.signIn a:hover {
+  text-decoration: none !important;
+}
+
+.searching {
+  width: 300px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.findMe {
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+
+.findMeDiv {
+  text-align: center;
+  cursor: pointer;
+}
+
+.barIcon {
+    margin-right: 7px;
 }
 
 .container {
-  margin-top: 15px;
+  background-color: white;
+  padding-bottom: 25px;
+  margin-top: 25px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
-#tenpercent{
-    width: 10%; 
-    font-weight: bold;
+.footer {
+  padding-top: 100px;
+  bottom:0;
+  width:100%;
+  height:60px;   /* Height of the footer */
 }
 
-#twentypercent{
-    width: 20%; 
-    font-weight: bold;
-}
-
-#fortypercent{
-    width: 40%; 
-    font-weight: bold;
-}
-
-.centertextalign{
-    text-align: center;
-}
-
-.rightpanelapp{
-    float: right;
-    width: 50%;
-}
-
-.leftpanelapp{
-    overflow: auto; 
-    width: 50%;
-}
-
-.placeholder {
+.footer > .container {
+  background-color: transparent !important;
+  box-shadow: none;
   text-align: center;
-}
-.amount {
-  display: inline-block;
-  border-radius: 50%;
-  background-color: #2a7dd3;
-  width: 200px;
-  height: 200px;
-  font-size: 36px;
-  line-height: 200px;
-  color: white;
-}
-.bt0 {
-  border-top-width: 0 !important;
-}
-.bg-primary {
-  background-color: #5d9cec;
-  color: #fff !important;
-}
-.panel-footer {
-  padding: 10px 15px;
-  background-color: #fafafa;
-  border-top: 1px solid #eee;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-.bg-primary-dark {
-  background-color: #2f80e7;
-  color: #fff !important;
-}
-.bg-gray-dark {
-  background-color: #3a3f51;
-  color: #fff !important;
-}
-.pv-lg {
-  padding-top: 15px !important;
-  padding-bottom: 15px !important;
-}
-.panel-primary>.panel-heading {
-  color: #fff;
-  background-color: #5d9cec;
-  border-color: #cfdbe2;
-}
-.panel-icon {
-  padding-top: 10px;
-}
-.panel-primary {
-  border-color: #cfdbe2;
-}
-.panel {
-  margin-bottom: 21px;
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-.text-lg {
-  font-size: 42px;
-}
-.row-table {
-  display: table;
-  table-layout: fixed;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
-.panel-heading {
-  padding: 10px 15px;
-  border-bottom: 1px solid transparent;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}
-.panel .panel-heading {
-  border-bottom: 0;
-  font-size: 14px;
-}
-.row-table>[class*=col-] {
-  display: table-cell;
-  float: none;
-  table-layout: fixed;
-  vertical-align: middle;
-}
-.widget {
-  margin-bottom: 20px;
-  border: 0;
-}
-.nav-wrapper {
-  padding: 0 15px;
-  background-color: transparent;
-}
-.nav-wrapper {
-  position: relative;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
-  z-index: 10;
-}
-.navbar-header {
-  float: left;
-}
-.topnavbar .navbar-header {
-  width: 320px;
-  text-align: center;
-}
-.nav-link {
-  color: white;
-}
-
-.navbar-brand :hover {
-  color: #656565;
-}
-
-ul.nav a:hover {
-  background-color: transparent;
-  color: #656565;
-}
-
-
-.brand-logo {
-  color: white;
-}
-.topnavbar .navbar-header {
-  background-color: transparent;
-  background-image: -webkit-linear-gradient(left, #23b7e5 0, #51c6ea 100%);
-  background-image: -o-linear-gradient(left, #23b7e5 0, #51c6ea 100%);
-  background-image: linear-gradient(to right, #23b7e5 0, #51c6ea 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff23b7e5', endColorstr='#ff51c6ea', GradientType=1);
-  position: relative;
-  z-index: 11;
-}
-.topnavbar .navbar-header {
-  background-image: none;
-}
-.topnavbar .navbar-header {
-  background-image: none;
-  background-repeat: no-repeat;
-  filter: none;
-}
-.navbar {
-  position: relative;
-  min-height: 55px;
-  margin-bottom: 21px;
-  border: 1px solid transparent;
-}
-.navbar {
-  border-radius: 4px;
-}
-
-
-
-.topnavbar {
-  -webkit-backface-visibility: hidden;
-  margin-bottom: 0;
-  border-radius: 0;
-  background-color: #fff;
-  z-index: 1050;
-  border-bottom: 1px solid rgba(0, 0, 0, .15);
-  position: relative;
-}
-
-.topnavbar {
-  border: 0;
-  background-color: #23b7e5;
-  background-image: -webkit-linear-gradient(left, #23b7e5 0, #51c6ea 100%);
-  background-image: -o-linear-gradient(left, #23b7e5 0, #51c6ea 100%);
-  background-image: linear-gradient(to right, #23b7e5 0, #51c6ea 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff23b7e5', endColorstr='#ff51c6ea', GradientType=1);
-}
-
-.layout-fixed .topnavbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 .col-centered {
@@ -231,10 +133,43 @@ ul.nav a:hover {
   padding-top: 5px;
 }
 
+.paddedButton {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+
+.paddedForm {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.bt-link {
+  border-top-width: 0 !important;
+}
+
+.angular-google-map-container { height: 400px; }
+
+.navbar {
+  background-color: #23b7e5;
+}
+
+.brand-logo {
+  color: #fff;  
+}
+
+/**
+  * DW Timeline. 
+  * All CSS in this section was used from the following source:
+  * URL: http://www.designwall.com/wordpress/themes/dw-timeline/;
+  * Accessed: 13/12/2014 13:23;
+  */
 .timeline {
   list-style: none;
   padding: 0 0 0px;
-  position: relative
+  position: relative;
+  padding-bottom: 20px;
 }
 .timeline:before {
   top: 0;
@@ -283,7 +218,9 @@ ul.nav a:hover {
   display: block;
   margin: 0;
   width: 100%;
-  max-width: none
+  max-width: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2) !important;
+
 }
 .timeline>li>.timeline-panel .popover .arrow {
   display: none
@@ -318,7 +255,9 @@ ul.nav a:hover {
   text-align: center;
   color: #fff;
   background-color: #999;
-  z-index: 100
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+
 }
 .timeline>li>.timeline-badge.primary {
   background-color: #5d9cec
@@ -335,10 +274,6 @@ ul.nav a:hover {
 .timeline>li>.timeline-badge.info {
   background-color: #23b7e5
 }
-.timeline-title {
-  margin-top: 0;
-  color: inherit
-}
 .timeline-body>p,
 .timeline-body>ul {
   margin-bottom: 0
@@ -346,21 +281,17 @@ ul.nav a:hover {
 .timeline-body>p+p {
   margin-top: 5px
 }
+
 @media only screen and (min-width:992px) {
   .timeline:before {
     left: 50%;
-    margin-left: 25px
   }
   .timeline>li.timeline-separator {
-    margin-left: 25px;
     text-align: center
-  }
-  .timeline>li.timeline-separator:before {
-    margin-left: 25px
   }
   .timeline>li>.timeline-badge {
     left: 50%;
-    margin-left: 0
+    margin-left: -24px;
   }
   .timeline>li>.timeline-date {
     float: none;
@@ -374,7 +305,7 @@ ul.nav a:hover {
   .timeline>li>.timeline-panel {
     float: left;
     margin: 0;
-    width: 48%
+    width: 46%%
   }
   .timeline>li>.timeline-panel:before {
     border-left-width: 15px;
@@ -396,17 +327,19 @@ ul.nav a:hover {
   }
   .timeline>li.timeline-inverted>.timeline-panel {
     float: right;
-    padding-left: 50px
   }
   .timeline>li.timeline-inverted .timeline-date {
     left: auto;
     right: 50%;
     width: auto;
     margin-left: 0;
-    margin-right: 50px
+    margin-right: 47px
   }
 }
 
+/* DW TIMELINE END */
+
+/* FONT AWESOME */
 .fa {
   display: inline-block;
   font-family: FontAwesome;
@@ -416,4 +349,3 @@ ul.nav a:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-

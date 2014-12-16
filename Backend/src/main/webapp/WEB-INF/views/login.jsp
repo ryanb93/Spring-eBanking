@@ -39,6 +39,13 @@
               <div id="token_message" class="bg-success"></div>
             </form>
         </div>
+        <footer class="footer">
+      <div class="container">
+        <p>Created by Ryan Burke, Jorden Whitefield and Ben Fletcher</p>
+        <p>Powered by Spring, MongoDB and Tomcat </p>
+        <img class="ssl" src="img/ssl.png" alt="SSL logo">
+      </div>
+    </footer>
 
     <!-- JS Libs -->
     <script src="/js/libs/jquery-2.1.1.min.js"></script>
