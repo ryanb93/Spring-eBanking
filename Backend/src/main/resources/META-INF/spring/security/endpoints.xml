@@ -8,6 +8,12 @@
 					  http://www.springframework.org/schema/security
 					  http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <http  pattern="/adminPanel/**" xmlns="http://www.springframework.org/schema/security">
+     <intercept-url pattern="/adminPanel" access="ROLE_ADMIN"/>
+     <http-basic />
+    </http>
+    
+    
     <!-- REST API Endpoints -->
     <http pattern="/api/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
           xmlns="http://www.springframework.org/schema/security">

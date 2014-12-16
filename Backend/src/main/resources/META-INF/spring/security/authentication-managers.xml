@@ -7,7 +7,8 @@
                             http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/security
                             http://www.springframework.org/schema/security/spring-security.xsd">
-
+    
+    
     <!-- Define the user authentiction manager-->
     <sec:authentication-manager alias="userAuthenticationManager">
         <!-- Set the user service reference -->
@@ -15,6 +16,11 @@
             <!-- Use the password encoder -->
             <sec:password-encoder ref="passwordEncoder"/>
         </sec:authentication-provider>
+        <sec:authentication-provider>
+        <sec:user-service>
+              <sec:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+        </sec:user-service>
+     </sec:authentication-provider>
     </sec:authentication-manager>
     
     <!-- Define the client authentication manager -->

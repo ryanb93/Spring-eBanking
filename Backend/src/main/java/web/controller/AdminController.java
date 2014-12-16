@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import config.Routes;
@@ -26,6 +25,8 @@ import core.exceptions.APIException;
 import core.services.interfaces.AccountServiceInterface;
 import core.services.interfaces.TransactionServiceInterface;
 import java.util.Locale;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.RestController;
 import web.services.interfaces.UserServiceInterface;
 
 /**
@@ -39,6 +40,7 @@ import web.services.interfaces.UserServiceInterface;
  * users, adding money to accounts and deleting powers.
  */
 @RestController
+@Secured("ROLE_ADMIN")
 public class AdminController {
 
     /**
